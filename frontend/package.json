@@ -1,0 +1,29 @@
+{
+  "name": "todo-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.7.0",
+    "next": "9.3.1",
+    "now": "^17.0.4",
+    "pify": "^5.0.0",
+    "react": "16.13.1",
+    "react-bootstrap": "^1.0.0-beta.17",
+    "react-dom": "16.13.1",
+    "react-use-auth": "^0.5.3",
+    "swr": "^0.1.18"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "npm-run-all": "^4.1.5",
+    "start-server-and-test": "^1.10.11"
+  }
+}
