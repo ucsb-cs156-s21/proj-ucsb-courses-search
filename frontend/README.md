@@ -1,5 +1,7 @@
 ## Getting Started
 
+Credit for instructions goes to [@btk5h](https://github.com/btk5h)
+
 ### Prerequisites
 
 - Node.js v10 or higher
