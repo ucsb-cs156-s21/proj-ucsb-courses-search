@@ -11,41 +11,42 @@ function AppNavbar() {
   const { isAuthenticated, login, logout, user } = useAuth();
 
   return (
-      <Navbar bg="light" expand="lg">
-        <Container>
-          <Link href="/" passHref={true}>
-            <Navbar.Brand>Next.js Demo App</Navbar.Brand>
-          </Link>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Nav className="mr-auto">
-              <Link href="/woof" passHref={true}>
-                <Nav.Link>
-                  Random Dog
-                </Nav.Link>
-              </Link>
-            </Nav>
-            <Nav>
-              {
-                isAuthenticated() ? (
-                    <NavDropdown title={
-                      <>
-                        Hi, {user.name}
-                        <Image className="ml-2" src={user.picture} width={24} height={24} />
-                      </>
-                    }>
-                      <NavDropdown.Item className="text-danger" onClick={logout}>
-                        Logout
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                ) : (
-                    <Button data-cy="login" onClick={login}>Login</Button>
-                )
-              }
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Link href="/" passHref={true}>
+          <Navbar.Brand>Yet Again Another Todo App</Navbar.Brand>
+        </Link>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Nav className="mr-auto"></Nav>
+          <Nav>
+            {isAuthenticated() ? (
+              <NavDropdown
+                title={
+                  <>
+                    Hi, {user.name}
+                    <Image
+                      className="ml-2"
+                      src={user.picture}
+                      width={24}
+                      height={24}
+                    />
+                  </>
+                }
+              >
+                <NavDropdown.Item className="text-danger" onClick={logout}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Button data-cy="login" onClick={login}>
+                Login
+              </Button>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
