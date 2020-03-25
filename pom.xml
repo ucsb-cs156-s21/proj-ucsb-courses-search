@@ -65,7 +65,6 @@
 			<version>2.4.0-b180830.0438</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
