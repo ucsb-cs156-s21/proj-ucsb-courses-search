@@ -197,6 +197,24 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>test</id>
+			<activation>
+				<property>
+					<name>env.TEST_PROPERTIES</name>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<environment-properties>${env.TEST_PROPERTIES}</environment-properties>
+			</properties>
+		</profile>
+		<profile>
 			<id>heroku</id>
 			<activation>
 				<property>

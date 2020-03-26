@@ -14,5 +14,5 @@ jobs:
           java-version: 11.0.x
       - name: Build with Maven
         env:
-          HEROKU_PROPERTIES: ${{ secrets.HEROKU_PROPERTIES }}
-        run: mvn -P heroku -B test
+          TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+        run: mvn -B test
