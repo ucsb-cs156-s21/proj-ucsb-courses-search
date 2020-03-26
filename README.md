@@ -1,6 +1,6 @@
-# yet-again-another-todo-app
+# Demo Spring Nextjs App
 
-A demo todo app with Nextjs and Spring Boot.
+A demo todo app with Spring Boot and Nextjs.
 
 ## Getting started
 
