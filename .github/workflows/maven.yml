@@ -14,5 +14,5 @@ jobs:
           java-version: 11.0.x
       - name: Build with Maven
         env:
-          SPRING_APPLICATION_JSON: ${{ secrets.SPRING_APPLICATION_JSON }}
-        run: mvn -B test
+          HEROKU_PROPERTIES: ${{ secrets.HEROKU_PROPERTIES }}
+        run: mvn -P heroku -B test
