@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.ucsb.demonextjsspringtodoapp.services.Auth0Service;
@@ -40,10 +41,10 @@ public class AppController {
   }
 
   @GetMapping(value = "/api/private", produces = "application/json")
-  public String privateEndpoint(@RequestHeader("Authorization") String authorization) {
+  public GoogleUserProfile privateEndpoint(@RequestHeader("Authorization") String authorization) {
     GoogleUserProfile profile = auth0Service.getInfoFromAuthorization(authorization);
 
-    return new JSONObject().put("message", "This is a private endpoint.").put("email", profile.getEmail()).toString();
+    return profile;
   }
 
   @GetMapping(value = "/api/private-scoped", produces = "application/json")

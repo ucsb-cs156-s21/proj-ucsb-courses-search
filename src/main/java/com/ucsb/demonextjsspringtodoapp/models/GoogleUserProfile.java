@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 public class GoogleUserProfile {
 
   private static final Logger logger = LoggerFactory.getLogger(GoogleUserProfile.class);
-
+  private String sub;
   private String name;
   private String email;
   private String givenName;
@@ -35,6 +35,14 @@ public class GoogleUserProfile {
       logger.error("JsonProcessingException:" + jpe);
       return null;
     }
+  }
+
+  public String getSub() {
+    return sub;
+  }
+
+  public void setSub(String sub) {
+    this.sub = sub;
   }
 
   public String getEmail() {
@@ -99,5 +107,15 @@ public class GoogleUserProfile {
 
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public String toJSONString() {
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      return mapper.writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+      logger.error(e.getMessage(), e);
+      return "";
+    }
   }
 }
