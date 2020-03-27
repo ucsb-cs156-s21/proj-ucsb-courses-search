@@ -59,8 +59,6 @@ export function TodoList() {
             },
             body: JSON.stringify({
               value: trimmedTodoText,
-              // userId: null,
-              // id: null,
               done: false
             })
           }
