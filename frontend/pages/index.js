@@ -3,6 +3,8 @@ import useSWR from "swr";
 import Spinner from "react-bootstrap/Spinner";
 import { fetchWithToken } from "../utils/fetch";
 import Layout from "../components/Layout";
+import { TodoList, TodoHeader } from "../components/TodoList/TodoList";
+import { TodoForm } from "../components/TodoList/TodoForm";
 import AuthenticatedContent from "../components/AuthenticatedContent";
 
 function AuthDetails() {
@@ -33,6 +35,7 @@ function HomePage() {
   return (
     <Layout>
       <AuthenticatedContent>
+        <TodoList />
         <AuthDetails />
       </AuthenticatedContent>
     </Layout>
