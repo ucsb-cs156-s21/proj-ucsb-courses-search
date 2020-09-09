@@ -1,8 +1,17 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import AppNavbar from "./AppNavbar";
+import { useAuth0 } from "@auth0/auth0-react";
+jest.mock("@auth0/auth0-react");
 
 describe("AppNavbar tests", () => {
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+      logout: jest.fn(),
+      loginWithRedirect: jest.fn(),
+    });
+  });
   test("should render the correct brand text", () => {
     const { getByText } = render(<AppNavbar />);
     const brandElement = getByText(/Demo Spring React App/);
@@ -15,14 +24,7 @@ describe("AppNavbar tests", () => {
     const todosLink = getByText(/Todos/);
     expect(todosLink.href).toMatch(/#home/);
 
-    const userInfoLink = getByText(/User Info/);
+    const userInfoLink = getByText(/Profile/);
     expect(userInfoLink.href).toMatch(/#profile/);
-  });
-
-  test("should show log in button", () => {
-    const { getByText } = render(<AppNavbar />);
-
-    const loginButton = getByText(/Log In/);
-    expect(loginButton).toBeInTheDocument();
   });
 });

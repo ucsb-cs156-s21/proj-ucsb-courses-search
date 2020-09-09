@@ -1,9 +1,17 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import AppNavbar from "./components/AppNavbar";
+import AppNavbar from "./components/nav/AppNavbar";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loading from "./components/Loading";
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="App">
       <AppNavbar />
