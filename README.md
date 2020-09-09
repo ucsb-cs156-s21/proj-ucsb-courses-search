@@ -1,12 +1,12 @@
-# Demo Spring Nextjs App
+# Demo Spring React App
 
-A demo todo app with Spring Boot and Nextjs.
+A demo todo app with Spring Boot and Create React App.
 
 ## Getting started
 
-The first thing you'll want to do is set up your Auth0 SPA App as well as the frontend. Instructions for that can be found [here](./frontend/README.md). Auth0 specific instructions can be found [here](./frontend/docs/auth0.md).
+The first thing you'll want to do is set up your Auth0 SPA App. Instructions for setting up auth0 can be found [here](./frontend/docs/auth0.md).
 
-Once the Auth0 SPA App and the frontend have been set up, you'll then need to run
+Once the Auth0 SPA App is set up, you'll then need to run
 
 ```bash
 # Make a copy of the secrets file for localhost
@@ -18,12 +18,7 @@ Then you'll need to fill in the `auth0.domain` and `auth0.clientId` fields with 
 At this point, you should be able to run the app locally via
 
 ```bash
-# Run the backend
 mvn spring-boot:run
-
-# Run the frontend
-cd frontendDomain
-npm run dev
 ```
 
 ## Deploying to Production
