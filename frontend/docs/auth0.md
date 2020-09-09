@@ -12,11 +12,11 @@ Next, register a new application. You do this by navigating to the "Applications
 In the configuration for the application you just created, click on the "Settings" tab and fill in the following values
 in the appropriate fields:
 
-| Field                 | Value                                |
-| --------------------- | ------------------------------------ |
-| Allowed Callback URLs | http://localhost:3000/auth0_callback |
-| Allowed Logout URLs   | http://localhost:3000                |
-| Allowed Web Origins   | http://localhost:3000                |
+| Field                 | Value                                        |
+| --------------------- | -------------------------------------------- |
+| Allowed Callback URLs | http://localhost:3000, http://localhost:8080 |
+| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080 |
+| Allowed Web Origins   | http://localhost:3000, http://localhost:8080 |
 
 Make sure to click "Save Changes" at the bottom of the page to save your changes.
 
@@ -49,15 +49,15 @@ http://localhost:3000, add a comma-separated entry after the existing entry refe
 of localhost. It is important you include both localhost and production urls so that both your localhost and production
 apps will work properly.
 
-For example, if your production url is https://yet-again-another-todo-app.now.sh/, your fields should now look like this:
+For example, if your production url is , https://your-heroku-app-name.heroku.com, your fields should now look like this:
 
-| Field                 | Value                                                                                          |
-| --------------------- | ---------------------------------------------------------------------------------------------- |
-| Allowed Callback URLs | http://localhost:3000/auth0_callback, https://yet-again-another-todo-app.now.sh/auth0_callback |
-| Allowed Logout URLs   | http://localhost:3000, https://yet-again-another-todo-app.now.sh                               |
-| Allowed Web Origins   | http://localhost:3000, https://yet-again-another-todo-app.now.sh                               |
+| Field                 | Value                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| Allowed Callback URLs | http://localhost:3000, http://localhost:8080, https://your-heroku-app-name.heroku.com |
+| Allowed Logout URLs   | http://localhost:3000, http://localhost:8080, https://your-heroku-app-name.heroku.com |
+| Allowed Web Origins   | http://localhost:3000, http://localhost:8080, https://your-heroku-app-name.heroku.com |
 
-Don't just copy the above values, replace https://yet-again-another-todo-app.now.sh/ with the link to your own deployment of
+Don't just copy the above values, replace , https://your-heroku-app-name.heroku.com with the link to your own deployment of
 the production app.
 
 Don't forget to click "Save Changes" at the bottom of the page!
