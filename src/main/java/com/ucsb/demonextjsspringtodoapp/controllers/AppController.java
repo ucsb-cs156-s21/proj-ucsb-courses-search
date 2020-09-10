@@ -8,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import com.ucsb.demonextjsspringtodoapp.services.Auth0Service;
 import com.ucsb.demonextjsspringtodoapp.models.GoogleUserProfile;
 
-@CrossOrigin(origins = { "${frontend.domain}" })
 @RestController
 public class AppController {
 
@@ -29,15 +26,12 @@ public class AppController {
   @Value("${auth0.clientId}")
   private String clientId;
 
-  @Value("${frontend.domain}")
-  private String frontendDomain;
-
   @Autowired
   private Auth0Service auth0Service;
 
   @GetMapping(value = "/api/public", produces = "application/json")
   public String publicEndpoint() {
-    return new JSONObject().put("message", "This is a public endpoint.").put("domain", frontendDomain).toString();
+    return new JSONObject().put("message", "This is a public endpoint.").toString();
   }
 
   @GetMapping(value = "/api/private", produces = "application/json")

@@ -17,8 +17,8 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
   @Override
   public void configure(HttpSecurity http) throws Exception {
     http.cors((arg) -> {
-    }).authorizeRequests().mvcMatchers("/api/public").permitAll().mvcMatchers("/api/private-scoped")
-        .access("#oauth2.hasScope('read:messages')").mvcMatchers("/api/**").authenticated().anyRequest().permitAll();
+    }).authorizeRequests().mvcMatchers("/api/public").permitAll().mvcMatchers("/api/**").authenticated().anyRequest()
+        .permitAll();
   }
 
   @Override
