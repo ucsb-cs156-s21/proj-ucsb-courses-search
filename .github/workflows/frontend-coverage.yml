@@ -1,0 +1,15 @@
+name: Frontend (Coverage)
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Change working directory
+        run: cd frontend
+      - name: Install modules
+        run: npm ci
+      - name: Run coverage check
+        run: npm run coverage
