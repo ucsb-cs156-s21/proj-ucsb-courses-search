@@ -1,5 +1,7 @@
 # Demo Spring React App
 
+[![Coverage Status](https://coveralls.io/repos/github/ucsb-cs156-f20/demo-spring-nextjs-app/badge.svg?branch=master)](https://coveralls.io/github/ucsb-cs156-f20/demo-spring-nextjs-app?branch=master)
+
 A demo todo app with Spring Boot and Create React App.
 
 ## Getting started
