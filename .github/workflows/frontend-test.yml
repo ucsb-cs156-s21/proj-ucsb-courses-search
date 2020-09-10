@@ -1,15 +1,25 @@
 name: Frontend (Coverage)
 
-on: [push]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: frontend
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Change working directory
-        run: cd frontend
-      - name: Install modules
-        run: npm ci
-      - name: Run coverage check
-        run: npm test
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run coverage
