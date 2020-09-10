@@ -17,12 +17,12 @@ describe("App tests", () => {
 
   test("renders without crashing", () => {
     const history = createMemoryHistory();
-    const { getByText } = render(
+    const { getByTestId } = render(
       <Router history={history}>
         <App />
       </Router>
     );
-    const brand = getByText(/Demo Spring React App/);
+    const brand = getByTestId("brand");
     expect(brand).toBeInTheDocument();
   });
 

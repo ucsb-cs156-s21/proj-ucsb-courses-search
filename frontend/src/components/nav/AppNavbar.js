@@ -7,7 +7,7 @@ function AppNavbar() {
   return (
     <Navbar bg="dark" variant="dark">
       <LinkContainer to={""}>
-        <Navbar.Brand>Demo Spring React App</Navbar.Brand>
+        <Navbar.Brand data-testid="brand">Demo Spring React App</Navbar.Brand>
       </LinkContainer>
       <Nav>
         <LinkContainer to={"/todos"}>
