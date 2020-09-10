@@ -1,7 +1,8 @@
 import React from "react";
+import TodoList from "./todoList/TodoList";
 
 const Todos = () => {
-  return <h1>Todos</h1>;
+  return <TodoList />;
 };
 
 export default Todos;
