@@ -24,7 +24,6 @@ describe("AppNavbar tests", () => {
     const brandElement = getByText(/Demo Spring React App/);
     expect(brandElement).toBeInTheDocument();
   });
-
   test("should have the correct links in the navbar", () => {
     const history = createMemoryHistory();
     const { getByText } = render(

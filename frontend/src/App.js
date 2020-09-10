@@ -9,6 +9,7 @@ import AppFooter from "./components/AppFooter";
 import Home from "./components/Home";
 import Todos from "./components/Todos";
 import Profile from "./components/Profile";
+import PrivateRoute from "./components/auth0/PrivateRoute";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -20,11 +21,11 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
-      <Container>
+      <Container className="flex-grow-1 mt-5">
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/todos" component={Todos} />
-          <Route path="/profile" component={Profile} />
+          <PrivateRoute path="/todos" component={Todos} />
+          <PrivateRoute path="/profile" component={Profile} />
         </Switch>
       </Container>
       <AppFooter />
