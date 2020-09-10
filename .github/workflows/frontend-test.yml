@@ -1,4 +1,4 @@
-name: Frontend (Coverage)
+name: Frontend (Tests)
 
 on:
   pull_request:
@@ -15,6 +15,8 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
+    env:
+      NODE_PATH: src/
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -22,4 +24,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run coverage
+      - run: npm test
