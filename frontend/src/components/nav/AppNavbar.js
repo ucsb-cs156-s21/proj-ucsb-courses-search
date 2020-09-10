@@ -1,14 +1,21 @@
 import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import AuthNav from "./AuthNav";
 
 function AppNavbar() {
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="/">Demo Spring React App</Navbar.Brand>
+      <LinkContainer to={""}>
+        <Navbar.Brand>Demo Spring React App</Navbar.Brand>
+      </LinkContainer>
       <Nav>
-        <Nav.Link href="/r/todos">Todos</Nav.Link>
-        <Nav.Link href="/r/profile">Profile</Nav.Link>
+        <LinkContainer to={"/todos"}>
+          <Nav.Link>Todos</Nav.Link>
+        </LinkContainer>
+        <LinkContainer to={"/profile"}>
+          <Nav.Link>Profile</Nav.Link>
+        </LinkContainer>
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />

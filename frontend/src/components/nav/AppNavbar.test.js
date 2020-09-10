@@ -3,6 +3,8 @@ import { render } from "@testing-library/react";
 import AppNavbar from "./AppNavbar";
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
 
 describe("AppNavbar tests", () => {
   beforeEach(() => {
@@ -13,18 +15,28 @@ describe("AppNavbar tests", () => {
     });
   });
   test("should render the correct brand text", () => {
-    const { getByText } = render(<AppNavbar />);
+    const history = createMemoryHistory();
+    const { getByText } = render(
+      <Router history={history}>
+        <AppNavbar />
+      </Router>
+    );
     const brandElement = getByText(/Demo Spring React App/);
     expect(brandElement).toBeInTheDocument();
   });
 
   test("should have the correct links in the navbar", () => {
-    const { getByText } = render(<AppNavbar />);
+    const history = createMemoryHistory();
+    const { getByText } = render(
+      <Router history={history}>
+        <AppNavbar />
+      </Router>
+    );
 
     const todosLink = getByText(/Todos/);
-    expect(todosLink.href).toMatch("/r/todos");
+    expect(todosLink.href).toMatch("/todos");
 
     const userInfoLink = getByText(/Profile/);
-    expect(userInfoLink.href).toMatch("/r/profile");
+    expect(userInfoLink.href).toMatch("/profile");
   });
 });

@@ -23,8 +23,8 @@ function App() {
       <Container>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/r/todos" component={Todos} />
-          <Route path="/r/profile" component={Profile} />
+          <Route path="/todos" component={Todos} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </Container>
       <AppFooter />
