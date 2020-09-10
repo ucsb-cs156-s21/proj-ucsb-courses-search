@@ -15,4 +15,4 @@ jobs:
       - name: Build with Maven
         env:
           TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-        run: mvn -B test
+        run: mvn -B test jacoco:report coveralls:report
