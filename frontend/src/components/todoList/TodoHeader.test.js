@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Todos from "./Todos";
+import { TodoHeader } from "./TodoHeader";
 
-describe("Todos tests", () => {
+describe("TodoHeader tests", () => {
   test("renders without crashing", () => {
-    render(<Todos />);
+    render(<TodoHeader name={"test"} />);
   });
 });
