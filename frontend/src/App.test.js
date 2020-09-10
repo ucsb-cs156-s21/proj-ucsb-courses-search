@@ -2,6 +2,8 @@ import React from "react";
 import { render } from "@testing-library/react";
 import App from "./App";
 import { useAuth0 } from "@auth0/auth0-react";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
 jest.mock("@auth0/auth0-react");
 describe("App tests", () => {
   beforeEach(() => {
@@ -14,7 +16,12 @@ describe("App tests", () => {
   });
 
   test("renders without crashing", () => {
-    const { getByText } = render(<App />);
+    const history = createMemoryHistory();
+    const { getByText } = render(
+      <Router history={history}>
+        <App />
+      </Router>
+    );
     const brand = getByText(/Demo Spring React App/);
     expect(brand).toBeInTheDocument();
   });

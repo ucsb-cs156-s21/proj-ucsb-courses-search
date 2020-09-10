@@ -22,9 +22,9 @@ describe("AppNavbar tests", () => {
     const { getByText } = render(<AppNavbar />);
 
     const todosLink = getByText(/Todos/);
-    expect(todosLink.href).toMatch(/#home/);
+    expect(todosLink.href).toMatch("/r/todos");
 
     const userInfoLink = getByText(/Profile/);
-    expect(userInfoLink.href).toMatch(/#profile/);
+    expect(userInfoLink.href).toMatch("/r/profile");
   });
 });
