@@ -21,3 +21,7 @@ jobs:
           TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: mvn -B test jacoco:report coveralls:report
+      - name: Upload to Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
