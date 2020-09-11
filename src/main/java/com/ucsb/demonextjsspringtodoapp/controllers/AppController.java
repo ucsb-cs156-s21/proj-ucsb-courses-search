@@ -37,17 +37,7 @@ public class AppController {
   @GetMapping(value = "/api/private", produces = "application/json")
   public GoogleUserProfile privateEndpoint(@RequestHeader("Authorization") String authorization) {
     GoogleUserProfile profile = auth0Service.getInfoFromAuthorization(authorization);
-
+    logger.info(profile.toJSONString());
     return profile;
-  }
-
-  @GetMapping(value = "/api/private-scoped", produces = "application/json")
-  public String privateScopedEndpoint() {
-    return new JSONObject().put("message", "This is a private scoped endpoint").toString();
-  }
-
-  @GetMapping(value = "/config", produces = "application/json")
-  public String config() {
-    return new JSONObject().put("domain", domain).put("clientID", clientId).put("audience", resourceId).toString();
   }
 }
