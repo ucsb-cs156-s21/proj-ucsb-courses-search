@@ -283,34 +283,7 @@
 			</dependencies>
 			<properties>
 				<environment-properties>${env.TEST_PROPERTIES}</environment-properties>
-				<sonar.projectKey>ucsb-cs156-f20_demo-spring-nextjs-app</sonar.projectKey>
-				<sonar.organization>ucsb-cs156-f20</sonar.organization>
-				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eluder.coveralls</groupId>
-						<artifactId>coveralls-maven-plugin</artifactId>
-						<version>4.3.0</version>
-						<configuration>
-							<repoToken>${env.COVERALLS_REPO_TOKEN}</repoToken>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>jakarta.xml.bind</groupId>
-								<artifactId>jakarta.xml.bind-api</artifactId>
-								<version>2.3.2</version>
-							</dependency>
-							<dependency>
-								<groupId>org.glassfish.jaxb</groupId>
-								<artifactId>jaxb-runtime</artifactId>
-								<version>2.3.2</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<profile>
 			<id>heroku</id>
