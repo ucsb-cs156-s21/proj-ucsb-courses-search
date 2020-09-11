@@ -24,19 +24,14 @@ public class AppControllerTests {
   @Autowired
   private MockMvc mockMvc;
 
-  @Autowired
-  private ObjectMapper objectMapper;
-
   @MockBean
   private Auth0Service mockAuth0Service;
 
   private String googleUserString() {
-    return "{" + "\"given_name\": \"Scott\"," + "\"family_name\": \"Chow\"," + "\"nickname\": \"tehchowster\","
-        + "\"name\": \"Scott Chow\","
-        + "\"picture\": \"https://lh3.googleusercontent.com/a-/AOh14Gj4xDxwVspIxnTGjFp30fsHkF-AFLP5l9V5Zrfyvw\","
-        + "\"locale\": \"en\"," + "\"updated_at\": \"2020-09-10T04:26:05.523Z\","
-        + "\"email\": \"tehchowster@gmail.com\"," + "\"email_verified\": true,"
-        + "\"sub\": \"google-oauth2|113500641598136473967\"" + "}";
+    return "{" + "\"given_name\": \"Test\"," + "\"family_name\": \"User\"," + "\"nickname\": \"testuser\","
+        + "\"name\": \"Test User\"," + "\"picture\": \"https://lh3.googleusercontent.com/a-/abcdefghijklmnop\","
+        + "\"locale\": \"en\"," + "\"updated_at\": \"2020-09-10T04:26:05.523Z\"," + "\"email\": \"test@test.com\","
+        + "\"email_verified\": true," + "\"sub\": \"google-oauth2|aaaaaaaaaaa\"" + "}";
   }
 
   @Test
@@ -49,9 +44,13 @@ public class AppControllerTests {
 
   @Test
   public void testPrivateEndpoint() throws Exception {
-    Mockito.when(mockAuth0Service.getInfoFromAuthorization(Mockito.any(String.class)))
-        .thenReturn(GoogleUserProfile.fromJSON(googleUserString()));
-    mockMvc.perform(get("/api/private").header(HttpHeaders.AUTHORIZATION, "").contentType("application/json"))
+    GoogleUserProfile expectedProfile = GoogleUserProfile.fromJSON(googleUserString());
+    Mockito.when(mockAuth0Service.getInfoFromAuthorization(Mockito.any(String.class))).thenReturn(expectedProfile);
+    MvcResult response = mockMvc
+        .perform(get("/api/private").header(HttpHeaders.AUTHORIZATION, "").contentType("application/json"))
         .andExpect(status().isOk()).andReturn();
+    String actualResponseBody = response.getResponse().getContentAsString();
+    GoogleUserProfile actualUserProfile = GoogleUserProfile.fromJSON(actualResponseBody);
+    assertEquals(expectedProfile, actualUserProfile);
   }
 }

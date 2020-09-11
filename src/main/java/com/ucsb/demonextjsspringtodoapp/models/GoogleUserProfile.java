@@ -2,6 +2,10 @@ package com.ucsb.demonextjsspringtodoapp.models;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.slf4j.Logger;
@@ -13,11 +17,14 @@ public class GoogleUserProfile {
   private String sub;
   private String name;
   private String email;
+  @JsonProperty("given_name")
   private String givenName;
+  @JsonProperty("family_name")
   private String familyName;
   private String nickname;
   private String picture;
   private String locale;
+  @JsonProperty("updated_at")
   private String updatedAt;
 
   /**
@@ -117,5 +124,18 @@ public class GoogleUserProfile {
       logger.error(e.getMessage(), e);
       return "";
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    GoogleUserProfile profile = (GoogleUserProfile) o;
+    return Objects.equals(sub, profile.getSub()) && Objects.equals(name, profile.getName())
+        && Objects.equals(email, profile.getEmail()) && Objects.equals(givenName, profile.getGivenName())
+        && Objects.equals(familyName, profile.getFamilyName()) && Objects.equals(nickname, profile.getNickname())
+        && Objects.equals(picture, profile.getPicture()) && Objects.equals(locale, profile.getLocale());
   }
 }
