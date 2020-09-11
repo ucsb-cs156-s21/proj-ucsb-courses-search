@@ -1,7 +1,6 @@
 # Demo Spring React App
 
-[![Frontend Coverage](https://coveralls.io/repos/github/ucsb-cs156-f20/demo-spring-nextjs-app/badge.svg?branch=master)](https://coveralls.io/github/ucsb-cs156-f20/demo-spring-nextjs-app?branch=master)
-[![Backend Coverage](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-nextjs-app/branch/master/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-nextjs-app)
+[![Codecov Coverage](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-nextjs-app/branch/master/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-nextjs-app)
 
 A demo todo app with Spring Boot and Create React App.
 

@@ -19,7 +19,6 @@ jobs:
       - name: Build with Maven
         env:
           TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: mvn -B test jacoco:report
       - name: Upload to Codecov
         env:
