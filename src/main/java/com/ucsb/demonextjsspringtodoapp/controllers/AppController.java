@@ -35,7 +35,8 @@ public class AppController {
   }
 
   @GetMapping(value = "/api/private", produces = "application/json")
-  public GoogleUserProfile privateEndpoint(@RequestHeader("Authorization") String authorization) {
+  public GoogleUserProfile privateEndpoint(@RequestHeader("Authorization") String authorization)
+      throws Exception {
     GoogleUserProfile profile = auth0Service.getInfoFromAuthorization(authorization);
     logger.info(profile.toJSONString());
     return profile;
