@@ -2,11 +2,10 @@ package com.ucsb.demonextjsspringtodoapp.models;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,14 +115,9 @@ public class GoogleUserProfile {
     this.updatedAt = updatedAt;
   }
 
-  public String toJSONString() {
+  public String toJSONString() throws Exception {
     ObjectMapper mapper = new ObjectMapper();
-    try {
-      return mapper.writeValueAsString(this);
-    } catch (JsonProcessingException e) {
-      logger.error(e.getMessage(), e);
-      return "";
-    }
+    return mapper.writeValueAsString(this);
   }
 
   @Override
@@ -133,12 +127,12 @@ public class GoogleUserProfile {
     if (o == null || getClass() != o.getClass())
       return false;
     GoogleUserProfile profile = (GoogleUserProfile) o;
-    return Objects.equals(sub, profile.getSub()) && Objects.equals(name, profile.getName())
-        && Objects.equals(email, profile.getEmail())
-        && Objects.equals(givenName, profile.getGivenName())
-        && Objects.equals(familyName, profile.getFamilyName())
-        && Objects.equals(nickname, profile.getNickname())
-        && Objects.equals(picture, profile.getPicture())
-        && Objects.equals(locale, profile.getLocale());
+    EqualsBuilder builder = new EqualsBuilder();
+    builder.append(sub, profile.getSub()).append(name, profile.getName())
+        .append(email, profile.getEmail()).append(givenName, profile.getGivenName())
+        .append(familyName, profile.getFamilyName()).append(nickname, profile.getNickname())
+        .append(picture, profile.getPicture()).append(locale, profile.getLocale());
+
+    return builder.isEquals();
   }
 }
