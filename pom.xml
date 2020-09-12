@@ -216,6 +216,13 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/*Config.*</exclude>
+						<exclude>**/*Dev.*</exclude>
+						<exclude>**/*Application.*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 
 			<plugin>
