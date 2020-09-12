@@ -139,6 +139,18 @@ public class TodoControllerTests {
   }
 
   @Test
+  public void testUpdateTodo_todoNotOwned() throws Exception {
+    Todo expectedTodo = new Todo(1L, "todo 1", true, "NOT YOURS");
+    when(mockTodoRepository.findById(any(Long.class))).thenReturn(Optional.of(expectedTodo));
+    mockMvc
+        .perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNotFound()).andReturn();
+    verify(mockTodoRepository, times(1)).findById(1L);
+    verify(mockTodoRepository, times(0)).save(any(Todo.class));
+  }
+
+  @Test
   public void testDeleteTodo_todoExists() throws Exception {
     Todo expectedTodo = new Todo(1L, "todo 1", false, "123456");
     when(mockTodoRepository.findById(1L)).thenReturn(Optional.of(expectedTodo));
@@ -164,5 +176,17 @@ public class TodoControllerTests {
         .andExpect(status().isNotFound()).andReturn();
     verify(mockTodoRepository, times(1)).findById(id);
     verify(mockTodoRepository, times(0)).deleteById(id);
+  }
+
+  @Test
+  public void testDeleteTodo_todoNotOwned() throws Exception {
+    Todo expectedTodo = new Todo(1L, "todo 1", true, "NOT YOURS");
+    when(mockTodoRepository.findById(expectedTodo.getId())).thenReturn(Optional.of(expectedTodo));
+    mockMvc
+        .perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNotFound()).andReturn();
+    verify(mockTodoRepository, times(1)).findById(expectedTodo.getId());
+    verify(mockTodoRepository, times(0)).deleteById(expectedTodo.getId());
   }
 }
