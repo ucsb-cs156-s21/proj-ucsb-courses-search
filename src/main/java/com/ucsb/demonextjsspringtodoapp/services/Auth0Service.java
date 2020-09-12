@@ -2,6 +2,7 @@ package com.ucsb.demonextjsspringtodoapp.services;
 
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +18,10 @@ public class Auth0Service {
   @Value("${auth0.domain}")
   private String auth0Domain;
 
+  @Autowired
+  private RestTemplate restTemplate;
+
   public GoogleUserProfile getInfoFromAuthorization(String authorization) throws RuntimeException {
-    RestTemplate restTemplate = new RestTemplate();
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
     headers.set("Authorization", authorization);
