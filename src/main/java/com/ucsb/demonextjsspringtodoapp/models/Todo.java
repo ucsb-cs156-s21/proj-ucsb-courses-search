@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 public class Todo {
@@ -40,8 +41,14 @@ public class Todo {
     if (obj == null || getClass() != obj.getClass())
       return false;
     Todo other = (Todo) obj;
-    return id == other.id && value.equals(other.value) && done == other.done
-        && userId.equals(other.userId);
+
+    // Using EqualsBuilder cuts down on the number of branches/tests we end up having to write.
+    // Instead of needing to test equals failing on a difference in every single field, we can
+    // just test one difference.
+    EqualsBuilder builder = new EqualsBuilder();
+    builder.append(id, other.id).append(value, other.value).append(done, other.done).append(userId,
+        other.userId);
+    return builder.isEquals();
   }
 
   public Long getId() {
