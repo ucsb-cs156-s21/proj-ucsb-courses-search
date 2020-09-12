@@ -134,8 +134,11 @@ public class GoogleUserProfile {
       return false;
     GoogleUserProfile profile = (GoogleUserProfile) o;
     return Objects.equals(sub, profile.getSub()) && Objects.equals(name, profile.getName())
-        && Objects.equals(email, profile.getEmail()) && Objects.equals(givenName, profile.getGivenName())
-        && Objects.equals(familyName, profile.getFamilyName()) && Objects.equals(nickname, profile.getNickname())
-        && Objects.equals(picture, profile.getPicture()) && Objects.equals(locale, profile.getLocale());
+        && Objects.equals(email, profile.getEmail())
+        && Objects.equals(givenName, profile.getGivenName())
+        && Objects.equals(familyName, profile.getFamilyName())
+        && Objects.equals(nickname, profile.getNickname())
+        && Objects.equals(picture, profile.getPicture())
+        && Objects.equals(locale, profile.getLocale());
   }
 }

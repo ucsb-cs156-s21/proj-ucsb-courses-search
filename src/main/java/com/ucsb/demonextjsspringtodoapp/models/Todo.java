@@ -40,7 +40,8 @@ public class Todo {
     if (obj == null || getClass() != obj.getClass())
       return false;
     Todo other = (Todo) obj;
-    return id == other.id && value.equals(other.value) && done == other.done && userId.equals(other.userId);
+    return id == other.id && value.equals(other.value) && done == other.done
+        && userId.equals(other.userId);
   }
 
   public Long getId() {

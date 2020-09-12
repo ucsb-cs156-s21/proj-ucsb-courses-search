@@ -28,16 +28,18 @@ public class AppControllerTests {
   private Auth0Service mockAuth0Service;
 
   private String googleUserString() {
-    return "{" + "\"given_name\": \"Test\"," + "\"family_name\": \"User\"," + "\"nickname\": \"testuser\","
-        + "\"name\": \"Test User\"," + "\"picture\": \"https://lh3.googleusercontent.com/a-/abcdefghijklmnop\","
-        + "\"locale\": \"en\"," + "\"updated_at\": \"2020-09-10T04:26:05.523Z\"," + "\"email\": \"test@test.com\","
-        + "\"email_verified\": true," + "\"sub\": \"google-oauth2|aaaaaaaaaaa\"" + "}";
+    return "{" + "\"given_name\": \"Test\"," + "\"family_name\": \"User\","
+        + "\"nickname\": \"testuser\"," + "\"name\": \"Test User\","
+        + "\"picture\": \"https://lh3.googleusercontent.com/a-/abcdefghijklmnop\","
+        + "\"locale\": \"en\"," + "\"updated_at\": \"2020-09-10T04:26:05.523Z\","
+        + "\"email\": \"test@test.com\"," + "\"email_verified\": true,"
+        + "\"sub\": \"google-oauth2|aaaaaaaaaaa\"" + "}";
   }
 
   @Test
   public void testPublicEndpoint() throws Exception {
-    MvcResult response = mockMvc.perform(get("/api/public").contentType("application/json")).andExpect(status().isOk())
-        .andReturn();
+    MvcResult response = mockMvc.perform(get("/api/public").contentType("application/json"))
+        .andExpect(status().isOk()).andReturn();
     String actualResponseBody = response.getResponse().getContentAsString();
     assertEquals(actualResponseBody, "{\"message\":\"This is a public endpoint.\"}");
   }
@@ -45,9 +47,10 @@ public class AppControllerTests {
   @Test
   public void testPrivateEndpoint() throws Exception {
     GoogleUserProfile expectedProfile = GoogleUserProfile.fromJSON(googleUserString());
-    Mockito.when(mockAuth0Service.getInfoFromAuthorization(Mockito.any(String.class))).thenReturn(expectedProfile);
-    MvcResult response = mockMvc
-        .perform(get("/api/private").header(HttpHeaders.AUTHORIZATION, "").contentType("application/json"))
+    Mockito.when(mockAuth0Service.getInfoFromAuthorization(Mockito.any(String.class)))
+        .thenReturn(expectedProfile);
+    MvcResult response = mockMvc.perform(
+        get("/api/private").header(HttpHeaders.AUTHORIZATION, "").contentType("application/json"))
         .andExpect(status().isOk()).andReturn();
     String actualResponseBody = response.getResponse().getContentAsString();
     GoogleUserProfile actualUserProfile = GoogleUserProfile.fromJSON(actualResponseBody);

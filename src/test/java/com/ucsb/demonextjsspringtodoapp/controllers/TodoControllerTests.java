@@ -56,15 +56,18 @@ public class TodoControllerTests {
     expectedTodos.add(new Todo(1L, "todo 1", false, "123456"));
 
     when(mockTodoRepository.findByUserId("123456")).thenReturn(expectedTodos);
-    MvcResult response = mockMvc.perform(
-        get("/api/todos").contentType("application/json").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
-        .andExpect(status().isOk()).andReturn();
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/todos").contentType("application/json")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+            .andExpect(status().isOk()).andReturn();
 
     verify(mockTodoRepository, times(1)).findByUserId("123456");
 
     String responseString = response.getResponse().getContentAsString();
-    List<Todo> actualTodos = objectMapper.readValue(responseString, new TypeReference<List<Todo>>() {
-    });
+    List<Todo> actualTodos =
+        objectMapper.readValue(responseString, new TypeReference<List<Todo>>() {
+        });
     assertEquals(actualTodos, expectedTodos);
   }
 
@@ -75,8 +78,9 @@ public class TodoControllerTests {
     String requestBody = mapper.writeValueAsString(expectedTodo);
     when(mockTodoRepository.save(any())).thenReturn(expectedTodo);
     MvcResult response = mockMvc
-        .perform(post("/api/todos").with(csrf()).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
-            .content(requestBody).header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .perform(post("/api/todos").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").content(requestBody)
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isOk()).andReturn();
 
     verify(mockTodoRepository, times(1)).save(expectedTodo);
@@ -92,8 +96,9 @@ public class TodoControllerTests {
     Todo savedTodo = new Todo(1L, "todo 1", true, "123456");
 
     when(mockTodoRepository.findById(any(Long.class))).thenReturn(Optional.of(expectedTodo));
-    MvcResult response = mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+    MvcResult response = mockMvc
+        .perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNoContent()).andReturn();
 
     verify(mockTodoRepository, times(1)).findById(expectedTodo.getId());
@@ -109,8 +114,9 @@ public class TodoControllerTests {
     Todo expectedTodo = new Todo(1L, "todo 1", true, "123456");
     Todo savedTodo = new Todo(1L, "todo 1", false, "123456");
     when(mockTodoRepository.findById(any(Long.class))).thenReturn(Optional.of(expectedTodo));
-    MvcResult response = mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+    MvcResult response = mockMvc
+        .perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNoContent()).andReturn();
 
     verify(mockTodoRepository, times(1)).findById(expectedTodo.getId());
@@ -124,8 +130,10 @@ public class TodoControllerTests {
   @Test
   public void testUpdateTodo_todoNotFound() throws Exception {
     when(mockTodoRepository.findById(1L)).thenReturn(Optional.empty());
-    mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
-        .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())).andExpect(status().isNotFound()).andReturn();
+    mockMvc
+        .perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNotFound()).andReturn();
     verify(mockTodoRepository, times(1)).findById(1L);
     verify(mockTodoRepository, times(0)).save(any(Todo.class));
   }
@@ -134,8 +142,9 @@ public class TodoControllerTests {
   public void testDeleteTodo_todoExists() throws Exception {
     Todo expectedTodo = new Todo(1L, "todo 1", false, "123456");
     when(mockTodoRepository.findById(1L)).thenReturn(Optional.of(expectedTodo));
-    MvcResult response = mockMvc.perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+    MvcResult response = mockMvc
+        .perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNoContent()).andReturn();
     verify(mockTodoRepository, times(1)).findById(expectedTodo.getId());
     verify(mockTodoRepository, times(1)).deleteById(expectedTodo.getId());
@@ -149,8 +158,9 @@ public class TodoControllerTests {
   public void testDeleteTodo_todoNotFound() throws Exception {
     long id = 1L;
     when(mockTodoRepository.findById(id)).thenReturn(Optional.empty());
-    mockMvc.perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+    mockMvc
+        .perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNotFound()).andReturn();
     verify(mockTodoRepository, times(1)).findById(id);
     verify(mockTodoRepository, times(0)).deleteById(id);
