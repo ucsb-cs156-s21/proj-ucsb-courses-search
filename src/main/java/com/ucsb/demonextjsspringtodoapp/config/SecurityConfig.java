@@ -16,8 +16,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http.cors((arg) -> {
-    }).authorizeRequests().mvcMatchers("/api/public").permitAll().mvcMatchers("/api/**").authenticated().anyRequest()
+    http.authorizeRequests().mvcMatchers("/api/public").permitAll().mvcMatchers("/api/**").authenticated().anyRequest()
         .permitAll();
   }
 
