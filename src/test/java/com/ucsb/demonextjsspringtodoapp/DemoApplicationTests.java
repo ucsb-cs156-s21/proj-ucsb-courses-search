@@ -13,18 +13,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DemoApplicationTests {
 
-	@Autowired
-	private AppController appController;
-	@Autowired
-	private ReactController reactController;
-	@Autowired
-	private TodoController todoController;
+  @Autowired
+  private AppController appController;
+  @Autowired
+  private ReactController reactController;
+  @Autowired
+  private TodoController todoController;
 
-	@Test
-	void contextLoads() {
-		assertThat(appController).isNotNull();
-		assertThat(reactController).isNotNull();
-		assertThat(todoController).isNotNull();
-	}
+  @Test
+  void contextLoads() {
+    assertThat(appController).isNotNull();
+    assertThat(reactController).isNotNull();
+    assertThat(todoController).isNotNull();
+  }
+
+  // This test just provides coverage on the main method of DemoApplication.
+  @Test
+  public void applicationContextTest() {
+    DemoApplication.main(new String[] {});
+  }
 
 }
