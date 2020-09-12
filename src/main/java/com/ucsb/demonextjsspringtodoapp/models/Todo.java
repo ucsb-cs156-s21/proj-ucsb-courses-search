@@ -35,12 +35,12 @@ public class Todo {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj.getClass() != Todo.class) {
+    if (this == obj)
+      return true;
+    if (obj == null || getClass() != obj.getClass())
       return false;
-    }
-
     Todo other = (Todo) obj;
-    return id == other.id && value == other.value && done == other.done && userId == other.userId;
+    return id == other.id && value.equals(other.value) && done == other.done && userId.equals(other.userId);
   }
 
   public Long getId() {

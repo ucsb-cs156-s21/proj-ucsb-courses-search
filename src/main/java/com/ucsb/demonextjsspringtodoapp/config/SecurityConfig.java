@@ -19,6 +19,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
     http.cors((arg) -> {
     }).authorizeRequests().mvcMatchers("/api/public").permitAll().mvcMatchers("/api/**").authenticated().anyRequest()
         .permitAll();
+    http.csrf().disable();
   }
 
   @Override

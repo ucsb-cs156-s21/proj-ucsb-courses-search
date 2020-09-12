@@ -35,18 +35,14 @@ public class TodoController {
   private Auth0Service auth0Service;
 
   @PostMapping(value = "/api/todos", produces = "application/json")
-  public ResponseEntity<String> createTodo(@RequestHeader("Authorization") String authorization,
-      @RequestBody Todo todo) {
+  public ResponseEntity<String> createTodo(@RequestHeader("Authorization") String authorization, @RequestBody Todo todo)
+      throws JsonProcessingException {
     DecodedJWT jwt = JWT.decode(authorization.substring(7));
     todo.setUserId(jwt.getSubject());
     Todo savedTodo = todoRepository.save(todo);
     ObjectMapper mapper = new ObjectMapper();
-    try {
-      return ResponseEntity.ok().body(mapper.writeValueAsString(savedTodo));
-    } catch (JsonProcessingException jpe) {
-      logger.error(jpe.getMessage(), jpe);
-      return ResponseEntity.status(500).body(new JSONObject().put("error", jpe.getMessage()).toString());
-    }
+    String body = mapper.writeValueAsString(savedTodo);
+    return ResponseEntity.ok().body(body);
   }
 
   @PostMapping(value = "/api/todos/{id}", produces = "application/json")
@@ -75,16 +71,13 @@ public class TodoController {
   }
 
   @GetMapping(value = "/api/todos", produces = "application/json")
-  public ResponseEntity<String> getUserTodos(@RequestHeader("Authorization") String authorization) {
+  public ResponseEntity<String> getUserTodos(@RequestHeader("Authorization") String authorization)
+      throws JsonProcessingException {
     DecodedJWT jwt = JWT.decode(authorization.substring(7));
     List<Todo> todoList = todoRepository.findByUserId(jwt.getSubject());
     ObjectMapper mapper = new ObjectMapper();
 
-    try {
-      return ResponseEntity.ok().body(mapper.writeValueAsString(todoList));
-    } catch (JsonProcessingException jpe) {
-      logger.error(jpe.getMessage(), jpe);
-      return ResponseEntity.status(500).body(new JSONObject().put("error", jpe.getMessage()).toString());
-    }
+    String body = mapper.writeValueAsString(todoList);
+    return ResponseEntity.ok().body(body);
   }
 }
