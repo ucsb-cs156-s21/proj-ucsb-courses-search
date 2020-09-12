@@ -2,7 +2,6 @@ package com.ucsb.demonextjsspringtodoapp.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +34,8 @@ public class TodoController {
   private Auth0Service auth0Service;
 
   @PostMapping(value = "/api/todos", produces = "application/json")
-  public ResponseEntity<String> createTodo(@RequestHeader("Authorization") String authorization, @RequestBody Todo todo)
-      throws JsonProcessingException {
+  public ResponseEntity<String> createTodo(@RequestHeader("Authorization") String authorization,
+      @RequestBody Todo todo) throws JsonProcessingException {
     DecodedJWT jwt = JWT.decode(authorization.substring(7));
     todo.setUserId(jwt.getSubject());
     Todo savedTodo = todoRepository.save(todo);
