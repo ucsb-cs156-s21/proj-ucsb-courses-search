@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -44,7 +45,7 @@ public class TodoControllerTests {
   private Auth0Service mockAuth0Service;
 
   private String userToken() {
-    return "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1VRkVRemd5TUVZM09UWTJNakkzTTBJNVFVVkNNRGRCT0RRMk56TkVOa00zUmtSQlEwVTRSQSJ9.eyJpc3MiOiJodHRwczovL2Rldi0wbjdhZXFzcS5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTM1MDA2NDE1OTgxMzY0NzM5NjciLCJhdWQiOlsiaHR0cHM6Ly9kZXYtMG43YWVxc3EuYXV0aDAuY29tL2FwaS92Mi8iLCJodHRwczovL2Rldi0wbjdhZXFzcS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTk5ODkwODMyLCJleHAiOjE1OTk5NzcyMzIsImF6cCI6IkprenNoOVg1amY1dWhyckt0SVpkVXlVY3ZtN2JicjR5Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.laRYSweehJFJFciB8ZRtSF3YlAwL6NCdEQ8_95mpfU18vpLkZZjmj-19_IbX_dxBbMRX_AQPE84d2cX205SjM3jrFYUQ7nhSrhQBGf-epzAFGzptjE8fUIDElcXyvqcNg2OjHrhDQnpdxT6oeTlZtOEv_BZpRhp2aF0eU0KTfwEJ1qX187CYauUOyoSp5M2Uald_8cDg7ZX7qaO_K6DJWmktFudkCqAQveQ7oMsUxH8XuJ9jp2jD2TOaKWfjTf-Gq8f6fwqesFrJx-oKYLmqa8MgGmZTSwLZdgKyV3oEtlgEEj6BvLNe2LJ8ZrwHyQffs3MPh90OBdH82Uhg6j8zLQ";
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
   }
 
   @Test
@@ -77,5 +78,67 @@ public class TodoControllerTests {
     String responseString = response.getResponse().getContentAsString();
     Todo actualTodo = objectMapper.readValue(responseString, Todo.class);
     assertEquals(actualTodo, expectedTodo);
+  }
+
+  @Test
+  public void testUpdateTodo_todoExists_changeDoneFalseToTrue() throws Exception {
+    Todo expectedTodo = new Todo(1L, "todo 1", false, "123456");
+    when(mockTodoRepository.findById(any(Long.class))).thenReturn(Optional.of(expectedTodo));
+    MvcResult response = mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNoContent()).andReturn();
+
+    // TODO: verify save was called correctly
+
+    String responseString = response.getResponse().getContentAsString();
+
+    assertEquals(responseString.length(), 0);
+  }
+
+  @Test
+  public void testUpdateTodo_todoExists_changeDoneTrueToFalse() throws Exception {
+    Todo expectedTodo = new Todo(1L, "todo 1", true, "123456");
+    when(mockTodoRepository.findById(any(Long.class))).thenReturn(Optional.of(expectedTodo));
+    MvcResult response = mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNoContent()).andReturn();
+
+    // TODO: verify save was called correctly
+
+    String responseString = response.getResponse().getContentAsString();
+
+    assertEquals(responseString.length(), 0);
+  }
+
+  @Test
+  public void testUpdateTodo_todoNotFound() throws Exception {
+    when(mockTodoRepository.findById(1L)).thenReturn(Optional.empty());
+    mockMvc.perform(post("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON).characterEncoding("utf-8")
+        .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())).andExpect(status().isNotFound()).andReturn();
+    // TODO: verify update was not called
+  }
+
+  @Test
+  public void testDeleteTodo_todoExists() throws Exception {
+    Todo expectedTodo = new Todo(1L, "todo 1", false, "123456");
+    when(mockTodoRepository.findById(1L)).thenReturn(Optional.of(expectedTodo));
+    MvcResult response = mockMvc.perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNoContent()).andReturn();
+    // TODO: verify delete was called correctly
+
+    String responseString = response.getResponse().getContentAsString();
+
+    assertEquals(responseString.length(), 0);
+  }
+
+  @Test
+  public void testDeleteTodo_todoNotFound() throws Exception {
+    when(mockTodoRepository.findById(1L)).thenReturn(Optional.empty());
+    mockMvc.perform(delete("/api/todos/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+        .andExpect(status().isNotFound()).andReturn();
+    // TODO: verify delete was not called
+
   }
 }
