@@ -80,7 +80,7 @@ Before you start, get the Auth0 domain loaded in one of your browser tabs; you c
 2. Click `Create credentials > OAuth client ID.`
 3. Select the `Web application` application type.
 4. Name your OAuth 2.0 client (e.g. `test-demo-spring-react-app`). 
-5. Set the Authorized redirect URI to `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the `Auth0 Domain` listed in the Auth0 settings for your app.
+5. Add an authorized redirect URI, with the value `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the `Auth0 Domain` listed in the Auth0 settings for your app.  (It should look something like: `https://dev-pfjsl7rp.auth0.com/login/callback`, without the `<>` in it.)
 6. Scroll down and click "Save" to create your Google OAuth App.
 7. Take note of the "Client ID" and "Client Secret"; you will need to copy these values in the next step, so keep this browser tab open.
 
