@@ -88,9 +88,9 @@ Now, return to the browser tab open to your Auth0 application.
 * Do not be confused that there is a Client Id and Client Secret on Auth0 page; this is a *different* client id and client secret.
 * Instead, navigate to the "Connections -> Social" page in the sidebar, as shown in the image below.
 * Click on "Google" and fill in the "Client ID" and "Client Secret" you just generated. 
-* Make sure to click "Save" at the bottom of the dialog to save your changes.
+* Make sure to scroll down and click "Save Changes" at the bottom of the dialog to save your changes.
 
-For developing on localhost, this is all you have to do. Once you have deployed your app to production, follow the
+For developing on localhost, this is all you have to do to enable Auth0 login. Once you have deployed your app to production, follow the
 next step.
 
 ![auth0 connections social](./images/auth0-connections-social.png)
