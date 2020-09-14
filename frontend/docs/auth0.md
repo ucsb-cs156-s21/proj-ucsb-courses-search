@@ -1,8 +1,12 @@
-# Setting up Authentication
+# Setting up Authentication on Localhost
+
+(For authentication on Heroku, follow all of these instructions first, then scroll down to the section for Heroku).
 
 This project uses Auth0 and Google OAuth for authentication (checking usernames and passwords for logging in).    
 
 Auth0 is a service that allows you to set up an application where you "login in with Google" or "login with GitHub" or "login with Facebook", etc.  (This process of allowing users to login into an application with multiple providers is sometimes called *Federated Login*).
+
+
 
 ## Setting up Auth0
 
@@ -95,6 +99,12 @@ next step.
 
 ![auth0 connections social](./images/auth0-connections-social.png)
 
+
+# Setting up Authentication on Heroku
+
+Follow all of the instructions above first for getting your app working on Localhost.
+
+Then, deploy your app to Heroku once.  OAuth will not work on the first deploy, but you should deploy it once before proceeding to the next step.
 
 ## After your first deploy
 
