@@ -46,10 +46,13 @@ In this repo, we have the following templates for secrets:
  
 # Now returning to the Auth0 configuration...
 
-On the same page you should see a "Domain" and "Client ID". Copy those values into your `frontent/.env.local` file.
+On the same page you should see a "Domain" and "Client ID". 
+* Copy those values into your `frontent/.env.local` file.
+* You may also see other fields such as `REACT_APP_AUTH0_AUDIENCE`; don't worry about those for now.  We'll fill in the other fields in later steps.
 
-In the "Connections" tab of **your app** (not from the sidebar), uncheck Username-Password-Authentication.
-Ensure google-oauth2 is checked (it should be by default).
+In the "Connections" tab of **your app** (not from the sidebar)
+* Uncheck Username-Password-Authentication.
+* Ensure `google-oauth2` is checked (it should be by default).
 
 ## Setting up Google OAuth
 
