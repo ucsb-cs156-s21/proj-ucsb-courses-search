@@ -22,7 +22,31 @@ in the appropriate fields:
 
 Make sure to click "Save Changes" at the bottom of the page to save your changes.
 
-On the same page you should see a "Domain" and "Client ID". Copy those values into your `.env` file.
+## Secrets files (e.g. `.env`)
+
+This section describes files such as `.env`, `secrets-localhost.properties`, `secrets-heroku.properties` etc. in which we store application *secrets*.
+
+It is typical for web applications to require *secrets*, i.e. values that are passed to various services (such as Auth0, a database, cloud platforms, etc.) in order to make things work.    Tutorials often show code that has these secrets hardcoded into your source code (in Java, JavaScript, Python, etc.).  This is a bad idea; don't do this.  If you put these values in your source code, they often end up in Github, and eventually get leaked, creating security vulnerabilities.
+
+Instead, a better practice is:
+* Designate a file such as `.env` that is is your `.gitignore` (and thus never stored in GitHub)
+* Put your secrets in this file
+* Access the secrets from your Java, JavaScript, Python code (or whatever language).
+
+It is common practice to have a file such as `.env.SAMPLE` that can be used as a template for the `.env` file; this file DOES often exist in the Github repo.  You can copy this file to `.env` and then edit it to put in your secrets.    
+
+In this repo, we have the following templates for secrets:
+
+| Template | File you should copy it to | explanation |
+|----------|----------------------------|-------------|
+| `secrets-localhost.properties.SAMPLE` |  `secrets-localhost.properties` |  Java Spring Boot backend when running locally |
+| `secrets-heroku.properties.SAMPLE` |  `secrets-heroku.properties` |  Java Spring Boot backend when running on Heroku |
+| `frontend/.env.local.SAMPLE` | `frontend/.env.local` | React Frontend code when running locally | 
+| `frontend/.env.production.SAMPLE` | `frontend/.env.production` | React Frontend code when running on Heroku | 
+ 
+# Now returning to the Auth0 configuration...
+
+On the same page you should see a "Domain" and "Client ID". Copy those values into your `frontent/.env.local` file.
 
 In the "Connections" tab of **your app** (not from the sidebar), uncheck Username-Password-Authentication.
 Ensure google-oauth2 is checked (it should be by default).
