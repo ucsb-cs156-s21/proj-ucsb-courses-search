@@ -44,7 +44,7 @@ In this repo, we have the following templates for secrets:
 | `frontend/.env.local.SAMPLE` | `frontend/.env.local` | React Frontend code when running locally | 
 | `frontend/.env.production.SAMPLE` | `frontend/.env.production` | React Frontend code when running on Heroku | 
  
-# Now returning to the Auth0 configuration...
+## Now returning to the Auth0 configuration...
 
 On the same page you should see a "Domain" and "Client ID". 
 * Copy those values into your `frontent/.env.local` file.
@@ -56,6 +56,14 @@ In the "Connections" tab of **your app** (not from the sidebar)
 See image below for an example of what it should look like.
 
 ![Auth0 Connections Settings](./images/auth0-connections-settings.png)
+
+## Filling in the Audience value
+
+To fill in the value for `REACT_APP_AUTH0_AUDIENCE` in your  `frontent/.env.local` file, go to the sidebar in Auth0, and locate the `APIs` tab.
+
+You should see (at least) one API listed, namely the `Auth0 Management API`.   The Auth0 Management API is used by the backend of your web app to verify authentication credentials.    
+
+Next to the Auth0 Management API link, you'll see a value labelled as `API Audience`.  You should copy that value and paste it into the `REACT_APP_AUTH0_AUDIENCE` value in your  `frontent/.env.local` file.
 
 
 ## Setting up Google OAuth
