@@ -53,6 +53,10 @@ On the same page you should see a "Domain" and "Client ID".
 In the "Connections" tab of **your app** (not from the sidebar)
 * Uncheck Username-Password-Authentication.
 * Ensure `google-oauth2` is checked (it should be by default).
+See image below for an example of what it should look like.
+
+![Auth0 Connections Settings](./images/auth0-connections-settings.png)
+
 
 ## Setting up Google OAuth
 
@@ -68,7 +72,6 @@ dialog to save your changes.  (See image below)
 For developing on localhost, this is all you have to do. Once you have deployed your app to production, follow the
 next step.
 
-![Auth0 Connections Settings](./images/auth0-connections-settings.png)
 
 ## After your first deploy
 
