@@ -63,10 +63,12 @@ step. Take note of the "Client ID" and "Client Secret", you will need to copy th
 
 Navigate back to the Auth0 dashboard. Navigate to the "Connections -> Social" page in the sidebar. Click on "Google"
 and fill in the "Client ID" and "Client Secret" you just generated. Make sure to click "Save" at the bottom of the
-dialog to save your changes.
+dialog to save your changes.  (See image below)
 
 For developing on localhost, this is all you have to do. Once you have deployed your app to production, follow the
 next step.
+
+![Auth0 Connections Settings](./images/auth0-connections-settings.png)
 
 ## After your first deploy
 
