@@ -18,8 +18,7 @@ public class Auth0Service {
   @Value("${auth0.domain}")
   private String auth0Domain;
 
-  @Autowired
-  private RestTemplate restTemplate;
+  private RestTemplate restTemplate = new RestTemplate();
 
   public GoogleUserProfile getInfoFromAuthorization(String authorization) throws RuntimeException {
     HttpHeaders headers = new HttpHeaders();
