@@ -82,15 +82,18 @@ Before you start, get the Auth0 domain loaded in one of your browser tabs; you c
 4. Name your OAuth 2.0 client (e.g. `test-demo-spring-react-app`). 
 5. Add an authorized redirect URI, with the value `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the `Auth0 Domain` listed in the Auth0 settings for your app.  (It should look something like: `https://dev-pfjsl7rp.auth0.com/login/callback`, without the `<>` in it.)
 6. Scroll down and click "Create" to create your Google OAuth App.
-7. Take note of the "Client ID" and "Client Secret"; you will need to copy these values in the next step, so keep this browser tab open.
+7. You should see a pop-up with a  "Client ID" and "Client Secret"; *leave this browser tab open for a moment*.   You will need to copy these values in the next step.
 
-Navigate back to the Auth0 dashboard. 
-* Navigate to the "Connections -> Social" page in the sidebar. 
+Now, return to the browser tab open to your Auth0 application. 
+* Do not be confused that there is a Client Id and Client Secret on Auth0 page; this is a *different* client id and client secret.
+* Instead, navigate to the "Connections -> Social" page in the sidebar, as shown in the image below.
 * Click on "Google" and fill in the "Client ID" and "Client Secret" you just generated. 
 * Make sure to click "Save" at the bottom of the dialog to save your changes.
 
 For developing on localhost, this is all you have to do. Once you have deployed your app to production, follow the
 next step.
+
+![auth0 connections social](./images/auth0-connections-social.png)
 
 
 ## After your first deploy
