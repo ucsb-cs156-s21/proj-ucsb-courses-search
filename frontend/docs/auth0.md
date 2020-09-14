@@ -68,14 +68,17 @@ Next to the Auth0 Management API link, you'll see a value labelled as `API Audie
 
 ## Setting up Google OAuth
 
-Create a Google OAuth application [here](https://developers.google.com/identity/sign-in/web/sign-in).
-When prompted with "Where are you calling from", select "Web server". Set the Authorized redirect URI to
-`https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the Auth0 Domain you copied in the previous
-step. Take note of the "Client ID" and "Client Secret", you will need to copy these values in the next step.
+Create a Google OAuth application <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
 
-Navigate back to the Auth0 dashboard. Navigate to the "Connections -> Social" page in the sidebar. Click on "Google"
-and fill in the "Client ID" and "Client Secret" you just generated. Make sure to click "Save" at the bottom of the
-dialog to save your changes.  (See image below)
+* When prompted with "Where are you calling from", select "Web server". 
+* Set the Authorized redirect URI to `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the Auth0 Domain you copied in the previous
+step. 
+* Take note of the "Client ID" and "Client Secret", you will need to copy these values in the next step.
+
+Navigate back to the Auth0 dashboard. 
+* Navigate to the "Connections -> Social" page in the sidebar. 
+* Click on "Google" and fill in the "Client ID" and "Client Secret" you just generated. 
+* Make sure to click "Save" at the bottom of the dialog to save your changes.
 
 For developing on localhost, this is all you have to do. Once you have deployed your app to production, follow the
 next step.
