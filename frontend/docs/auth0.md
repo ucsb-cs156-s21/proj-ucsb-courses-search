@@ -1,10 +1,12 @@
 # Setting up Authentication
 
-This project uses Auth0 and Google OAuth for authentication.
+This project uses Auth0 and Google OAuth for authentication (checking usernames and passwords for logging in).    
+
+Auth0 is a service that allows you to set up an application where you "login in with Google" or "login with GitHub" or "login with Facebook", etc.  (This process of allowing users to login into an application with multiple providers is sometimes called *Federated Login*).
 
 ## Setting up Auth0
 
-First, [sign up for an account with Auth0](https://auth0.com/signup). You will be asked to create a tenant.
+First, [sign up for an account with Auth0](https://auth0.com/signup); we suggest using your GitHub credentials as your login for Auth0. You will be asked to create a *tenant* (a *tenant* in this case, is just an instance of using Auth0 for some application or set of applications.  You need at least one *tenant* before you can start using Auth0.)
 
 Next, register a new application. You do this by navigating to the "Applications" page in the sidebar and clicking the
 "Create Application" button. Give it a name and ensure you set it up as a "Single Page Application".
