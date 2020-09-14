@@ -17,10 +17,16 @@ The first thing you'll want to do is set up your Auth0 SPA App. Instructions for
   
   | For this value in `secrets-localhost.properties` | Use this value from  `frontend/.env.local` |
   |--------|-----|
-  | | | 
+  | `auth0.domain` |  `REACT_APP_AUTH0_DOMAIN` | 
+  | `auth0.clientId` | `REACT_APP_AUTH0_CLIENT_ID` |
   
-
-
+  You may see additional values in `secrets-localhost.properties` such as the ones below.  You do not need to adjust these; leave the values alone.
+  
+  ```
+  security.oauth2.resource.id=https://${auth0.domain}/api/v2/
+  security.oauth2.resource.jwk.keySetUri=https://${auth0.domain}/.well-known/jwks.json
+  ```
+ 
 At this point, you should be able to run the app locally via
 
 ```bash
