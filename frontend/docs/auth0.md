@@ -72,13 +72,17 @@ Next you will need to log in to your Google Account and create a Google OAuth Ap
 
 We suggest you use the Google Account associated your UCSB email address.
 
-To learn how to create a Google OAuth application, read the instructions <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
+The instructions below are based on the instructions <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
 
-As you follow the instructions:
-* When prompted with "Where are you calling from", select "Web server". 
-* Set the Authorized redirect URI to `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the Auth0 Domain you copied in the previous
-step. 
-* Take note of the "Client ID" and "Client Secret", you will need to copy these values in the next step.
+Before you start, get the Auth0 domain loaded in one of your browser tabs; you can find it by navigating to your account on <https://auth0.com> and locating `Auth0 Domain` as a field in the settings tab of your app.    
+
+1. Navigate to page <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">Google OAuth Instructions</a> and click where it says "Go to the Credentials Page".
+2. Click `Create credentials > OAuth client ID.`
+3. Select the `Web application` application type.
+4. Name your OAuth 2.0 client (e.g. `test-demo-spring-react-app`). 
+5. Set the Authorized redirect URI to `https://<Auth0 Domain>/login/callback`, replacing `<Auth0 Domain>` with the `Auth0 Domain` listed in the Auth0 settings for your app.
+6. Scroll down and click "Save" to create your Google OAuth App.
+7. Take note of the "Client ID" and "Client Secret"; you will need to copy these values in the next step, so keep this browser tab open.
 
 Navigate back to the Auth0 dashboard. 
 * Navigate to the "Connections -> Social" page in the sidebar. 
