@@ -22,7 +22,7 @@ in the appropriate fields:
 
 Make sure to click "Save Changes" at the bottom of the page to save your changes.
 
-## Secrets files (e.g. `.env`)
+## Secrets files (e.g. `.env.local.SAMPLE`)
 
 This section describes files such as `.env`, `secrets-localhost.properties`, `secrets-heroku.properties` etc. in which we store application *secrets*.
 
