@@ -7,17 +7,19 @@ A demo todo app with Spring Boot and Create React App.
 ## Getting started
 
 The first thing you'll want to do is set up your Auth0 SPA App. Instructions for setting up auth0 can be found [here](./frontend/docs/auth0.md).
+* As part of these instructions, you will have created `frontend/.env.local` from `frontend/.env.local.SAMPLE`
+* Next, run this command to create a secrets file for the backend when running on localhost:
+  ```bash
+  cp secrets-localhost.properties.SAMPLE secrets-localhost.properties
+  ```
+* Next, you need update the values in your new `secrets-localhost.properties`.  You can copy the corresponding values from the `frontend/.env.local`,
+  using this guide:
+  
+  | For this value in `secrets-localhost.properties` | Use this value from  `frontend/.env.local` |
+  |--------|-----|
+  | | | 
+  
 
-Once the Auth0 SPA App is set up, you'll then need to run the following in the root directory of the project to set up your app.
-
-- **Note:** You'll need to fill in the `auth0.domain` and `auth0.clientId` fields with the credentials from you Auth0 App in the 2 new files you've created.
-
-```bash
-# Make a copy of the secrets file for the backend
-cp secrets-localhost.properties.SAMPLE secrets-localhost.properties
-# Make a copy of the secrets file for the frontend
-cp frontend/.env.local.SAMPLE frontend/.env.local
-```
 
 At this point, you should be able to run the app locally via
 
