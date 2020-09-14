@@ -68,6 +68,8 @@ Next to the Auth0 Management API link, you'll see a value labelled as `API Audie
 
 ## Setting up Google OAuth
 
+Log in to your Google Account (we suggest you use the Google Account associated your UCSB email address for best results).
+
 Create a Google OAuth application <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
 
 * When prompted with "Where are you calling from", select "Web server". 
