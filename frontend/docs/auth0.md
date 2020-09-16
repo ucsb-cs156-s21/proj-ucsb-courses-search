@@ -108,8 +108,7 @@ Now, return to the browser tab open to your Auth0 application.
 - Click on "Google" and fill in the "Client ID" and "Client Secret" you just generated.
 - Make sure to scroll down and click "Save Changes" at the bottom of the dialog to save your changes.
 
-For developing on localhost, this is all you have to do to enable Auth0 login. Once you have deployed your app to production, follow the
-next step.
+When you have completed this step, you may return to the main instructions in the [../../README.md](../../README.md) to continue.
 
 ![auth0 connections social](./images/auth0-connections-social.png)
 
@@ -138,7 +137,7 @@ the production app.
 
 Don't forget to click "Save Changes" at the bottom of the page!
 
-The next step is to set up the files for production/Heroku for both the frontend and backend.   Please return to the instructions in the main [README.md](../README.md) to continue.
+The next step is to set up the files for production/Heroku for both the frontend and backend.   Please return to the instructions in the main [../../README.md](../../README.md) to continue.
 
 
 
