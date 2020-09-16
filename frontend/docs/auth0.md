@@ -117,10 +117,6 @@ next step.
 
 Follow all of the instructions above first for getting your app working on Localhost.
 
-Then, deploy your app to Heroku once. OAuth will not work on the first deploy, but you should deploy it once before proceeding to the next step.
-
-## After your first deploy
-
 In order for Auth0 to recognize the app running on your new production url, you will need to make a small change to the
 app you created in the first step.
 
@@ -141,3 +137,8 @@ Don't just copy the above values, replace , https://your-heroku-app-name.heroku.
 the production app.
 
 Don't forget to click "Save Changes" at the bottom of the page!
+
+The next step is to set up the files for production/Heroku for both the frontend and backend.   Please return to the instructions in the main [README.md](../README.md) to continue.
+
+
+
