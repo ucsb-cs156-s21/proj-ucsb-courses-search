@@ -6,7 +6,7 @@ A demo todo app with Spring Boot and Create React App.
 
 ## Getting started
 
-The first thing you'll want to do is set up your Auth0 SPA App. Instructions for setting up auth0 can be found [here](./frontend/docs/auth0.md).
+The first thing you'll want to do is set up your Auth0 SPA App. Instructions for setting up auth0 can be found [here](./docs/auth0.md).
 
 - As part of these instructions, you will have created `frontend/.env.local` from `frontend/.env.local.SAMPLE`
 - Next, run this command to create a secrets file for the backend when running on localhost:
@@ -40,7 +40,7 @@ Deploying to production consists of the following steps:
 
 1. Push all changes to the main branch, or whatever branch you'd like to deploy from.  (You can deploy on Heroku from any branch, although we typically deploy from `main` unless this is a Heroku deployment specifically designated as `test` or `qa`)
 2. Create the heroku app (if it doesn't already exist).  Don't link it to a GitHub repo just yet, but do create it, because we need the name of the app for the steps that follow.
-3. Now, you need to add the URL for your new herokuapp (e.g. `https://myapp-for-whatever.herokuapp.com`) to the Auth0 setup.  Instructions to do that can be found in the "Heroku" section of this page: [./frontend/docs/auth0.md](./frontend/docs/auth0.md#setting-up-authentication-on-heroku).  Please follow those instructions, then return to this page and go to the next step.
+3. Now, you need to add the URL for your new herokuapp (e.g. `https://myapp-for-whatever.herokuapp.com`) to the Auth0 setup.  Instructions to do that can be found in the "Heroku" section of this page: [./docs/auth0.md](./docs/auth0.md#setting-up-authentication-on-heroku).  Please follow those instructions, then return to this page and go to the next step.
 
 
 4. Before linking your Heroku app to a GitHub repo, run the following commands to setup the front end and back end secrets files for heroku/production
