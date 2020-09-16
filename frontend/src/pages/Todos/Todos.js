@@ -4,9 +4,9 @@ import { ListGroup } from "react-bootstrap";
 import { TodoForm } from "./TodoForm";
 import { TodoItem } from "./TodoItem";
 import { TodoHeader } from "./TodoHeader";
-import { fetchWithToken } from "../../utils/fetch";
+import { fetchWithToken } from "utils/fetch";
 import { useAuth0 } from "@auth0/auth0-react";
-import Loading from "../Loading";
+import Loading from "components/Loading/Loading";
 
 const TodoList = () => {
   const { user, getAccessTokenSilently: getToken } = useAuth0();
