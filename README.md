@@ -20,11 +20,11 @@ The first thing you'll want to do is set up your Auth0 SPA App. Instructions for
   | ------------------------------------------------ | ----------------------------------------- |
   | `auth0.domain`                                   | `REACT_APP_AUTH0_DOMAIN`                  |
   | `auth0.clientId`                                 | `REACT_APP_AUTH0_CLIENT_ID`               |
+  | `security.oauth2.resource.id`                    | `REACT_APP_AUTH0_AUDIENCE`                |
 
   You may see additional values in `secrets-localhost.properties` such as the ones below. You do not need to adjust these; leave the values alone.
 
   ```
-  security.oauth2.resource.id=https://${auth0.domain}/api/v2/
   security.oauth2.resource.jwk.keySetUri=https://${auth0.domain}/.well-known/jwks.json
   ```
 
@@ -55,7 +55,7 @@ cp frontend/.env.production.SAMPLE frontend/.env.production
 4. You'll need to publish your secrets to heroku using the following command:
 
 ```bash
-python setHerokuVars.py APP-NAME-ON-HEROKU
+python3 setHerokuVars.py APP-NAME-ON-HEROKU
 ```
 
 5. Deploy the application on Heroku.
