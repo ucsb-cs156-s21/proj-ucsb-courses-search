@@ -37,7 +37,7 @@
       "!<rootDir>/path/to/dir/",
       "!src/serviceWorker.js",
       "!src/setupTests.js",
-      "!src/components/auth0/*",
+      "!src/components/Auth/*",
       "!src/index.js"
     ],
     "coverageThreshold": {

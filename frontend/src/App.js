@@ -1,6 +1,6 @@
 import React from "react";
 import "App.css";
-import AppNavbar from "components/nav/AppNavbar";
+import AppNavbar from "components/Nav/AppNavbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "components/Loading/Loading";
 import { Container } from "react-bootstrap";
