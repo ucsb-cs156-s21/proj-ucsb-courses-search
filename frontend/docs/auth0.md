@@ -51,7 +51,7 @@ In this repo, we have the following templates for secrets:
 
 On the same page you should see a "Domain" and "Client ID".
 
-- Copy those values into your `frontent/.env.local` file.
+- Copy those values into your `frontend/.env.local` file.
 - You may also see other fields such as `REACT_APP_AUTH0_AUDIENCE`; don't worry about those for now. We'll fill in the other fields in later steps.
 
 In the "Connections" tab of **your app** (not from the sidebar)
@@ -64,7 +64,7 @@ In the "Connections" tab of **your app** (not from the sidebar)
 
 ## Creating an Auth0 API and filling in the `Audience` value
 
-To fill in the value for `REACT_APP_AUTH0_AUDIENCE` in your `frontent/.env.local` file, go to the sidebar in Auth0, and locate the `APIs` tab.
+To fill in the value for `REACT_APP_AUTH0_AUDIENCE` in your `frontend/.env.local` file, go to the sidebar in Auth0, and locate the `APIs` tab.
 
 You should see (at least) one API listed, namely the `Auth0 Management API`. This API is used to manage all other APIs, so we'll create an API that is specific to just our application.
 
@@ -81,7 +81,7 @@ It should end up looking like the below image (with your application name):
 
 ![Auth0 API setup](./images/auth0-api-setup.png)
 
-Hit `Create`, and navigate to the `Settings` tab of your API, and find the `Identifier` field. You should copy that value and paste it into the `REACT_APP_AUTH0_AUDIENCE` value in your `frontent/.env.local` file.
+Hit `Create`, and navigate to the `Settings` tab of your API, and find the `Identifier` field. You should copy that value and paste it into the `REACT_APP_AUTH0_AUDIENCE` value in your `frontend/.env.local` file.
 
 ## Setting up Google OAuth
 
