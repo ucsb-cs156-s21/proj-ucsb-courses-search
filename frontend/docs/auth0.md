@@ -85,13 +85,13 @@ Hit `Create`, and navigate to the `Settings` tab of your API, and find the `Iden
 
 ## Setting up Google OAuth
 
-Next you will need to log in to your Google Account and create a Google OAuth Application.
+You are now going to set the clientId and client secret for the Google OAuth "Social Login Connection" for *your entire Auth0 tenant*.  Note that there is only one of these per tenant.  It can be shared across multiple applicants within the same tenant, so if you end up creating multiple Google OAuth applications in the same tenant, you only need to do this step once.
 
-We suggest you use the Google Account associated your UCSB email address.
+To do this, you will need to log in to your Google Account and create a Google OAuth Application.  We suggest you use the Google Account associated your UCSB email address.
 
 The instructions below are based on the instructions <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">here</a>.
 
-Before you start, get the Auth0 domain loaded in one of your browser tabs; you can find it by navigating to your account on <https://auth0.com>, clicking on "Applications in the side bar, locating the specific application you created (e.g. `test-demo-spring-react-app` and then locating `Auth0 Domain` as a field in the settings tab.
+Before you start, get the Auth0 domain loaded in one of your browser tabs; you can find it by navigating to your account on <https://auth0.com>, clicking on "Applications in the side bar, locating one of the specific applications you created (e.g. `test-demo-spring-react-app` and then locating `Auth0 Domain` as a field in the settings tab.  This "domain" is consistant across all applications in your tenant.
 
 1. Navigate to page <a href="https://developers.google.com/identity/sign-in/web/sign-in" target="_blank">Google OAuth Instructions</a> and click where it says "Go to the Credentials Page".
 2. Click `Create credentials > OAuth client ID.`
@@ -101,7 +101,7 @@ Before you start, get the Auth0 domain loaded in one of your browser tabs; you c
 6. Scroll down and click "Create" to create your Google OAuth App.
 7. You should see a pop-up with a "Client ID" and "Client Secret"; _leave this browser tab open for a moment_. You will need to copy these values in the next step.
 
-Now, return to the browser tab open to your Auth0 application.
+Now, return to the browser tab open to your Auth0 application.   
 
 - Do not be confused that there is a Client Id and Client Secret on Auth0 page; this is a _different_ client id and client secret.
 - Instead, navigate to the "Connections -> Social" page in the sidebar, as shown in the image below.
