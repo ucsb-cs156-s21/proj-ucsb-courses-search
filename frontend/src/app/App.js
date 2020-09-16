@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import AppNavbar from "../components/Nav/AppNavbar";
-import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../components/Loading/Loading";
+// import AppNavbar from "../components/Nav/AppNavbar";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import AppFooter from "../components/Footer/AppFooter";
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppNavbar />
+      {/* <AppNavbar /> */}
       <Container className="flex-grow-1 mt-5">
         <Switch>
           <Route path="/" exact component={Home} />
