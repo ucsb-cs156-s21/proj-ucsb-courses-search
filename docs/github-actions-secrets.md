@@ -40,7 +40,19 @@ To get started, you'll need to do two things first:
   for CS156, you should see the name of that organization (e.g. `ucsb-cs156-f20`)Note that the quarter may be different depending on when you are reading these
   instructions--navigate to the organization for the current quarter.
   
-  You should then be able to navigate to your own repo, and get to a page that has, across the top, tabs such as these:
+
+  You should then be able to navigate to a link for your own repo.
+  
+  If you do NOT see your organization or repo, you can also try just 
+  putting in a URL directly that has the following form, replacing `ORG-NAME`
+  with the name of your class organization e.g. `ucsb-cs156-f20` and
+  `REPO-NAME` with the name of your repo.
+
+  ```
+  https://codecov.io/gh/ORG-NAME/REPO-NAME
+  ```
+
+  That should take you to a page that has, across the top, tabs such as these:
 
   | Overview | Commits | Branches | Pulls | Compares | Settings
 
