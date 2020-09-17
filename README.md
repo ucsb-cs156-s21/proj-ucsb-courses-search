@@ -1,6 +1,6 @@
 # Demo Spring React App
 
-[![Codecov Coverage](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-react-app/branch/master/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-react-app)
+[![codecov](https://codecov.io/gh/ucsb-cs156-f20/pconrad-demo-spring-react-app/branch/main/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/pconrad-demo-spring-react-app)
 
 A demo todo app with Spring Boot and Create React App.
 
