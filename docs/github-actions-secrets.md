@@ -47,3 +47,16 @@ To get started, you'll need to do two things first:
   The tab you want is `Settings`, and under `Settings` you will find the
   token value to copy into the Secret called `CODECOV_TOKEN`.
 
+# Adjusting the Code Coverage Badge
+
+Many repos have a "badge" at the top of their README.md file that serves
+two purposes: it shows the current level of code coverage, and it's a 
+link to the code coverage report.
+
+On the same Settings page where you got the token, if you look at the left, there
+is a left navigation option for "Badge".  You can copy/paste that Markdown
+into your README.md file to get the badge to show up.
+
+Note that if you used starter code for your repo that already had a badge in it,
+it likely doesn't point to the code coverage for your repo; rather it points to the
+code coverage of the repo you copied the README.md file from.  You should fix this.
