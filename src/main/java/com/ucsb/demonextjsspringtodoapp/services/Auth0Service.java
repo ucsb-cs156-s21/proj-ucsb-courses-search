@@ -2,7 +2,6 @@ package com.ucsb.demonextjsspringtodoapp.services;
 
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

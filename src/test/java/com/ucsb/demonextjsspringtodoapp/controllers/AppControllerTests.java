@@ -1,6 +1,5 @@
 package com.ucsb.demonextjsspringtodoapp.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ucsb.demonextjsspringtodoapp.models.GoogleUserProfile;
 import com.ucsb.demonextjsspringtodoapp.services.Auth0Service;
 

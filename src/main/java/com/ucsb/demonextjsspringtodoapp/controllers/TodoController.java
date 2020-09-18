@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
-
+import javax.validation.Valid;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ucsb.demonextjsspringtodoapp.models.Todo;
 import com.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
-import com.ucsb.demonextjsspringtodoapp.services.Auth0Service;
 
 @RestController
 public class TodoController {
@@ -30,16 +29,14 @@ public class TodoController {
   @Autowired
   private TodoRepository todoRepository;
 
-  @Autowired
-  private Auth0Service auth0Service;
+  private ObjectMapper mapper = new ObjectMapper();
 
   @PostMapping(value = "/api/todos", produces = "application/json")
   public ResponseEntity<String> createTodo(@RequestHeader("Authorization") String authorization,
-      @RequestBody Todo todo) throws JsonProcessingException {
+      @RequestBody @Valid Todo todo) throws JsonProcessingException {
     DecodedJWT jwt = JWT.decode(authorization.substring(7));
     todo.setUserId(jwt.getSubject());
     Todo savedTodo = todoRepository.save(todo);
-    ObjectMapper mapper = new ObjectMapper();
     String body = mapper.writeValueAsString(savedTodo);
     return ResponseEntity.ok().body(body);
   }

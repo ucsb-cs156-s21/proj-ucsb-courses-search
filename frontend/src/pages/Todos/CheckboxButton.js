@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import checkbox from "assets/checkbox.svg";
 import checkboxChecked from "assets/checkbox-checked.svg";
 

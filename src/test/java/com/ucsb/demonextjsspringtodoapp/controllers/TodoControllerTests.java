@@ -28,7 +28,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ucsb.demonextjsspringtodoapp.models.Todo;
 import com.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
-import com.ucsb.demonextjsspringtodoapp.services.Auth0Service;
 
 @WebMvcTest(value = TodoController.class)
 @WithMockUser
@@ -42,9 +41,6 @@ public class TodoControllerTests {
 
   @MockBean
   TodoRepository mockTodoRepository;
-
-  @MockBean
-  private Auth0Service mockAuth0Service;
 
   private String userToken() {
     return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
