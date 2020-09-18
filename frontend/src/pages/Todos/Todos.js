@@ -32,7 +32,7 @@ const TodoList = () => {
     });
     await mutateTodos();
   };
-  const deleteTodo = async (index, id) => {
+  const deleteTodo = async (id) => {
     await fetchWithToken(`/api/todos/${id}`, getToken, {
       method: "DELETE",
       headers: {
