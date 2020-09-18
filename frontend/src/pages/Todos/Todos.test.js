@@ -88,9 +88,9 @@ describe("TodoList test", () => {
     expect(mutateSpy).toHaveBeenCalledTimes(1);
   });
   test("can toggle existing todo", async () => {
-    const { getByText } = render(<TodoList />);
-    const todo = getByText("complete todo");
-    userEvent.click(todo);
+    const { getAllByAltText } = render(<TodoList />);
+    const todoCheckboxes = getAllByAltText("checkbox");
+    userEvent.click(todoCheckboxes[0]);
     await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
     expect(mutateSpy).toHaveBeenCalledTimes(1);
   });

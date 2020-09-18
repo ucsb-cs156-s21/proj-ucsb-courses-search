@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.0.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.2",
     "cross-env": "^7.0.2",
     "isomorphic-unfetch": "^3.0.0",
@@ -67,6 +65,8 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^11.0.2"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.5"
   }
 }

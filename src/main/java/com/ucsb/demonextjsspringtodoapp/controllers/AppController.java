@@ -38,7 +38,6 @@ public class AppController {
   public GoogleUserProfile privateEndpoint(@RequestHeader("Authorization") String authorization)
       throws Exception {
     GoogleUserProfile profile = auth0Service.getInfoFromAuthorization(authorization);
-    logger.info(profile.toJSONString());
     return profile;
   }
 }
