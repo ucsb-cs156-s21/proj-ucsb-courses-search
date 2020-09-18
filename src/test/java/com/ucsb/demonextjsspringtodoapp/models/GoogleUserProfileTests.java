@@ -38,4 +38,10 @@ public class GoogleUserProfileTests {
     GoogleUserProfile googleuserprofile = GoogleUserProfile.fromJSON("");
     assertEquals(googleuserprofile, null);
   }
+
+  @Test
+  public void testGoogleUserProfile_toJSON() throws Exception {
+    GoogleUserProfile googleuserprofile = GoogleUserProfile.fromJSON(googleUserString());
+    assertEquals(googleuserprofile, GoogleUserProfile.fromJSON(googleuserprofile.toJSONString()));
+  }
 }
