@@ -2,14 +2,10 @@ import React from "react";
 import checkbox from "assets/checkbox.svg";
 import checkboxChecked from "assets/checkbox-checked.svg";
 
-const CheckboxButton = ({ item, toggle }) => {
+const CheckboxButton = ({ item, index, toggle }) => {
   const handleCheckBoxClick = (e) => {
     e.preventDefault();
-    const updatedItem = {
-      ...item,
-      done: !item.done,
-    };
-    toggle(updatedItem, updatedItem.id);
+    toggle(index, item.id);
   };
 
   return (
