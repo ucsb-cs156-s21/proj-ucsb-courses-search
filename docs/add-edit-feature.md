@@ -264,6 +264,7 @@ It turns out that in our hurry to secure this endpoint against malicious request
 Head back to the `TodoControllerTests.java` file and add a final test to cover the missing branch. An example test is shown below.
 
 ```java
+// TodoController.java#updateTodo
   @Test
   public void testUpdateTodo_todoAtPathOwned_butTryingToInjectTodoForAnotherUser()
       throws Exception {
@@ -290,3 +291,149 @@ If you haven't already, commit your changes.
 ## Scoping out the frontend
 
 So now that backend is updated, let's check in on the frontend. In order to do this, we're going to run `mvn spring-boot:run`, and then visit `localhost:8080` in our browser.
+
+Clicking around, it seems that most of the app still works _except_ for toggling a todo's `done` status.
+
+![Toggle not working](./images/no-toggle.gif)
+
+Given that we're going to dive into frontend code, let's boot up the frontend _separately_ from the backend.
+
+- Open either a new terminal window or tab and navigate to the root of this project.
+- Run `cd frontend` to move into the `frontend` directory
+- Run `npm install` and then `npm start`.
+
+Now, if you visit `localhost:3000` in your browser, you'll see your frontend!
+
+- Why bother doing this? You might have noticed that running `mvn spring-boot:run` is a tad slow. By running the frontend separately from our backend, we can see changes made to our React frontend almost instantly. We're still able to talk to our backend on `localhost:8080` as if it was on `localhost:3000` because of the `proxy` field defined in the `frontend/package.json`.
+
+So it looks like our steps to completion are as follows:
+
+- Fix the broken toggle behavior for (un)completing Todos.
+- Add an editable form to each listed Todo.
+
+Let's begin with the first one
+
+## Fix the broken toggle behavior
+
+If you take some time to look around, you might finally end up in `frontend/src/pages/Todos/Todos.js`. In particular, you might be looking at this function declaration here:
+
+```javascript
+// frontend/src/pages/Todos/Todo.js
+const toggleTodo = async (index, id) => {
+  await fetchWithToken(`/api/todos/${id}`, getToken, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    noJSON: true,
+  });
+  await mutateTodos();
+};
+```
+
+There are two issues with the way this function works:
+
+- The function only takes an `index` and an `id`, with not Todo item to put in the body of the request.
+- The function has `method: "POST"` instead of `method: "PUT"`.
+
+But let's follow TDD and first change the tests. The tests we end up wanting to fix are:
+
+| File                                              | Test name                                                                         | Fix description                                         |
+| ------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `frontend/src/pages/Todos/CheckboxButton.test.js` | `"clicking the button invokes the provided toggle method with correct arguments"` | We need to change what values `toggle` is invoked with. |
+| `frontend/src/pages/Todos/Todos.test.js`          | `"can toggle existing todo"`                                                      | We need to add specificity to this test.                |
+
+The changes should end up looking something like this for each test:
+
+```javascript
+// frontend/src/pages/Todos/CheckboxButton.test.js
+test("clicking the button invokes the provided toggle method with correct arguments", () => {
+  const toggleSpy = jest.fn();
+  // Add the updated item here
+  const updatedItem = {
+    ...item,
+    done: !item.done,
+  };
+  const { getByAltText } = render(
+    <CheckboxButton item={item} index={0} toggle={toggleSpy} />
+  );
+  userEvent.click(getByAltText("checkbox"));
+  expect(toggleSpy).toHaveBeenCalledTimes(1);
+  // Expect the toggle method to be called with the updated item.
+  expect(toggleSpy).toHaveBeenCalledWith(updatedItem, item.id);
+});
+```
+
+```javascript
+// frontend/src/pages/Todos/Todos.test.js
+test("can toggle existing todo", async () => {
+  const { getAllByAltText } = render(<TodoList />);
+  const todoCheckboxes = getAllByAltText("checkbox");
+  userEvent.click(todoCheckboxes[0]);
+  await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
+  // Pick out and update the selected todo
+  const selectedTodo = todos[0];
+  const updatedTodo = {
+    ...selectedTodo,
+    done: !selectedTodo.done,
+  };
+  // Verify that fetchWithToken is called correctly
+  expect(fetchWithToken).toHaveBeenCalledWith(
+    "/api/todos/1",
+    getAccessTokenSilentlySpy,
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedTodo),
+    }
+  );
+  expect(mutateSpy).toHaveBeenCalledTimes(1);
+});
+```
+
+We can now open up another terminal window at the root of our project, `cd frontend`, and run `npm test` in order to see the test output. We should see 2 failing tests, and the output should clearly indicate the differences between the expectations and the actual output.
+
+We can add both of the following code changes to resolve these testing issues.
+
+```javascript
+// frontend/src/pages/Todos/CheckboxButton.js
+const handleCheckBoxClick = (e) => {
+  e.preventDefault();
+  // Clone and update the item
+  const updatedItem = {
+    ...item,
+    done: !item.done,
+  };
+  // Pass the updatedItem to toggle.
+  toggle(updatedItem, item.id);
+};
+```
+
+- _Note_: The reason we make a clone of `item` and update the clone instead is to prevent any potential race conditions between the item's update cycle and calling the toggle method. If you want to learn more, you can read up on this [here](https://reactjs.org/docs/react-component.html#state).
+
+```javascript
+// frontend/src/pages/Todos/Todo.js
+const toggleTodo = async (item, id) => {
+  await fetchWithToken(`/api/todos/${id}`, getToken, {
+    // Change the HTTP method to PUT
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    // Add the todo item to the body of the request
+    body: JSON.stringify(item),
+    // Remove the noJSON field because we now receive an JSON in the response
+  });
+  await mutateTodos();
+};
+```
+
+The tests should automatically run as you update the files, and should now all pass. Hit `q` in the test window to escape the testing loop, and then run `npm run coverage` to check the coverage report. It should report 100% coverage.
+
+If you check over on your browser at `localhost:3000`, you should now see that toggling the todo's `done` field is now working.
+
+Whew! 1 of 2 changes done; make sure to commit your changes and stretch out.
+
+##

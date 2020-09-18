@@ -92,6 +92,22 @@ describe("TodoList test", () => {
     const todoCheckboxes = getAllByAltText("checkbox");
     userEvent.click(todoCheckboxes[0]);
     await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
+    const selectedTodo = todos[0];
+    const updatedTodo = {
+      ...selectedTodo,
+      done: !selectedTodo.done,
+    };
+    expect(fetchWithToken).toHaveBeenCalledWith(
+      "/api/todos/1",
+      getAccessTokenSilentlySpy,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedTodo),
+      }
+    );
     expect(mutateSpy).toHaveBeenCalledTimes(1);
   });
 

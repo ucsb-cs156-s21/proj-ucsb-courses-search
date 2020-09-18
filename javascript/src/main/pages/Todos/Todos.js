@@ -22,13 +22,13 @@ const TodoList = () => {
   if (!todoList) {
     return <Loading />;
   }
-  const toggleTodo = async (index, id) => {
+  const toggleTodo = async (item, id) => {
     await fetchWithToken(`/api/todos/${id}`, getToken, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      noJSON: true,
+      body: JSON.stringify(item),
     });
     await mutateTodos();
   };
