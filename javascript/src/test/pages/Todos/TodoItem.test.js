@@ -29,8 +29,8 @@ describe("TodoItem tests", () => {
       toggleTodo: jest.fn(),
       deleteTodo: jest.fn(),
     };
-    const { getByText } = render(<TodoItem {...props} />);
-    const item = getByText(props.item.value);
+    const { getByDisplayValue } = render(<TodoItem {...props} />);
+    const item = getByDisplayValue(props.item.value);
     expect(item).toBeInTheDocument();
   });
 

@@ -436,4 +436,267 @@ If you check over on your browser at `localhost:3000`, you should now see that t
 
 Whew! 1 of 2 changes done; make sure to commit your changes and stretch out.
 
-##
+## Add an editable form to each todo item
+
+Ideally, we'd be able to have some sort of edit button that we can click to allow us to edit the name of the todo item, and for that same button to save the changes when we're done.
+
+Let's once more begin with the tests. We're going to write a test in `frontend/src/pages/Todos/Todos.test.js` that will exercise the form we're imagining.
+
+```javascript
+test("can edit a todo", async () => {
+  // render the todo list
+  const { getAllByText, getByDisplayValue, getByText } = render(<TodoList />);
+  // find the edit button and click it
+  const editButtons = getAllByText("Edit");
+  userEvent.click(editButtons[0]);
+  // declare the todo I'm selecting and it's updated version
+  const selectedTodo = todos[0];
+  const updatedTodo = {
+    ...selectedTodo,
+    value: "my new todo",
+  };
+  // find the input field for the todo that I'm editing
+  const input = getByDisplayValue(selectedTodo.value);
+  // clear and update the value of the input field
+  userEvent.clear(input);
+  userEvent.type(input, updatedTodo.value);
+  // hit the "Done" button to save my changes
+  const doneButton = getByText("Done");
+  userEvent.click(doneButton);
+  // wait for the request to come back
+  await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
+  // double check that everything was called correctly
+  expect(mutateSpy).toHaveBeenCalledTimes(1);
+  expect(fetchWithToken).toHaveBeenCalledWith(
+    "/api/todos/1",
+    getAccessTokenSilentlySpy,
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedTodo),
+    }
+  );
+  // confirm that the done button reverts to being an edit button
+  const editButtonsAfterEdit = getAllByText("Edit");
+  expect(editButtonsAfterEdit.length).toBe(todos.length);
+});
+```
+
+We can now begin writing code that will allow this test to pass.
+
+In terms of keeping the `TodoItem` component from growing extremely bloated, we're going to create a new `TodoEditForm` component that will handle displaying the form along with the button. It will also make testing the behavior of the form itself cleaner, as it does not have to live alongside the tests for `TodoItem` as well.
+
+We can begin by changing the return value in `frontend/src/pages/Todos/TodoItem` to:
+
+```javascript
+<ListGroup.Item style={{ backgroundColor }}>
+  <Row>
+    <Col md={1}>
+      <CheckboxButton item={item} toggle={toggleTodo} />
+    </Col>
+    <Col md={10}>
+      <TodoEditForm />
+    </Col>
+    <Col md={1}>
+      <Button className="btn-danger" onClick={(e) => deleteTodo(item.id)}>
+        Delete
+      </Button>
+    </Col>
+  </Row>
+</ListGroup.Item>
+```
+
+Making this change will break a large number of tests due to `TodoEditForm` being undefined To achieve this, we'll create the files `TodoEditForm.js` and `TodoEditForm.test.js` in the `frontend/src/pages/Todos/` directory, and filling them like so:
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.js
+import React from "react";
+
+const TodoEditForm = () => {
+  return <div>Todo Edit Form</div>;
+};
+
+export default TodoEditForm;
+```
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.test.js
+import React from "react";
+import { render } from "@testing-library/react";
+import TodoEditForm from "./TodoEditForm";
+
+describe("Todo Edit Form tests", () => {
+  test("renders without crashing", () => {
+    render(<TodoEditForm />);
+  });
+});
+```
+
+You'll also need to add the following import to `frontend/src/pages/Todos/TodoItem.js`:
+
+```javascript
+// frontend/src/pages/Todos/TodoItem.js
+import TodoEditForm from "./TodoEditForm";
+```
+
+If you look at the tests now, you should see that tests for `TodoItem` are also failing; we should quickly update them to fit our new expectations.
+
+We need to update the `"renders complete item correctly"` test to be the following:
+
+```javascript
+// frontend/src/pages/Todos/TodoItem.test.js
+test("renders complete item correctly", () => {
+  const props = {
+    item: {
+      value: "value",
+      id: 1,
+      done: true,
+    },
+    index: 0,
+    toggleTodo: jest.fn(),
+    deleteTodo: jest.fn(),
+  };
+  // Change this to be getByDisplayValue because the item name will now be in a form input
+  const { getByDisplayValue } = render(<TodoItem {...props} />);
+  // Update the call being made below as well
+  const item = getByDisplayValue(props.item.value);
+  expect(item).toBeInTheDocument();
+});
+```
+
+We now need to consider what goes into creating an edit form for Todos. We have the following requirements as per the test we wrote for `frontend/src/pages/Todos/.test.js`:
+
+- There must be a button with `Edit` on each Todo item.
+- The form should have the current value of the Todo item in an input field.
+- When the `Edit` button is clicked, user should then be able to select and update the input field containing the Todo's value.
+- When `Edit` button is clicked, a `Done` button should appear (perhaps replacing `Edit`?) on each Todo being edited.
+- When `Done` is clicked, the component should revert to having an `Edit` button, and the update request should be fired.
+
+Let's go ahead and encode some of these requirements into tests in `frontend/src/pages/Todos/TodoEditForm.test.js`:
+
+```javascript
+import React from "react";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import TodoEditForm from "./TodoEditForm";
+
+describe("Todo Edit Form tests", () => {
+  const item = {
+    value: "todo",
+    id: 1,
+    userId: "123456",
+    done: false,
+  };
+  const update = jest.fn();
+
+  const props = {
+    item,
+    update,
+  };
+
+  test("renders without crashing", () => {
+    render(<TodoEditForm {...props} />);
+  });
+
+  test("there should be an edit button on the form", () => {
+    const { getByText } = render(<TodoEditForm {...props} />);
+    const editButton = getByText("Edit");
+    expect(editButton).toBeInTheDocument();
+  });
+
+  test("clicking on the edit button should change the button to show done instead", () => {
+    const { getByText } = render(<TodoEditForm {...props} />);
+    const editButton = getByText("Edit");
+    userEvent.click(editButton);
+  });
+
+  test("going into edit mode, updating the value, and clicking done behaves correctly", () => {
+    const { getByText, getByDisplayValue } = render(
+      <TodoEditForm {...props} />
+    );
+    const updatedItem = {
+      ...item,
+      value: "updated todo",
+    };
+
+    const editButton = getByText("Edit");
+    userEvent.click(editButton);
+    const input = getByDisplayValue(item.value);
+    userEvent.clear(input);
+    userEvent.type(input, updatedItem.value);
+
+    const doneButton = getByText("Done");
+    userEvent.click(doneButton);
+
+    const editButtonAfterDone = getByText("Edit");
+    expect(editButtonAfterDone).toBeInTheDocument();
+
+    expect(update).toHaveBeenCalledTimes(1);
+    expect(update).toHaveBeenCalledWith(updatedItem, updatedItem.id);
+  });
+});
+```
+
+To make all of these tests pass, we're going to need to make the following changes:
+
+```javascript
+// frontend/src/pages/Todos/TodoItem.js
+return (
+  ...
+  <Col md={10}>
+    <TodoEditForm update={toggleTodo} item={item} />
+  </Col>
+  ...
+)
+```
+
+- _Note_: we'll come back and refactor the very outdate `toggleTodo` name afterwards.
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.js
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
+
+const TodoEditForm = ({ item, update }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [value, setValue] = useState(item.value);
+
+  const buttonName = editMode ? "Done" : "Edit";
+  const textDecoration = !editMode && item.done ? "line-through" : "none";
+
+  const handleOnClickOrSubmit = (event) => {
+    event.preventDefault();
+    if (editMode) {
+      const updatedItem = {
+        ...item,
+        value,
+      };
+      update(updatedItem, updatedItem.id);
+    }
+    setEditMode(!editMode);
+  };
+
+  return (
+    <Form inline onSubmit={handleOnClickOrSubmit}>
+      <Form.Control
+        style={{ width: "90%", textDecoration }}
+        type="text"
+        placeholder="todo name"
+        readOnly={!editMode}
+        plaintext={!editMode}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Button onClick={handleOnClickOrSubmit}>{buttonName}</Button>
+    </Form>
+  );
+};
+
+export default TodoEditForm;
+```
+
+Go ahead and run the tests and coverage report with `npm run coverage`; it should report 100% coverage. If you check out `localhost:3000`, you should see something akin to the following:
+
+![Working edit](./images/working-edit.gif)

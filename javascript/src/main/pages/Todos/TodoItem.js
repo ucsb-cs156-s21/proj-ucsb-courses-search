@@ -1,6 +1,7 @@
 import React from "react";
 import { ListGroup, Button, Row, Col } from "react-bootstrap";
 import CheckboxButton from "./CheckboxButton";
+import TodoEditForm from "./TodoEditForm";
 
 export function TodoItem({ item, index, toggleTodo, deleteTodo }) {
   const backgroundColor = item.done ? "#ddd" : "#fff";
@@ -12,16 +13,7 @@ export function TodoItem({ item, index, toggleTodo, deleteTodo }) {
           <CheckboxButton item={item} toggle={toggleTodo} />
         </Col>
         <Col md={10}>
-          <div
-            variant="link"
-            style={{
-              textDecorationLine: item.done ? "line-through" : "none",
-              color: "black",
-              padding: "8px",
-            }}
-          >
-            {item.value}
-          </div>
+          <TodoEditForm update={toggleTodo} item={item} />
         </Col>
         <Col md={1}>
           <Button className="btn-danger" onClick={(e) => deleteTodo(item.id)}>
