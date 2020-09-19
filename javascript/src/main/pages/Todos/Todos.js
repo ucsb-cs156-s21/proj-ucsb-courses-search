@@ -22,7 +22,7 @@ const TodoList = () => {
   if (!todoList) {
     return <Loading />;
   }
-  const toggleTodo = async (item, id) => {
+  const updateTodo = async (item, id) => {
     await fetchWithToken(`/api/todos/${id}`, getToken, {
       method: "PUT",
       headers: {
@@ -62,7 +62,7 @@ const TodoList = () => {
         key={index}
         item={item}
         index={index}
-        toggleTodo={toggleTodo}
+        updateTodo={updateTodo}
         deleteTodo={deleteTodo}
       />
     );

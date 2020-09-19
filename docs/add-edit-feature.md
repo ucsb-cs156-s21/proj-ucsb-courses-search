@@ -700,3 +700,112 @@ export default TodoEditForm;
 Go ahead and run the tests and coverage report with `npm run coverage`; it should report 100% coverage. If you check out `localhost:3000`, you should see something akin to the following:
 
 ![Working edit](./images/working-edit.gif)
+
+## Clean up
+
+There are two things we should clean up before making a PR:
+
+- `toggleTodo` is incorrectly named; it should be something like `updateTodo`
+- We don't prevent the user from saving a blank todo.
+
+Going in order, let's first refactor `toggleTodo` to be `updateTodo`. Let's break with TDD for a moment and simply do our rename for `toggleTodo` in `TodoItem.js`:
+
+```javascript
+// frontend/src/pages/Todos/TodoItem.js
+export function TodoItem({ item, index, updateTodo, deleteTodo }) {
+  ...
+  return (
+    ...
+        <Col md={1}>
+          <CheckboxButton item={item} toggle={updateTodo} />
+        </Col>
+        <Col md={10}>
+          <TodoEditForm update={updateTodo} item={item} />
+        </Col>
+    ...
+  );
+}
+```
+
+If you run tests, you'll notice that quite a number of tests are broken. This is one of the benefits of having high code coverage; any consequential change you make should be detected by tests. One of the key benefits of TDD is high code coverage, which is why we encourage it.
+
+Go ahead and make the following changes to `Todo.js` and `TodoItem.test.js` in order to resolve the tests:
+
+```javascript
+// frontend/src/pages/Todos/Todo.js
+const TodoList = () => {
+  ...
+  // const toggleTodo = ...
+  const updateTodo = async (item, id) => {
+    ...
+  };
+  ...
+  var items = todoList.map((item, index) => {
+    return (
+      <TodoItem
+        key={index}
+        item={item}
+        index={index}
+        // toggleTodo={toggleTodo}
+        updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
+      />
+    );
+  });
+  ...
+};
+
+export default TodoList;
+
+```
+
+```javascript
+// frontend/src/pages/Todos/TodoItem.test.js
+import React from "react";
+import { screen, render } from "@testing-library/react";
+import { TodoItem } from "./TodoItem";
+import userEvent from "@testing-library/user-event";
+
+describe("TodoItem tests", () => {
+  test("renders without crashing", () => {
+    const props = {
+      ...
+      //toggleTodo: jest.fn(),
+      updateTodo: jest.fn(),
+      ...
+    };
+    ...
+  });
+
+  test("renders complete item correctly", () => {
+    const props = {
+      ...
+      //toggleTodo: jest.fn(),
+      updateTodo: jest.fn(),
+      ...
+    };
+    ...
+  });
+
+  test("clicking on checkbox button triggers toggleTodo -> updateTodo", () => {
+    const props = {
+      ...
+      //toggleTodo: jest.fn(),
+      updateTodo: jest.fn(),
+      ...
+    };
+    ...
+    expect(props.updateTodo).toHaveBeenCalledTimes(1);
+  });
+
+  test("clicking on delete button triggers toggleTodo -> deleteTodo", () => {
+    const props = {
+      ...
+      //toggleTodo: jest.fn(),
+      updateTodo: jest.fn(),
+      ...
+    };
+    ...
+  });
+});
+```
