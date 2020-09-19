@@ -57,4 +57,47 @@ describe("Todo Edit Form tests", () => {
     expect(update).toHaveBeenCalledTimes(1);
     expect(update).toHaveBeenCalledWith(updatedItem, updatedItem.id);
   });
+
+  test("should not be able to update the todo with an empty string for the value", () => {
+    const { getByText, getByDisplayValue } = render(
+      <TodoEditForm {...props} />
+    );
+    const updatedItem = {
+      ...item,
+      value: "updated todo",
+    };
+
+    const editButton = getByText("Edit");
+    userEvent.click(editButton);
+    const input = getByDisplayValue(item.value);
+    userEvent.clear(input);
+
+    const doneButton = getByText("Done");
+    userEvent.click(doneButton);
+
+    expect(getByText("Done")).toBeInTheDocument();
+    expect(update).toHaveBeenCalledTimes(0);
+  });
+
+  test("should not be able to update the todo with an whitespace for the value", () => {
+    const { getByText, getByDisplayValue } = render(
+      <TodoEditForm {...props} />
+    );
+    const updatedItem = {
+      ...item,
+      value: "updated todo",
+    };
+
+    const editButton = getByText("Edit");
+    userEvent.click(editButton);
+    const input = getByDisplayValue(item.value);
+    userEvent.clear(input);
+    userEvent.type(input, "     ");
+
+    const doneButton = getByText("Done");
+    userEvent.click(doneButton);
+
+    expect(getByText("Done")).toBeInTheDocument();
+    expect(update).toHaveBeenCalledTimes(0);
+  });
 });

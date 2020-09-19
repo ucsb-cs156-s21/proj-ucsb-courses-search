@@ -809,3 +809,94 @@ describe("TodoItem tests", () => {
   });
 });
 ```
+
+To add some validation to `TodoEditForm.js`, we'll first write a test to demonstrate the bug:
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.test.js
+test("should not be able to update the todo with an empty string for the value", () => {
+  const { getByText, getByDisplayValue } = render(<TodoEditForm {...props} />);
+  const updatedItem = {
+    ...item,
+    value: "updated todo",
+  };
+
+  const editButton = getByText("Edit");
+  userEvent.click(editButton);
+  const input = getByDisplayValue(item.value);
+  userEvent.clear(input);
+
+  const doneButton = getByText("Done");
+  userEvent.click(doneButton);
+
+  expect(getByText("Done")).toBeInTheDocument();
+  expect(update).toHaveBeenCalledTimes(0);
+});
+```
+
+And then we'll update component to disallow that behavior:
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.js
+const TodoEditForm = ({ item, update }) => {
+  ...
+
+  const handleOnClickOrSubmit = (event) => {
+    event.preventDefault();
+    if (value.length === 0) {
+      return;
+    }
+    ...
+  };
+  ...
+};
+```
+
+If we think about it a little bit more, we also probably don't want strings filled with whitespace to be saved either; again, we'll write the test:
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.test.js
+test("should not be able to update the todo with an whitespace for the value", () => {
+  const { getByText, getByDisplayValue } = render(<TodoEditForm {...props} />);
+  const updatedItem = {
+    ...item,
+    value: "updated todo",
+  };
+
+  const editButton = getByText("Edit");
+  userEvent.click(editButton);
+  const input = getByDisplayValue(item.value);
+  userEvent.clear(input);
+  userEvent.type(input, "     ");
+
+  const doneButton = getByText("Done");
+  userEvent.click(doneButton);
+
+  expect(getByText("Done")).toBeInTheDocument();
+  expect(update).toHaveBeenCalledTimes(0);
+});
+```
+
+And then we'll update the component:
+
+```javascript
+// frontend/src/pages/Todos/TodoEditForm.js
+const TodoEditForm = ({ item, update }) => {
+  ...
+
+  const handleOnClickOrSubmit = (event) => {
+    event.preventDefault();
+    if (value.trim().length === 0) {
+      return;
+    }
+    ...
+  };
+  ...
+};
+```
+
+And just like that, we've protected our user from empty/whitespace Todos!
+
+Check that coverage is still solid with `npm run coverage`, and check that it's 100%. If it is, commit and push because we're done coding for now.
+
+Also, don't forget to move your card over to `In QA`, `In Review`, or `Done` depending on your team's workflow.

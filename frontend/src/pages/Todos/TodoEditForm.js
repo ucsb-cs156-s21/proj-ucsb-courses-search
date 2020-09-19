@@ -10,6 +10,9 @@ const TodoEditForm = ({ item, update }) => {
 
   const handleOnClickOrSubmit = (event) => {
     event.preventDefault();
+    if (value.trim().length === 0) {
+      return;
+    }
     if (editMode) {
       const updatedItem = {
         ...item,
