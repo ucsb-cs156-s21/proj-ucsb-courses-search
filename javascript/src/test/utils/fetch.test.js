@@ -1,4 +1,4 @@
-import { fetchWithToken } from "./fetch";
+import { fetchWithToken } from "main/utils/fetch";
 import unfetch from "isomorphic-unfetch";
 jest.mock("isomorphic-unfetch");
 

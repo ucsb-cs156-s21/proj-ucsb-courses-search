@@ -1,6 +1,6 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
-import { TodoItem } from "./TodoItem";
+import { TodoItem } from "main/pages/Todos/TodoItem";
 import userEvent from "@testing-library/user-event";
 
 describe("TodoItem tests", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { TodoForm } from "./TodoForm";
+import { TodoForm } from "main/pages/Todos/TodoForm";
 
 describe("TodoForm tests", () => {
   test("renders without crashing", () => {

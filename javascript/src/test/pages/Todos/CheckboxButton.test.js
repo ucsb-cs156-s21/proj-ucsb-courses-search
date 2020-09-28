@@ -1,6 +1,6 @@
 import React from "react";
 import userEvent from "@testing-library/user-event";
-import CheckboxButton from "./CheckboxButton";
+import CheckboxButton from "main/pages/Todos/CheckboxButton";
 import { render, screen } from "@testing-library/react";
 
 describe("Checkbox tests", () => {

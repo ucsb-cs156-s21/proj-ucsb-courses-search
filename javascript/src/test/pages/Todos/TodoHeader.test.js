@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { TodoHeader } from "./TodoHeader";
+import { TodoHeader } from "main/pages/Todos/TodoHeader";
 
 describe("TodoHeader tests", () => {
   test("renders without crashing", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LoginButton from "./LoginButton";
+import LoginButton from "main/components/Nav/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 describe("Login Button tests", () => {

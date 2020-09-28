@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "./App";
+import App from "main/App";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";

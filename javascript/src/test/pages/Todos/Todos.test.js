@@ -4,7 +4,7 @@ import useSWR from "swr";
 jest.mock("swr");
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
-import TodoList from "./Todos";
+import TodoList from "main/pages/Todos/Todos";
 import userEvent from "@testing-library/user-event";
 import { fetchWithToken } from "main/utils/fetch";
 jest.mock("main/utils/fetch");

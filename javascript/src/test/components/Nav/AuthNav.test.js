@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import AuthNav from "./AuthNav";
+import AuthNav from "main/components/Nav/AuthNav";
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 describe("AuthNav tests", () => {
