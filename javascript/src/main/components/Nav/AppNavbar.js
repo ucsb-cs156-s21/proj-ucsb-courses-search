@@ -1,7 +1,7 @@
 import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import AuthNav from "./AuthNav";
+import AuthNav from "main/components/Nav/AuthNav";
 
 function AppNavbar() {
   return (

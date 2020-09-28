@@ -1,5 +1,5 @@
 import React from "react";
-import loading from "assets/loading.svg";
+import loading from "main/assets/loading.svg";
 
 const Loading = () => {
   return (

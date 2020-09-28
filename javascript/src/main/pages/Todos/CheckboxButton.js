@@ -1,6 +1,6 @@
 import React from "react";
-import checkbox from "assets/checkbox.svg";
-import checkboxChecked from "assets/checkbox-checked.svg";
+import checkbox from "main/assets/checkbox.svg";
+import checkboxChecked from "main/assets/checkbox-checked.svg";
 
 const CheckboxButton = ({ item, index, toggle }) => {
   const handleCheckBoxClick = (e) => {

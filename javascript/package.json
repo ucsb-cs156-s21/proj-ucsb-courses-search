@@ -32,11 +32,9 @@
     "resetMocks": true,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/",
       "!src/serviceWorker.js",
       "!src/setupTests.js",
-      "!src/components/Auth/*",
+      "!src/main/components/Auth/*",
       "!src/index.js"
     ],
     "coverageThreshold": {

@@ -6,8 +6,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 import TodoList from "./Todos";
 import userEvent from "@testing-library/user-event";
-import { fetchWithToken } from "utils/fetch";
-jest.mock("utils/fetch");
+import { fetchWithToken } from "main/utils/fetch";
+jest.mock("main/utils/fetch");
 describe("TodoList test", () => {
   const todos = [
     {
