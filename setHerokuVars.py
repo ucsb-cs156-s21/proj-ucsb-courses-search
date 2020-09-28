@@ -17,7 +17,7 @@ def setVar(key, value):
   print(f'heroku config:set {key}={value} --app {app_name}')
   os.system(f'heroku config:set {key}={value} --app {app_name}')
 
-with open('frontend/.env.production') as f:
+with open('javascript/.env.production') as f:
   lines = f.read().split('\n')
   print(lines)
   for line in lines:
