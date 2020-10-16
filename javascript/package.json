@@ -18,10 +18,10 @@
     "uuid": "^8.3.0"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=src/ react-scripts start",
-    "build": "cross-env NODE_PATH=src/ react-scripts build",
-    "test": "cross-env NODE_PATH=src/ react-scripts test --env=jsdom-fourteen",
-    "coverage": "cross-env NODE_PATH=src/ react-scripts test --env=jsdom-fourteen --coverage --watchAll=false",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom-fourteen",
+    "coverage": "react-scripts test --env=jsdom-fourteen --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

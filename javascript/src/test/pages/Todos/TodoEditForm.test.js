@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import TodoEditForm from "./TodoEditForm";
+import TodoEditForm from "main/pages/Todos/TodoEditForm";
 
 describe("Todo Edit Form tests", () => {
   const item = {
