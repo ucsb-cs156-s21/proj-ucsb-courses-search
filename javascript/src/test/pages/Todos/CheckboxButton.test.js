@@ -17,11 +17,15 @@ describe("Checkbox tests", () => {
 
   test("clicking the button invokes the provided toggle method with correct arguments", () => {
     const toggleSpy = jest.fn();
+    const updatedItem = {
+      ...item,
+      done: !item.done,
+    };
     const { getByAltText } = render(
       <CheckboxButton item={item} index={0} toggle={toggleSpy} />
     );
     userEvent.click(getByAltText("checkbox"));
     expect(toggleSpy).toHaveBeenCalledTimes(1);
-    expect(toggleSpy).toHaveBeenCalledWith(0, item.id);
+    expect(toggleSpy).toHaveBeenCalledWith(updatedItem, item.id);
   });
 });

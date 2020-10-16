@@ -5,7 +5,11 @@ import checkboxChecked from "main/assets/checkbox-checked.svg";
 const CheckboxButton = ({ item, index, toggle }) => {
   const handleCheckBoxClick = (e) => {
     e.preventDefault();
-    toggle(index, item.id);
+    const updatedItem = {
+      ...item,
+      done: !item.done,
+    };
+    toggle(updatedItem, item.id);
   };
 
   return (

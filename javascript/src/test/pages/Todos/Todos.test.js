@@ -92,6 +92,22 @@ describe("TodoList test", () => {
     const todoCheckboxes = getAllByAltText("checkbox");
     userEvent.click(todoCheckboxes[0]);
     await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
+    const selectedTodo = todos[0];
+    const updatedTodo = {
+      ...selectedTodo,
+      done: !selectedTodo.done,
+    };
+    expect(fetchWithToken).toHaveBeenCalledWith(
+      "/api/todos/1",
+      getAccessTokenSilentlySpy,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedTodo),
+      }
+    );
     expect(mutateSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -101,5 +117,36 @@ describe("TodoList test", () => {
     userEvent.click(deleteButtons[0]);
     await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
     expect(mutateSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("can edit a todo", async () => {
+    const { getAllByText, getByDisplayValue, getByText } = render(<TodoList />);
+    const editButtons = getAllByText("Edit");
+    userEvent.click(editButtons[0]);
+    const selectedTodo = todos[0];
+    const updatedTodo = {
+      ...selectedTodo,
+      value: "my new todo",
+    };
+    const input = getByDisplayValue(selectedTodo.value);
+    userEvent.clear(input);
+    userEvent.type(input, updatedTodo.value);
+    const doneButton = getByText("Done");
+    userEvent.click(doneButton);
+    await waitFor(() => expect(fetchWithToken).toHaveBeenCalledTimes(1));
+    expect(mutateSpy).toHaveBeenCalledTimes(1);
+    expect(fetchWithToken).toHaveBeenCalledWith(
+      "/api/todos/1",
+      getAccessTokenSilentlySpy,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedTodo),
+      }
+    );
+    const editButtonsAfterEdit = getAllByText("Edit");
+    expect(editButtons.length).toBe(editButtonsAfterEdit.length);
   });
 });

@@ -22,13 +22,13 @@ const TodoList = () => {
   if (!todoList) {
     return <Loading />;
   }
-  const toggleTodo = async (index, id) => {
+  const updateTodo = async (item, id) => {
     await fetchWithToken(`/api/todos/${id}`, getToken, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      noJSON: true,
+      body: JSON.stringify(item),
     });
     await mutateTodos();
   };
@@ -62,7 +62,7 @@ const TodoList = () => {
         key={index}
         item={item}
         index={index}
-        toggleTodo={toggleTodo}
+        updateTodo={updateTodo}
         deleteTodo={deleteTodo}
       />
     );

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,17 +42,23 @@ public class TodoController {
     return ResponseEntity.ok().body(body);
   }
 
-  @PostMapping(value = "/api/todos/{id}", produces = "application/json")
+  @PutMapping(value = "/api/todos/{id}", produces = "application/json")
   public ResponseEntity<String> updateTodo(@RequestHeader("Authorization") String authorization,
-      @PathVariable("id") Long id) {
+      @PathVariable("id") Long id, @RequestBody @Valid Todo incomingTodo)
+      throws JsonProcessingException {
     DecodedJWT jwt = JWT.decode(authorization.substring(7));
     Optional<Todo> todo = todoRepository.findById(id);
     if (!todo.isPresent() || !todo.get().getUserId().equals(jwt.getSubject())) {
       return ResponseEntity.notFound().build();
     }
-    todo.get().setDone(!todo.get().getDone());
-    todoRepository.save(todo.get());
-    return ResponseEntity.noContent().build();
+
+    if (!incomingTodo.getId().equals(id) || !incomingTodo.getUserId().equals(jwt.getSubject())) {
+      return ResponseEntity.badRequest().build();
+    }
+
+    todoRepository.save(incomingTodo);
+    String body = mapper.writeValueAsString(incomingTodo);
+    return ResponseEntity.ok().body(body);
   }
 
   @DeleteMapping(value = "/api/todos/{id}", produces = "application/json")
