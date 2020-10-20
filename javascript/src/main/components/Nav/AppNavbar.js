@@ -16,6 +16,9 @@ function AppNavbar() {
         <LinkContainer to={"/profile"}>
           <Nav.Link>Profile</Nav.Link>
         </LinkContainer>
+        <LinkContainer to={"/about"}>
+            <Nav.Link>About</Nav.Link>
+        </LinkContainer>
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />

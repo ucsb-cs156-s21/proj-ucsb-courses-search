@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Home from "main/pages/Home/Home";
+import Home from "main/pages/About/About";
 
-describe("Home tests", () => {
+describe("About tests", () => {
   test("renders without crashing", () => {
     render(<Home />);
   });
