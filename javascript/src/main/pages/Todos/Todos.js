@@ -7,6 +7,7 @@ import { TodoHeader } from "./TodoHeader";
 import { fetchWithToken } from "main/utils/fetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "main/components/Loading/Loading";
+import { sortTodos } from "../../utils/todoHelpers";
 
 const TodoList = () => {
   const { user, getAccessTokenSilently: getToken } = useAuth0();
@@ -56,8 +57,7 @@ const TodoList = () => {
     });
     await mutateTodos();
   };
-  var items = todoList.map((item, index) => {
-    console.log(item);
+  var items = sortTodos(todoList).map((item, index) => {
     return (
       <TodoItem
         key={index}
