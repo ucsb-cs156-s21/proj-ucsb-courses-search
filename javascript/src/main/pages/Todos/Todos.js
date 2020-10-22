@@ -57,6 +57,7 @@ const TodoList = () => {
     await mutateTodos();
   };
   var items = todoList.map((item, index) => {
+    console.log(item);
     return (
       <TodoItem
         key={index}
