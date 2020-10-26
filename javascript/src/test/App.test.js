@@ -4,6 +4,7 @@ import App from "main/App";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
+
 jest.mock("@auth0/auth0-react");
 describe("App tests", () => {
   beforeEach(() => {
