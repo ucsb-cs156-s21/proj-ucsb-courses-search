@@ -7,7 +7,7 @@ import LogoutButton from "./LogoutButton";
 const AuthNav = () => {
   const { user } = useAuth0();
   if(user) {
-    const { name, picture, email } = user;
+    const { name, picture } = user;
     return <>
       <Navbar.Text style={{marginRight: 15}}>{"Hello, " + name}</Navbar.Text>  
       <img
