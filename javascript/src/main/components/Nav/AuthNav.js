@@ -8,16 +8,19 @@ const AuthNav = () => {
   const { user } = useAuth0();
   if(user) {
     const { name, picture, email } = user;
-    return <><Navbar.Text style={{marginRight: 15}}>{"Hello, " + name}
-      </Navbar.Text>      <img
+    return <>
+      <Navbar.Text style={{marginRight: 15}}>{"Hello, " + name}</Navbar.Text>  
+      <img
             src={picture}
             alt="Profile"
             className="rounded-circle"
             width="36"
             style={{marginRight: 15}}
-      /><LogoutButton /></>
+      />
+      <LogoutButton />
+    </>
   } else {
-    return <><LoginButton/></>
+    return <LoginButton/>
   }
 };
 

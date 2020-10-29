@@ -24,7 +24,7 @@ describe("AuthNav tests", () => {
 
   test("it renders a logout button when logged out", () => {
     useAuth0.mockReturnValueOnce({
-      isAuthenticated: true,
+      user: true,
     });
     const { getByText } = render(<AuthNav />);
     const loginButton = getByText(/Log Out/);
