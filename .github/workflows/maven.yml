@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11.0.x
+      - name: Create dummy javascript build folder
+        run: mkdir javascript/build
       - name: Build with Maven
         env:
           TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
