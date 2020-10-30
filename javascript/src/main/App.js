@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import AppFooter from "main/components/Footer/AppFooter";
+import About from "main/pages/About/About";
 import Home from "main/pages/Home/Home";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/todos" component={TodoList} />
           <PrivateRoute path="/profile" component={Profile} />
+          <Route path="/about" component={About} />
         </Switch>
       </Container>
       <AppFooter />
