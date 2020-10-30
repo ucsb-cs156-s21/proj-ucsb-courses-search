@@ -19,7 +19,7 @@ jobs:
       - name: Build with Maven
         env:
           TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-        run: mvn -B test jacoco:report
+        run: mvn -B test jacoco:report -Dskip.npm
       - name: Upload to Codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
