@@ -60,7 +60,7 @@ const TodoList = () => {
   var items = sortTodos(todoList).map((item, index) => {
     return (
       <TodoItem
-        key={index}
+        key={item.id}
         item={item}
         index={index}
         updateTodo={updateTodo}
