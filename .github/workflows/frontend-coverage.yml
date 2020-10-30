@@ -29,3 +29,22 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash)
+      - uses: actions/checkout@v1
+      - name: Set up JDK 11
+        working-directory: .
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11.0.x
+      - name: Create dummy javascript build folder
+        run: mkdir javascript/build
+        working-directory: .
+      - name: Build with Maven
+        working-directory: .
+        env:
+          TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+        run: mvn -B test jacoco:report -Dskip.npm
+      - name: Upload to Codecov
+        working-directory: .
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
