@@ -30,4 +30,19 @@ describe("AuthNav tests", () => {
     const loginButton = getByText(/Log Out/);
     expect(loginButton).toBeInTheDocument();
   });
+
+  test("it renders a welcome message and profile picture when logged in", () => {
+    const user = {
+      name: "Test",
+      picture: "http://placekitten.com/200/300"
+    }
+    useAuth0.mockReturnValueOnce({
+      user
+    });
+    const { getByText, getByAltText } = render(<AuthNav />);
+    const welcomeText = getByText("Hello, " + user.name);
+    expect(welcomeText).toBeInTheDocument();
+    const profileImage = getByAltText("Profile");
+    expect(profileImage).toBeInTheDocument();
+  });
 });
