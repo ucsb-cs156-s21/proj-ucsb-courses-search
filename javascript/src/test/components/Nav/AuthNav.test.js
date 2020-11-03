@@ -4,6 +4,11 @@ import AuthNav from "main/components/Nav/AuthNav";
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 describe("AuthNav tests", () => {
+  const user = {
+    name: "Test",
+    picture: "http://placekitten.com/200/300"
+  }
+
   beforeEach(() => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
@@ -24,7 +29,7 @@ describe("AuthNav tests", () => {
 
   test("it renders a logout button when logged out", () => {
     useAuth0.mockReturnValueOnce({
-      user: true,
+      user
     });
     const { getByText } = render(<AuthNav />);
     const loginButton = getByText(/Log Out/);
@@ -32,10 +37,7 @@ describe("AuthNav tests", () => {
   });
 
   test("it renders a welcome message and profile picture when logged in", () => {
-    const user = {
-      name: "Test",
-      picture: "http://placekitten.com/200/300"
-    }
+
     useAuth0.mockReturnValueOnce({
       user
     });
