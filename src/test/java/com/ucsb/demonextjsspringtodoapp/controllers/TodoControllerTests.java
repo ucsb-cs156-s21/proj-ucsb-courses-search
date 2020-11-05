@@ -26,7 +26,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ucsb.demonextjsspringtodoapp.models.Todo;
+import com.ucsb.demonextjsspringtodoapp.entities.Todo;
 import com.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
 
 @WebMvcTest(value = TodoController.class)

@@ -20,7 +20,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ucsb.demonextjsspringtodoapp.models.Todo;
+import com.ucsb.demonextjsspringtodoapp.entities.Todo;
 import com.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
 
 @RestController

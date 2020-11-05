@@ -2,7 +2,7 @@ package com.ucsb.demonextjsspringtodoapp.repositories;
 
 import java.util.List;
 
-import com.ucsb.demonextjsspringtodoapp.models.Todo;
+import com.ucsb.demonextjsspringtodoapp.entities.Todo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

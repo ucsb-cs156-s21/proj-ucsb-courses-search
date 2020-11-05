@@ -1,4 +1,4 @@
-package com.ucsb.demonextjsspringtodoapp.models;
+package com.ucsb.demonextjsspringtodoapp.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
