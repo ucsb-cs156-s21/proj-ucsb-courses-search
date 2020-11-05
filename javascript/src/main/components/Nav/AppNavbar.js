@@ -2,6 +2,8 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AuthNav from "main/components/Nav/AuthNav";
+import TodosNav from "main/components/Nav/TodosNav";
+import ProfileNav from "main/components/Nav/ProfileNav";
 
 function AppNavbar() {
   return (
@@ -10,12 +12,8 @@ function AppNavbar() {
         <Navbar.Brand data-testid="brand">Demo Spring React App</Navbar.Brand>
       </LinkContainer>
       <Nav>
-        <LinkContainer to={"/todos"}>
-          <Nav.Link>Todos</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to={"/profile"}>
-          <Nav.Link>Profile</Nav.Link>
-        </LinkContainer>
+        <TodosNav />
+        <ProfileNav />
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
