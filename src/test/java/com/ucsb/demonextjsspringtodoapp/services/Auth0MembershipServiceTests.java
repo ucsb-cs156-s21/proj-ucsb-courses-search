@@ -18,12 +18,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(SpringExtension.class)
-public class GoogleMembershipServiceTests {
+public class Auth0MembershipServiceTests {
 
   @MockBean
   AdminRepository adminRepository;
   @InjectMocks
-  GoogleMembershipService service = new GoogleMembershipService();
+  Auth0MembershipService service = new Auth0MembershipService();
 
   private DecodedJWT guestJWT = JWT.decode(
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20ifQ.8yslpthMLMpwnlSctV5HN-fFJkKinpil61dJmw1m9Oc");

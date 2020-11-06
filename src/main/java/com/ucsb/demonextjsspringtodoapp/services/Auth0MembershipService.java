@@ -12,9 +12,9 @@ import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
  * Service object that determines whether a user is a member of the google org or not.
  */
 @Service
-public class GoogleMembershipService implements MembershipService {
+public class Auth0MembershipService implements MembershipService {
 
-  private Logger logger = LoggerFactory.getLogger(GoogleMembershipService.class);
+  private Logger logger = LoggerFactory.getLogger(Auth0MembershipService.class);
 
 
   @Value("${app.member.hosted-domain}")
