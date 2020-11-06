@@ -37,6 +37,9 @@ public class Auth0MembershipServiceTests {
 
   private AppUser exampleUser = new AppUser(1L, "test@ucsb.edu", "Test", "User");
 
+  private DecodedJWT defaultAdminJWT = JWT.decode(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoiYWRtaW5AdWNzYi5lZHUifQ.mpWDkt1IRqTMQaaYE7qqoZ280iaRyAMaRu_NqU6GZgk");
+
   @BeforeEach
   public void setUp() {
     ReflectionTestUtils.setField(service, "memberHostedDomain", "ucsb.edu");
