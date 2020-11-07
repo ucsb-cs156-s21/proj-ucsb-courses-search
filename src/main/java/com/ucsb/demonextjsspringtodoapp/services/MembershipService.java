@@ -1,6 +1,7 @@
 package com.ucsb.demonextjsspringtodoapp.services;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 
 public interface MembershipService {
 
@@ -12,6 +13,17 @@ public interface MembershipService {
   /** is current logged in user a member of the github org */
   public boolean isAdmin(DecodedJWT jwt);
 
+  public boolean isMember(AppUser user);
+
+  public boolean isAdmin(AppUser user);
+
+  default public String role(AppUser user) {
+    if (isAdmin(user))
+      return "Admin";
+    if (isMember(user))
+      return "Member";
+    return "Guest";
+  }
 
   /**
    * is current logged in user a member or admin of the github org

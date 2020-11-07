@@ -65,8 +65,14 @@ public class AuthControllerAdviceTests {
 
   @Test
   public void test_getRole() {
-    when(mockMembershipService.role(any())).thenReturn("Member");
+    when(mockMembershipService.role(any(DecodedJWT.class))).thenReturn("Member");
     assertEquals("Member", authControllerAdvice.getRole(exampleAuthToken));
+  }
+
+  @Test
+  public void test_getRole_withAppUser() {
+    when(mockMembershipService.role(any(AppUser.class))).thenReturn("Member");
+    assertEquals("Member", authControllerAdvice.getRole(exampleUser));
   }
 
   @Test

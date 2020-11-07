@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 
 /**
@@ -33,6 +34,7 @@ public class Auth0MembershipService implements MembershipService {
    * @param jwt The decoded JSON Web Token that contains all of the user's claims/information
    * @return if the current jwt corresponds to a member
    */
+  @Override
   public boolean isMember(DecodedJWT jwt) {
     return hasRole(jwt, "member");
   }
@@ -43,6 +45,7 @@ public class Auth0MembershipService implements MembershipService {
    * @param jwt The decoded JSON Web Token that contains all of the user's claims/information
    * @return if the current jwt corresponds to an admin
    */
+  @Override
   public boolean isAdmin(DecodedJWT jwt) {
     return hasRole(jwt, "admin");
   }
@@ -80,5 +83,17 @@ public class Auth0MembershipService implements MembershipService {
 
   private boolean isDefaultAdmin(String email) {
     return adminEmails.contains(email);
+  }
+
+  @Override
+  public boolean isMember(AppUser user) {
+    String email = user.getEmail();
+    String hostedDomain = email.substring(email.indexOf("@") + 1);
+    return memberHostedDomain.equals(hostedDomain);
+  }
+
+  @Override
+  public boolean isAdmin(AppUser user) {
+    return isAdminEmail(user.getEmail());
   }
 }
