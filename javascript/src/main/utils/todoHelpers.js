@@ -5,3 +5,14 @@ export const sortTodos = (todos) => {
     return todoOne.value.localeCompare(todoTwo.value);
   });
 }
+
+export const filterTodo = (todo, filter) => {
+  switch (filter) {
+    case "Complete":
+      return todo.done;
+    case "Incomplete":
+      return !todo.done;
+    default:
+      return true;
+  }
+}
