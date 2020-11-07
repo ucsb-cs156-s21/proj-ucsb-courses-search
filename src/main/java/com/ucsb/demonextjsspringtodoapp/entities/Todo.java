@@ -1,4 +1,4 @@
-package com.ucsb.demonextjsspringtodoapp.models;
+package com.ucsb.demonextjsspringtodoapp.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
