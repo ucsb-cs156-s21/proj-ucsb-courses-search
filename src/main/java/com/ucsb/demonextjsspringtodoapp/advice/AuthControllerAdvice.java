@@ -50,7 +50,6 @@ public class AuthControllerAdvice {
     return service.isMember(getJWT(authorization));
   }
 
-
   private AppUser updateAppUsers(String authorization) {
     DecodedJWT jwt = getJWT(authorization);
     Map<String, Object> customClaims = jwt.getClaim(namespace).asMap();
