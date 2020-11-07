@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 public class AppUser {
@@ -66,5 +67,18 @@ public class AppUser {
   public String toString() {
     return String.format("AppUser[ id=%d, email=%s, firstName=%s, lastName=%s ]", id, email,
         firstName, lastName);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    AppUser user = (AppUser) o;
+    EqualsBuilder builder = new EqualsBuilder();
+    builder.append(id, user.getId()).append(email, user.getEmail()).append(firstName, user.getFirstName()).append(lastName, user.getLastName());
+
+    return builder.isEquals();
   }
 }
