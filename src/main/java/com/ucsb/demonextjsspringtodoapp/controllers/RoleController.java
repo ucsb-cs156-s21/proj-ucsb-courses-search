@@ -93,8 +93,13 @@ public class RoleController {
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping("/myrole")
-  public ResponseEntity<String> myRole(@RequestHeader("Authorization") String authorization) {
-    return ResponseEntity.ok().build();
+  @GetMapping("/myRole")
+  public ResponseEntity<String> myRole(@RequestHeader("Authorization") String authorization)
+      throws JsonProcessingException {
+    String role = authControllerAdvice.getRole(authorization);
+    Map<String, String> response = new HashMap<>();
+    response.put("role", role);
+    String body = mapper.writeValueAsString(response);
+    return ResponseEntity.ok().body(body);
   }
 }
