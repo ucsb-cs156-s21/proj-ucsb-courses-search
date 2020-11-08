@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
+import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 import com.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
 import com.ucsb.demonextjsspringtodoapp.services.Auth0MembershipService;
 import com.ucsb.demonextjsspringtodoapp.services.MembershipService;
@@ -32,6 +36,8 @@ public class AuthControllerAdviceTests {
   MembershipService mockMembershipService;
   @Mock
   AppUserRepository mockAppUserRepository;
+  @Mock
+  AdminRepository mockAdminRepository;
 
   private String exampleAuthToken =
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL3Rlc3QtYXBwLmNvbSI6eyJlbWFpbCI6InRlc3RAdWNzYi5lZHUiLCJnaXZlbl9uYW1lIjoiVGVzdCIsImZhbWlseV9uYW1lIjoiVXNlciJ9LCJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.s0eGBAgVvby7Y7Q34qI1E7HqqFbrneIhvzpC_MI-B30";
@@ -61,6 +67,14 @@ public class AuthControllerAdviceTests {
   public void test_getUser_createNewUser() {
     when(mockAppUserRepository.save(any(AppUser.class))).thenReturn(exampleUser);
     assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
+  }
+
+  @Test
+  public void test_getUser_createNewUserAndAdmin() {
+    when(mockAppUserRepository.save(any(AppUser.class))).thenReturn(exampleUser);
+    when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
+    assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
+    verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail()));
   }
 
   @Test
