@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
@@ -18,6 +19,9 @@ import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 public class Auth0MembershipService implements MembershipService {
 
   private Logger logger = LoggerFactory.getLogger(Auth0MembershipService.class);
+
+  @Value("${app.namespace}")
+  private String namespace;
 
   @Value("${app.admin.emails}")
   final private List<String> adminEmails = new ArrayList<String>();
@@ -60,7 +64,8 @@ public class Auth0MembershipService implements MembershipService {
     if (jwt == null)
       return false;
 
-    String email = jwt.getClaim("email").asString();
+    Map<String, Object> customClaims = jwt.getClaim(namespace).asMap();
+    String email = (String) customClaims.get("email");
     String hostedDomain = email.substring(email.indexOf("@") + 1);
 
     logger.info("email=[" + email + "]");

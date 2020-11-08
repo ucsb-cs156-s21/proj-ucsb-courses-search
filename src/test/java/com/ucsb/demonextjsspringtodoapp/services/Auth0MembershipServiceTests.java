@@ -27,13 +27,13 @@ public class Auth0MembershipServiceTests {
   Auth0MembershipService service = new Auth0MembershipService();
 
   private DecodedJWT guestJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20ifQ.8yslpthMLMpwnlSctV5HN-fFJkKinpil61dJmw1m9Oc");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSJ9LCJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.6kcYK01GnVjCMELcgUyFJBYe1DeQ9y4NngDgYdwYwqE");
 
   private DecodedJWT memberJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEB1Y3NiLmVkdSJ9.paEMa69zK4AyN3PsNOGQsgovzexFzBKrR80Wa64TY7Y");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJ0ZXN0QHVjc2IuZWR1In0sInN1YiI6IjEyMzQ1NiIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.RnoI4IH5bgp4uWd8VxKyVLrUTYu_JnUUhLpAaWc-0G4");
 
   private DecodedJWT defaultAdminJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoiYWRtaW5AdWNzYi5lZHUifQ.mpWDkt1IRqTMQaaYE7qqoZ280iaRyAMaRu_NqU6GZgk");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJhZG1pbkB1Y3NiLmVkdSJ9LCJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.DhnSeuqo6YCsdb6qYV5AKsY_xrCZzZ6RHxnVP8WsiC0");
 
   private AppUser exampleUser = new AppUser(1L, "test@ucsb.edu", "Test", "User");
 
@@ -41,6 +41,7 @@ public class Auth0MembershipServiceTests {
   public void setUp() {
     ReflectionTestUtils.setField(service, "memberHostedDomain", "ucsb.edu");
     ReflectionTestUtils.setField(service, "adminRepository", adminRepository);
+    ReflectionTestUtils.setField(service, "namespace", "namespace");
   }
 
   @Test
