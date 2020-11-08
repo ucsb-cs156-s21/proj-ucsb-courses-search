@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { ListGroup } from "react-bootstrap";
+import { TodoFilters } from "./TodoFilters";
 import { TodoForm } from "./TodoForm";
 import { TodoItem } from "./TodoItem";
 import { TodoHeader } from "./TodoHeader";
 import { fetchWithToken } from "main/utils/fetch";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "main/components/Loading/Loading";
-import { sortTodos } from "../../utils/todoHelpers";
+import { sortTodos, filterTodo } from "main/utils/todoHelpers";
 
 const TodoList = () => {
   const { user, getAccessTokenSilently: getToken } = useAuth0();
@@ -15,6 +16,7 @@ const TodoList = () => {
     ["/api/todos", getToken],
     fetchWithToken
   );
+  const [filter, setFilter] = useState("All");
   if (error) {
     return (
       <h1>We encountered an error; please reload the page and try again.</h1>
@@ -57,7 +59,7 @@ const TodoList = () => {
     });
     await mutateTodos();
   };
-  var items = sortTodos(todoList).map((item, index) => {
+  var items = sortTodos(todoList).filter((todo) => filterTodo(todo, filter)).map((item, index) => {
     return (
       <TodoItem
         key={item.id}
@@ -73,6 +75,7 @@ const TodoList = () => {
     <>
       <TodoHeader name={user.name} />
       <TodoForm addTask={saveTodo} />
+      <TodoFilters filter={filter} setFilter={setFilter} />
       <ListGroup> {items} </ListGroup>
     </>
   );
