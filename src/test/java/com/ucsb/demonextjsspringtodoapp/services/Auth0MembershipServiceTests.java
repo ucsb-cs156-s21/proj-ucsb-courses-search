@@ -31,6 +31,9 @@ public class Auth0MembershipServiceTests {
   private DecodedJWT memberJWT = JWT.decode(
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEB1Y3NiLmVkdSJ9.paEMa69zK4AyN3PsNOGQsgovzexFzBKrR80Wa64TY7Y");
 
+  private DecodedJWT defaultAdminJWT = JWT.decode(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoiYWRtaW5AdWNzYi5lZHUifQ.mpWDkt1IRqTMQaaYE7qqoZ280iaRyAMaRu_NqU6GZgk");
+
   @BeforeEach
   public void setUp() {
     ReflectionTestUtils.setField(service, "memberHostedDomain", "ucsb.edu");
@@ -59,6 +62,14 @@ public class Auth0MembershipServiceTests {
     admins.add(new Admin());
     when(adminRepository.findByEmail(any())).thenReturn(admins);
     assertEquals(true, service.isAdmin(memberJWT));
+  }
+
+  @Test
+  public void testGoogleMembershipService_isAdmin_ifEmailIsDefaultAdmin() {
+    List<String> adminEmails = new ArrayList<String>();
+    adminEmails.add("admin@ucsb.edu");
+    ReflectionTestUtils.setField(service, "adminEmails", adminEmails);
+    assertEquals(true, service.isAdmin(defaultAdminJWT));
   }
 
   @Test

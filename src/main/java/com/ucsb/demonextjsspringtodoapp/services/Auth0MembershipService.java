@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 
@@ -16,6 +18,8 @@ public class Auth0MembershipService implements MembershipService {
 
   private Logger logger = LoggerFactory.getLogger(Auth0MembershipService.class);
 
+  @Value("${app.admin.emails}")
+  final private List<String> adminEmails = new ArrayList<String>();
 
   @Value("${app.member.hosted-domain}")
   private String memberHostedDomain;
@@ -71,6 +75,10 @@ public class Auth0MembershipService implements MembershipService {
   }
 
   private boolean isAdminEmail(String email) {
-    return (!adminRepository.findByEmail(email).isEmpty());
+    return (!adminRepository.findByEmail(email).isEmpty() || isDefaultAdmin(email));
+  }
+
+  private boolean isDefaultAdmin(String email) {
+    return adminEmails.contains(email);
   }
 }
