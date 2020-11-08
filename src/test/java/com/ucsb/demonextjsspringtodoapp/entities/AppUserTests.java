@@ -1,6 +1,7 @@
 package com.ucsb.demonextjsspringtodoapp.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 
 public class AppUserTests {
@@ -38,5 +39,30 @@ public class AppUserTests {
     AppUser user = new AppUser();
     user.setLastName("Doris");
     assertEquals("Doris", user.getLastName());
+  }
+
+  @Test
+  public void testAppUser_notEqualNull() throws Exception {
+    AppUser user = new AppUser();
+    assertNotEquals(user, null);
+  }
+
+  @Test
+  public void testAppUser_notEqualAnotherClass() throws Exception {
+    AppUser user = new AppUser();
+    assertNotEquals(user, new Object());
+  }
+
+  @Test
+  public void testAppUser_equalsSelf() throws Exception {
+    AppUser user = new AppUser(1L, "test@ucsb.edu", "Test", "User");
+    assertEquals(user, user);
+  }
+
+  @Test
+  public void testAppUser_equalsAnother() throws Exception {
+    AppUser user1 = new AppUser(1L, "test@ucsb.edu", "Test", "User");
+    AppUser user2 = new AppUser(1L, "test@ucsb.edu", "Test", "User");
+    assertEquals(user1, user2);
   }
 }
