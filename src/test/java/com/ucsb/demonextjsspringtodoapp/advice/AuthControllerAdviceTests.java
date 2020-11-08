@@ -74,7 +74,7 @@ public class AuthControllerAdviceTests {
     when(mockAppUserRepository.save(any(AppUser.class))).thenReturn(exampleUser);
     when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
     assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
-    verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail()));
+    verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail(), true));
   }
 
   @Test

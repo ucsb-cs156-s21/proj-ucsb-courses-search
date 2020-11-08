@@ -67,7 +67,7 @@ public class AuthControllerAdvice {
       user.setFirstName((String) customClaims.get("given_name"));
       user.setLastName((String) customClaims.get("family_name"));
       if (getIsAdmin(authorization)) {
-        Admin admin = new Admin(email);
+        Admin admin = new Admin(email, true);
         adminRepository.save(admin);
       }
       return appUserRepository.save(user);
