@@ -1,8 +1,8 @@
 import React from "react";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Row, Container, Col, Badge } from "react-bootstrap";
 import { fetchWithToken } from "main/utils/fetch";
+import { Row, Container, Col, Badge } from "react-bootstrap";
 
 import ReactJson from "react-json-view";
 const Profile = () => {
