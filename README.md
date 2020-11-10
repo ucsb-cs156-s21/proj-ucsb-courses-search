@@ -88,3 +88,24 @@ To deploy to production on Heroku, see: [./docs/heroku.md](./docs/heroku.md)
 To setup GitHub Actions so that the tests pass, you will need to configure
 some _secrets_ on the GitHub repo settings page; see: [./docs/github-actions-secrets.md](./docs/github-actions-secrets.md) for details.
 
+## Setting up Custom Claims in Auth0
+
+User Access Tokens are two json objects: within the json objects there are some keys and fields that are expected to be there. If you want to add addditional keys and values, these are called custom claims. The keys for custom claims must begin with something that resembles a url. This makes sure that claims from one application don't interfere with claims from another application.
+
+In this case, we want to put in email, first name, and last name.
+
+In Auth0.com go to the left hand sidebar and click `Rules`, then click `Create Rule`. Select `Empty Rule` at the top.
+
+There is a function that takes a user, a context, and a callback. Context has an access token as a property. User has all of the user information. We want to add a property to context.accessToken.
+
+To do this, add:
+
+```javascript
+context.accessToken[<application url>]={
+  "email" : user.email,
+  "given_name" : user.given_name,
+  "family_name" : user.family_name
+};
+```
+
+before the return statement. After that, save the new rule.
