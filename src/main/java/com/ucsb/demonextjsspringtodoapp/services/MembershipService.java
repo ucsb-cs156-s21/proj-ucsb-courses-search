@@ -1,6 +1,8 @@
 package com.ucsb.demonextjsspringtodoapp.services;
 
+import java.util.List;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 
 public interface MembershipService {
@@ -16,6 +18,8 @@ public interface MembershipService {
   public boolean isMember(AppUser user);
 
   public boolean isAdmin(AppUser user);
+
+  public List<String> getDefaultAdminEmails();
 
   default public String role(AppUser user) {
     if (isAdmin(user))

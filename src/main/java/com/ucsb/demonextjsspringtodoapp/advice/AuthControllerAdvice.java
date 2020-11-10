@@ -61,6 +61,7 @@ public class AuthControllerAdvice {
     Map<String, Object> customClaims = jwt.getClaim(namespace).asMap();
     String email = (String) customClaims.get("email");
     List<AppUser> users = appUserRepository.findByEmail(email);
+
     if (users.isEmpty()) {
       AppUser user = new AppUser();
       user.setEmail(email);
@@ -72,6 +73,12 @@ public class AuthControllerAdvice {
       }
       return appUserRepository.save(user);
     }
+
+    if (getIsAdmin(authorization) && adminRepository.findByEmail(email).size() == 0) {
+      boolean isPermanentAdmin = service.getDefaultAdminEmails().contains(email);
+      adminRepository.save(new Admin(email, isPermanentAdmin));
+    }
+
     return users.get(0);
   }
 }
