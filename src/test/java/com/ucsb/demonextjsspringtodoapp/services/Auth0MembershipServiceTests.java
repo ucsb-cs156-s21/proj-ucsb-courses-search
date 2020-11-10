@@ -37,8 +37,6 @@ public class Auth0MembershipServiceTests {
 
   private AppUser exampleUser = new AppUser(1L, "test@ucsb.edu", "Test", "User");
 
-  private AppUser exampleUser = new AppUser(1L, "test@ucsb.edu", "Test", "User");
-
   @BeforeEach
   public void setUp() {
     ReflectionTestUtils.setField(service, "memberHostedDomain", "ucsb.edu");
