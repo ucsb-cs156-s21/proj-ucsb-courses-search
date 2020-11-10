@@ -36,7 +36,7 @@ Instead, a better practice is:
 - Put your secrets in this file
 - Access the secrets from your Java, JavaScript, Python code (or whatever language).
 
-It is common practice to have a file such as `.env.SAMPLE` that can be used as a template for the `.env` file; this file DOES often exist in the Github repo. You can copy this file to `.env` and then edit it to put in your secrets.
+It is common practice to have files such as `.env.local.SAMPLE` that can be used as a template for the `.env.local` file; this file DOES often exist in the Github repo. You can copy this file to `.env.local` and then edit it to put in your secrets.
 
 In this repo, we have the following templates for secrets:
 
@@ -45,7 +45,7 @@ In this repo, we have the following templates for secrets:
 | `secrets-localhost.properties.SAMPLE` | `secrets-localhost.properties` | Java Spring Boot backend when running locally   |
 | `secrets-heroku.properties.SAMPLE`    | `secrets-heroku.properties`    | Java Spring Boot backend when running on Heroku |
 | `javascript/.env.local.SAMPLE`        | `javascript/.env.local`        | React Frontend code when running locally        |
-| `javascript/.env.production.SAMPLE`   | `javascript/.env.production`   | React Frontend code when running on Heroku      |
+| `javascript/.env.local.SAMPLE`   | `javascript/.env.production`   | React Frontend code when running on Heroku      |
 
 ## Now returning to the Auth0 configuration...
 
