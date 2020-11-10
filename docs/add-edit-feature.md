@@ -255,7 +255,7 @@ You can get a coverage report by running `mvn test jacoco:report` and open it in
 
 ![Backend coverage report 1](./images/add-edit-feature-backend-coverage-1.png)
 
-So it turns out we missed something. If we follow the missing coverage via `com.ucsb.demonextjsspringtodoapp.controllers > TodoController > updateTodo(String, Long, Todo)`, we'll be greeted by a coverage report of the `TodoController` file. If we hover over the yellow line in `updateTodo(String, Long, Todo)`, we should see the following:
+So it turns out we missed something. If we follow the missing coverage via `edu.ucsb.demonextjsspringtodoapp.controllers > TodoController > updateTodo(String, Long, Todo)`, we'll be greeted by a coverage report of the `TodoController` file. If we hover over the yellow line in `updateTodo(String, Long, Todo)`, we should see the following:
 
 ![Missing coverage](./images/add-edit-feature-backend-coverage-missing-coverage.png)
 
