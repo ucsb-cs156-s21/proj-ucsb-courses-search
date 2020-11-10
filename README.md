@@ -66,8 +66,7 @@ The next thing you'll want to do is set up your Auth0 SPA App. Instructions for 
   | ------------------------------------------------ | ------------------------------------------- |
   | `auth0.domain`                                   | `REACT_APP_AUTH0_DOMAIN`                    |
   | `auth0.clientId`                                 | `REACT_APP_AUTH0_CLIENT_ID`                 |
-  | `security.oauth2.resource.id`                    | `REACT_APP_AUTH0_AUDIENCE`                  |
-
+                    
   You may see additional values in `secrets-localhost.properties` such as the ones below. You do not need to adjust these; leave the values alone.
 
   ```
