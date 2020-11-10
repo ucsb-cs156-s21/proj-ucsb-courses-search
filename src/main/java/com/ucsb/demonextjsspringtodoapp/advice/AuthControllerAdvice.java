@@ -74,11 +74,15 @@ public class AuthControllerAdvice {
       return appUserRepository.save(user);
     }
 
+    updateAdmins(authorization, email);
+
+    return users.get(0);
+  }
+
+  private void updateAdmins(String authorization, String email) {
     if (getIsAdmin(authorization) && adminRepository.findByEmail(email).size() == 0) {
       boolean isPermanentAdmin = service.getDefaultAdminEmails().contains(email);
       adminRepository.save(new Admin(email, isPermanentAdmin));
     }
-
-    return users.get(0);
   }
 }
