@@ -11,9 +11,17 @@ import Home from "main/pages/Home/Home";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
 import TodoList from "main/pages/Todos/Todos";
+import Admin from "main/pages/Admin/Admin";
+import useSWR from "swr";
+import { fetchWithToken } from "main/utils/fetch";
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
+  const { data: roleInfo } = useSWR(
+    ["/api/myRole", getToken],
+    fetchWithToken
+  );
+  const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
 
   if (isLoading) {
     return <Loading />;
@@ -27,6 +35,9 @@ function App() {
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/todos" component={TodoList} />
           <PrivateRoute path="/profile" component={Profile} />
+          { isAdmin &&
+            <PrivateRoute path="/admin" component={Admin} />
+          }
           <Route path="/about" component={About} />
         </Switch>
       </Container>
