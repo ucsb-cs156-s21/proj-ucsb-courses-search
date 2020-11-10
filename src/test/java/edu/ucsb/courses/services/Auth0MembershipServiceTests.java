@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.services;
+package edu.ucsb.courses.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import edu.ucsb.demonextjsspringtodoapp.entities.Admin;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
+import edu.ucsb.courses.entities.Admin;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.repositories.AdminRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

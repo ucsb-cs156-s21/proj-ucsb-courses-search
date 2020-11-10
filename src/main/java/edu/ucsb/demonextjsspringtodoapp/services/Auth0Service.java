@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.services;
+package edu.ucsb.courses.services;
 
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import edu.ucsb.demonextjsspringtodoapp.models.GoogleUserProfile;
+import edu.ucsb.courses.models.GoogleUserProfile;
 
 @Service
 public class Auth0Service {

@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.services;
+package edu.ucsb.courses.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.services.MembershipServiceTests;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.services.MembershipServiceTests;
 
 public class MembershipServiceTests {
 

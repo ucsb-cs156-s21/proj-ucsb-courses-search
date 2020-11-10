@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

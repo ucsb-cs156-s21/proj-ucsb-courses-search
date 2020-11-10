@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

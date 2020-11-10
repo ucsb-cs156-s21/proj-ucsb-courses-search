@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.demonextjsspringtodoapp.advice.AuthControllerAdvice;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.entities.Todo;
-import edu.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
+import edu.ucsb.courses.advice.AuthControllerAdvice;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.entities.Todo;
+import edu.ucsb.courses.repositories.TodoRepository;
 
 @WebMvcTest(value = TodoController.class)
 @WithMockUser

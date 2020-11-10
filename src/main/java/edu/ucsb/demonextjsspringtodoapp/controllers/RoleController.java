@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,11 +6,11 @@ import java.util.Optional;
 import javax.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.demonextjsspringtodoapp.advice.AuthControllerAdvice;
-import edu.ucsb.demonextjsspringtodoapp.entities.Admin;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
+import edu.ucsb.courses.advice.AuthControllerAdvice;
+import edu.ucsb.courses.entities.Admin;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.repositories.AdminRepository;
+import edu.ucsb.courses.repositories.AppUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +18,10 @@ import java.util.Optional;
 import javax.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.demonextjsspringtodoapp.advice.AuthControllerAdvice;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.entities.Todo;
-import edu.ucsb.demonextjsspringtodoapp.repositories.TodoRepository;
+import edu.ucsb.courses.advice.AuthControllerAdvice;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.entities.Todo;
+import edu.ucsb.courses.repositories.TodoRepository;
 
 @RestController
 public class TodoController {

@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.services;
+package edu.ucsb.courses.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import edu.ucsb.demonextjsspringtodoapp.entities.Admin;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
+import edu.ucsb.courses.entities.Admin;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.repositories.AdminRepository;
 
 /**
  * Service object that determines whether a user is a member of the google org or not.

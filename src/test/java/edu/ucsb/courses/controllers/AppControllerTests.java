@@ -1,7 +1,7 @@
-package edu.ucsb.demonextjsspringtodoapp.controllers;
+package edu.ucsb.courses.controllers;
 
-import edu.ucsb.demonextjsspringtodoapp.models.GoogleUserProfile;
-import edu.ucsb.demonextjsspringtodoapp.services.Auth0Service;
+import edu.ucsb.courses.models.GoogleUserProfile;
+import edu.ucsb.courses.services.Auth0Service;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

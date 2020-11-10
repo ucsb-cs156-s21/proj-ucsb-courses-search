@@ -1,14 +1,14 @@
-package edu.ucsb.demonextjsspringtodoapp.advice;
+package edu.ucsb.courses.advice;
 
 import java.util.List;
 import java.util.Map;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import edu.ucsb.demonextjsspringtodoapp.entities.Admin;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
-import edu.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
-import edu.ucsb.demonextjsspringtodoapp.services.MembershipService;
+import edu.ucsb.courses.entities.Admin;
+import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.repositories.AdminRepository;
+import edu.ucsb.courses.repositories.AppUserRepository;
+import edu.ucsb.courses.services.MembershipService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

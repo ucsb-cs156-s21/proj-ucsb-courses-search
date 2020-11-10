@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp;
+package edu.ucsb.courses;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

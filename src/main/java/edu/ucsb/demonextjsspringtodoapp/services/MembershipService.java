@@ -1,9 +1,9 @@
-package edu.ucsb.demonextjsspringtodoapp.services;
+package edu.ucsb.courses.services;
 
 import java.util.List;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import edu.ucsb.demonextjsspringtodoapp.entities.Admin;
-import edu.ucsb.demonextjsspringtodoapp.entities.AppUser;
+import edu.ucsb.courses.entities.Admin;
+import edu.ucsb.courses.entities.AppUser;
 
 public interface MembershipService {
 

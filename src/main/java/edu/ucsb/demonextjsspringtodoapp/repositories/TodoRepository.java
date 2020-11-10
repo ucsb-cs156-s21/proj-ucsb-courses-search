@@ -1,8 +1,8 @@
-package edu.ucsb.demonextjsspringtodoapp.repositories;
+package edu.ucsb.courses.repositories;
 
 import java.util.List;
 
-import edu.ucsb.demonextjsspringtodoapp.entities.Todo;
+import edu.ucsb.courses.entities.Todo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

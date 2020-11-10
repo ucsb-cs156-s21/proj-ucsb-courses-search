@@ -1,10 +1,10 @@
-package edu.ucsb.demonextjsspringtodoapp;
+package edu.ucsb.courses;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import edu.ucsb.demonextjsspringtodoapp.controllers.AppController;
-import edu.ucsb.demonextjsspringtodoapp.controllers.ReactController;
-import edu.ucsb.demonextjsspringtodoapp.controllers.TodoController;
+import edu.ucsb.courses.controllers.AppController;
+import edu.ucsb.courses.controllers.ReactController;
+import edu.ucsb.courses.controllers.TodoController;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

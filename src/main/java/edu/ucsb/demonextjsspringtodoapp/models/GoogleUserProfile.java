@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.models;
+package edu.ucsb.courses.models;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

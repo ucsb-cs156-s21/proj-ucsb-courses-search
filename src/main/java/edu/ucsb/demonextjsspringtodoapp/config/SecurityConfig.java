@@ -1,4 +1,4 @@
-package edu.ucsb.demonextjsspringtodoapp.config;
+package edu.ucsb.courses.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
