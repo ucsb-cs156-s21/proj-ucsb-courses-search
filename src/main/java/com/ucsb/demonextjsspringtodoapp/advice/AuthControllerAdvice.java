@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
+import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 import com.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
 import com.ucsb.demonextjsspringtodoapp.services.MembershipService;
 import org.slf4j.Logger;
@@ -25,6 +27,9 @@ public class AuthControllerAdvice {
 
   @Autowired
   private AppUserRepository appUserRepository;
+
+  @Autowired
+  private AdminRepository adminRepository;
 
   public DecodedJWT getJWT(String authorization) {
     return JWT.decode(authorization.substring(7));
@@ -61,6 +66,10 @@ public class AuthControllerAdvice {
       user.setEmail(email);
       user.setFirstName((String) customClaims.get("given_name"));
       user.setLastName((String) customClaims.get("family_name"));
+      if (getIsAdmin(authorization)) {
+        Admin admin = new Admin(email, true);
+        adminRepository.save(admin);
+      }
       return appUserRepository.save(user);
     }
     return users.get(0);
