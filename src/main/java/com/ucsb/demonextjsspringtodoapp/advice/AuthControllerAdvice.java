@@ -38,6 +38,10 @@ public class AuthControllerAdvice {
     return service.role(getJWT(authorization));
   }
 
+  public String getRole(AppUser user) {
+    return service.role(user);
+  }
+
   public boolean getIsAdmin(String authorization) {
     return service.isAdmin(getJWT(authorization));
   }
@@ -45,6 +49,7 @@ public class AuthControllerAdvice {
   public boolean getIsMember(String authorization) {
     return service.isMember(getJWT(authorization));
   }
+
 
   private AppUser updateAppUsers(String authorization) {
     DecodedJWT jwt = getJWT(authorization);

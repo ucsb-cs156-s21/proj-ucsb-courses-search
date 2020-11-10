@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 public class Admin {
@@ -58,6 +59,19 @@ public class Admin {
   public String toString() {
     return String.format("Admin[ id=%d, email=%s, isPermanentAdmin=%s ]", this.id, this.email,
         this.isPermanentAdmin);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    Admin admin = (Admin) o;
+    EqualsBuilder builder = new EqualsBuilder();
+    builder.append(id, admin.getId()).append(email, admin.getEmail()).append(isPermanentAdmin,
+        admin.getIsPermanentAdmin());
+    return builder.build();
   }
 
 }

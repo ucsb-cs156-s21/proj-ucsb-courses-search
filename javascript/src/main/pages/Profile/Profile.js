@@ -1,10 +1,17 @@
 import React from "react";
+import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Row, Container, Col } from "react-bootstrap";
+import { Row, Container, Col, Badge } from "react-bootstrap";
+import { fetchWithToken } from "main/utils/fetch";
+
 import ReactJson from "react-json-view";
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently: getToken } = useAuth0();
   const { name, picture, email } = user;
+  const { data: roleInfo } = useSWR(
+    ["/api/myRole", getToken],
+    fetchWithToken
+  );
 
   return (
     <Container className="mb-5">
@@ -19,6 +26,10 @@ const Profile = () => {
         <Col md>
           <h2>{name}</h2>
           <p className="lead text-muted">{email}</p>
+          { roleInfo ?
+            <Badge variant="info">{roleInfo.role}</Badge>:
+            <span>Loading role...</span>
+          }
         </Col>
       </Row>
       <Row className="text-left">

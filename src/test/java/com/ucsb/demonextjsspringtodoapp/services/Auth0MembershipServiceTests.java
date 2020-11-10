@@ -8,6 +8,7 @@ import java.util.List;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.entities.Admin;
+import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,38 +27,41 @@ public class Auth0MembershipServiceTests {
   Auth0MembershipService service = new Auth0MembershipService();
 
   private DecodedJWT guestJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20ifQ.8yslpthMLMpwnlSctV5HN-fFJkKinpil61dJmw1m9Oc");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSJ9LCJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.6kcYK01GnVjCMELcgUyFJBYe1DeQ9y4NngDgYdwYwqE");
 
   private DecodedJWT memberJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoidGVzdEB1Y3NiLmVkdSJ9.paEMa69zK4AyN3PsNOGQsgovzexFzBKrR80Wa64TY7Y");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJ0ZXN0QHVjc2IuZWR1In0sInN1YiI6IjEyMzQ1NiIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMn0.RnoI4IH5bgp4uWd8VxKyVLrUTYu_JnUUhLpAaWc-0G4");
 
   private DecodedJWT defaultAdminJWT = JWT.decode(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImVtYWlsIjoiYWRtaW5AdWNzYi5lZHUifQ.mpWDkt1IRqTMQaaYE7qqoZ280iaRyAMaRu_NqU6GZgk");
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lc3BhY2UiOnsiZW1haWwiOiJhZG1pbkB1Y3NiLmVkdSJ9LCJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.DhnSeuqo6YCsdb6qYV5AKsY_xrCZzZ6RHxnVP8WsiC0");
+
+  private AppUser exampleUser = new AppUser(1L, "test@ucsb.edu", "Test", "User");
 
   @BeforeEach
   public void setUp() {
     ReflectionTestUtils.setField(service, "memberHostedDomain", "ucsb.edu");
     ReflectionTestUtils.setField(service, "adminRepository", adminRepository);
+    ReflectionTestUtils.setField(service, "namespace", "namespace");
   }
 
   @Test
-  public void testGoogleMembershipService_isNotMemberOrAdmin_ifJWTIsNull() {
-    assertEquals(false, service.isAdmin(null));
-    assertEquals(false, service.isMember(null));
+  public void testAuth0MembershipService_isNotMemberOrAdmin_ifJWTIsNull() {
+    assertEquals(false, service.isAdmin((DecodedJWT) null));
+    assertEquals(false, service.isMember((DecodedJWT) null));
   }
 
   @Test
-  public void testGoogleMembershipService_isNotMemberOrAdmin_ifEmailNotInOrg() {
+  public void testAuth0MembershipService_isNotMemberOrAdmin_ifEmailNotInOrg() {
     assertEquals(false, service.isMember(guestJWT));
   }
 
   @Test
-  public void testGoogleMembershipService_isMember_ifEmailInOrg() {
+  public void testAuth0MembershipService_isMember_ifEmailInOrg() {
     assertEquals(true, service.isMember(memberJWT));
   }
 
   @Test
-  public void testGoogleMembershipService_isAdmin_ifAdminExistsWithEmail() {
+  public void testAuth0MembershipService_isAdmin_ifAdminExistsWithEmail() {
     List<Admin> admins = new ArrayList<Admin>();
     admins.add(new Admin());
     when(adminRepository.findByEmail(any())).thenReturn(admins);
@@ -65,7 +69,7 @@ public class Auth0MembershipServiceTests {
   }
 
   @Test
-  public void testGoogleMembershipService_isAdmin_ifEmailIsDefaultAdmin() {
+  public void testAuth0MembershipService_isAdmin_ifEmailIsDefaultAdmin() {
     List<String> adminEmails = new ArrayList<String>();
     adminEmails.add("admin@ucsb.edu");
     ReflectionTestUtils.setField(service, "adminEmails", adminEmails);
@@ -73,9 +77,23 @@ public class Auth0MembershipServiceTests {
   }
 
   @Test
-  public void testGoogleMembershipService_isNotAdmin_ifDoesNotExistsWithEmail() {
+  public void testAuth0MembershipService_isNotAdmin_ifDoesNotExistsWithEmail() {
     List<Admin> admins = new ArrayList<Admin>();
     when(adminRepository.findByEmail(any())).thenReturn(admins);
     assertEquals(false, service.isAdmin(memberJWT));
+  }
+
+  @Test
+  public void testAuth0MembershipService_isMember_acceptsAppUser() {
+
+    assertEquals(true, service.isMember(exampleUser));
+  }
+
+  @Test
+  public void testAuth0MembershipService_isAdmin_acceptsAppUser() {
+    List<Admin> admins = new ArrayList<Admin>();
+    admins.add(new Admin(exampleUser.getEmail(), false));
+    when(adminRepository.findByEmail(any())).thenReturn(admins);
+    assertEquals(true, service.isAdmin(exampleUser));
   }
 }
