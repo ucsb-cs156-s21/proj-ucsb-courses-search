@@ -13,12 +13,12 @@ describe("Admin tests", () => {
   const admins = [
     {
       id: 2,
-      email: "biden@usa.gov",
+      email: "cgaucho@ucsb.edu",
       isPermanentAdmin: true
     },
     {
       id: 3,
-      email: "kamala@usa.gov",
+      email: "ldelplaya@usa.gov",
       isPermanentAdmin: false
     },
   ];
@@ -31,15 +31,15 @@ describe("Admin tests", () => {
     },
     {
       id: 2,
-      email: "biden@usa.gov",
-      firstName: "Joe",
-      lastName: "Biden"
+      email: "cgaucho@ucsb.edu",
+      firstName: "Chris",
+      lastName: "Gaucho"
     },
     {
       id: 3,
-      email: "kamala@usa.gov",
-      firstName: "Kamala",
-      lastName: "Harris"
+      email: "ldelplaya@usa.gov",
+      firstName: "Laura",
+      lastName: "Del Playa"
     },
   ];
   const mutateSpy = jest.fn();
