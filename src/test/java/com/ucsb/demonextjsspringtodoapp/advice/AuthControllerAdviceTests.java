@@ -3,19 +3,16 @@ package com.ucsb.demonextjsspringtodoapp.advice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 import com.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
-import com.ucsb.demonextjsspringtodoapp.services.Auth0MembershipService;
 import com.ucsb.demonextjsspringtodoapp.services.MembershipService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +20,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
