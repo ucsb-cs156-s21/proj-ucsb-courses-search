@@ -9,9 +9,9 @@ const Admin = () => {
   const { data: users } = useSWR(["/api/users", getToken], fetchWithToken);
   const { data: admins, mutate: mutateAdmins } = useSWR(["/api/admins", getToken], fetchWithToken);
 
-  const getAdmin = (user) => {
-    if (admins) {
-      return admins.find(admin => {
+  const getAdminForUser = (user, allAdmins) => {
+    if (allAdmins) {
+      return allAdmins.find(admin => {
         return admin.email === user.email;
       });
     }
@@ -59,7 +59,7 @@ const Admin = () => {
         <tbody>
           {users &&
             users.map(user => {
-              const admin = getAdmin(user);
+              const admin = getAdminForUser(user, admins);
               const role = admin ? "Admin" : "User";
               const buttonText = admin ? "Demote" : "Promote"
               return (
