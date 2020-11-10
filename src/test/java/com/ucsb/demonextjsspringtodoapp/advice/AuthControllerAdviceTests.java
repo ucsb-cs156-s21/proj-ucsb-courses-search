@@ -3,19 +3,17 @@ package com.ucsb.demonextjsspringtodoapp.advice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 import com.ucsb.demonextjsspringtodoapp.repositories.AppUserRepository;
-import com.ucsb.demonextjsspringtodoapp.services.Auth0MembershipService;
 import com.ucsb.demonextjsspringtodoapp.services.MembershipService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,6 +72,43 @@ public class AuthControllerAdviceTests {
     when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
     assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
     verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail(), true));
+  }
+
+  @Test
+  public void test_getUser_userExists_butCreatesNewDefaultAdmin() {
+    List<AppUser> users = new ArrayList<AppUser>();
+    users.add(exampleUser);
+    when(mockAppUserRepository.findByEmail(any(String.class))).thenReturn(users);
+    when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
+    when(mockMembershipService.getDefaultAdminEmails())
+        .thenReturn(new ArrayList<String>(Arrays.asList(exampleUser.getEmail())));
+    assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
+    verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail(), true));
+  }
+
+  @Test
+  public void test_getUser_userExists_butCreatesNewAdmin() {
+    List<AppUser> users = new ArrayList<AppUser>();
+    users.add(exampleUser);
+    when(mockAppUserRepository.findByEmail(any(String.class))).thenReturn(users);
+    when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
+    when(mockMembershipService.getDefaultAdminEmails())
+        .thenReturn(new ArrayList<String>(Arrays.asList(exampleUser.getEmail())));
+    assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
+    verify(mockAdminRepository, times(1)).save(new Admin(exampleUser.getEmail(), true));
+  }
+
+  @Test
+  public void test_getUser_userAndAdminExists() {
+    List<AppUser> users = new ArrayList<AppUser>();
+    users.add(exampleUser);
+    List<Admin> admins = new ArrayList<Admin>();
+    admins.add(new Admin(exampleUser.getEmail()));
+    when(mockAppUserRepository.findByEmail(any(String.class))).thenReturn(users);
+    when(mockAdminRepository.findByEmail(any(String.class))).thenReturn(admins);
+    when(mockMembershipService.isAdmin(any(DecodedJWT.class))).thenReturn(true);
+    assertEquals(exampleUser, authControllerAdvice.getUser(exampleAuthToken));
+    verify(mockAdminRepository, times(0)).save(any(Admin.class));
   }
 
   @Test

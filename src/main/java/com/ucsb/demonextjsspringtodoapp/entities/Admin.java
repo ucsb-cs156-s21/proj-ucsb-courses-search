@@ -16,7 +16,7 @@ public class Admin {
 
   @Column(nullable = false)
   private String email;
-
+  @Column(nullable = false)
   private boolean isPermanentAdmin = false;
 
   public Admin() {

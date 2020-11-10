@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ucsb.demonextjsspringtodoapp.entities.Admin;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
 import com.ucsb.demonextjsspringtodoapp.repositories.AdminRepository;
 
@@ -100,5 +101,10 @@ public class Auth0MembershipService implements MembershipService {
   @Override
   public boolean isAdmin(AppUser user) {
     return isAdminEmail(user.getEmail());
+  }
+
+  @Override
+  public List<String> getDefaultAdminEmails() {
+    return adminEmails;
   }
 }

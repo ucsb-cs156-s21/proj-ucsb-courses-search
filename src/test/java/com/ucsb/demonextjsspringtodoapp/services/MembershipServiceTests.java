@@ -2,6 +2,8 @@ package com.ucsb.demonextjsspringtodoapp.services;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.List;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ucsb.demonextjsspringtodoapp.entities.AppUser;
@@ -34,6 +36,12 @@ public class MembershipServiceTests {
     public boolean isAdmin(AppUser user) {
       return false;
     }
+
+    @Override
+    public List<String> getDefaultAdminEmails() {
+      return new ArrayList<String>();
+    }
+
   };
 
   private MembershipService serviceOnlyAdmin = new MembershipService() {
@@ -55,6 +63,11 @@ public class MembershipServiceTests {
     @Override
     public boolean isAdmin(AppUser user) {
       return true;
+    }
+
+    @Override
+    public List<String> getDefaultAdminEmails() {
+      return new ArrayList<String>();
     }
   };
 
@@ -78,6 +91,11 @@ public class MembershipServiceTests {
     public boolean isAdmin(AppUser user) {
       return false;
     }
+
+    @Override
+    public List<String> getDefaultAdminEmails() {
+      return new ArrayList<String>();
+    }
   };
 
   private MembershipService serviceBothMemberAndAdmin = new MembershipService() {
@@ -99,6 +117,11 @@ public class MembershipServiceTests {
     @Override
     public boolean isAdmin(AppUser user) {
       return true;
+    }
+
+    @Override
+    public List<String> getDefaultAdminEmails() {
+      return new ArrayList<String>();
     }
   };
 

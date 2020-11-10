@@ -12,7 +12,7 @@ export async function fetchWithToken(url, getToken, options) {
   if (response.status >= 400 && response.status < 600) {
     throw new Error(response.error_description);
   }
-  if (options?.noJSON) {
+  if (options?.noJSON || response.status === 204) {
     return response;
   }
   return response.json();

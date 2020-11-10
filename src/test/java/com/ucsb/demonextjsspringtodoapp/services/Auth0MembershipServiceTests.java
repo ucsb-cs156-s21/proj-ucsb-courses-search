@@ -65,7 +65,7 @@ public class Auth0MembershipServiceTests {
     List<Admin> admins = new ArrayList<Admin>();
     admins.add(new Admin());
     when(adminRepository.findByEmail(any())).thenReturn(admins);
-    assertEquals(true, service.isAdmin(memberJWT));
+    assertEquals(true, service.isAdmin(defaultAdminJWT));
   }
 
   @Test
@@ -74,6 +74,14 @@ public class Auth0MembershipServiceTests {
     adminEmails.add("admin@ucsb.edu");
     ReflectionTestUtils.setField(service, "adminEmails", adminEmails);
     assertEquals(true, service.isAdmin(defaultAdminJWT));
+  }
+
+  @Test
+  public void testAuth0MembershipService_getAdminEmails() {
+    List<String> adminEmails = new ArrayList<String>();
+    adminEmails.add("admin@ucsb.edu");
+    ReflectionTestUtils.setField(service, "adminEmails", adminEmails);
+    assertEquals(adminEmails, service.getDefaultAdminEmails());
   }
 
   @Test
