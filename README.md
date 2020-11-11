@@ -9,12 +9,6 @@ This app is a course project of <https://ucsb-cs156.github.io>, a course at [UC 
 The intention is to produce an app that has the functionality of the [Official UCSB Course Search](https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx) application, but that provides additional kinds of searches not supported by
 the original application.
 
-# Demo Spring React App
-
-[![codecov](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-react-todo-app/branch/main/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/demo-spring-react-todo-app)
-
-A demo todo app with Spring Boot and Create React App.
-
 ## Property file values
 
 This section serves as a quick reference for values found in either [`secrets-localhost.properties`](./secrets-localhost.properties) and/or [`secrets-heroku.properties`](./secrets-heroku.properties).
