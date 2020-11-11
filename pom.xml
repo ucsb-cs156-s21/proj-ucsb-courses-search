@@ -7,7 +7,7 @@
 		<version>2.2.5.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ucsb</groupId>
+	<groupId>edu.ucsb</groupId>
 	<artifactId>demo-nextjs-spring-todo-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
@@ -194,7 +194,7 @@
 					<archive>
 						<manifest>
 							<!-- full package name of class with the main you want to run -->
-							<mainClass>com.ucsb.demonextjsspringtodoapp.DemoApplication</mainClass>
+							<mainClass>edu.ucsb.courses.DemoApplication</mainClass>
 
 						</manifest>
 					</archive>
