@@ -1,9 +1,15 @@
 import React from "react";
 import { Form,Button } from "react-bootstrap";
 
+const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submit pressed");
+    debugger;
+};
+
 const BasicCourseSearchForm = () => {
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
         <Form.Group controlId="BasicSearch.Quarter">
             <Form.Label>Quarter</Form.Label>
             <Form.Control as="select">
