@@ -8,10 +8,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.ucsb</groupId>
-	<artifactId>demo-nextjs-spring-todo-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>ucsb-courses-search</artifactId>
+	<version>0.1.0</version>
+	<name>UCSB Courses Search</name>
+	<description>UCSB Courses Search (CMPSC 156 class project)</description>
 
 	<properties>
 		<java.version>11</java.version>
