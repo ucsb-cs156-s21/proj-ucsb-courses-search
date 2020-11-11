@@ -73,7 +73,7 @@ First, click on the `Create API` button.
 Next, fill in the fields as follows:
 | Field name | Value | Description |
 |------------|-------|-------------|
-| Name | The name of your application | This is just a visual name for the Auth0 API of your application, so make it readable. Example `Test Demo Spring React App`|
+| Name | The name of your application | This is just a visual name for the Auth0 API of your application, so make it readable. Example `My Cool App`|
 | Identifier | Put a unique identifier here such as `https://REPLACE-ME.herokuapp.com`, replacing `REPLACE-ME` with your hyphenated application name | This will end up serving as the `Audience` value. |
 | Signing algorithm | RS256 | This determines what cryptographic algorithm is used to verify tokens. The standard is RS256, so we use that here |
 

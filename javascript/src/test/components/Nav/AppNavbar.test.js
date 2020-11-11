@@ -21,7 +21,7 @@ describe("AppNavbar tests", () => {
         <AppNavbar />
       </Router>
     );
-    const brandElement = getByText(/Demo Spring React App/);
+    const brandElement = getByText(/UCSB Courses Search/);
     expect(brandElement).toBeInTheDocument();
   });
   test("should have the correct links in the navbar", () => {

@@ -20,7 +20,7 @@ function AppNavbar() {
   return (
     <Navbar bg="dark" variant="dark">
       <LinkContainer to={""}>
-        <Navbar.Brand data-testid="brand">Demo Spring React App</Navbar.Brand>
+        <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
       </LinkContainer>
       <Nav>
         { isAdmin &&
