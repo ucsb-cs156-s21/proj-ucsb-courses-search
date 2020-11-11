@@ -1,43 +1,67 @@
-import React from "react";
-import { Form,Button } from "react-bootstrap";
+import React, {useState} from "react";
+import { Form, Button } from "react-bootstrap";
+import fetch from "isomorphic-unfetch";
 
-const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("submit pressed");
-    debugger;
-};
+const BasicCourseSearchForm = ({ setCourseJSON }) => {
 
-const BasicCourseSearchForm = () => {
-  return (
-    <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="BasicSearch.Quarter">
-            <Form.Label>Quarter</Form.Label>
-            <Form.Control as="select">
-            <option>W21</option>
-            <option>F20</option>
-            </Form.Control>
-        </Form.Group>
-        <Form.Group controlId="BasicSearch.Department">
-            <Form.Label>Department</Form.Label>
-            <Form.Control as="select">
-            <option>CMPSC</option>
-            <option>MATH</option>
-            </Form.Control>
-        </Form.Group>
-        <Form.Group controlId="BasicSearch.CourseLevel">
-            <Form.Label>Course Level</Form.Label>
-            <Form.Control as="select">
-            <option value="L">Undergrad-Lower Division</option>
-            <option value="S">Undergrad-Upper Division</option>
-            <option value="U">Undergrad-All</option>
-            <option value="G">Graduate</option>
-            </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-        Submit
+    const [quarter, setQuarter] = useState("20211");
+    const [department, setDepartment] = useState("CMPSC");
+    const [level, setLevel] = useState("U");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("submit pressed");
+
+        // send value of quarter, department and level to backend
+        const courseJSON =  JSON.stringify({course: "CS156"});
+    
+        //   (await fetch(`/api/public/basicsearch?qtr=${quarter}&dept={department}&level=${level}`)).json()
+        
+        setCourseJSON(courseJSON);
+    };
+
+    const handleQuarterOnChange = (event) => {
+        setQuarter(event.target.value);
+    };
+
+    const handleDepartmentOnChange = (event) => {
+        setDepartment(event.target.value);
+    };
+
+    const handleLevelOnChange = (event) => {
+        setLevel(event.target.value);
+    };
+
+    return (
+        <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="BasicSearch.Quarter">
+                <Form.Label>Quarter</Form.Label>
+                <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter}>
+                    <option value="20211">W21</option>
+                    <option value="20204">F20</option>
+                </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.Department">
+                <Form.Label>Department</Form.Label>
+                <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
+                    <option>CMPSC</option>
+                    <option>MATH</option>
+                </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.CourseLevel">
+                <Form.Label>Course Level</Form.Label>
+                <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
+                    <option value="L">Undergrad-Lower Division</option>
+                    <option value="S">Undergrad-Upper Division</option>
+                    <option value="U">Undergrad-All</option>
+                    <option value="G">Graduate</option>
+                </Form.Control>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Submit
         </Button>
-    </Form>
-  );
+        </Form>
+    );
 };
 
 export default BasicCourseSearchForm;

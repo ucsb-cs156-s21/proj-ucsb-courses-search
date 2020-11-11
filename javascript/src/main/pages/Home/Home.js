@@ -7,16 +7,24 @@ import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCours
 import JSONPrettyPanel from "../../components/Utilities/JSONPrettyPanel";
 
 const Home = () => {
-    const { isAuthenticated } = useAuth0();
+    
+    // every function that starts with "use" is a hook
+    // e.g. useState, useSWR, useAuth0
 
-    // const [courseJSON, setCourseJSON] = useState("");
-    // setCourseJSON('{"course" : "cs156"}');
-    const courseJSON = '{"course" : "cs156"}';
+    const { isAuthenticated } = useAuth0(); // a hook
+
+    // courseJSON is the variable for the state
+    // setCourseJSON is the setter
+    // the parameter to useState is the initial value of the state
+
+    const [courseJSON, setCourseJSON] = useState('{"course" : "cs148"}');
+
+    // const courseJSON = '{"course" : "cs156"}';
     return (
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
-                <BasicCourseSearchForm />
+                <BasicCourseSearchForm setCourseJSON={setCourseJSON} />
                 <JSONPrettyPanel
                     expression={"courseJSON"}
                     value={courseJSON}
