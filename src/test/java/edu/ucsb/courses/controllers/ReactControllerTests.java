@@ -27,7 +27,6 @@ public class ReactControllerTests {
   @Test
   public void testGetIndexWithRequest() throws Exception {
     mockMvc.perform(get("/").accept(MediaType.TEXT_HTML)).andExpect(status().isOk());
-    mockMvc.perform(get("/todos").accept(MediaType.TEXT_HTML)).andExpect(status().isOk());
     mockMvc.perform(get("/profile").accept(MediaType.TEXT_HTML)).andExpect(status().isOk());
   }
 }
