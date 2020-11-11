@@ -32,8 +32,6 @@ describe("AppNavbar tests", () => {
       </Router>
     );
 
-    const todosLink = getByText(/Todos/);
-    expect(todosLink.href).toMatch("/todos");
 
     const userInfoLink = getByText(/Profile/);
     expect(userInfoLink.href).toMatch("/profile");

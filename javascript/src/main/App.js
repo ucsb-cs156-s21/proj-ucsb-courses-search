@@ -10,7 +10,6 @@ import About from "main/pages/About/About";
 import Home from "main/pages/Home/Home";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
-import TodoList from "main/pages/Todos/Todos";
 import Admin from "main/pages/Admin/Admin";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
@@ -33,7 +32,6 @@ function App() {
       <Container className="flex-grow-1 mt-5">
         <Switch>
           <Route path="/" exact component={Home} />
-          <PrivateRoute path="/todos" component={TodoList} />
           <PrivateRoute path="/profile" component={Profile} />
           { isAdmin &&
             <PrivateRoute path="/admin" component={Admin} />
