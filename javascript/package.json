@@ -15,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "swr": "^0.3.2",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "react-json-pretty": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
