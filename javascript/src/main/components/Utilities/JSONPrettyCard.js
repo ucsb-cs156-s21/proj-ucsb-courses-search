@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap'
 import JSONPretty from 'react-json-pretty';
-export default class JSONPrettyPanel extends Component {
+export default class JSONPrettyCard extends Component {
     constructor(props) {
         super(props);
     }
@@ -12,15 +12,13 @@ export default class JSONPrettyPanel extends Component {
                 <Card id={`JSONPrettyPanel-${this.props.expression}`}>
                     <Card.Body>
                         <Card.Title><code>{this.props.expression}</code></Card.Title>
-                        <Card.Text>
-                            <JSONPretty data={this.props.value} />
-                        </Card.Text>
+                        <JSONPretty data={this.props.value} />
                     </Card.Body>
                 </Card>
             </Fragment>
         );
     }
 }
-JSONPrettyPanel.propTypes = {
+JSONPrettyCard.propTypes = {
     expression: PropTypes.string.isRequired,
 };
