@@ -23,15 +23,12 @@ public class UCSBCurriculumService  {
 
     private Logger logger = LoggerFactory.getLogger(UCSBCurriculumService.class);
 
+    @Value("${app.ucsb.api.consumer_key}")
     private String apiKey;
 
-    public UCSBCurriculumService(@Value("${app.ucsb.api.consumer_key}") String apiKey) {
-        this.apiKey = apiKey;
-    }
+    private RestTemplate restTemplate = new RestTemplate();
 
     public String getJSON(String subjectArea, String quarter, String courseLevel) {
-
-        RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
