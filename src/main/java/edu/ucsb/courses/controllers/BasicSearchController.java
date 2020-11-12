@@ -36,12 +36,6 @@ public class BasicSearchController {
         @RequestParam String level) 
         throws JsonProcessingException {
 
-        // Map<String,String> dummyDataMap = new HashMap<>();
-        // dummyDataMap.put("qtr",qtr);
-        // dummyDataMap.put("dept",dept);
-        // dummyDataMap.put("level",level);
-        // String dummyJSONData = mapper.writeValueAsString(dummyDataMap);
-
         String body = ucsbCurriculumService.getJSON(dept, qtr, level);
 
         return ResponseEntity.ok().body(body);
