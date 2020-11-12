@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import fetch from "isomorphic-unfetch";
 
@@ -8,16 +8,21 @@ const BasicCourseSearchForm = ({ setCourseJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
 
-    const handleSubmit = async (event) => {
+
+    const fetchJSON = async (event) => {
+        const url=`/api/public/basicsearch?qtr=${quarter}&dept=${department}&level=${level}`;
+        console.log(`fetching JSON, url=${url}`);
+        const courseJSON = (await fetch(url)).json()
+        console.log(`fetch returned, courseJSON=${courseJSON}`);
+        return courseJSON;
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit pressed");
-
-        // send value of quarter, department and level to backend
-        const courseJSON =  JSON.stringify({course: "CS156"});
-    
-        //   (await fetch(`/api/public/basicsearch?qtr=${quarter}&dept={department}&level=${level}`)).json()
-        
-        setCourseJSON(courseJSON);
+        fetchJSON(event).then((courseJSON)=> {
+            setCourseJSON(courseJSON);
+        });
     };
 
     const handleQuarterOnChange = (event) => {
