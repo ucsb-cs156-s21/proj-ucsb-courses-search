@@ -11,8 +11,6 @@ const Home = () => {
     // every function that starts with "use" is a hook
     // e.g. useState, useSWR, useAuth0
 
-    const { isAuthenticated } = useAuth0(); // a hook
-
     // courseJSON is the variable for the state
     // setCourseJSON is the setter
     // the parameter to useState is the initial value of the state
