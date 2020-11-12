@@ -8,11 +8,10 @@ const BasicCourseSearchForm = ({ setCourseJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
 
-
     const fetchJSON = async (event) => {
         const url=`/api/public/basicsearch?qtr=${quarter}&dept=${department}&level=${level}`;
         console.log(`fetching JSON, url=${url}`);
-        const courseJSON = (await fetch(url)).json()
+        const courseJSON = (await (await fetch(url)).json() )
         console.log(`fetch returned, courseJSON=${courseJSON}`);
         return courseJSON;
     };
@@ -41,7 +40,7 @@ const BasicCourseSearchForm = ({ setCourseJSON }) => {
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
                 <Form.Label>Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter}>
+                <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter} data-testid="select-quarter" >
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
