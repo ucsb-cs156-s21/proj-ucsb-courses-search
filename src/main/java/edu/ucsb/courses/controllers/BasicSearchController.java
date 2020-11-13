@@ -29,7 +29,7 @@ public class BasicSearchController {
     @Autowired
     UCSBCurriculumService ucsbCurriculumService;
 
-    @GetMapping("/basicsearch")
+    @GetMapping(value = "/basicsearch", produces = "application/json")
     public ResponseEntity<String> basicsearch(
         @RequestParam String qtr, 
         @RequestParam String dept,
