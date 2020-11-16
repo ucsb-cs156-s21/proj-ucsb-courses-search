@@ -2,6 +2,7 @@ import React from "react";
 import "main/App.css";
 import Loading from "main/components/Loading/Loading";
 import AppNavbar from "main/components/Nav/AppNavbar";
+import AuthorizedRoute from "main/components/Nav/AuthorizedRoute";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
@@ -33,9 +34,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
-          { isAdmin &&
-            <PrivateRoute path="/admin" component={Admin} />
-          }
+          <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
         </Switch>
       </Container>
