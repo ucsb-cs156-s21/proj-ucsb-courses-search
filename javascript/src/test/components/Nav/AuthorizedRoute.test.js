@@ -43,7 +43,7 @@ describe("Authorized Route tests", () => {
     expect(queryByText("Hello")).toBe(null);
   });
 
-  test("if condition is true, component should", () => {
+  test("if role is an authorized role, component should render", () => {
     const {getByText} = render(
     <Router history={createMemoryHistory()}>
       <AuthorizedRoute component={component} authorizedRoles={["guest"]} />
