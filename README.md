@@ -1,6 +1,6 @@
 # ucsb-courses-search
 
-[![codecov](https://codecov.io/gh/ucsb-cs156-f20/ucsb-courses-search/branch/main/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/ucsb-courses-search)
+[![codecov](https://codecov.io/gh/ucsb-cs156-f20/proj-ucsb-courses-search/branch/main/graph/badge.svg)](https://codecov.io/gh/ucsb-cs156-f20/proj-ucsb-courses-search)
 
 ## Purpose
 
