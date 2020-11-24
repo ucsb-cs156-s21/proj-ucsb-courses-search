@@ -7,7 +7,7 @@ import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCours
 import JSONPrettyCard from "../../components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
 
-const Home = () => {
+const Basic = () => {
 
     // every function that starts with "use" is a hook
     // e.g. useState, useSWR, useAuth0
@@ -22,7 +22,7 @@ const Home = () => {
     return (
         <Jumbotron>
             <div className="text-left">
-                <h5>Welcome to the UCSB Courses Search App!</h5>
+                <h5>Search Archived Course Data from MongoDB</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
@@ -33,4 +33,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Basic;
