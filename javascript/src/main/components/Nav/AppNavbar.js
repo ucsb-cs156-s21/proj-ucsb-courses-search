@@ -33,6 +33,9 @@ function AppNavbar() {
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
+        <LinkContainer to={"/statistics"}>
+          <Nav.Link>Statistics</Nav.Link>
+        </LinkContainer>
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">
