@@ -3,6 +3,7 @@ package edu.ucsb.courses.documents;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,10 +21,8 @@ public class Course {
     private List<GeneralEducation> generalEducation;
     private FinalExam finalExam;
 
-
     public Course() {
     }
-
 
     public String getQuarter() {
         return this.quarter;
@@ -88,8 +87,10 @@ public class Course {
         if (!(o instanceof Course)) {
             return false;
         }
-        Course course = (Course) o;
-        return Objects.equals(quarter, course.quarter) && Objects.equals(courseId, course.courseId) && Objects.equals(title, course.title) && Objects.equals(description, course.description) && Objects.equals(classSections, course.classSections) && Objects.equals(generalEducation, course.generalEducation) && Objects.equals(finalExam, course.finalExam);
+        Course c = (Course) o;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(courseId, c.getCourseId()).append(quarter, c.getQuarter());
+        return builder.build();
     }
 
     @Override
@@ -99,17 +100,9 @@ public class Course {
 
     @Override
     public String toString() {
-        return "{" +
-            " quarter='" + getQuarter() + "'" +
-            ", courseId='" + getCourseId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", classSections='" + getClassSections() + "'" +
-            ", generalEducation='" + getGeneralEducation() + "'" +
-            ", finalExam='" + getFinalExam() + "'" +
-            "}";
+        return "{" + " quarter='" + getQuarter() + "'" + ", courseId='" + getCourseId() + "'" + ", title='" + getTitle()
+                + "'" + ", description='" + getDescription() + "'" + ", classSections='" + getClassSections() + "'"
+                + ", generalEducation='" + getGeneralEducation() + "'" + ", finalExam='" + getFinalExam() + "'" + "}";
     }
 
- 
-    
 }

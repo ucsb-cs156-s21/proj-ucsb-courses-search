@@ -114,7 +114,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/net.codebox/javabean-tester -->
+		<dependency>
+			<groupId>net.codebox</groupId>
+			<artifactId>javabean-tester</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 	</dependencies>
 

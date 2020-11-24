@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 import net.codebox.javabeantester.JavaBeanTester;
 
 
-public class InstructorTests {
-    private static Logger logger = LoggerFactory.getLogger(InstructorTests.class);
+public class TimeLocationTests {
+    private static Logger logger = LoggerFactory.getLogger(TimeLocationTests.class);
 
     @Test
     public void testGettersAndSetters() throws Exception {
       // See: https://github.com/codebox/javabean-tester
-      JavaBeanTester.test(Instructor.class);
+      JavaBeanTester.test(TimeLocation.class);
     }
 
 }
