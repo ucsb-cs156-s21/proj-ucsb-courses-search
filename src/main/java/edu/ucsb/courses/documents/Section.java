@@ -3,6 +3,8 @@ package edu.ucsb.courses.documents;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+
 public class Section {
 
     /** a unique number assigned to a section */
@@ -66,30 +68,7 @@ public class Section {
      */
     private List<Instructor> instructors;
 
-
     public Section() {
-    }
-
-    public Section(String enrollCode, String section, String session, String classClosed, String courseCancelled, String gradingOptionCode, Integer enrolledTotal, Integer maxEnroll, String secondaryStatus, boolean departmentApprovalRequired, boolean instructorApprovalRequired, String restrictionLevel, String restrictionMajor, String restrictionMajorPass, String restrictionMinor, String restrictionMinorPass, List<String> concurrentCourses, List<TimeLocation> timeLocations, List<Instructor> instructors) {
-        this.enrollCode = enrollCode;
-        this.section = section;
-        this.session = session;
-        this.classClosed = classClosed;
-        this.courseCancelled = courseCancelled;
-        this.gradingOptionCode = gradingOptionCode;
-        this.enrolledTotal = enrolledTotal;
-        this.maxEnroll = maxEnroll;
-        this.secondaryStatus = secondaryStatus;
-        this.departmentApprovalRequired = departmentApprovalRequired;
-        this.instructorApprovalRequired = instructorApprovalRequired;
-        this.restrictionLevel = restrictionLevel;
-        this.restrictionMajor = restrictionMajor;
-        this.restrictionMajorPass = restrictionMajorPass;
-        this.restrictionMinor = restrictionMinor;
-        this.restrictionMinorPass = restrictionMinorPass;
-        this.concurrentCourses = concurrentCourses;
-        this.timeLocations = timeLocations;
-        this.instructors = instructors;
     }
 
     public String getEnrollCode() {
@@ -164,20 +143,12 @@ public class Section {
         this.secondaryStatus = secondaryStatus;
     }
 
-    public boolean isDepartmentApprovalRequired() {
-        return this.departmentApprovalRequired;
-    }
-
     public boolean getDepartmentApprovalRequired() {
         return this.departmentApprovalRequired;
     }
 
     public void setDepartmentApprovalRequired(boolean departmentApprovalRequired) {
         this.departmentApprovalRequired = departmentApprovalRequired;
-    }
-
-    public boolean isInstructorApprovalRequired() {
-        return this.instructorApprovalRequired;
     }
 
     public boolean getInstructorApprovalRequired() {
@@ -252,101 +223,6 @@ public class Section {
         this.instructors = instructors;
     }
 
-    public Section enrollCode(String enrollCode) {
-        this.enrollCode = enrollCode;
-        return this;
-    }
-
-    public Section section(String section) {
-        this.section = section;
-        return this;
-    }
-
-    public Section session(String session) {
-        this.session = session;
-        return this;
-    }
-
-    public Section classClosed(String classClosed) {
-        this.classClosed = classClosed;
-        return this;
-    }
-
-    public Section courseCancelled(String courseCancelled) {
-        this.courseCancelled = courseCancelled;
-        return this;
-    }
-
-    public Section gradingOptionCode(String gradingOptionCode) {
-        this.gradingOptionCode = gradingOptionCode;
-        return this;
-    }
-
-    public Section enrolledTotal(Integer enrolledTotal) {
-        this.enrolledTotal = enrolledTotal;
-        return this;
-    }
-
-    public Section maxEnroll(Integer maxEnroll) {
-        this.maxEnroll = maxEnroll;
-        return this;
-    }
-
-    public Section secondaryStatus(String secondaryStatus) {
-        this.secondaryStatus = secondaryStatus;
-        return this;
-    }
-
-    public Section departmentApprovalRequired(boolean departmentApprovalRequired) {
-        this.departmentApprovalRequired = departmentApprovalRequired;
-        return this;
-    }
-
-    public Section instructorApprovalRequired(boolean instructorApprovalRequired) {
-        this.instructorApprovalRequired = instructorApprovalRequired;
-        return this;
-    }
-
-    public Section restrictionLevel(String restrictionLevel) {
-        this.restrictionLevel = restrictionLevel;
-        return this;
-    }
-
-    public Section restrictionMajor(String restrictionMajor) {
-        this.restrictionMajor = restrictionMajor;
-        return this;
-    }
-
-    public Section restrictionMajorPass(String restrictionMajorPass) {
-        this.restrictionMajorPass = restrictionMajorPass;
-        return this;
-    }
-
-    public Section restrictionMinor(String restrictionMinor) {
-        this.restrictionMinor = restrictionMinor;
-        return this;
-    }
-
-    public Section restrictionMinorPass(String restrictionMinorPass) {
-        this.restrictionMinorPass = restrictionMinorPass;
-        return this;
-    }
-
-    public Section concurrentCourses(List<String> concurrentCourses) {
-        this.concurrentCourses = concurrentCourses;
-        return this;
-    }
-
-    public Section timeLocations(List<TimeLocation> timeLocations) {
-        this.timeLocations = timeLocations;
-        return this;
-    }
-
-    public Section instructors(List<Instructor> instructors) {
-        this.instructors = instructors;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -354,39 +230,31 @@ public class Section {
         if (!(o instanceof Section)) {
             return false;
         }
-        Section section = (Section) o;
-        return Objects.equals(enrollCode, section.enrollCode) && Objects.equals(section, section.section) && Objects.equals(session, section.session) && Objects.equals(classClosed, section.classClosed) && Objects.equals(courseCancelled, section.courseCancelled) && Objects.equals(gradingOptionCode, section.gradingOptionCode) && Objects.equals(enrolledTotal, section.enrolledTotal) && Objects.equals(maxEnroll, section.maxEnroll) && Objects.equals(secondaryStatus, section.secondaryStatus) && departmentApprovalRequired == section.departmentApprovalRequired && instructorApprovalRequired == section.instructorApprovalRequired && Objects.equals(restrictionLevel, section.restrictionLevel) && Objects.equals(restrictionMajor, section.restrictionMajor) && Objects.equals(restrictionMajorPass, section.restrictionMajorPass) && Objects.equals(restrictionMinor, section.restrictionMinor) && Objects.equals(restrictionMinorPass, section.restrictionMinorPass) && Objects.equals(concurrentCourses, section.concurrentCourses) && Objects.equals(timeLocations, section.timeLocations) && Objects.equals(instructors, section.instructors);
+        Section s = (Section) o;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(enrollCode, s.getEnrollCode());
+        return builder.build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(enrollCode, section, session, classClosed, courseCancelled, gradingOptionCode, enrolledTotal, maxEnroll, secondaryStatus, departmentApprovalRequired, instructorApprovalRequired, restrictionLevel, restrictionMajor, restrictionMajorPass, restrictionMinor, restrictionMinorPass, concurrentCourses, timeLocations, instructors);
+        return Objects.hash(enrollCode);
     }
 
     @Override
     public String toString() {
-        return "{" +
-            " enrollCode='" + getEnrollCode() + "'" +
-            ", section='" + getSection() + "'" +
-            ", session='" + getSession() + "'" +
-            ", classClosed='" + getClassClosed() + "'" +
-            ", courseCancelled='" + getCourseCancelled() + "'" +
-            ", gradingOptionCode='" + getGradingOptionCode() + "'" +
-            ", enrolledTotal='" + getEnrolledTotal() + "'" +
-            ", maxEnroll='" + getMaxEnroll() + "'" +
-            ", secondaryStatus='" + getSecondaryStatus() + "'" +
-            ", departmentApprovalRequired='" + isDepartmentApprovalRequired() + "'" +
-            ", instructorApprovalRequired='" + isInstructorApprovalRequired() + "'" +
-            ", restrictionLevel='" + getRestrictionLevel() + "'" +
-            ", restrictionMajor='" + getRestrictionMajor() + "'" +
-            ", restrictionMajorPass='" + getRestrictionMajorPass() + "'" +
-            ", restrictionMinor='" + getRestrictionMinor() + "'" +
-            ", restrictionMinorPass='" + getRestrictionMinorPass() + "'" +
-            ", concurrentCourses='" + getConcurrentCourses() + "'" +
-            ", timeLocations='" + getTimeLocations() + "'" +
-            ", instructors='" + getInstructors() + "'" +
-            "}";
+        return "{" + " enrollCode='" + getEnrollCode() + "'" + ", section='" + getSection() + "'" + ", session='"
+                + getSession() + "'" + ", classClosed='" + getClassClosed() + "'" + ", courseCancelled='"
+                + getCourseCancelled() + "'" + ", gradingOptionCode='" + getGradingOptionCode() + "'"
+                + ", enrolledTotal='" + getEnrolledTotal() + "'" + ", maxEnroll='" + getMaxEnroll() + "'"
+                + ", secondaryStatus='" + getSecondaryStatus() + "'" + ", departmentApprovalRequired='"
+                + getDepartmentApprovalRequired() + "'" + ", instructorApprovalRequired='"
+                + getInstructorApprovalRequired() + "'" + ", restrictionLevel='" + getRestrictionLevel() + "'"
+                + ", restrictionMajor='" + getRestrictionMajor() + "'" + ", restrictionMajorPass='"
+                + getRestrictionMajorPass() + "'" + ", restrictionMinor='" + getRestrictionMinor() + "'"
+                + ", restrictionMinorPass='" + getRestrictionMinorPass() + "'" + ", concurrentCourses='"
+                + getConcurrentCourses() + "'" + ", timeLocations='" + getTimeLocations() + "'" + ", instructors='"
+                + getInstructors() + "'" + "}";
     }
-
 
 }

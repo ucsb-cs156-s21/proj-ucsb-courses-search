@@ -3,7 +3,7 @@ package edu.ucsb.courses.documents;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ public class FinalExamTests {
     private static Logger logger = LoggerFactory.getLogger(FinalExamTests.class);
 
     @Test
-    public void testGettersAndSetters() throws Exception {
+    public void test_gettersAndSetters() throws Exception {
       // See: https://github.com/codebox/javabean-tester
       JavaBeanTester.test(FinalExam.class);
     }
@@ -60,7 +60,7 @@ public class FinalExamTests {
     public void test_toString() throws Exception {
         FinalExam fe = new FinalExam();
         fe.setExamDay("Monday");
-        String expected="";
+        String expected="{ hasFinals='false', comments='null', examDay='Monday', examDate='null', beginTime='null', endTime='null'}";
         assertEquals(expected, fe.toString());
     }
 

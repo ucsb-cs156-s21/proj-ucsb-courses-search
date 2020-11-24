@@ -20,17 +20,7 @@ public class TimeLocation {
     private String beginTime; 
     private String endTime;
 
-
     public TimeLocation() {
-    }
-
-    public TimeLocation(String room, String building, String roomCapacity, String days, String beginTime, String endTime) {
-        this.room = room;
-        this.building = building;
-        this.roomCapacity = roomCapacity;
-        this.days = days;
-        this.beginTime = beginTime;
-        this.endTime = endTime;
     }
 
     public String getRoom() {
@@ -81,21 +71,11 @@ public class TimeLocation {
         this.endTime = endTime;
     }
 
-    public TimeLocation beginTime(String beginTime) {
-        this.beginTime = beginTime;
-        return this;
-    }
-
-    public TimeLocation endTime(String endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Course)) {
+        if (!(o instanceof TimeLocation)) {
             return false;
         }
         TimeLocation tl = (TimeLocation) o;

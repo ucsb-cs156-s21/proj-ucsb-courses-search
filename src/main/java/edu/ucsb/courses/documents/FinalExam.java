@@ -20,16 +20,6 @@ public class FinalExam {
     public FinalExam() {
     }
 
-    public FinalExam(boolean hasFinals, String comments, String examDay, String examDate, String beginTime,
-            String endTime) {
-        this.hasFinals = hasFinals;
-        this.comments = comments;
-        this.examDay = examDay;
-        this.examDate = examDate;
-        this.beginTime = beginTime;
-        this.endTime = endTime;
-    }
-
     public boolean getHasFinals() {
         return this.hasFinals;
     }

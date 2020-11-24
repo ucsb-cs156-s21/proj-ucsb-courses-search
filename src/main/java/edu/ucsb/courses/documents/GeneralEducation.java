@@ -37,15 +37,7 @@ public class GeneralEducation {
         this.geCollege = geCollege;
     }
 
-    public GeneralEducation geCode(String geCode) {
-        this.geCode = geCode;
-        return this;
-    }
-
-    public GeneralEducation geCollege(String geCollege) {
-        this.geCollege = geCollege;
-        return this;
-    }
+   
 
     @Override
     public boolean equals(Object o) {

@@ -42,7 +42,7 @@ public class Instructor {
         }
         Instructor ins = (Instructor) o;
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(instructor, ins.getInstructor()).append(functionCode, ins.getInstructor());
+        builder.append(instructor, ins.getInstructor()).append(functionCode, ins.getFunctionCode());
         return builder.build();
     }
 
