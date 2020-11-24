@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import fetch from "isomorphic-unfetch";
 
-const BasicCourseSearchForm = ({ setCourseJSON }) => {
+const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
     const [quarter, setQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
 
-    const fetchJSON = async (event) => {
-        const url=`/api/public/basicsearch?qtr=${quarter}&dept=${department}&level=${level}`;
-        console.log(`fetching JSON, url=${url}`);
-        const courseJSON = (await (await fetch(url)).json() )
-        console.log(`fetch returned, courseJSON=${courseJSON}`);
-        return courseJSON;
-    };
+    // const fetchJSON = async (event) => {
+    //     const url=`/api/public/basicsearch?qtr=${quarter}&dept=${department}&level=${level}`;
+    //     console.log(`fetching JSON, url=${url}`);
+    //     const courseJSON = (await (await fetch(url)).json() )
+    //     console.log(`fetch returned, courseJSON=${courseJSON}`);
+    //     return courseJSON;
+    // };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit pressed");
-        fetchJSON(event).then((courseJSON)=> {
+        fetchJSON(event, {quarter, department, level}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
         });
     };

@@ -5,9 +5,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router-dom";
 import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCourseSearchForm";
 import JSONPrettyCard from "../../components/Utilities/JSONPrettyCard";
+import { fetchBasicCourseJSON } from "main/services/courseSearches";
 
 const Home = () => {
-    
+
     // every function that starts with "use" is a hook
     // e.g. useState, useSWR, useAuth0
 
@@ -22,7 +23,7 @@ const Home = () => {
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
-                <BasicCourseSearchForm setCourseJSON={setCourseJSON} />
+                <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
