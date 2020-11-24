@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Home from "main/pages/Home/Home";
+import Basic from "main/pages/History/Basic";
 
-describe("Home tests", () => {
+describe("History Basic Course Search page tests", () => {
   test("renders without crashing", () => {
-    render(<Home/>);
+    render(<Basic/>);
   });
 });

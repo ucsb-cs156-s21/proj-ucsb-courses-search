@@ -8,14 +8,6 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
 
-    // const fetchJSON = async (event) => {
-    //     const url=`/api/public/basicsearch?qtr=${quarter}&dept=${department}&level=${level}`;
-    //     console.log(`fetching JSON, url=${url}`);
-    //     const courseJSON = (await (await fetch(url)).json() )
-    //     console.log(`fetch returned, courseJSON=${courseJSON}`);
-    //     return courseJSON;
-    // };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit pressed");
