@@ -16,7 +16,7 @@ function AppNavbar() {
     fetchWithToken
   );
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
-
+  
   return (
     <Navbar bg="dark" variant="dark">
       <LinkContainer to={""}>
