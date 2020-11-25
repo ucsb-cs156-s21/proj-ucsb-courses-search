@@ -33,9 +33,12 @@ function AppNavbar() {
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
-        <LinkContainer to={"/statistics"}>
-          <Nav.Link>Statistics</Nav.Link>
-        </LinkContainer>
+        <NavDropdown title="Statistics">
+          <NavDropdown.Item href="/statistics">Full Classes by Department</NavDropdown.Item>
+          <NavDropdown.Item href="/statistics">Course Occupancy by Department</NavDropdown.Item>
+          <NavDropdown.Item href="/statistics">Course Occupancy by Class Level</NavDropdown.Item>
+          <NavDropdown.Item href="/statistics">Average Class Size by Department</NavDropdown.Item>
+        </NavDropdown>
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">
