@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router-dom";
-import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCourseSearchForm";
-import JSONPrettyCard from "../../components/Utilities/JSONPrettyCard";
+
+
+import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
+import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 
 const Basic = () => {
@@ -23,7 +25,7 @@ const Basic = () => {
         <Jumbotron>
             <div className="text-left">
                 <h5>Search Archived Course Data from MongoDB</h5>
-                <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseHistoryJSON} />
+                <CourseSearchFormQtrDeptOnly setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseHistoryJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}

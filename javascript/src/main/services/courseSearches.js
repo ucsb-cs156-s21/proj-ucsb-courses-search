@@ -9,7 +9,7 @@ import fetch from "isomorphic-unfetch";
 };
 
 const fetchBasicCourseHistoryJSON = async (event, fields) => {
-    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.department}&level=${fields.level}`;
+    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.department}`;
     console.log(`fetching JSON, url=${url}`);
     const courseJSON = (await (await fetch(url)).json())
     console.log(`fetch returned, courseJSON=${courseJSON}`);
