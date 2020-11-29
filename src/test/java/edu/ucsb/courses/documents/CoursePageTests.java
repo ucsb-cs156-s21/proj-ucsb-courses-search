@@ -2,9 +2,15 @@ package edu.ucsb.courses.documents;
 
 import org.junit.jupiter.api.Test;
 import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import net.codebox.javabeantester.JavaBeanTester;
 
@@ -64,6 +70,20 @@ public class CoursePageTests {
         assertEquals("{ pageNumber='1', pageSize='10', total='10', classes='[]'}",cp1.toString());
     }
 
+    @Test
+    public void test_fromJSON_noError() throws Exception {
+        CoursePage cp1 = new CoursePage(1,10,10,new ArrayList<Course>());
+        ObjectMapper mapper = new ObjectMapper();
+        String cp1AsJSON = mapper.writeValueAsString(cp1);
 
+        assertEquals(cp1, CoursePage.fromJSON(cp1AsJSON));
+    }
+
+    @Test
+    public void test_fromJSON_withError() throws Exception {
+        String badJSON = "this is not good json!";
+        CoursePage cp = CoursePage.fromJSON(badJSON);
+        assertNull(cp);
+    }
 
 }
