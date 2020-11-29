@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCourseSearchForm";
-import BasicCourseTable from "../../components/BasicCourseSearch/BasicCourseTable";
-import JSONPrettyCard from "../../components/Utilities/JSONPrettyCard";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Redirect } from "react-router-dom";
+import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
+import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
+import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 
 const Home = () => {
 
