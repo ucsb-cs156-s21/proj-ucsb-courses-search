@@ -8,7 +8,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON(event, {quarter, department}).then((courseJSON)=> {
+        fetchJSON(event, { quarter, department }).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -39,7 +39,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
-        </Button>
+            </Button>
         </Form>
     );
 };
