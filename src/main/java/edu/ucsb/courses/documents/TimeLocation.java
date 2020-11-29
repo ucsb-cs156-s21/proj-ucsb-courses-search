@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-// import edu.ucsb.cs156.ucsb_courses_search.services.UCSBBuildingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
