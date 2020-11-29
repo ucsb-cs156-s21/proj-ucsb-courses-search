@@ -52,8 +52,8 @@ describe("courseSearches tests",  () => {
         level: "G"
     };
 
-    const result = fetchBasicCourseHistoryJSON({},expectedFields);
-    expect(await result).toBe(sampleReturnValue);
+    const result = await fetchBasicCourseHistoryJSON({},expectedFields);
+    expect(result).toBe(sampleReturnValue);
 
   });
 });
