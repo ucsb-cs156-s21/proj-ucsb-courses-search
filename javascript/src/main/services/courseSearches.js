@@ -2,8 +2,8 @@ import fetch from "isomorphic-unfetch";
 
  const fetchBasicCourseJSON = async (event, fields) => {
     const url = `/api/public/basicsearch?qtr=${fields.quarter}&dept=${fields.department}&level=${fields.level}`;
-    const courseJSON = (await (await fetch(url)).json())
-    return courseJSON;
+    const courseJSON = await fetch(url);
+    return courseJSON.json();
 };
 
 const fetchBasicCourseHistoryJSON = async (event, fields) => {
