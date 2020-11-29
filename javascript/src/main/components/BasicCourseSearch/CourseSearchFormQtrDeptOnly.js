@@ -8,7 +8,6 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
         fetchJSON(event, {quarter, department}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
         });

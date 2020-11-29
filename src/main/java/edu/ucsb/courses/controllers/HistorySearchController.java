@@ -1,10 +1,6 @@
 package edu.ucsb.courses.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import javax.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,9 +25,6 @@ public class HistorySearchController {
     private final Logger logger = LoggerFactory.getLogger(HistorySearchController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
-
-    // @Autowired
-    // UCSBCurriculumService ucsbCurriculumService;
 
     @Autowired
     ArchivedCourseRepository archivedCourseRepository;
