@@ -18,6 +18,8 @@ This section serves as a quick reference for values found in either [`secrets-lo
 | `app.namespace`                                                   |              | See `Getting Started` below                                               |
 | `app.admin.emails`                                                |              | A comma separated list of email addresses of permanent admin users.       |
 | `app.member.hosted-domain`                                        |              | The email suffix that identifies members (i.e. `ucsb.edu` vs `gmail.com`) |
+| `app.ucsb.api.consumer_key`                                        |              | The "consumer key" from the site <https://developer.ucsb.edu>; see below for more information. |
+| `spring.data.mongodb.uri` |  | The URL for read only access to the MongoDB database with archived course data; see more information below. |
 | `auth0.domain`                                                    |              | See `Getting Started` below                                               |
 | `auth0.clientId`                                                  |              | See `Getting Started` below                                               |
 | `security.oauth2.resource.id`                                     |              | Should always be `${app.namespace}/api`                                   |
@@ -29,6 +31,39 @@ This section serves as a quick reference for values found in either [`secrets-lo
 | `spring.datasource.username`                                      | Yes          | Should always be `${JDBC_DATABASE_USERNAME}`                              |
 | `spring.datasource.password`                                      | Yes          | Should always be `${JDBC_DATABASE_PASSWORD}`                              |
 | `spring.jpa.hibernate.ddl-auto`                                   | Yes          | Should always be `update`                                                 |
+
+## Obtaining an API key 
+
+You'll need to obtain an API key for the <https://developer.ucsb.edu> site
+that is authorized for these APIs:
+
+* <https://developer.ucsb.edu/content/academic-curriculums>
+* <https://developer.ucsb.edu/content/academic-quarter-calendar>
+* <https://developer.ucsb.edu/content/student-record-code-lookups>
+
+You may be able to sign up for an account yourself, or you can obtain
+an API key from your instructional staff (instructor, TA, or LA).
+
+If you are a student in CMPSC 156, check the slack channel for your 
+team or project; your instructional staff may already have shared
+an API key with you.   This key will be used for the value of `app.ucsb.api.consumer_key` in 
+a later step.
+
+## MongoDB URL
+
+You'll also need a value for the MongoDB URL for read-only access to the
+archived course data.
+
+For students working on the project, you will typically not need to
+set up your own instance of this database; instead the course staff
+will do that for you.
+
+However, if you are *are* the course staff, or you just want to know how
+to set it up yourself,  you should consult
+the repo <https://github.com/ucsb-cs156-f20/ucsb-courses-search-support-scripts> which describes the process for
+setting up that database.
+
+This url is used for the value of `spring.data.mongodb.uri`
 
 ## Getting started
 
