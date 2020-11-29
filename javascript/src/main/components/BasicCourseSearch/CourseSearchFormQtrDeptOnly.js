@@ -26,7 +26,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
                 <Form.Label>Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter} data-testid="select-quarter" >
+                <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter}  >
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
