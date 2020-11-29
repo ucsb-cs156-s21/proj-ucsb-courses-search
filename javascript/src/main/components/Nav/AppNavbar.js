@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AuthNav from "main/components/Nav/AuthNav";
 import ProfileNav from "main/components/Nav/ProfileNav";
@@ -22,6 +22,9 @@ function AppNavbar() {
         <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
       </LinkContainer>
       <Nav>
+        <NavDropdown title="Course History">
+            <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
+        </NavDropdown>
         { isAdmin &&
           (<LinkContainer to={"/admin"}>
             <Nav.Link>Admin</Nav.Link>
