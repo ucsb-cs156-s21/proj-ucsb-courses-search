@@ -9,6 +9,7 @@ import { Route, Switch } from "react-router-dom";
 import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
+import Schedule from "main/pages/Schedule/Schedule";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
 import Profile from "main/pages/Profile/Profile";
@@ -40,6 +41,7 @@ function App() {
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
+          <PrivateRoute path="/schedule" component={Schedule} />
         </Switch>
       </Container>
       <AppFooter />
