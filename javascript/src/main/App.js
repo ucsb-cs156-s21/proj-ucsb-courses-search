@@ -11,6 +11,7 @@ import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
+import Schedule from "main/pages/Schedule/Schedule";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
 import Ge from "main/pages/History/Ge";
@@ -48,6 +49,7 @@ function App() {
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
+          <PrivateRoute path="/schedule" component={Schedule} />
         </Switch>
       </Container>
       <AppFooter />
