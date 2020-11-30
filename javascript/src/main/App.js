@@ -8,8 +8,10 @@ import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
+
 import Statistics from "main/pages/Statistics/Statistics";
 import ClassSize from "main/pages/Statistics/ClassSize";
+
 import Schedule from "main/pages/Schedule/Schedule";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
