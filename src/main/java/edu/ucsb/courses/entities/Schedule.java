@@ -15,7 +15,7 @@ public class Schedule {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  @Column(nullable = true)
+  @Column(nullable = false)
   private String name;
   @Column(nullable = false)
   private String quarter;
@@ -28,8 +28,6 @@ public class Schedule {
     this.id = id;
     this.name = name;
     this.description = description;
-    this.quarter = quarter;
-    this.userId = userId;
   }
 
   public Long getId() {
@@ -86,9 +84,9 @@ public class Schedule {
   }
 
   @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, quarter, userId);
-    }
+  public int hashCode() {
+    return Objects.hash(id, name, description, quarter, userId);
+  }
 
   @Override
   public String toString() {
