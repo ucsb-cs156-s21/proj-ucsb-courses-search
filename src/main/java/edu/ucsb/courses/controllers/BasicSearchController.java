@@ -1,10 +1,12 @@
 package edu.ucsb.courses.controllers;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import javax.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -37,8 +39,23 @@ public class BasicSearchController {
         throws JsonProcessingException {
 
         String body = ucsbCurriculumService.getJSON(dept, qtr, level);
-
+        System.out.println(body);    
         return ResponseEntity.ok().body(body);
     }
 
+    @GetMapping(value = "/basicsearch/downloadcsv", produces = "application/json")
+    public ResponseEntity<String> downloadcsv(
+        @RequestParam String qtr, 
+        @RequestParam String dept,
+        @RequestParam String level) 
+        throws JsonProcessingException {
+        String body = ucsbCurriculumService.getJSON(dept, qtr, level);
+        JsonNode jsonTree = new ObjectMapper().writeValue(new File("src/main/resources/courses.json"), body);
+
+    }
+
+
 }
+
+
+
