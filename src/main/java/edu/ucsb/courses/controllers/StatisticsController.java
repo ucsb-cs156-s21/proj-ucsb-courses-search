@@ -96,5 +96,5 @@ public class StatisticsController {
         logger.info("qds={}",qds);
         String body = mapper.writeValueAsString(qds);
         return ResponseEntity.ok().body(body);
-    } 
+    }
 }
