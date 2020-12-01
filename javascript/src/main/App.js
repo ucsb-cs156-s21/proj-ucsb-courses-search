@@ -37,6 +37,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
           <Route path="/statistics" exact component={Statistics} />
+          <Route path="/history/ge" exact component={Basic} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
