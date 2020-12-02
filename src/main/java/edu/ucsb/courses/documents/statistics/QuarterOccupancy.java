@@ -1,12 +1,34 @@
 package edu.ucsb.courses.documents.statistics;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class QuarterOccupancy {
+    
+    private static Logger logger = LoggerFactory.getLogger(QuarterOccupancy.class);
+    
     @JsonProperty("quarter")
     private String _id;
     private String enrolled;
     private String maxEnrolled;
+    
+    public QuarterOccupancy() {
+        
+    }
+    
+    public QuarterOccupancy(String _id, String enrolled, String maxEnrolled) {
+        this._id = _id;
+        this.enrolled = enrolled;
+        this.maxEnrolled = maxEnrolled;
+    }
 
     public String get_id() {
         return _id;
@@ -67,6 +89,28 @@ public class QuarterOccupancy {
         } else if (!maxEnrolled.equals(other.maxEnrolled))
             return false;
         return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "{" +
+            " quarter='" + _id + "'" +
+            ", enrolled='" + enrolled + "'" +
+            ", maxEnrolled='" + maxEnrolled + "'" +
+            "}";
+    }
+    
+    public static List<QuarterOccupancy> listFromJSON(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            List<QuarterOccupancy> lqd = objectMapper.readValue(json, new TypeReference<List<QuarterOccupancy>>(){});
+            return lqd;
+        } catch (JsonProcessingException jpe) {
+            logger.error("JsonProcessingException:" + jpe);
+            return null;
+        }
+        
     }
     
 }
