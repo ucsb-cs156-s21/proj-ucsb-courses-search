@@ -1,11 +1,8 @@
 package edu.ucsb.courses.controllers;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import java.util.List;
 
@@ -18,11 +15,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
-import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 
 @RestController
@@ -71,24 +63,11 @@ public class StatisticsController {
         @RequestParam String department)
         throws JsonProcessingException, Exception {
 
-            MatchOperation filterQuarterDept = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
-                .and("deptCode").is(department).and("instructionType").is("LEC"));
-            UnwindOperation unwindOperation = unwind("$classSections","arrayIndex", false);
-            MatchOperation filterSection = match(Criteria.where("arrayIndex").ne(0));
-            GroupOperation groupOperation = group("$_id", "$quarter", "$title", "$courseId").sum("$classSections.enrolledTotal").as("enrolled")
-                .sum("$classSections.maxEnroll").as("maxEnrolled");
-            ProjectionOperation project = project("_id", "quarter", "title", "courseId", "enrolled", "maxEnrolled").andExpression("maxEnrolled - enrolled").as("diff");
-            MatchOperation filterFull = match(Criteria.where("diff").lte(0));
-            SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
+            // Real aggregation needs to go here
 
-            Aggregation aggregation = newAggregation(filterQuarterDept, unwindOperation, filterSection, groupOperation, project, filterFull, sort);
-
-            AggregationResults<FullCourse> result = mongoTemplate.aggregate(aggregation, "courses", FullCourse.class);
-
-            List<FullCourse> fcs = result.getMappedResults();
-
-            logger.info("fcs={}",fcs);
-            String body = mapper.writeValueAsString(fcs);
+            // Right now I am returning what the user searched for
+            // to show the frontend/backend connection is working
+            String body = "{\"startQuarter\": \"" + startQuarter + "\"," + "\"endQuarter\": \"" + endQuarter + "\"," + "\"department\": \"" + department + "\"}";
 
             return ResponseEntity.ok().body(body);
     }
