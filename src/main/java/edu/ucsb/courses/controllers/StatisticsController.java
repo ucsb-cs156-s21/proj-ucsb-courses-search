@@ -1,9 +1,10 @@
 package edu.ucsb.courses.controllers;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,10 +70,12 @@ public class StatisticsController {
         throws JsonProcessingException, Exception {
 
             // Real aggregation needs to go here
-            MatchOperation filterQuarterRange = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
-            MatchOperation filterDepartment = match(Criteria.where("deptCode").is(department));
+            MatchOperation filterQuarterDept = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
+                .and("deptCode").is(department).and("instructionType").is("LEC"));
+            
+            UnwindOperation unwindOperation = unwind("$classSections", false);
 
-            Aggregation aggregation = newAggregation(filterQuarterRange, filterDepartment);
+            Aggregation aggregation = newAggregation(filterQuarterDept);
 
             AggregationResults<FullCourse> result = mongoTemplate.aggregate(aggregation, "courses", FullCourse.class);
 
@@ -79,6 +83,7 @@ public class StatisticsController {
 
             logger.info("fcs={}",fcs);
             String body = mapper.writeValueAsString(fcs);
+
 
             return ResponseEntity.ok().body(body);
     }
