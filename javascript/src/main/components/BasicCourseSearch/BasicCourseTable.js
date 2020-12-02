@@ -23,7 +23,7 @@ const BasicCourseTable = ( {classes} ) => {
 
 
 const rowStyle = (cell, row) => {
-  console.log(`cell=`,cell);
+  //console.log(`cell=`,cell);
   return (cell.section % 100 == 0)? {backgroundColor: '#cedefa'}: {backgroundColor: '#edf3fe'} 
 }
 
@@ -33,15 +33,27 @@ const renderInstructors = (cell, row) => {
   return (  <span>{instructor}</span> )
 }
 
+const renderCourseNumber = (cell, row) => {
+  //console.log(`cell=${cell} row=`, row);
+  const courseNumber = (row.section % 100 == 0)? row.course.courseId: "";
+  return (  <span>{courseNumber}</span> )
+}
 
+const renderTitle = (cell, row) => {
+  console.log(`cell=${cell} row=`, row);
+  const courseTitle = (row.section % 100 == 0)? row.course.title: "";
+  return (  <span>{courseTitle}</span> )
+}
 
   const columns = [{
     dataField: 'course.courseId',
-    text: 'Course Number'
+    text: 'Course Number',
+    formatter: (cell,row) => renderCourseNumber(cell,row)
   },{
     dataField: 'course.title',
     text: 'Title',
-    dataAlign: "left"
+    dataAlign: "left",
+    formatter: (cell,row) => renderTitle(cell,row)
   },{
     dataField: 'section',
     text: 'Section'
