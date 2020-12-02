@@ -3,6 +3,7 @@ package edu.ucsb.courses.controllers;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 
 @RestController
@@ -64,10 +68,17 @@ public class StatisticsController {
         throws JsonProcessingException, Exception {
 
             // Real aggregation needs to go here
+            MatchOperation filterQuarterRange = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
+            MatchOperation filterDepartment = match(Criteria.where("deptCode").is(department));
 
-            // Right now I am returning what the user searched for
-            // to show the frontend/backend connection is working
-            String body = "{\"startQuarter\": \"" + startQuarter + "\"," + "\"endQuarter\": \"" + endQuarter + "\"," + "\"department\": \"" + department + "\"}";
+            Aggregation aggregation = newAggregation(filterQuarterRange, filterDepartment);
+
+            AggregationResults<FullCourse> result = mongoTemplate.aggregate(aggregation, "courses", FullCourse.class);
+
+            List<FullCourse> fcs = result.getMappedResults();
+
+            logger.info("fcs={}",fcs);
+            String body = mapper.writeValueAsString(fcs);
 
             return ResponseEntity.ok().body(body);
     }
