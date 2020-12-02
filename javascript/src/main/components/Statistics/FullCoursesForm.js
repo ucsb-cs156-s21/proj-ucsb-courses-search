@@ -5,7 +5,7 @@ import fetch from "isomorphic-unfetch";
 const FullCoursesForm = ({ setCourseJSON, fetchJSON }) => {
 
     const [startQuarter, setStartQuarter] = useState("20204");
-    const [endQuarter, setEndQuarter] = useState("20212");
+    const [endQuarter, setEndQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
 
     const handleSubmit = (event) => {
@@ -44,8 +44,8 @@ const FullCoursesForm = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="FullCourses.Department">
                 <Form.Label>Department</Form.Label>
                 <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
-                    <option>CMPSC</option>
-                    <option>MATH</option>
+                    <option value="CMPSC">CMPSC</option>
+                    <option value="MATH ">MATH</option>
                 </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
