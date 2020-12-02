@@ -6,12 +6,11 @@ import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import DivisionOccupancyForm from "main/components/Statistics/DivisionOccupancyForm";
 
 const DivisionOccupancy = () => {
-    const [courseJSON, setCourseJSON] = useState('{"course" : "cs148"}');
+    const [courseJSON, setCourseJSON] = useState('{"course" : "cs156"}');
 
     // const courseJSON = '{"course" : "cs156"}';
     return (
-        <p>Hello World!</p>
-        /*<Jumbotron> 
+        <Jumbotron> 
             <div className="text-left">
                 <h5>Search Archived Course Data from MongoDB by Division Occupancy</h5>
                 <DivisionOccupancyForm setCourseJSON={setCourseJSON} fetchJSON={fetchDivisionOccupancy} />
@@ -20,7 +19,7 @@ const DivisionOccupancy = () => {
                     value={courseJSON}
                 />
             </div>
-        </Jumbotron>*/
+        </Jumbotron>
     );
 };
 

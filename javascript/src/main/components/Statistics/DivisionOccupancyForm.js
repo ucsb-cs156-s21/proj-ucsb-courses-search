@@ -4,7 +4,7 @@ import fetch from "isomorphic-unfetch";
 
 const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON }) => {
 
-    const [startQuarter, setStartQuarter] = useState("20211");
+    const [startQuarter, setStartQuarter] = useState("20204");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");

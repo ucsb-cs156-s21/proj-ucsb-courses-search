@@ -69,6 +69,11 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 
+
+import edu.ucsb.courses.services.UCSBCurriculumService;
+
+
+
 @RestController
 @RequestMapping("/api/public/statistics")
 public class StatisticsController {
@@ -98,17 +103,19 @@ public class StatisticsController {
         return ResponseEntity.ok().body(body);
     }
 
+    @Autowired
+    UCSBCurriculumService ucsbCurriculumService;
+
     @GetMapping(value = "/courseOccupancyByDivision", produces = "application/json")
     public ResponseEntity<String> courseOccupancyByDivision( 
-        @RequestParam String startQtr,
-        @RequestParam String endQtr,
-        @RequestParam String dept,
+        @RequestParam String startQuarter,
+        @RequestParam String endQuarter,
+        @RequestParam String department,
         @RequestParam String level)
         throws JsonProcessingException, Exception {
-            String body = ucsbCurriculumService.getJSON(dept, startQtr, level);
-            body += ucsbCurriculumService.getJSON(dept, endQtr, level);
+            String body = ucsbCurriculumService.getJSON(department, startQuarter, level);
+            body += ucsbCurriculumService.getJSON(department, endQuarter, level);
 
             return ResponseEntity.ok().body(body);
-        }
     }
 }
