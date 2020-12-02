@@ -15,7 +15,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-        <version.commons-io>2.4</version.commons-io>
 	</properties>
 
 	<dependencies>
@@ -125,9 +124,9 @@
 		</dependency>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${version.commons-io}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
         </dependency>
 
 	</dependencies>
