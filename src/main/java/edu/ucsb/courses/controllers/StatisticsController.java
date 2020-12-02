@@ -134,12 +134,13 @@ public class StatisticsController {
             throws JsonProcessingException {
         MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
                 .and("deptCode").is(department).and("instructionType").is("LEC"));
-        UnwindOperation unwindOperation = unwind("$classSections", false);
+        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+        MatchOperation onlySections = match(Criteria.where("index").ne(0));
         GroupOperation groupOperation = group("$quarter").sum("$classSections.enrolledTotal").as("enrolled")
                 .sum("$classSections.maxEnroll").as("maxEnrolled");
         SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, groupOperation, sort);
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlySections, groupOperation, sort);
 
         AggregationResults<QuarterOccupancy> result = mongoTemplate.aggregate(aggregation, "courses",
                 QuarterOccupancy.class);
