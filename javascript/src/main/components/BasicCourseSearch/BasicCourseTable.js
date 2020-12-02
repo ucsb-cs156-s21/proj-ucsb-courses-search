@@ -9,7 +9,8 @@ const BasicCourseTable = ( {classes} ) => {
     (course) => { 
       course.classSections.forEach(
         (section) => {
-          section.course = {
+          section.course = 
+          {
           courseId: course.courseId,
           title: course.title,
           unitsFixed: course.unitsFixed
@@ -20,39 +21,46 @@ const BasicCourseTable = ( {classes} ) => {
     }
   );
 
+
+const rowStyle = (cell, row) => {
+  console.log(`cell=`,cell);
+  return (cell.section % 100 == 0)? {backgroundColor: '#cedefa'}: {backgroundColor: '#edf3fe'} 
+}
+
 const renderInstructors = (cell, row) => {
-  console.log(`cell=${cell} row=`, row);
+  // console.log(`cell=${cell} row=`, row);
   const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "";
-        return (
-            <span>{instructor}</span>
-          )
-        }
+  return (  <span>{instructor}</span> )
+}
+
+
 
   const columns = [{
     dataField: 'course.courseId',
     text: 'Course Number'
   },{
     dataField: 'course.title',
-    text: 'Title'
+    text: 'Title',
+    dataAlign: "left"
+  },{
+    dataField: 'section',
+    text: 'Section'
+  },{
+    text: "Instructor",
+    isDummyField: true,
+    dataField: "instructors",
+    formatter: (cell, row) => renderInstructors(cell, row)
   },{
     dataField: 'enrollCode',
     text: 'Enroll Code'
   },{
     dataField: 'course.unitsFixed',
     text: 'Unit'
-  },{
-    dataField: 'section',
-    text: 'Section'
-  },{
-            text: "Instructor",
-            isDummyField: true,
-            dataField: "instructors",
-            formatter: (cell, row) => renderInstructors(cell, row)
-        }
+  }
 ];
   
   return (
-    <BootstrapTable keyField='enrollCode' data={sections} columns={columns} />
+    <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle} />
   );
 };
 
