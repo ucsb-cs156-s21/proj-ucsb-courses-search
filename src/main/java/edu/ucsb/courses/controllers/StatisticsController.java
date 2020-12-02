@@ -97,4 +97,18 @@ public class StatisticsController {
         String body = mapper.writeValueAsString(qds);
         return ResponseEntity.ok().body(body);
     }
+
+    @GetMapping(value = "/courseOccupancyByDivision", produces = "application/json")
+    public ResponseEntity<String> courseOccupancyByDivision( 
+        @RequestParam String startQtr,
+        @RequestParam String endQtr,
+        @RequestParam String dept,
+        @RequestParam String level)
+        throws JsonProcessingException, Exception {
+            String body = ucsbCurriculumService.getJSON(dept, startQtr, level);
+            body += ucsbCurriculumService.getJSON(dept, endQtr, level);
+
+            return ResponseEntity.ok().body(body);
+        }
+    }
 }

@@ -6,5 +6,12 @@ const fetchCourseCount = async () => {
     return courseCountResponse.json();
 }
 
-export { fetchCourseCount };
+const fetchDivisionOccupancy = async (event, fields) => {
+    const url = `/api/public/statistics/courseOccupancyByDivision`;
+    const courseCountResponse = await fetch(url); 
+    return courseCountResponse.json();
+}
+
+
+export { fetchCourseCount, fetchDivisionOccupancy };
     
