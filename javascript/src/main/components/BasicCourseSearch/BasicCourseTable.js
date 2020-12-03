@@ -1,5 +1,6 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Button } from "react-bootstrap";
 const BasicCourseTable = ( {classes} ) => {
   const sections = [];
   classes.forEach(
@@ -40,6 +41,11 @@ const renderInstructors = (cell, row) => {
   const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
   return (  <span>{instructor}</span> )
 }
+const renderAddCourseButton = (id) => {
+  return (
+      <Button data-testid="add-course-button" onClick={() => { console.log("To Be Implemented")}}>Add Course</Button>
+  )
+}
   const columns = [{
     dataField: 'course.courseId',
     text: 'Course Number',
@@ -70,6 +76,14 @@ const renderInstructors = (cell, row) => {
     align: (cell, row) => dataAlignment(cell, row)
   }
 ];
+//if (member) {
+  columns.push({
+      text: "",
+      isDummyField: true,
+      dataField: "add-course",
+      formatter: (cell, row) => renderAddCourseButton(row.id)
+  });
+//}
   return (
     <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
   );
