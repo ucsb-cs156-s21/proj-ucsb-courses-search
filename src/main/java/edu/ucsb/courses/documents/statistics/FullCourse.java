@@ -18,7 +18,6 @@ public class FullCourse {
     private static Logger logger = LoggerFactory.getLogger(FullCourse.class);
 
     private String quarter;
-    private String deptCode;
     private String title;
 
 
@@ -27,7 +26,6 @@ public class FullCourse {
 
     public FullCourse(String quarter, String deptCode, String title) {
         this.quarter = quarter;
-        this.deptCode = deptCode;
         this.title = title;
     }
 
@@ -37,14 +35,6 @@ public class FullCourse {
 
     public void setQuarter(String quarter) {
         this.quarter = quarter;
-    }
-
-    public String getDeptCode() {
-        return this.deptCode;
-    }
-
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode;
     }
 
     public String getTitle() {
@@ -57,11 +47,6 @@ public class FullCourse {
 
     public FullCourse quarter(String quarter) {
         this.quarter = quarter;
-        return this;
-    }
-
-    public FullCourse deptCode(String deptCode) {
-        this.deptCode = deptCode;
         return this;
     }
 
@@ -80,20 +65,19 @@ public class FullCourse {
         FullCourse fc = (FullCourse) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(quarter, fc.getQuarter()).append(deptCode, fc.getDeptCode()).append(title, fc.getTitle());
+        builder.append(quarter, fc.getQuarter()).append(title, fc.getTitle());
         return builder.build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quarter, deptCode, title);
+        return Objects.hash(quarter, title);
     }
 
     @Override
     public String toString() {
         return "{" +
             " quarter='" + getQuarter() + "'" +
-            ", deptCode='" + getDeptCode() + "'" +
             ", title='" + getTitle() + "'" +
             "}";
     }
