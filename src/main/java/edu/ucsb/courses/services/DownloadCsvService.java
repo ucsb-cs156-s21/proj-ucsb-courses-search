@@ -33,7 +33,7 @@ public class DownloadCsvService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
         return courses;
     }
 
@@ -54,7 +54,7 @@ public class DownloadCsvService {
                 course.getCourseId(),
                 course.getTitle(),
                 course.getDescription());
-              
+                
                 csvPrinter.printRecord(data);
             }
         } catch (Exception e) {

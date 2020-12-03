@@ -8,6 +8,13 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
 
+    const handleDownload = (event) => {
+        event.preventDefault();
+        console.log("download csv pressed");
+        fetchJSON(event, {quarter, department, level}).then((courseJSON)=> {
+            setCourseJSON(courseJSON);
+        });
+    }
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit pressed");
@@ -55,6 +62,12 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
+        </Button>
+            <Button
+                variant = "outline-info"
+                onClick={handleDownload}
+            >
+            Download CSV
         </Button>
         </Form>
     );

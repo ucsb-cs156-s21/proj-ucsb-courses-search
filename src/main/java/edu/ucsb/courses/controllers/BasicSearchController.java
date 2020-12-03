@@ -44,19 +44,23 @@ public class BasicSearchController {
     public ResponseEntity<String> basicsearch(@RequestParam String qtr, @RequestParam String dept,
             @RequestParam String level) throws JsonProcessingException {
 
-        String body = ucsbCurriculumService.getJSON(dept, qtr, level);
-        return ResponseEntity.ok().body(body);
-    }
+        // String body = ucsbCurriculumService.getJSON(dept, qtr, level);
+        // return ResponseEntity.ok().body(body);
 
-    @GetMapping(value = "/basicsearch/downloadcsv", produces = "application/json")
-    public ResponseEntity<String> downloadcsv(@RequestParam String qtr, @RequestParam String dept,
-            @RequestParam String level) throws JsonProcessingException {
         DownloadCsvService service = new DownloadCsvService();
         String body = ucsbCurriculumService.getJSON(dept, qtr, level);
         List<Course> courses = service.stringToList(body);
+        
         service.listToCSV(courses, "courses.csv");
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType("text/csv")).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "todos.csv" + "\"").body(file);
+        //return ResponseEntity.ok().contentType(MediaType.parseMediaType("text/csv")).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "todos.csv" + "\"").body(file);
+        return ResponseEntity.ok().body(body);
     }
+
+    // @GetMapping(value = "/basicsearch/downloadcsv", produces = "application/json")
+    // public ResponseEntity<String> downloadcsv(@RequestParam String qtr, @RequestParam String dept,
+    //         @RequestParam String level) throws JsonProcessingException {
+        
+    // }
     
         
 }
