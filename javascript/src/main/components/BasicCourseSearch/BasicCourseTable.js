@@ -1,20 +1,8 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
+
 const BasicCourseTable = ( {classes} ) => {
-<<<<<<< HEAD
 
-  function InstructorFormatter(cell, row){
-    if (cell==null){
-      return(
-          <span>T.B.A.</span>
-      );
-    }
-    return (
-        <span> { cell }</span>
-    );
-  }
-
-=======
   const sections = [];
   classes.forEach(
     (course) => {
@@ -32,7 +20,7 @@ const BasicCourseTable = ( {classes} ) => {
     }
   );
 const rowStyle = (row, rowIndex) => {
-  // console.log(`row=`,row, `rowIndex`, rowIndex);
+  console.log(`row=`,row, `rowIndex`, rowIndex);
   return (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: (rowIndex % 2 == 1)? {backgroundColor: '#EDF3FE'}: {backgroundColor: '#FFFFFF'}
 }
 const dataAlignment = (cell, row) => {
@@ -54,7 +42,6 @@ const renderInstructors = (cell, row) => {
   const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
   return (  <span>{instructor}</span> )
 }
->>>>>>> 5pm-d-DisplayCourseSections
   const columns = [{
     dataField: 'course.courseId',
     text: 'Course Number',
@@ -80,23 +67,11 @@ const renderInstructors = (cell, row) => {
     text: 'Enroll Code',
     align: (cell, row) => dataAlignment(cell, row)
   },{
-<<<<<<< HEAD
-    dataField: 'unitsFixed',
-    text: 'Unit'
-  },{
-    dataField: 'classSections[0].instructors[0].instructor',
-    text: 'Instructor',
-    formatter: InstructorFormatter
-  }
-  ];
-  
-=======
     dataField: 'course.unitsFixed',
     text: 'Unit',
     align: (cell, row) => dataAlignment(cell, row)
   }
 ];
->>>>>>> 5pm-d-DisplayCourseSections
   return (
     <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
   );
