@@ -16,12 +16,15 @@ import org.slf4j.LoggerFactory;
 
 
 @Entity
+
 public class  ScheduleItem {
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
+
     private String courseId;
     @Column(nullable = false)
     private String enrollCode;
@@ -45,6 +48,8 @@ public class  ScheduleItem {
     }
 
 
+
+
     public Long getId() {
       return this.id;
     }
@@ -52,6 +57,7 @@ public class  ScheduleItem {
     public void setId(Long id) {
       this.id = id;
     }
+
 
     public String getUserId() {
         return this.userId;
@@ -84,6 +90,7 @@ public class  ScheduleItem {
     public void setScheduleId(Long scheduleId) {
         this.schedule_id = scheduleId;
     }
+
 
 
     @Override
