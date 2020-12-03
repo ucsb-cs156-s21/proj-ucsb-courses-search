@@ -13,15 +13,29 @@ describe("CourseOccupancyForm tests", () => {
     test("when I select a start quarter, the state for start quarter changes", () => {
         const { getByTestId } = render(<CourseOccupancyForm />);
         const selectQuarter = getByTestId("select-start-quarter")
-        userEvent.selectOptions(selectQuarter, "20204");
-        expect(selectQuarter.value).toBe("20204");
+        userEvent.selectOptions(selectQuarter, "3");
+        expect(selectQuarter.value).toBe("3");
     });
 
     test("when I select a end quarter, the state for end quarter changes", () => {
         const { getByTestId } = render(<CourseOccupancyForm />);
         const selectQuarter = getByTestId("select-end-quarter")
-        userEvent.selectOptions(selectQuarter, "20204");
-        expect(selectQuarter.value).toBe("20204");
+        userEvent.selectOptions(selectQuarter, "3");
+        expect(selectQuarter.value).toBe("3");
+    });
+
+    test("when I select a start quarter year, the state for start quarter year changes", () => {
+        const { getByTestId } = render(<CourseOccupancyForm />);
+        const selectQuarter = getByTestId("select-start-year")
+        userEvent.selectOptions(selectQuarter, "2019");
+        expect(selectQuarter.value).toBe("2019");
+    });
+
+    test("when I select a end quarter year, the state for end quarter year changes", () => {
+        const { getByTestId } = render(<CourseOccupancyForm />);
+        const selectQuarter = getByTestId("select-end-year")
+        userEvent.selectOptions(selectQuarter, "2019");
+        expect(selectQuarter.value).toBe("2019");
     });
 
     test("when I select a department, the state for department changes", () => {
@@ -57,13 +71,6 @@ describe("CourseOccupancyForm tests", () => {
             endQuarter: "20211",
             department: "CMPSC",
         };
-
-        const startQuarter = getByTestId("select-start-quarter");
-        userEvent.selectOptions(startQuarter, "20204");
-        const endQuarter = getByTestId("select-end-quarter");
-        userEvent.selectOptions(endQuarter, "20211");
-        const selectDepartment = getByTestId("select-department")
-        userEvent.selectOptions(selectDepartment, "CMPSC");
 
         const submitButton = getByText("Submit");
         userEvent.click(submitButton);
