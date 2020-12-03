@@ -20,7 +20,7 @@ const CourseOccupancy = () => {
                 <h5>Course Occupancy by Department</h5>
                 <CourseOccupancyForm setOccupancyJson={setJsonTableData} fetchJSON={fetchCourseOccupancy} />
             </div>
-            {tableVisibility ? (<CourseOccupancyTable data={tableData} />) : (<div>No</div>)}
+            {tableVisibility && (<CourseOccupancyTable data={tableData} />)}
         </Jumbotron>
     );
 };
