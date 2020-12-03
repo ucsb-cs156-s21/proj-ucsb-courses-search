@@ -10,6 +10,7 @@ import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
+import Ge from "main/pages/History/Ge";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
 import Admin from "main/pages/Admin/Admin";
@@ -35,7 +36,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
-          <Route path="/history/ge" exact component={Basic} />
+          <Route path="/history/ge" exact component={Ge} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />

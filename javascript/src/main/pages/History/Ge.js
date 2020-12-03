@@ -8,7 +8,7 @@ import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/Cours
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 
-const Basic = () => {
+const Ge = () => {
 
     // every function that starts with "use" is a hook
     // e.g. useState, useSWR, useAuth0
@@ -34,4 +34,4 @@ const Basic = () => {
     );
 };
 
-export default Basic;
+export default Ge;
