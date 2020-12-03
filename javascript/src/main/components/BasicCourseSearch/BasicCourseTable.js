@@ -1,15 +1,12 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
-
 const BasicCourseTable = ( {classes} ) => {
-  
   const sections = [];
-
   classes.forEach(
-    (course) => { 
+    (course) => {
       course.classSections.forEach(
         (section) => {
-          section.course = 
+          section.course =
           {
           courseId: course.courseId,
           title: course.title,
@@ -20,64 +17,61 @@ const BasicCourseTable = ( {classes} ) => {
       )
     }
   );
-
-
-const rowStyle = (cell, row) => {
-  //console.log(`cell=`,cell);
-  return (cell.section % 100 == 0)? {backgroundColor: '#cedefa'}: {backgroundColor: '#edf3fe'} 
+const rowStyle = (row, rowIndex) => {
+  // console.log(`row=`,row, `rowIndex`, rowIndex);
+  return (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: (rowIndex % 2 == 1)? {backgroundColor: '#EDF3FE'}: {backgroundColor: '#FFFFFF'}
 }
-
-const renderInstructors = (cell, row) => {
+const dataAlignment = (cell, row) => {
   // console.log(`cell=${cell} row=`, row);
-  const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "";
-  return (  <span>{instructor}</span> )
+  const alignmnet = (row.section % 100 == 0)? 'left': 'right';
+  return alignmnet
 }
-
-const renderCourseNumber = (cell, row) => {
-  //console.log(`cell=${cell} row=`, row);
-  const courseNumber = (row.section % 100 == 0)? row.course.courseId: "";
-  return (  <span>{courseNumber}</span> )
+const renderCourseId = (cell, row) => {
+  // console.log(`cell=${cell} row=`, row);
+  const courseId = (row.section % 100 == 0)? row.course.courseId: "";
+  return (  <span>{courseId}</span> )
 }
-
-const renderTitle = (cell, row) => {
-  console.log(`cell=${cell} row=`, row);
+const renderCourseTitle = (cell, row) => {
   const courseTitle = (row.section % 100 == 0)? row.course.title: "";
   return (  <span>{courseTitle}</span> )
 }
-
+const renderInstructors = (cell, row) => {
+  // console.log(`cell=${cell} row=`, row);
+  const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
+  return (  <span>{instructor}</span> )
+}
   const columns = [{
     dataField: 'course.courseId',
     text: 'Course Number',
-    formatter: (cell,row) => renderCourseNumber(cell,row)
+    isDummyField: true,
+    formatter: (cell, row) => renderCourseId(cell, row)
   },{
     dataField: 'course.title',
     text: 'Title',
-    dataAlign: "left",
-    formatter: (cell,row) => renderTitle(cell,row)
+    isDummyField: true,
+    formatter: (cell, row) => renderCourseTitle(cell, row)
   },{
     dataField: 'section',
-    text: 'Section'
+    text: 'Section',
+    align: (cell, row) => dataAlignment(cell, row)
   },{
+    dataField: "instructors",
     text: "Instructor",
     isDummyField: true,
-    dataField: "instructors",
-    formatter: (cell, row) => renderInstructors(cell, row)
+    formatter: (cell, row) => renderInstructors(cell, row),
+    align: (cell, row) => dataAlignment(cell, row)
   },{
     dataField: 'enrollCode',
-    text: 'Enroll Code'
+    text: 'Enroll Code',
+    align: (cell, row) => dataAlignment(cell, row)
   },{
     dataField: 'course.unitsFixed',
-    text: 'Unit'
+    text: 'Unit',
+    align: (cell, row) => dataAlignment(cell, row)
   }
 ];
-  
   return (
-    <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle} />
+    <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
   );
 };
-
 export default BasicCourseTable;
-/*
-
-
-*/
