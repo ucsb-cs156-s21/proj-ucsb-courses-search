@@ -13,6 +13,7 @@ public class ScheduleItemTests {
 
   @Test
   public void testScheduleItem_getAndSetId() {
+
       ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
     si.setId(4L);
     assertEquals(4L, si.getId());
@@ -48,6 +49,7 @@ public class ScheduleItemTests {
 
   @Test
   public void testScheduleItem_notEqualDifferentClass() {
+
       ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
     assertNotEquals(si, new Object());
   }
