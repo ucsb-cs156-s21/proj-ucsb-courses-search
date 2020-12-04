@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
+import { fromFormat, toFormat } from "main/components/Statistics/QuarterFormSelect";
 import userEvent from "@testing-library/user-event";
 
 describe("QuarterFormSelect tests", () => {
@@ -28,5 +29,15 @@ describe("QuarterFormSelect tests", () => {
     userEvent.selectOptions(selectQuarter, "1");
 
     expect(handleSelect).toHaveBeenCalledWith("20211");
+  });
+});
+
+describe("QuarterFormSelect conversion tests", () => {
+  test("fromFormat correctly converts", () => {
+    expect(fromFormat("20211")).toBe("WINTER 2021");
+  });
+
+  test("toFormat correctly converts", () => {
+    expect(toFormat("1", "2021")).toBe("20211");
   });
 });
