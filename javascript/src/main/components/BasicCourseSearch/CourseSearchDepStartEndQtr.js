@@ -8,11 +8,11 @@ const CourseSearchDepStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
 
     const handleSubmit = (event) => {
-        console.log(event);
-        // event.preventDefault();
-        // fetchJSON(event, { quarter, department }).then((courseJSON) => {
-        //     setCourseJSON(courseJSON);
-        // });
+        //console.log(event);
+        event.preventDefault();
+        fetchJSON(event, { startQuarter, endQuarter, department }).then((courseJSON) => {
+            setCourseJSON(courseJSON);
+        });
     };
 
     const handleStartQuarterOnChange = (event) => {
