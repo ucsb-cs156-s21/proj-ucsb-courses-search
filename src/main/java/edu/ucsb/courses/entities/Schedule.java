@@ -16,7 +16,7 @@ public class Schedule {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String name;
   @Column(nullable = false)
   private String quarter;
@@ -29,6 +29,11 @@ public class Schedule {
     this.id = id;
     this.name = name;
     this.description = description;
+<<<<<<< HEAD
+=======
+    this.quarter = quarter;
+    this.userId = userId;
+>>>>>>> ah - Modified schedule class so that name and description fields are optional
   }
 
   public Long getId() {
