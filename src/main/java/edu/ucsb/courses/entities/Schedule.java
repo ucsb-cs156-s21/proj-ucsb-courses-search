@@ -1,7 +1,6 @@
 
 package edu.ucsb.courses.entities;
 
-
 import java.util.Objects;
 
 import javax.persistence.Column;
