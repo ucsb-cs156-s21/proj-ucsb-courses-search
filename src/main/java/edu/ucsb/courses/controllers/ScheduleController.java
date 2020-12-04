@@ -40,8 +40,13 @@ public class ScheduleController {
 
     //Stub
     @GetMapping(value = "/createSchedule", produces = "application/json")
-    public ResponseEntity<String> createSchedule(@RequestParam String id){
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> createSchedule(@RequestParam String name,
+                                                 @RequestParam String description,
+                                                 @RequestParam String quarter,
+                                                 @RequestParam String userId){
+        Schedule newSched = new Schedule(null, name, description, quarter, userId);
+        Schedule savedSched= scheduleRepository.save(newSched);
+        return ResponseEntity.ok().body(savedSched.toString());
     }
 
     //Stub
@@ -53,7 +58,9 @@ public class ScheduleController {
     //Stub
     @GetMapping(value = "/deleteSchedule", produces = "application/json")
     public ResponseEntity<String> deleteSchedule(@RequestParam String id){
-        return ResponseEntity.badRequest().build();
+        Long castId = Long.parseLong(id);
+        scheduleRepository.deleteById(castId);
+        return ResponseEntity.ok().build();
     }
 
     //Stub
