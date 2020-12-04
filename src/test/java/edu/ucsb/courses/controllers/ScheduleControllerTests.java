@@ -1,9 +1,15 @@
 package edu.ucsb.courses.controllers;
 
+
+import edu.ucsb.courses.config.SecurityConfig;
+import edu.ucsb.courses.repositories.ScheduleRepository;
+import edu.ucsb.courses.entities.Schedule;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
