@@ -12,23 +12,27 @@ const quarters = [
 
 const range = [...Array(13).keys()].map((key) => key + 2009);
 
+const toFormat = (quarter, year) => {
+    return year.toString() + (parseInt(quarter)).toString();
+}
+
+const fromFormat = (format) => {
+    return `${quarters[parseInt(format.charAt(4)) - 1]} ${format.substring(0, 4)}`;
+}
+
 const QuarterFormSelect = ({ handleSelect, initialQuarter = null, initialYear = null, testId}) => {
 
     const [quarter, setQuarter] = useState(initialQuarter);
     const [year, setYear] = useState(initialYear);
 
-    const toQueryParam = (quarter, year) => {
-        return year.toString() + (parseInt(quarter)).toString();
-    }
-
     const handleQuarter = (event) => {
         setQuarter(event.target.value);
-        if (year) handleSelect(toQueryParam(event.target.value, year));
+        if (year) handleSelect(toFormat(event.target.value, year));
     };
 
     const handleYear = (event) => {
         setYear(event.target.value);
-        if (quarter) handleSelect(toQueryParam(quarter, event.target.value));
+        if (quarter) handleSelect(toFormat(quarter, event.target.value));
     };
 
     return (
@@ -56,3 +60,4 @@ const QuarterFormSelect = ({ handleSelect, initialQuarter = null, initialYear = 
 };
 
 export default QuarterFormSelect;
+export { fromFormat, toFormat };
