@@ -4,6 +4,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+.DS_Store
+
 ### STS ###
 .apt_generated
 .classpath
@@ -22,6 +24,7 @@ heroku.json
 *.iws
 *.iml
 *.ipr
+
 
 ### NetBeans ###
 /nbproject/private/
