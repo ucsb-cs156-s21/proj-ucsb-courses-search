@@ -20,19 +20,19 @@ const fromFormat = (format) => {
     return `${quarters[parseInt(format.charAt(4)) - 1]} ${format.substring(0, 4)}`;
 }
 
-const QuarterFormSelect = ({ handleSelect, initialQuarter = null, initialYear = null, testId}) => {
+const QuarterFormSelect = ({ handleSelect, initialQuarter = "", initialYear = "", testId}) => {
 
     const [quarter, setQuarter] = useState(initialQuarter);
     const [year, setYear] = useState(initialYear);
 
     const handleQuarter = (event) => {
         setQuarter(event.target.value);
-        if (year) handleSelect(toFormat(event.target.value, year));
+        if (year !== "") handleSelect(toFormat(event.target.value, year));
     };
 
     const handleYear = (event) => {
         setYear(event.target.value);
-        if (quarter) handleSelect(toFormat(quarter, event.target.value));
+        if (quarter !== "") handleSelect(toFormat(quarter, event.target.value));
     };
 
     return (
