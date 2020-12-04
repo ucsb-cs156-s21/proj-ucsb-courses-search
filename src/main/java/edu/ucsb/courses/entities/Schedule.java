@@ -16,16 +16,19 @@ public class Schedule {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
-  @Column(nullable = false)
+  @Column(nullable = true)
   private String name;
   @Column(nullable = false)
   private String quarter;
   @Column(nullable = false)
   private String userId;
+  @Column(nullable = true)
+  private String description;
 
-  public Schedule(Long id, String name, String quarter, String userId) {
+  public Schedule(Long id, String name, String description, String quarter, String userId) {
     this.id = id;
     this.name = name;
+    this.description = description;
     this.quarter = quarter;
     this.userId = userId;
   }
@@ -44,6 +47,13 @@ public class Schedule {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void setDescription(String description){
+    this.description = description;
+  }
+  public String getDescription(){
+    return this.description;
   }
 
   public String getQuarter() {
@@ -71,20 +81,19 @@ public class Schedule {
     }
     Schedule schedule = (Schedule) o;
     EqualsBuilder builder = new EqualsBuilder();
-    builder.append(id, schedule.getId()).append(name, schedule.getName()).append(quarter, schedule.getQuarter())
+    builder.append(id, schedule.getId()).append(name, schedule.getName()).append(description, schedule.description).append(quarter, schedule.getQuarter())
         .append(userId, schedule.getUserId());
     return builder.build();
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(id, name, quarter, userId);
-  }
+    public int hashCode() {
+        return Objects.hash(id, name, description, quarter, userId);
+    }
 
   @Override
   public String toString() {
-    return "{" + " id='" + getId() + "'" + ", name='" + getName() + "'" + ", quarter='" + getQuarter() + "'"
-        + ", userId='" + getUserId() + "'" + "}";
+    return String.format("Schedule[ id=%d, name=%s, description=%s, quarter=%s, userId=%s ]", id, name, description, quarter, userId);
   }
 
 }
