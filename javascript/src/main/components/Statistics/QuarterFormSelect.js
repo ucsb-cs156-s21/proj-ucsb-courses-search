@@ -12,13 +12,13 @@ const quarters = [
 
 const range = [...Array(13).keys()].map((key) => key + 2009);
 
-const QuarterFormSelect = ({ handleSelect, initialQuarter, initialYear, testId}) => {
+const QuarterFormSelect = ({ handleSelect, initialQuarter = null, initialYear = null, testId}) => {
 
-    const [quarter, setQuarter] = useState(initialQuarter - 1);
+    const [quarter, setQuarter] = useState(initialQuarter);
     const [year, setYear] = useState(initialYear);
 
     const toQueryParam = (quarter, year) => {
-        return year.toString() + (quarter + 1).toString();
+        return year.toString() + (parseInt(quarter)).toString();
     }
 
     const handleQuarter = (event) => {
@@ -37,7 +37,7 @@ const QuarterFormSelect = ({ handleSelect, initialQuarter, initialYear, testId})
             <Form.Control as="select" onChange={handleQuarter} value={quarter} data-testid={testId + "-quarter"}>
                 {
                     Object.keys(quarters).map((key) => {
-                        return (<option key={key} value={key}>{quarters[key]}</option>);
+                        return (<option key={key} value={parseInt(key) + 1}>{quarters[key]}</option>);
                     })
                 }
             </Form.Control>
