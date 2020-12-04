@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -86,22 +87,62 @@ public class ScheduleControllerTests {
       assertEquals(responseString, expectedString);
     }
 
+
   @Test
     public void testGetScheduleFailure() throws Exception {
       Optional<Schedule> expectedSchedules = Optional.empty();
 
       when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
       MvcResult response =
-          mockMvc
-              .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
-                  .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
-              .andExpect(status().isBadRequest()).andReturn();
+              mockMvc
+                      .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
+                              .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+                      .andExpect(status().isBadRequest()).andReturn();
 
       verify(mockScheduleRepository, times(1)).findById(1L);
 
       String responseString = response.getResponse().getContentAsString();
       String actualString = "";
       assertEquals(actualString, responseString);
+  }
+
+    @Test
+    public void test_createScheduleSuccess() throws Exception {
+        String expectedResult = "Schedule[ id=1, name=CS 156, description=Adv App Programming, quarter=Fall 2020, userId=s ]";
+        String urlTemplate = "/api/public/createSchedule?name=%s&description=%s&quarter=%s&userId=%s";
+        String url = String.format(urlTemplate, "CS 156", "Adv App Programming", "Fall 2020", "s");
+
+        Schedule schedule = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "s");
+
+        when(mockScheduleRepository.save(any(Schedule.class)))
+                .thenReturn(schedule);
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
+    public void test_deleteScheduleSuccess() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/deleteSchedule?id=%s";
+        String url = String.format(urlTemplate, "1");
+
+        Schedule schedule = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "s");
+
+        //when(scheduleRepository.deleteById(any(Long.class))).then(doNothing());\
+        //doNothing().when(scheduleRepository.deleteById(any(Long.class)));
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+
     }
 
 @Test

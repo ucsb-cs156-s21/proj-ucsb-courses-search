@@ -44,6 +44,7 @@ public class ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
+
     @PostMapping(value = "/createSchedule", produces = "application/json")
     public ResponseEntity<String> createSchedule(@RequestParam String name,
                                                  @RequestParam String description,
