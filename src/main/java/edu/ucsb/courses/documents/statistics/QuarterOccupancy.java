@@ -1,7 +1,9 @@
 package edu.ucsb.courses.documents.statistics;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,12 +58,7 @@ public class QuarterOccupancy {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((_id == null) ? 0 : _id.hashCode());
-        result = prime * result + ((enrolled == null) ? 0 : enrolled.hashCode());
-        result = prime * result + ((maxEnrolled == null) ? 0 : maxEnrolled.hashCode());
-        return result;
+        return Objects.hash(_id, enrolled, maxEnrolled);
     }
 
     @Override
@@ -73,22 +70,10 @@ public class QuarterOccupancy {
         if (getClass() != obj.getClass())
             return false;
         QuarterOccupancy other = (QuarterOccupancy) obj;
-        if (_id == null) {
-            if (other._id != null)
-                return false;
-        } else if (!_id.equals(other._id))
-            return false;
-        if (enrolled == null) {
-            if (other.enrolled != null)
-                return false;
-        } else if (!enrolled.equals(other.enrolled))
-            return false;
-        if (maxEnrolled == null) {
-            if (other.maxEnrolled != null)
-                return false;
-        } else if (!maxEnrolled.equals(other.maxEnrolled))
-            return false;
-        return true;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(_id, other._id).append(enrolled, other.enrolled).append(maxEnrolled, other.maxEnrolled);
+        
+        return builder.build();
     }
     
     @Override
