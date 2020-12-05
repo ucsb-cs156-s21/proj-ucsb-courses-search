@@ -3,6 +3,7 @@ package edu.ucsb.courses.documents.statistics;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -17,17 +18,29 @@ public class DivisionOccupancy {
 
     private static Logger logger = LoggerFactory.getLogger(DivisionOccupancy.class);
 
+    private String _id;
     private String quarter;
-    private String name;
-    private int courseCount;
+    private String title;
+    private String enrolled;
+    private String maxEnrolled;
 
     public DivisionOccupancy() {
     }
 
-    public DivisionOccupancy(String quarter, String name, int courseCount) {
+    public DivisionOccupancy(String _id, String quarter, String title, String enrolled, String maxEnrolled) {
+        this._id = _id;
         this.quarter = quarter;
-        this.name = name;
-        this.courseCount = courseCount;
+        this.title = title;
+        this.enrolled = enrolled;
+        this.maxEnrolled = maxEnrolled;
+    }
+
+    public String get_id() {
+        return this._id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getQuarter() {
@@ -38,21 +51,29 @@ public class DivisionOccupancy {
         this.quarter = quarter;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 
-    public int getCourseCount() {
-        return this.courseCount;
+    public String getMaxEnrolled() {
+        return this.maxEnrolled;
     }
 
-    public void setCourseCount(int courseCount) {
-        this.courseCount = courseCount;
+    public void setMaxEnrolled(String maxEnrolled) {
+        this.maxEnrolled = maxEnrolled;
+    }
+
+    public String getEnrolled() {
+        return this.enrolled;
+    }
+
+    public void setEnrolled(String enrolled) {
+        this.enrolled = enrolled;
     }
 
 
@@ -63,26 +84,28 @@ public class DivisionOccupancy {
         if (!(o instanceof DivisionOccupancy)) {
             return false;
         }
-        DivisionOccupancy qd = (DivisionOccupancy) o;
+        DivisionOccupancy divOc = (DivisionOccupancy) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(quarter, qd.getQuarter()).append(name, qd.getName());
+        builder.append(_id, divOc.get_id()).append(quarter, divOc.getQuarter()).append(title, divOc.getTitle()).append(enrolled, divOc.getEnrolled()).append(maxEnrolled, divOc.getMaxEnrolled());
         return builder.build();
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quarter, name);
+        return Objects.hash(_id, title);
     }
 
 
     @Override
     public String toString() {
         return "{" +
+            " _id='" + _id + "'" +
             " quarter='" + quarter + "'" +
-            ", name='" + name + "'" +
-            ", courseCount='" + courseCount + "'" +
+            ", title='" + title + "'" +
+            ", enrolled='" + enrolled + "'" +
+            ", maxEnrolled='" + maxEnrolled + "'" +
             "}";
     }
     
