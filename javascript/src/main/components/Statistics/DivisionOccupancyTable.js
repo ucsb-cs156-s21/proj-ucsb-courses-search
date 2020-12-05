@@ -17,9 +17,17 @@ const DivisionOccupancyTable = ( {data} ) => {
     text: 'Maximum Enrollment'
   }
 ];
-  
+
+  // need to clear the table each time, or it'll just append
+  const clearTable = () => {
+    ('#table').bootstrapTable('removeAll');
+    console.log("bootstrapped removed");
+  }
+
   return (
-    <BootstrapTable keyField='title' striped hover condensed data={data} columns={columns} />
+    <div>
+      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} />
+    </div>
   );
 };
 
