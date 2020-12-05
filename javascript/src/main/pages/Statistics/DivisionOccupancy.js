@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { fetchDivisionOccupancy } from "main/services/statisticsService";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import DivisionOccupancyForm from "main/components/Statistics/DivisionOccupancyForm";
 import DivisionOccupancyTable from "main/components/Statistics/DivisionOccupancyTable"
 

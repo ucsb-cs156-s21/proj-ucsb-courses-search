@@ -10,13 +10,16 @@ const DivisionOccupancyTable = ( {data} ) => {
     dataField: 'title',
     text: 'Course Name'
   },{
-    dataField: 'courseCount',
-    text: 'Occupancy'
+    dataField: 'enrolled',
+    text: 'Enrolled'
+  }, {
+    dataField: 'maxEnrolled',
+    text: 'Maximum Enrollment'
   }
 ];
   
   return (
-    <BootstrapTable keyField='quarter' striped hover condensed data={data} columns={columns} />
+    <BootstrapTable keyField='title' striped hover condensed data={data} columns={columns} />
   );
 };
 
