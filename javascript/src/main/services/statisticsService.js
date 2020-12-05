@@ -7,9 +7,9 @@ const fetchCourseCount = async () => {
 }
 
 const fetchDivisionOccupancy = async (event, fields) => {
-    const url = `/api/public/statistics/courseOccupancyByDivision`;
-    const courseCountResponse = await fetch(url);   
-    return courseCountResponse.json();
+    const url = `/api/public/statistics/courseOccupancyByDivision?startQuarter=${fields.startQuarter}&endQuarter=${fields.endQuarter}&department=${fields.department}&level=${fields.level}`;
+    const divisionOccupancyResponse = await fetch(url);   
+    return divisionOccupancyResponse.json();
 }
 
 
