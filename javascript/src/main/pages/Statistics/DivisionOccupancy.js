@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { fetchDivisionOccupancy } from "main/services/statisticsService";
 import DivisionOccupancyForm from "main/components/Statistics/DivisionOccupancyForm";
-import DivisionOccupancyTable from "main/components/Statistics/DivisionOccupancyTable"
+import DivisionOccupancyTable from "main/components/Statistics/DivisionOccupancyTable";
 
 const DivisionOccupancy = () => {
     const [courseJSON, setCourseJSON] = useState([]);
@@ -17,6 +17,7 @@ const DivisionOccupancy = () => {
                     <DivisionOccupancyForm setCourseJSON={setCourseJSON} fetchJSON={fetchDivisionOccupancy} setFormSubmitted={setFormSubmitted}/>
                 </div>
             </Jumbotron>
+            
             {formSubmitted && <DivisionOccupancyTable data={courseJSON} />}
         </div>
     );
