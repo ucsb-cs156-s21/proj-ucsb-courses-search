@@ -6,6 +6,13 @@ import CourseOccupancyForm from "main/components/Statistics/CourseOccupancyForm"
 import CourseOccupancyTable from "main/components/Statistics/CourseOccupancyTable";
 import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
 
+const calcPercent = (first, second) => {
+    first = parseInt(first);
+    second = parseInt(second);
+
+    return (first / second * 100).toFixed(0);
+};
+
 const CourseOccupancy = () => {
     const [tableVisibility, setTableVisibility] = useState(false);
     const [tableData, setTableData] = useState([]);
@@ -13,6 +20,7 @@ const CourseOccupancy = () => {
     const setJsonTableData = (json) => {
         json.forEach((item) => {
             item["quarter"] = fromFormat(item["quarter"]);
+            item["occupancy"] = calcPercent(item["enrolled"], item["maxEnrolled"]);
         });
         setTableData(json);
         setTableVisibility(true);

@@ -11,7 +11,10 @@ const CourseOccupancyTable = ({ data }) => {
     text: '# Enrolled'
   }, {
     dataField: 'maxEnrolled',
-    text: '# of Max Enrolled'
+    text: '# Total'
+  }, {
+    dataField: 'occupancy',
+    text: 'Occupancy'
   }
   ];
 
