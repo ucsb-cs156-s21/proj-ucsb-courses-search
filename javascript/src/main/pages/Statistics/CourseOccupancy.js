@@ -33,8 +33,8 @@ const CourseOccupancy = () => {
                 <h1>Course Occupancy by Department</h1>
                 <CourseOccupancyForm setOccupancyJson={setJsonTableData} fetchJSON={fetchCourseOccupancy} onSubmit={() => { setTableVisibility(false) }}/>
             </Container>
-            <Container style={{ marginTop: "20px" }} className={"text-left"}>
-                {tableVisibility && (<CourseOccupancyTable data={tableData} />)}
+            <Container style={{ marginTop: "20px" }} className={"text-center"}>
+                {tableVisibility && (tableData.length ? <CourseOccupancyTable data={tableData} /> : "There are no results!")}
             </Container>
         </Jumbotron>
     );
