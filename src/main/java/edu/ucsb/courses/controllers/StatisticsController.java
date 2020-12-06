@@ -10,6 +10,8 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.proj
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import java.util.List;
+import java.io.*;
+import java.lang.String;
 
 import org.bson.Document;
 import org.junit.AfterClass;
@@ -28,6 +30,7 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
+import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 
@@ -94,13 +97,20 @@ public class StatisticsController {
             MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
                 .and("deptCode").is(department).and("instructionType").is("LEC").and("objLevelCode").is(level));
             UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-            MatchOperation onlySections = match(Criteria.where("index").ne(0));
-            GroupOperation groupOperation = group("_id", "$quarter", "title").sum("$classSections.enrolledTotal").as("enrolled")
-                    .sum("$classSections.maxEnroll").as("maxEnrolled");
+            MatchOperation sectionOrLect = null;     
+
+            if(level.equals("U")) {
+                sectionOrLect = match(Criteria.where("index").ne(0));
+            }else {
+                sectionOrLect = match(Criteria.where("index").ne(-1));
+            }
+
+            GroupOperation groupOperation = group("_id", "$quarter", "title").sum("$classSections.enrolledTotal").as("enrolled").sum("$classSections.maxEnroll").as("maxEnrolled");
             ProjectionOperation project = project("_id","quarter", "title", "enrolled", "maxEnrolled");
             SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
+            SortOperation quarterSort = sort(Sort.by(Direction.ASC, "quarter"));
 
-            Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlySections, groupOperation, project, sort);
+            Aggregation aggregation = newAggregation(matchOperation, unwindOperation, sectionOrLect, groupOperation, project, sort, quarterSort);
 
             AggregationResults<DivisionOccupancy> result = mongoTemplate.aggregate(aggregation, "courses",
                 DivisionOccupancy.class);
