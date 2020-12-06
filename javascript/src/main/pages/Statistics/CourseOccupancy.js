@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron, Container } from "react-bootstrap";
+import { Jumbotron, Container, Spinner } from "react-bootstrap";
 import { fetchCourseOccupancy } from "main/services/statisticsService";
 import CourseOccupancyForm from "main/components/Statistics/CourseOccupancyForm";
 import CourseOccupancyTable from "main/components/Statistics/CourseOccupancyTable";
 import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
+import Loading from "main/components/Loading/Loading";
 
 const calcPercent = (first, second) => {
     first = parseInt(first);
@@ -30,9 +31,9 @@ const CourseOccupancy = () => {
         <Jumbotron>
             <Container className="text-left">
                 <h1>Course Occupancy by Department</h1>
-                <CourseOccupancyForm setOccupancyJson={setJsonTableData} fetchJSON={fetchCourseOccupancy} />
+                <CourseOccupancyForm setOccupancyJson={setJsonTableData} fetchJSON={fetchCourseOccupancy} onSubmit={() => { setTableVisibility(false) }}/>
             </Container>
-            <Container>
+            <Container style={{ marginTop: "20px" }} className={"text-left"}>
                 {tableVisibility && (<CourseOccupancyTable data={tableData} />)}
             </Container>
         </Jumbotron>
