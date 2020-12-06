@@ -1,56 +1,45 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import fetch from "isomorphic-unfetch";
+import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
+import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
-const FullCoursesForm = ({ setCourseJSON, fetchJSON }) => {
+const FullCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
 
     const [startQuarter, setStartQuarter] = useState("20204");
     const [endQuarter, setEndQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("submit pressed");
+        onSubmit();
+        setLoading(true);
         fetchJSON(event, {startQuarter, endQuarter, department}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
+            setLoading(false);
         });
     }; 
-    const handleStartQuarterOnChange = (event) => {
-        setStartQuarter(event.target.value);
-    };
-    const handleEndQuarterOnChange = (event) => {
-        setEndQuarter(event.target.value);
-    };
-    const handleDepartmentOnChange = (event) => {
-        setDepartment(event.target.value);
-    };
 
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="FullCourses.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter} data-testid="select-start-quarter" >
-                    <option value="20211">W21</option>
-                    <option value="20204">F20</option>
-                </Form.Control>
+                <QuarterFormSelect handleSelect={setStartQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
             <Form.Group controlId="FullCourses.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter} data-testid="select-end-quarter" >
-                    <option value="20211">W21</option>
-                    <option value="20204">F20</option>
-                </Form.Control>
+                <QuarterFormSelect handleSelect={setEndQuarter} initialQuarter={1} initialYear={2021} testId={"select-end"}/>
             </Form.Group>
             <Form.Group controlId="FullCourses.Department">
                 <Form.Label>Department</Form.Label>
-                <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
-                    <option value="CMPSC">CMPSC</option>
-                    <option value="MATH ">MATH</option>
-                </Form.Control>
+                <DepartmentFormSelect handleSelect={setDepartment} value={department}/>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className={"text-center"} disabled={loading}>
                 Submit
-        </Button>
+            </Button>
+            {loading && <Spinner size={"sm"} style={{ marginLeft: "5px" }} animation="border" />}
         </Form>
     );
 };
