@@ -114,6 +114,7 @@ public class DivisionOccupancy {
             " _id='" + _id + "'" +
             " quarter='" + quarter + "'" +
             ", title='" + title + "'" +
+            ", courseId='" + getCourseId() + "'" +
             ", enrolled='" + enrolled + "'" +
             ", maxEnrolled='" + maxEnrolled + "'" +
             "}";
