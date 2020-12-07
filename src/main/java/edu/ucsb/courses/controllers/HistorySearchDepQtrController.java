@@ -41,7 +41,7 @@ public class HistorySearchDepQtrController {
 
         logger.info("formattedDept='{}'",formattedDept);
 
-        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndDepartment(startQtr, endQtr,formattedDept);
+        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndDepartment(startQtr, endQtr, formattedDept);
 
         CoursePage cp = new CoursePage();
 

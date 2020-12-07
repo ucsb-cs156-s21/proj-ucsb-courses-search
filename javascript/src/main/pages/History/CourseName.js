@@ -4,6 +4,7 @@ import { Jumbotron } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router-dom";
 
+import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr"; 
 import CourseSearchDepStartEndQtr from "main/components/BasicCourseSearch/CourseSearchDepStartEndQtr";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchCourseHistoryDepQtrJSON } from "main/services/courseSearches";
@@ -25,7 +26,7 @@ const CourseName = () => {
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search By Course Name Through Various Quarters</h5>
-                <CourseSearchDepStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryDepQtrJSON} />
+                <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryDepQtrJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
