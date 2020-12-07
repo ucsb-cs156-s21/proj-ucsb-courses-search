@@ -16,7 +16,7 @@ const FullCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
         console.log("submit pressed");
         onSubmit();
         setLoading(true);
-        fetchJSON(event, {startQuarter, endQuarter, department}).then((courseJSON)=> {
+        fetchJSON({startQuarter, endQuarter, department}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
             setLoading(false);
         });
