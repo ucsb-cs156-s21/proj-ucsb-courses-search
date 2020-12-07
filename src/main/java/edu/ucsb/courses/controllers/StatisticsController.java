@@ -5,6 +5,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.matc
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
