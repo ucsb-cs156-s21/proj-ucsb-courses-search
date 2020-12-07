@@ -9,7 +9,6 @@ import { Route, Switch } from "react-router-dom";
 import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
-import CourseCount from "main/pages/Statistics/CourseCount";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
@@ -39,7 +38,6 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
           <Route path="/statistics" exact component={Statistics} />
-          <Route path="/statistics/courseCount" exact component={CourseCount} />
           <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />

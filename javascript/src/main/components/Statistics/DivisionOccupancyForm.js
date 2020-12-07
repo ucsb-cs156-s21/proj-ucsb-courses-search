@@ -59,7 +59,7 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
                 <Form.Label>Course Level</Form.Label>
                 <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
                     <option value="U">Undergraduate</option>
-                    <option value="G">Graduate</option>
+                    <option value="G" id="Y">Graduate</option>
                 </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
