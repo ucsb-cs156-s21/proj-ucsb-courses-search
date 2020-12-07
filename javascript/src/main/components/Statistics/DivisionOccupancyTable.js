@@ -7,6 +7,9 @@ const DivisionOccupancyTable = ( {data} ) => {
     dataField: 'quarter',
     text: 'Quarter'
   },{
+    dataField: 'courseId',
+    text: 'Course ID'
+  },{
     dataField: 'title',
     text: 'Course Name'
   },{

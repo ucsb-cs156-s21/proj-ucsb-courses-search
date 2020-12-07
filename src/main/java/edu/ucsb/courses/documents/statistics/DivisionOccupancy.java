@@ -21,16 +21,18 @@ public class DivisionOccupancy {
     private String _id;
     private String quarter;
     private String title;
+    private String courseId;
     private String enrolled;
     private String maxEnrolled;
 
     public DivisionOccupancy() {
     }
 
-    public DivisionOccupancy(String _id, String quarter, String title, String enrolled, String maxEnrolled) {
+    public DivisionOccupancy(String _id, String quarter, String title, String courseId, String enrolled, String maxEnrolled) {
         this._id = _id;
         this.quarter = quarter;
         this.title = title;
+        this.courseId = courseId;
         this.enrolled = enrolled;
         this.maxEnrolled = maxEnrolled;
     }
@@ -57,6 +59,14 @@ public class DivisionOccupancy {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCourseId() {
+        return String.join(" ", this.courseId.split("[\\s\\p{Z}]+"));   // split/join function from Thursday, Dec. 3 Prof. Conrad Lecture
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
 

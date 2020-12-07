@@ -105,8 +105,8 @@ public class StatisticsController {
                 sectionOrLect = match(Criteria.where("index").ne(-1));
             }
 
-            GroupOperation groupOperation = group("_id", "$quarter", "title").sum("$classSections.enrolledTotal").as("enrolled").sum("$classSections.maxEnroll").as("maxEnrolled");
-            ProjectionOperation project = project("_id","quarter", "title", "enrolled", "maxEnrolled");
+            GroupOperation groupOperation = group("_id", "$quarter", "title", "courseId").sum("$classSections.enrolledTotal").as("enrolled").sum("$classSections.maxEnroll").as("maxEnrolled");
+            ProjectionOperation project = project("_id","quarter", "title", "courseId", "enrolled", "maxEnrolled");
             SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
             SortOperation quarterSort = sort(Sort.by(Direction.ASC, "quarter"));
 
