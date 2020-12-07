@@ -6,5 +6,11 @@ const fetchCourseCount = async () => {
     return courseCountResponse.json();
 }
 
-export { fetchCourseCount };
+const fetchClassSize = async () => {
+    const url = `/api/public/statistics/classSize`;
+    const classSizeResponse = await fetch(url);
+    return classSizeResponse.json();
+}
+
+export { fetchCourseCount, fetchClassSize };
     
