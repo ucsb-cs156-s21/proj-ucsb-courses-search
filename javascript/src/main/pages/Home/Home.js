@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Redirect } from "react-router-dom";
-import BasicCourseSearchForm from "../../components/BasicCourseSearch/BasicCourseSearchForm";
-import JSONPrettyCard from "../../components/Utilities/JSONPrettyCard";
+import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
+import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
+import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 
 const Home = () => {
 
@@ -16,14 +17,21 @@ const Home = () => {
     // setCourseJSON is the setter
     // the parameter to useState is the initial value of the state
 
-    const [courseJSON, setCourseJSON] = useState('{"course" : "cs148"}');
+    const initialCourseJSON = {
+        "pageNumber": 1,
+        "pageSize": 1,
+        "total": 0,
+        "classes": []
+    };
 
-    // const courseJSON = '{"course" : "cs156"}';
+    const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
+
     return (
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
+                <BasicCourseTable classes={courseJSON.classes} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
