@@ -32,14 +32,20 @@ const FullCourseTable = ( {data} ) => {
     headerStyle: white,
     footerStyle: d2d4d7,
     hidden: true
-  },
-  {
+  },{
     dataField: 'quarter',
     text: 'Quarter',
     style: alternate,
     sort: true,
     headerStyle: white,
-    footerStyle: d2d4d7,
+    footerStyle: d2d4d7
+  },{
+    dataField: 'courseId',
+    text: 'Course ID',
+    style: alternate,
+    sort: true,
+    headerStyle: white,
+    footerStyle: d2d4d7
   },{
     dataField: 'title',
     text: 'Course Title',

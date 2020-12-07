@@ -71,14 +71,13 @@ public class StatisticsController {
         @RequestParam String department)
         throws JsonProcessingException, Exception {
 
-            // Real aggregation needs to go here
             MatchOperation filterQuarterDept = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
                 .and("deptCode").is(department).and("instructionType").is("LEC"));
             UnwindOperation unwindOperation = unwind("$classSections","arrayIndex", false);
             MatchOperation filterSection = match(Criteria.where("arrayIndex").ne(0));
-            GroupOperation groupOperation = group("$_id", "$quarter", "$title").sum("$classSections.enrolledTotal").as("enrolled")
+            GroupOperation groupOperation = group("$_id", "$quarter", "$title", "$courseId").sum("$classSections.enrolledTotal").as("enrolled")
                 .sum("$classSections.maxEnroll").as("maxEnrolled");
-            ProjectionOperation project = project("_id", "quarter", "title", "enrolled", "maxEnrolled").andExpression("maxEnrolled - enrolled").as("diff");
+            ProjectionOperation project = project("_id", "quarter", "title", "courseId", "enrolled", "maxEnrolled").andExpression("maxEnrolled - enrolled").as("diff");
             MatchOperation filterFull = match(Criteria.where("diff").lte(0));
             SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
 

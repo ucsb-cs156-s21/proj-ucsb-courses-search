@@ -68,15 +68,15 @@ public class StatisticsControllerTests {
 
         org.bson.Document fakeRawResults = new org.bson.Document();
         List<FullCourse> qdList = new ArrayList<FullCourse>();
-        qdList.add(new FullCourse("20204","SP TOP: GENERAL"));
-        qdList.add(new FullCourse("20204","TRANS PROG LANG"));
-        qdList.add(new FullCourse("20204","ADV APP PROGRAM"));
-        qdList.add(new FullCourse("20204","INTRO TO COMP SCI"));
-        qdList.add(new FullCourse("20211","HUM-COMP INTERACT"));
-        qdList.add(new FullCourse("20211","COMPUTER GRAPHICS"));
-        qdList.add(new FullCourse("20211","DISTRD SYSTEMS"));
-        qdList.add(new FullCourse("20211","OPERATING SYSTEMS"));
-        qdList.add(new FullCourse("20211","COMPUTER ARCHITECT"));
+        qdList.add(new FullCourse("20204","SP TOP: GENERAL","CMPSC 190J"));
+        qdList.add(new FullCourse("20204","TRANS PROG LANG","CMPSC 160"));
+        qdList.add(new FullCourse("20204","ADV APP PROGRAM","CMPSC 156"));
+        qdList.add(new FullCourse("20204","INTRO TO COMP SCI","CMPSC 8"));
+        qdList.add(new FullCourse("20211","HUM-COMP INTERACT","CMPSC 185"));
+        qdList.add(new FullCourse("20211","COMPUTER GRAPHICS","CMPSC 180"));
+        qdList.add(new FullCourse("20211","DISTRD SYSTEMS","CMPSC 171"));
+        qdList.add(new FullCourse("20211","OPERATING SYSTEMS","CMPSC 170"));
+        qdList.add(new FullCourse("20211","COMPUTER ARCHITECT","CMPSC 154"));
         AggregationResults<FullCourse> fakeResults = new AggregationResults<FullCourse>(qdList, fakeRawResults);
 
         when(mongoTemplate.aggregate( any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);

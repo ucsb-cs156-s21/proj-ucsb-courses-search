@@ -19,14 +19,16 @@ public class FullCourse {
 
     private String quarter;
     private String title;
+    private String courseId;
 
 
     public FullCourse() {
     }
 
-    public FullCourse(String quarter, String title) {
+    public FullCourse(String quarter, String title, String courseId) {
         this.quarter = quarter;
         this.title = title;
+        this.courseId = courseId;
     }
 
     public String getQuarter() {
@@ -45,6 +47,14 @@ public class FullCourse {
         this.title = title;
     }
 
+    public String getcourseId() {
+        return String.join(" ", this.courseId.split("[\\s\\p{Z}]+"));   // split/join function from Thursday, Dec. 3 Prof. Conrad Lecture
+    }
+
+    public void setcourseId(String courseId) {
+        this.title = courseId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -55,13 +65,13 @@ public class FullCourse {
         FullCourse fc = (FullCourse) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(quarter, fc.getQuarter()).append(title, fc.getTitle());
+        builder.append(quarter, fc.getQuarter()).append(title, fc.getTitle()).append(courseId, fc.getcourseId());
         return builder.build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quarter, title);
+        return Objects.hash(quarter, title, courseId);
     }
 
     @Override
@@ -69,6 +79,7 @@ public class FullCourse {
         return "{" +
             " quarter='" + getQuarter() + "'" +
             ", title='" + getTitle() + "'" +
+            ", courseId='" + getcourseId() + "'" +
             "}";
     }
 

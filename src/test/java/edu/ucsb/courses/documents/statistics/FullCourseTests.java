@@ -38,28 +38,28 @@ public class FullCourseTests {
 
     @Test
     public void test_equalsSelf() throws Exception {
-        FullCourse qd = new FullCourse("20204","CMPSC");
+        FullCourse qd = new FullCourse("20204","CMPSC","CMPSC 156");
         assertEquals(qd, qd);
     }
 
     @Test
     public void test_equalsAnother() throws Exception {
-        FullCourse qd1 = new FullCourse("20204","CMPSC");
-        FullCourse qd2 = new FullCourse("20204","CMPSC");
+        FullCourse qd1 = new FullCourse("20204","CMPSC","CMPSC 156");
+        FullCourse qd2 = new FullCourse("20204","CMPSC","CMPSC 156");
         assertEquals(qd1, qd2);
     }
 
     @Test
     public void test_hashCode() throws Exception {
-        FullCourse qd1 = new FullCourse("20204","CMPSC");
-        FullCourse qd2 = new FullCourse("20204","CMPSC");
+        FullCourse qd1 = new FullCourse("20204","CMPSC","CMPSC 156");
+        FullCourse qd2 = new FullCourse("20204","CMPSC","CMPSC 156");
         assertEquals(qd1.hashCode(), qd2.hashCode());
     }
 
     @Test
     public void test_toString() throws Exception {
-        FullCourse qd1 = new FullCourse("20204","CMPSC");
-        String expected="{ quarter='20204', title='CMPSC'}";
+        FullCourse qd1 = new FullCourse("20204","CMPSC","CMPSC 156");
+        String expected="{ quarter='20204', title='CMPSC', courseId='CMPSC 156'}";
         assertEquals(expected, qd1.toString());
     }
 
