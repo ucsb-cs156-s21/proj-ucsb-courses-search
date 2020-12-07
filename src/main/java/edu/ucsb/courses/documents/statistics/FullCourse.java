@@ -24,7 +24,7 @@ public class FullCourse {
     public FullCourse() {
     }
 
-    public FullCourse(String quarter, String deptCode, String title) {
+    public FullCourse(String quarter, String title) {
         this.quarter = quarter;
         this.title = title;
     }
@@ -43,16 +43,6 @@ public class FullCourse {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public FullCourse quarter(String quarter) {
-        this.quarter = quarter;
-        return this;
-    }
-
-    public FullCourse title(String title) {
-        this.title = title;
-        return this;
     }
 
     @Override

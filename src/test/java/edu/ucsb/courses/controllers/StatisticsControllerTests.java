@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 
 // @Import(SecurityConfig.class) applies the security rules 
@@ -56,6 +57,36 @@ public class StatisticsControllerTests {
                 .andReturn();
         String responseString = response.getResponse().getContentAsString();
         List<QuarterDept> resultFromPage = QuarterDept.listFromJSON(responseString);
+
+        assertEquals(qdList, resultFromPage);
+    }
+    
+    @Test
+    public void test_numFullCoursesByDept() throws Exception {
+        List<FullCourse> expectedResult = new ArrayList<FullCourse>();
+        String url = "/api/public/statistics/fullCoursesByDept";
+
+        org.bson.Document fakeRawResults = new org.bson.Document();
+        List<FullCourse> qdList = new ArrayList<FullCourse>();
+        qdList.add(new FullCourse("20204","SP TOP: GENERAL"));
+        qdList.add(new FullCourse("20204","TRANS PROG LANG"));
+        qdList.add(new FullCourse("20204","ADV APP PROGRAM"));
+        qdList.add(new FullCourse("20204","INTRO TO COMP SCI"));
+        qdList.add(new FullCourse("20211","HUM-COMP INTERACT"));
+        qdList.add(new FullCourse("20211","COMPUTER GRAPHICS"));
+        qdList.add(new FullCourse("20211","DISTRD SYSTEMS"));
+        qdList.add(new FullCourse("20211","OPERATING SYSTEMS"));
+        qdList.add(new FullCourse("20211","COMPUTER ARCHITECT"));
+        AggregationResults<FullCourse> fakeResults = new AggregationResults<FullCourse>(qdList, fakeRawResults);
+
+        when(mongoTemplate.aggregate( any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+
+
+        MvcResult response = mockMvc.perform(get(url).queryParam("startQuarter", "20204").queryParam("endQuarter", "20211")
+            .queryParam("department", "CMPSC").contentType("application/json")).andExpect(status().isOk())
+            .andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<FullCourse> resultFromPage = FullCourse.listFromJSON(responseString);
 
         assertEquals(qdList, resultFromPage);
     }
