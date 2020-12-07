@@ -5,7 +5,7 @@ const CsvDownloadButton = () => {
     return(
         <Button
             variant = "outline-info"
-            onClick={}
+            //onClick={}
         >
         Download CSV        
     </Button>

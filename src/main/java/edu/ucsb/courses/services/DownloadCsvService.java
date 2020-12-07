@@ -2,6 +2,7 @@ package edu.ucsb.courses.services;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,43 +13,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
- 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.CoursePage;
 
 
 
 public class DownloadCsvService {
-    // Converts JSON string to a list of Java objects
-    public List<Course> stringToList(String jsonString) {
-        List<Course> courses = null;
 
-        try {
-            courses = new ObjectMapper().readValue(jsonString, new TypeReference<List<Course>>(){});
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return courses;
-    }
+    private Logger logger = LoggerFactory.getLogger(DownloadCsvService.class);
 
     // Converts list of Java objects to a CSV file
-    public void listToCSV(List<Course> courses, String fileName) {
+    public void listToCSV(String coursePageJson, PrintWriter writer) {
         final String[] CSV_HEADER = {"quarter", "courseID", "title", "description"};
+        logger.info("coursePageJson={}", coursePageJson);
+    
+        CoursePage cp = CoursePage.fromJSON(coursePageJson);
 
-        FileWriter fileWriter = null;
+
         CSVPrinter csvPrinter = null;
 
         try {
-            fileWriter = new FileWriter(fileName);
-            csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT.withHeader(CSV_HEADER));
+            //fileWriter = new FileWriter(fileName);
+            csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader(CSV_HEADER));
        
-            for (Course course : courses) {
+            for (Course course : cp.getClasses()) {
                 List<String> data = Arrays.asList(
                 course.getQuarter(),
                 course.getCourseId(),
@@ -58,16 +49,15 @@ public class DownloadCsvService {
                 csvPrinter.printRecord(data);
             }
         } catch (Exception e) {
-            System.out.println("Writing CSV error!");
-            e.printStackTrace();
+            logger.error("Writing CSV error!{}", e);
+    
         } finally {
             try {
-                fileWriter.flush();
-                fileWriter.close();
+                //fileWriter.flush();
+                //fileWriter.close();
                 csvPrinter.close();
             } catch (IOException e) {
-                System.out.println("Flushing/closing error!");
-                e.printStackTrace();
+                logger.error("Flushing/closing error!{}", e);
             }
         }
     }
