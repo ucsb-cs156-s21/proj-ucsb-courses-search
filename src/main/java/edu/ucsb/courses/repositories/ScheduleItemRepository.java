@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScheduleItemRepository extends CrudRepository<ScheduleItem, Long> {
   List<ScheduleItem> findByScheduleId(Long scheduleId);
+  void deleteByScheduleId(Long scheduleId);
 }
