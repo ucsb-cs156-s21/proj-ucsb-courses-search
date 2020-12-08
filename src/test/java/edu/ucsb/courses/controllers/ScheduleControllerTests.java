@@ -106,7 +106,7 @@ public class ScheduleControllerTests {
       String actualString = "";
       assertEquals(actualString, responseString);
   }
-  
+
 
 @Test
     public void testDeleteSchedule_scheduleExists() throws Exception {
