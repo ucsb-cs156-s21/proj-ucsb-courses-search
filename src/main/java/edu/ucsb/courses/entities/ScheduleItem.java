@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import org.slf4j.Logger;
@@ -33,6 +35,10 @@ public class ScheduleItem {
     private String generalEducation;
     @Column(nullable = true)
     private String finalExam;
+
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
     public ScheduleItem(Long id, String quarter, String courseId, String title, String description, String classSection, String generalEducation, String finalExam) {
         
