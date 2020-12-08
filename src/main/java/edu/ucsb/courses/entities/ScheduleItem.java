@@ -38,8 +38,8 @@ public class  ScheduleItem {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
+
     public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
-        
         this.id = id;
         this.enrollCode = enrollCode;
         this.courseId = courseId;
