@@ -13,7 +13,7 @@ const fetchBasicCourseHistoryJSON = async (event, fields) => {
 };
 
 const fetchCourseHistoryNameQtrJSON = async (event, fields) => {
-    const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&dept=${fields.department}&courseNumber=${fields.courseNumber}&coursePref=${fields.coursePref}&courseSuf=${fields.courseSuf}`;
+    const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&subjectArea=${fields.subjectArea}&courseNumber=${fields.courseNumber}&courseSuf=${fields.courseSuf}`;
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };

@@ -83,7 +83,7 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
 
      //deptCode
     @Query("{'quarter': {$gte : ?0, $lte : ?1}, 'courseId': ?2 }")
-    List<Course> findByQuarterIntervalAndDepartment(String startQuarter,
+    List<Course> findByQuarterIntervalAndCourseName(String startQuarter,
                                                             String endQuarter,
                                                             String formattedCourseName);
 

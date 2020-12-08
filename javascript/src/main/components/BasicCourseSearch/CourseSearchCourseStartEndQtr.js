@@ -5,15 +5,14 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 
     const [startQuarter, setStartQuarter] = useState("20211");
     const [endQuarter, setEndQuarter] = useState("20211");
-    const [department, setDepartment] = useState("CMPSC");
+    const [subjectArea, setSubjectArea] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("8");
     const [courseSuf, setCourseSuf] = useState("");
-    const [coursePref, setCoursePref] = useState("");
 
     const handleSubmit = (event) => {
         //console.log(event);
         event.preventDefault();
-        fetchJSON(event, { startQuarter, endQuarter, department, courseNumber, courseSuf, coursePref}).then((courseJSON) => {
+        fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -26,8 +25,8 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
         setEndQuarter(event.target.value);
     };
 
-    const handleDepartmentOnChange = (event) => {
-        setDepartment(event.target.value);
+    const handleSubjectAreaOnChange = (event) => {
+        setSubjectArea(event.target.value);
     };
 
     const handleCourseNumberOnChange = (event) => {
@@ -37,10 +36,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const handleCourseSufOnChange = (event) => {
         setCourseSuf(event.target.value);
     }
-    const handleCoursePrefOnChange = (event) => {
-        setCoursePref(event.target.value);
-    }
-
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
@@ -57,20 +52,16 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20204">F20</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.Department">
-                <Form.Label>Department</Form.Label>
-                <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
-                    <option>CMPSC</option>
-                    <option>MATH</option>
+            <Form.Group controlId="BasicSearch.SubjectArea">
+                <Form.Label>Subject Area</Form.Label>
+                <Form.Control as="select" onChange={handleSubjectAreaOnChange} value={subjectArea}>
+                    <option value="CMPSC   ">CMPSC</option>
+                    <option value="MATH    ">MATH</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
-            </Form.Group>
-            <Form.Group controlId="BasicSearch.CoursePref">
-                <Form.Label>Course Prefix (i.e. 1-, etc.)</Form.Label>
-                <Form.Control onChange={handleCoursePrefOnChange} defaultValue={coursePref} />
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseSuf">
                 <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>

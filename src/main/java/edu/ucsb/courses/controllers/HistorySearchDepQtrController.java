@@ -34,26 +34,23 @@ public class HistorySearchDepQtrController {
     public ResponseEntity<String> coursesearch(
         @RequestParam String startQtr, 
         @RequestParam String endQtr, 
-        @RequestParam String dept,
+        @RequestParam String subjectArea,
         @RequestParam String courseNumber,
-        @RequestParam String coursePref,
         @RequestParam String courseSuf) 
         throws JsonProcessingException {
 
-        String formattedDept = String.format("%-5s",dept); // 'MATH '
+        //String formattedSubjectArea = String.format() No formatting needed, comes formatted from the form
         String formattedNumber = String.format("%3s",courseNumber); // '  8'
         String formattedCourseSuffix = String.format("%-2s",courseSuf);
-        //FIX ASSUMPTION FOR SPACING
-        String formattedPrefix = String.format("%3s",coursePref);
 
-        String formattedCourseName = formattedDept + formattedPrefix + formattedNumber + formattedCourseSuffix;
+        String formattedCourseName = subjectArea + formattedNumber + formattedCourseSuffix;
 
-        logger.info("formattedDept='{}'",formattedDept);
+        logger.info("subjectArea='{}'",subjectArea);
         logger.info("formattedNumber='{}'",formattedNumber);
         logger.info("formattedCourseSuffix='{}'",formattedCourseSuffix);
         logger.info("formattedCourseName='{}'",formattedCourseName);
 
-        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndDepartment(startQtr, endQtr, formattedCourseName);
+        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndCourseName(startQtr, endQtr, formattedCourseName);
 
         CoursePage cp = new CoursePage();
 
