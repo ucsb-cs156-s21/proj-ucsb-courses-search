@@ -7,6 +7,7 @@ import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 import edu.ucsb.courses.repositories.ScheduleItemRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -48,6 +50,8 @@ public class ScheduleItemControllerTests {
 
     private String userToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Test
     public void test_getScheduleItemSuccess() throws Exception {
 
@@ -68,8 +72,9 @@ public class ScheduleItemControllerTests {
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
+        ScheduleItem returnVal = objectMapper.readValue(responseString,ScheduleItem.class);
 
-        assertEquals(expectedResult, responseString);
+        assertEquals(scheduleItem, returnVal);
     }
 
 
@@ -134,8 +139,9 @@ public class ScheduleItemControllerTests {
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
+        ScheduleItem returnVal = objectMapper.readValue(responseString, ScheduleItem.class);
 
-        assertEquals(expectedResult, responseString);
+        assertEquals(returnVal, schedule);
     }
 
     @Test
@@ -180,8 +186,12 @@ public class ScheduleItemControllerTests {
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
+        String[] returnVal = responseString.split("!");
+        ScheduleItem r1 = objectMapper.readValue(returnVal[0],ScheduleItem.class);
+        ScheduleItem r2 = objectMapper.readValue(returnVal[1],ScheduleItem.class);
 
-        assertEquals(expectedResult, responseString);
+        assertEquals(s1, r1);
+        assertEquals(s2,r2);
     }
 
     @Test

@@ -2,6 +2,7 @@ package edu.ucsb.courses.controllers;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
@@ -31,11 +32,11 @@ public class ScheduleItemController {
     public ResponseEntity<String> addScheduleItem(@RequestHeader("Authorization") String authorization,
                                                   @RequestParam String scheduleId,
                                                  @RequestParam String enrollCode,
-                                                 @RequestParam String courseId){
+                                                 @RequestParam String courseId) throws JsonProcessingException {
         Long castId = Long.parseLong(scheduleId);
         ScheduleItem newSched = new ScheduleItem(null, courseId, enrollCode, JWT.decode(authorization.substring(7)).getSubject(), castId);
         ScheduleItem savedSched = scheduleItemRepository.save(newSched);
-        return ResponseEntity.ok().body(savedSched.toString());
+        return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
     //Stub
@@ -56,29 +57,29 @@ public class ScheduleItemController {
 
     @GetMapping(value = "/getScheduleItemsByScheduleId", produces = "application/json")
     public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization,
-                                                               @RequestParam String scheduleId){
+                                                               @RequestParam String scheduleId) throws JsonProcessingException {
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findBySchedule_id(castId);
         String res = "";
         for (ScheduleItem item: savedSched){
             if (item.getUserId().equals(jwt.getSubject())) {
-                res = res.concat(item.getId() + ",");
+                res = res.concat(mapper.writeValueAsString(item) + "!");
             }
         }
         if (res.length() == 0){return ResponseEntity.noContent().build();}
-        return ResponseEntity.ok().body(res.substring(0,res.length()-1));
+        return ResponseEntity.ok().body(res);
     }
 
     @GetMapping(value = "/getScheduleItemById", produces = "application/json")
     public ResponseEntity<String> getScheduleItemById(@RequestHeader("Authorization") String authorization,
-                                                      @RequestParam String id){
+                                                      @RequestParam String id) throws JsonProcessingException {
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(id);
         Optional<ScheduleItem> savedSched = scheduleItemRepository.findById(castId);
         if (savedSched.isPresent() && savedSched.get().getUserId().equals(jwt.getSubject())) {
             String body = savedSched.get().toString();
-            return ResponseEntity.ok().body(body);
+            return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched.get()));
         }
         return ResponseEntity.badRequest().build();
     }

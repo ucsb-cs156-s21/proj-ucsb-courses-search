@@ -31,9 +31,9 @@ public class  ScheduleItem {
     private Long schedule_id;
 
 
-    //@ManyToOne
-    //@JoinColumn(name = "schedule_id")
-    //private Schedule schedule;
+    /*@ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;*/
 
     public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
         
@@ -43,6 +43,8 @@ public class  ScheduleItem {
         this.userId = userId;
         this.schedule_id = schedule_id;
     }
+
+    public ScheduleItem(){}
 
 
     public Long getId() {
@@ -95,7 +97,7 @@ public class  ScheduleItem {
         }
         ScheduleItem c = (ScheduleItem) o;
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(schedule_id, c.getScheduleId());
+        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(schedule_id, c.getScheduleId()).append(userId,c.getUserId());
         return builder.build();
     }
 
