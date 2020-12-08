@@ -38,7 +38,6 @@ public class ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    //Stub
     @GetMapping(value = "/createSchedule", produces = "application/json")
     public ResponseEntity<String> createSchedule(@RequestParam String name,
                                                  @RequestParam String description,
@@ -49,13 +48,6 @@ public class ScheduleController {
         return ResponseEntity.ok().body(savedSched.toString());
     }
 
-    //Stub
-    @GetMapping(value = "/addScheduleItem", produces = "application/json")
-    public ResponseEntity<String> addScheduleItem(@RequestParam String id){
-        return ResponseEntity.badRequest().build();
-    }
-
-    //Stub
     @GetMapping(value = "/deleteSchedule", produces = "application/json")
     public ResponseEntity<String> deleteSchedule(@RequestParam String id){
         Long castId = Long.parseLong(id);
@@ -63,7 +55,6 @@ public class ScheduleController {
         return ResponseEntity.ok().build();
     }
 
-    //Stub
     @GetMapping(value = "/getSchedule", produces = "application/json")
     public ResponseEntity<String> getSchedule(@RequestParam String id){
         Long castId = Long.parseLong(id);
