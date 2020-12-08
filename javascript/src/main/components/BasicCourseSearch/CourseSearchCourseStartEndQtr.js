@@ -121,7 +121,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="LATIN   ">LATIN - Latin</option>
                     <option value="LAIS    ">LAIS - Latin American and Iberian Studies</option>
                     <option value="LING    ">LING - Linguistics</option>
-                    <option value="LIT   ">LIT - Literature (Creative Studies)</option>
+                    <option value="LIT     ">LIT - Literature (Creative Studies)</option>
                     <option value="MARSC   ">MARSC - Marine Science</option>
                     <option value="MATRL   ">MATRL - Materials</option>
                     <option value="MATH    ">MATH - Mathematics</option>
