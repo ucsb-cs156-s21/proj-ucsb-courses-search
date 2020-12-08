@@ -8,6 +8,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.matc
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -69,6 +70,13 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
 
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import edu.ucsb.courses.documents.statistics.AvgClassSize;
+
 @RestController
 @RequestMapping("/api/public/statistics")
 public class StatisticsController {
@@ -99,22 +107,26 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/classSize", produces = "application/json")
-    public ResponseEntity<String> classSize() 
-        throws JsonProcessingException, Exception {
+    
+    public ResponseEntity<String> classSize(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter)
+            throws JsonProcessingException {
+        MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
         
-        SortOperation sortByQuarterAndDeptCode = sort(Sort.by(Direction.DESC, "quarter")).and(Sort.by(Direction.ASC, "deptCode"));
-
-        GroupOperation groupByQuarterAndDeptCode = group("quarter","deptCode").count().as("courseCount");
-           
-        Aggregation aggregation = newAggregation(groupByQuarterAndDeptCode, sortByQuarterAndDeptCode);
+        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
         
-        AggregationResults<QuarterDept> result = 
-            mongoTemplate.aggregate(aggregation, "courses", QuarterDept.class);
-          
-        List<QuarterDept> qds = result.getMappedResults();
+        MatchOperation onlySections = match(Criteria.where("index").ne(0));
 
-        logger.info("qds={}",qds);
-        String body = mapper.writeValueAsString(qds);
+        GroupOperation groupOperation = group("$deptCode").avg("$classSections.enrolledTotal").as("avgClassSize");
+
+
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlySections, groupOperation);
+
+        AggregationResults<AvgClassSize> result = mongoTemplate.aggregate(aggregation, "courses",
+                AvgClassSize.class);
+        List<AvgClassSize> qo = result.getMappedResults();
+
+        String body = mapper.writeValueAsString(qo);
+
         return ResponseEntity.ok().body(body);
     }
 }

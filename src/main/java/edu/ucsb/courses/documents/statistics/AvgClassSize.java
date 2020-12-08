@@ -36,11 +36,11 @@ public class AvgClassSize {
         this._id = _id;
     }
 
-    public String getavgClassSize() {
+    public int getavgClassSize() {
         return this.avgClassSize;
     }
 
-    public void setavgClassSize(String avgClassSize) {
+    public void setavgClassSize(int avgClassSize) {
         this.avgClassSize = avgClassSize;
     }
 
