@@ -52,7 +52,7 @@ public class FullCourse {
     }
 
     public void setcourseId(String courseId) {
-        this.title = courseId;
+        this.courseId = String.join(" ", courseId.split("[\\s\\p{Z}]+"));
     }
 
     @Override
