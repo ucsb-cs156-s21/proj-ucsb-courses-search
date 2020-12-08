@@ -3,21 +3,57 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 const BasicCourseTable = ( {classes} ) => {
   const sections = [];
-  classes.forEach(
+/*  classes.forEach(
     (course) => {
       course.classSections.forEach(
         (section) => {
           section.course =
           {
-          courseId: course.courseId,
-          title: course.title,
-          unitsFixed: course.unitsFixed
+            courseId: course.courseId,
+            title: course.title,
+            unitsFixed: course.unitsFixed
           };
+          sections.push(section);
+        }
+      )
+    }
+  );*/
+
+  var numSections = 0;
+  classes.slice().reverse().forEach(
+    (course) => {
+      course.classSections.slice().reverse().forEach(
+        (section) => {
+          if (section.section % 100 != 0){
+            numSections++;
+          }
+          if(course.classSections.length <= 1 || (section.section % 100 == 0 && numSections == 0)) {
+            section.course =
+            {
+              courseId: course.courseId,
+              title: course.title,
+              unitsFixed: course.unitsFixed,
+              noSections: "true"
+            };
+          } else {
+            section.course =
+            {
+              courseId: course.courseId,
+              title: course.title,
+              unitsFixed: course.unitsFixed,
+              noSections: "false"
+            };
+          }
+          if (section.section % 100 == 0){
+            numSections = 0;
+          }
          sections.push(section);
        }
       )
     }
   );
+  sections.reverse();
+  
 const rowStyle = (row, rowIndex) => {
   // console.log(`row=`,row, `rowIndex`, rowIndex);
   return (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: (rowIndex % 2 == 1)? {backgroundColor: '#EDF3FE'}: {backgroundColor: '#FFFFFF'}
@@ -41,9 +77,12 @@ const renderInstructors = (cell, row) => {
   const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
   return (  <span>{instructor}</span> )
 }
-const renderAddCourseButton = (id) => {
+const renderAddCourseButton = (id,cell,row) => {
+  console.log(`cell=${cell} row=`, row);
+  const button = (row.section % 100 != 0 || row.course.noSections == "true")? 
+    <Button data-testid="add-course-button" onClick={() => { console.log("To Be Implemented")}}>Add Course</Button>: "";
   return (
-      <Button data-testid="add-course-button" onClick={() => { console.log("To Be Implemented")}}>Add Course</Button>
+      button
   )
 }
   const columns = [{
@@ -81,7 +120,7 @@ const renderAddCourseButton = (id) => {
       text: "",
       isDummyField: true,
       dataField: "add-course",
-      formatter: (cell, row) => renderAddCourseButton(row.id)
+      formatter: (cell, row) => renderAddCourseButton(row.id, cell, row)
   });
 //}
   return (
