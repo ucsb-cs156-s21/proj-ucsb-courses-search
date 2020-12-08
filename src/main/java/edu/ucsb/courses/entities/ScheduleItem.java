@@ -28,12 +28,12 @@ public class  ScheduleItem {
     @Column(nullable = false)
     private String userId;
     @Column(nullable = false)
-    private Long schedule_id;
+    private Long scheduleId;
 
 
-    /*@ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;*/
+    //@ManyToOne
+    //@JoinColumn(name = "schedule_id")
+    //private Schedule schedule;
 
     public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
         
@@ -41,7 +41,7 @@ public class  ScheduleItem {
         this.enrollCode = enrollCode;
         this.courseId = courseId;
         this.userId = userId;
-        this.schedule_id = schedule_id;
+        this.scheduleId = schedule_id;
     }
 
     public ScheduleItem(){}
@@ -80,11 +80,11 @@ public class  ScheduleItem {
     }
 
     public Long getScheduleId() {
-        return this.schedule_id;
+        return this.scheduleId;
     }
 
     public void setScheduleId(Long scheduleId) {
-        this.schedule_id = scheduleId;
+        this.scheduleId = scheduleId;
     }
 
 
@@ -97,13 +97,13 @@ public class  ScheduleItem {
         }
         ScheduleItem c = (ScheduleItem) o;
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(schedule_id, c.getScheduleId()).append(userId,c.getUserId());
+        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId()).append(userId,c.getUserId());
         return builder.build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseId, enrollCode, schedule_id);
+        return Objects.hash(courseId, enrollCode, scheduleId);
     }
 
     @Override
