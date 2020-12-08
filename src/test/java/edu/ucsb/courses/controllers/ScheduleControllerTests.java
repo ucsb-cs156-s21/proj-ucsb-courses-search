@@ -1,6 +1,7 @@
 package edu.ucsb.courses.controllers;
 
 
+
 import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.repositories.ScheduleRepository;
 import edu.ucsb.courses.entities.Schedule;
@@ -105,45 +106,7 @@ public class ScheduleControllerTests {
       String actualString = "";
       assertEquals(actualString, responseString);
   }
-
-    @Test
-    public void test_createScheduleSuccess() throws Exception {
-        String expectedResult = "Schedule[ id=1, name=CS 156, description=Adv App Programming, quarter=Fall 2020, userId=s ]";
-        String urlTemplate = "/api/public/createSchedule?name=%s&description=%s&quarter=%s&userId=%s";
-        String url = String.format(urlTemplate, "CS 156", "Adv App Programming", "Fall 2020", "s");
-
-        Schedule schedule = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "s");
-
-        when(mockScheduleRepository.save(any(Schedule.class)))
-                .thenReturn(schedule);
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
-                .andReturn();
-
-        String responseString = response.getResponse().getContentAsString();
-
-        assertEquals(expectedResult, responseString);
-    }
-
-    @Test
-    public void test_deleteScheduleSuccess() throws Exception {
-        String expectedResult = "";
-        String urlTemplate = "/api/public/deleteSchedule?id=%s";
-        String url = String.format(urlTemplate, "1");
-
-        Schedule schedule = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "s");
-
-        //when(scheduleRepository.deleteById(any(Long.class))).then(doNothing());\
-        //doNothing().when(scheduleRepository.deleteById(any(Long.class)));
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
-                .andReturn();
-
-        String responseString = response.getResponse().getContentAsString();
-
-        assertEquals(expectedResult, responseString);
-
-    }
+  
 
 @Test
     public void testDeleteSchedule_scheduleExists() throws Exception {
@@ -185,3 +148,4 @@ public class ScheduleControllerTests {
     verify(mockScheduleRepository, times(0)).deleteById(s1.getId());
   }
 }
+
