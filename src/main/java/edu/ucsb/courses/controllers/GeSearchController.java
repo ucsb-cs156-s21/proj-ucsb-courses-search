@@ -33,18 +33,15 @@ public class GeSearchController {
     @GetMapping(value = "/gesearch", produces = "application/json")
     public ResponseEntity<String> gesearch(
         @RequestParam String startQtr,
-        @RequestParam String qtr, 
-        @RequestParam String dept,
         @RequestParam String endQtr,
-        @RequestParam String geCode,
-        @RequestParam String geCollege) 
+        @RequestParam String geCode) 
         throws JsonProcessingException {
 
-        String formattedDept = String.format("%-5s",dept);
+        String formattedGeCode = String.format("%-3s",geCode);
 
-        logger.info("formattedDept='{}'",formattedDept);
+        logger.info("formattedGeCode='{}'",formattedGeCode);
 
-        List<Course> courseResults = archivedCourseRepository.findByQuarterAndDepartment(qtr,formattedDept);
+        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndGe(startQtr,endQtr,formattedGeCode);
 
         CoursePage cp = new CoursePage();
 
