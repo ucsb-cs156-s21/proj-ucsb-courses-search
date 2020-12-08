@@ -6,12 +6,11 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20211");
     const [endQuarter, setEndQuarter] = useState("20211");
     const [geCode, setGeCode] = useState("A");
-    const [geCollege, setGeCollege] = useState("CMPSC");
 
     const handleSubmit = (event) => {
         //console.log(event);
         event.preventDefault();
-        fetchJSON(event, {startQuarter, endQuarter, geCode, geCollege}).then((courseJSON) => {
+        fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -27,10 +26,6 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const handleGeCodeOnChange = (event) => {
         setGeCode(event.target.value);
     };
-
-    const handleGeCollegeOnChange = (event) => {
-        setGeCollege(event.target.value);
-    }
 
     return (
         <Form onSubmit={handleSubmit}>
