@@ -173,7 +173,7 @@ public class ScheduleItemControllerTests {
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
-        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+        when(scheduleItemRepository.findBySchedule_id(any(Long.class)))
                 .thenReturn(scheduleItem);
 
         MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
@@ -195,7 +195,7 @@ public class ScheduleItemControllerTests {
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", jwt.getSubject(),1L);
         List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
 
-        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+        when(scheduleItemRepository.findBySchedule_id(any(Long.class)))
                 .thenReturn(scheduleItem);
 
         MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isNoContent())
@@ -220,7 +220,7 @@ public class ScheduleItemControllerTests {
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
-        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+        when(scheduleItemRepository.findBySchedule_id(any(Long.class)))
                 .thenReturn(scheduleItem);
 
 
