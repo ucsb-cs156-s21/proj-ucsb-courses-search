@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { fetchClassSize } from "main/services/statisticsService";
 import ClassSizeTable from "main/components/Statistics/ClassSizeTable";
+import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
 
 const ClassSize = () => {
     const initialData = [];
