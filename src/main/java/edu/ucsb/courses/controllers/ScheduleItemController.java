@@ -59,7 +59,7 @@ public class ScheduleItemController {
                                                                @RequestParam String scheduleId){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(scheduleId);
-        List<ScheduleItem> savedSched= scheduleItemRepository.findBySchedule_id(castId);
+        List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
         String res = "";
         for (ScheduleItem item: savedSched){
             if (item.getUserId().equals(jwt.getSubject())) {
@@ -89,7 +89,7 @@ public class ScheduleItemController {
                                                                   @RequestParam String scheduleId){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(scheduleId);
-        List<ScheduleItem> savedSched= scheduleItemRepository.findBySchedule_id(castId);
+        List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
         boolean verified = true;
         for (ScheduleItem item: savedSched){
             if (!item.getUserId().equals(jwt.getSubject())){
@@ -97,7 +97,7 @@ public class ScheduleItemController {
             }
         }
         if (verified) {
-            scheduleItemRepository.deleteBySchedule_id(castId);
+            scheduleItemRepository.deleteByScheduleId(castId);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.noContent().build();
