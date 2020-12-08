@@ -1,6 +1,7 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 const BasicCourseTable = ( {classes} ) => {
   const sections = [];
 /*  classes.forEach(
@@ -18,7 +19,7 @@ const BasicCourseTable = ( {classes} ) => {
       )
     }
   );*/
-
+  const history = useHistory();
   var numSections = 0;
   classes.slice().reverse().forEach(
     (course) => {
@@ -80,7 +81,9 @@ const renderInstructors = (cell, row) => {
 const renderAddCourseButton = (id,cell,row) => {
   console.log(`cell=${cell} row=`, row);
   const button = (row.section % 100 != 0 || row.course.noSections == "true")? 
-    <Button data-testid="add-course-button" onClick={() => { console.log("To Be Implemented")}}>Add Course</Button>: "";
+    <Button data-testid="add-course-button" onClick={() => { 
+      history.push(``); 
+      console.log('To Be Implemented')}}>Add Course</Button>: "";
   return (
       button
   )

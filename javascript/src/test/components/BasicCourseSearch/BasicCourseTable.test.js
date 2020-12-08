@@ -1,6 +1,11 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
+import { waitFor, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { useHistory } from "react-router-dom";
+jest.mock("react-router-dom", () => ({
+  useHistory: jest.fn(),
+}));
 
 describe("BasicCourseTable tests", () => {
   test("renders without crashing", () => {
@@ -431,4 +436,66 @@ describe("BasicCourseTable tests", () => {
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(3);
   });
+  test("can click to add a course", async () => {
+    const classes = [{
+      "quarter": "20211",
+      "courseId": "CMPSC   192  ",
+      "title": "PROJECTS COMP SCI",
+      "contactHours": 10,
+      "description": "Projects in computer science for advanced undergraduate   students.",
+      "college": "ENGR",
+      "objLevelCode": "U",
+      "subjectArea": "CMPSC   ",
+      "unitsFixed": null,
+      "unitsVariableHigh": 5,
+      "unitsVariableLow": 1,
+      "delayedSectioning": "I",
+      "inProgressCourse": null,
+      "gradingOption": "L",
+      "instructionType": "TUT",
+      "onLineCourse": false,
+      "deptCode": "CMPSC",
+      "generalEducation": [],
+      "classSections": [
+        {
+          "enrollCode": "08334",
+          "section": "0100",
+          "session": null,
+          "classClosed": null,
+          "courseCancelled": null,
+          "gradingOptionCode": null,
+          "enrolledTotal": null,
+          "maxEnroll": 20,
+          "secondaryStatus": null,
+          "departmentApprovalRequired": false,
+          "instructorApprovalRequired": false,
+          "restrictionLevel": null,
+          "restrictionMajor": null,
+          "restrictionMajorPass": null,
+          "restrictionMinor": null,
+          "restrictionMinorPass": null,
+          "concurrentCourses": [],
+          "timeLocations": [],
+          "instructors": [],
+          "course": {
+            "courseId": "CMPSC   192  ",
+            "title": "PROJECTS COMP SCI",
+            "unitsFixed": null,
+            "noSections": "true"
+          }
+        }
+      ]
+    }];
+    const pushSpy = jest.fn();
+    useHistory.mockReturnValue({
+      push: pushSpy
+    });
+
+    const { getByText } = render(<BasicCourseTable classes = {classes} />);
+    const addCourseButton = getByText("Add Course");
+    userEvent.click(addCourseButton);
+
+    await waitFor(() => expect(pushSpy).toHaveBeenCalledTimes(1));
+  });
+
 });
