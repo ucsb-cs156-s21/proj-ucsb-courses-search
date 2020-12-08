@@ -70,21 +70,25 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                 <Form.Control as="select" onChange={handleSubjectAreaOnChange} value={subjectArea}>
                     <option value="ANTH    ">ANTH - Anthropology</option>
                     <option value="ART     ">ART - Art</option>
+                    <option value="ART  CS ">ART - Art (Creative Studies)</option>
                     <option value="ARTHI   ">ARTHI - Art History</option>
                     <option value="ARTST   ">ARTST - Art Studio</option>
                     <option value="AS AM   ">AS AM - Asian American Studies</option>
                     <option value="ASTRO   ">ASTRO - Astronomy</option>
+                    <option value="BIOL    ">BIOL - Biology</option>
                     <option value="BIOL CS ">BIOL - Biology (Creative Studies)</option>
                     <option value="BMSE    ">BMSE - Biomolecular Science and Engineering</option>
                     <option value="BL ST   ">BL ST - Black Studies</option>
                     <option value="CH E    ">CH E - Chemical Engineering</option>
                     <option value="CHEM    ">CHEM - Chemistry and Biochemistry</option>
+                    <option value="CHEM CS ">CHEM - Chemistry and Biochemistry (Creative Studies)</option>
                     <option value="CH ST   ">CH ST - Chicano Studies</option>
                     <option value="CHIN    ">CHIN - Chinese</option>
                     <option value="CLASS   ">CLASS - Classics</option>
                     <option value="COMM    ">COMM - Communication</option>
                     <option value="C LIT   ">C LIT - Comparative Literature</option>
                     <option value="CMPSC   ">CMPSC - Computer Science</option>
+                    <option value="CMPSCCS ">CMPSC - Computer Science (Creative Studies)</option>
                     <option value="CMPTGCS ">CMPTG - Computing (Creative Studies)</option>
                     <option value="CNCSP   ">CNCSP - Counseling, Clinical, School Psychology</option>
                     <option value="DANCE   ">DANCE - Dance</option>
@@ -115,16 +119,19 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="HEB     ">HEB - Hebrew</option>
                     <option value="HIST    ">HIST - History</option>
                     <option value="INT     ">INT - Interdisciplinary</option>
+                    <option value="INT  CS ">INT - Interdisciplinary (Creative Studies)</option>
                     <option value="ITAL    ">ITAL - Italian</option>
                     <option value="JAPAN   ">JAPAN - Japanese</option>
                     <option value="KOR     ">KOR - Korean</option>
                     <option value="LATIN   ">LATIN - Latin</option>
                     <option value="LAIS    ">LAIS - Latin American and Iberian Studies</option>
                     <option value="LING    ">LING - Linguistics</option>
-                    <option value="LIT     ">LIT - Literature (Creative Studies)</option>
+                    <option value="LIT     ">LIT - Literature</option>
+                    <option value="LIT  CS ">LIT - Literature (Creative Studies)</option>
                     <option value="MARSC   ">MARSC - Marine Science</option>
                     <option value="MATRL   ">MATRL - Materials</option>
                     <option value="MATH    ">MATH - Mathematics</option>
+                    <option value="MATH CS ">MATH - Mathematics (Creative Studies)</option>
                     <option value="ME      ">ME - Mechanical Engineering</option>
                     <option value="MAT     ">MAT - Media Arts and Technology</option>
                     <option value="ME ST   ">ME ST - Midieval Studies</option>
@@ -132,9 +139,11 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="MS      ">MS - Military Science</option>
                     <option value="MCDB    ">MCDB - Molecular, Cellular and Develop. Biology</option>
                     <option value="MUS     ">MUS - Music</option>
+                    <option value="MUS  CS ">MUS - Music (Creative Studies</option>
                     <option value="MUS A   ">MUS A - Music Performance Laboratories</option>
                     <option value="PHIL    ">PHIL - Philosophy</option>
                     <option value="PHYS    ">PHYS - Physics</option>
+                    <option value="PHYS CS ">PHYS - Physics (Creative Studies)</option>
                     <option value="POL S   ">POL S - Political Science</option>
                     <option value="PORT    ">PORT - Portuguese</option>
                     <option value="PSY     ">PSY - Psychology</option>
@@ -149,7 +158,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="TMP     ">TMP - Technology Management</option>
                     <option value="THTR    ">THTR - Theater</option>
                     <option value="WRIT    ">WRIT - Writing</option>
-                    <option value="W&L  CS ">W&L - Writing and Literature (Creative Studies)</option>
+                    <option value="W&amp;L  CS ">W&L - Writing and Literature (Creative Studies)</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseNumber">
