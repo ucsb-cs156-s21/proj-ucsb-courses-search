@@ -36,14 +36,17 @@ public class HistorySearchDepQtrController {
         @RequestParam String endQtr, 
         @RequestParam String dept,
         @RequestParam String courseNumber,
+        @RequestParam String coursePref,
         @RequestParam String courseSuf) 
         throws JsonProcessingException {
 
-        String formattedDept = String.format("%-5s",dept);
-        String formattedNumber = String.format("%3s",courseNumber);
+        String formattedDept = String.format("%-5s",dept); // 'MATH '
+        String formattedNumber = String.format("%3s",courseNumber); // '  8'
         String formattedCourseSuffix = String.format("%-2s",courseSuf);
+        //FIX ASSUMPTION FOR SPACING
+        String formattedPrefix = String.format("%3s",coursePref);
 
-        String formattedCourseName = formattedDept + "   " + formattedNumber + formattedCourseSuffix;
+        String formattedCourseName = formattedDept + formattedPrefix + formattedNumber + formattedCourseSuffix;
 
         logger.info("formattedDept='{}'",formattedDept);
         logger.info("formattedNumber='{}'",formattedNumber);

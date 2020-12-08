@@ -8,11 +8,12 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [department, setDepartment] = useState("CMPSC");
     const [courseNumber, setCourseNumber] = useState("8");
     const [courseSuf, setCourseSuf] = useState("");
+    const [coursePref, setCoursePref] = useState("");
 
     const handleSubmit = (event) => {
         //console.log(event);
         event.preventDefault();
-        fetchJSON(event, { startQuarter, endQuarter, department, courseNumber, courseSuf}).then((courseJSON) => {
+        fetchJSON(event, { startQuarter, endQuarter, department, courseNumber, courseSuf, coursePref}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -35,6 +36,9 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 
     const handleCourseSufOnChange = (event) => {
         setCourseSuf(event.target.value);
+    }
+    const handleCoursePrefOnChange = (event) => {
+        setCoursePref(event.target.value);
     }
 
     return (
@@ -63,6 +67,10 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="BasicSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.CoursePref">
+                <Form.Label>Course Prefix (i.e. 1-, etc.)</Form.Label>
+                <Form.Control onChange={handleCoursePrefOnChange} defaultValue={coursePref} />
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseSuf">
                 <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
