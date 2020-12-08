@@ -40,6 +40,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const handleCourseSufOnChange = (event) => {
         setCourseSuf(event.target.value);
     }
+    // Note: Not all possible courses were able to be added in the subject area list as many of them were dead links that provided no information
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
@@ -158,7 +159,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="TMP     ">TMP - Technology Management</option>
                     <option value="THTR    ">THTR - Theater</option>
                     <option value="WRIT    ">WRIT - Writing</option>
-                    <option value="W&amp;L  CS ">W&L - Writing and Literature (Creative Studies)</option>
+                    <option value="W%26L  CS ">W&L - Writing and Literature (Creative Studies)</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseNumber">
