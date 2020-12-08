@@ -44,6 +44,8 @@ public class  ScheduleItem {
         this.scheduleId = schedule_id;
     }
 
+    public ScheduleItem(){}
+
 
     public Long getId() {
       return this.id;
@@ -95,7 +97,7 @@ public class  ScheduleItem {
         }
         ScheduleItem c = (ScheduleItem) o;
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId());
+        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId()).append(userId,c.getUserId());
         return builder.build();
     }
 
