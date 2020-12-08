@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr"; 
 import CourseSearchDepStartEndQtr from "main/components/BasicCourseSearch/CourseSearchDepStartEndQtr";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
-import {  fetchCourseHistoryDepQtrJSON } from "main/services/courseSearches";
+import {  fetchCourseHistoryNameQtrJSON } from "main/services/courseSearches";
 
 const CourseName = () => {
 
@@ -26,7 +26,7 @@ const CourseName = () => {
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search By Course Name Through Various Quarters</h5>
-                <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryDepQtrJSON} />
+                <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}

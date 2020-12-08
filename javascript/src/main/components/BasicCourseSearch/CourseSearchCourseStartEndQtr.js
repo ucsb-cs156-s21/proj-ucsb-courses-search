@@ -7,11 +7,12 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [endQuarter, setEndQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
     const [courseNumber, setCourseNumber] = useState("8");
+    const [courseSuf, setCourseSuf] = useState("");
 
     const handleSubmit = (event) => {
         //console.log(event);
         event.preventDefault();
-        fetchJSON(event, { startQuarter, endQuarter, department, courseNumber }).then((courseJSON) => {
+        fetchJSON(event, { startQuarter, endQuarter, department, courseNumber, courseSuf}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -32,6 +33,10 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
         setCourseNumber(event.target.value);
     }
 
+    const handleCourseSufOnChange = (event) => {
+        setCourseSuf(event.target.value);
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
@@ -50,14 +55,18 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Form.Group controlId="BasicSearch.Department">
                 <Form.Label>Department</Form.Label>
-                <Form.Control as="select" onChange={handleCourseNumberOnChange} value={department}>
+                <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
                     <option>CMPSC</option>
                     <option>MATH</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="BasicSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
-                <Form.Control onChange={handleDepartmentOnChange} defaultValue={courseNumber} />
+                <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.CourseSuf">
+                <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
+                <Form.Control onChange={handleCourseSufOnChange} defaultValue={courseSuf} />
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
