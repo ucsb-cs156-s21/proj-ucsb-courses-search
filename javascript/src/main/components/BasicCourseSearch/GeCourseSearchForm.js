@@ -51,10 +51,9 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                     <option value="D  ">D</option>
                     <option value="E  ">E</option>
                     <option value="F  ">F</option>
-                    <option value="ETH">Writing</option>
+                    <option value="ETH">Ethnicities</option>
                     <option value="EUR">European Cultures</option>
                     <option value="WRT">Writing</option>
-
                 </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
