@@ -3,7 +3,7 @@ import { Form, Button, Spinner } from "react-bootstrap";
 import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
-const ClassSizeForm = ({ setOccupancyJson, fetchJSON, onSubmit = () => {} }) => {
+const ClassSizeForm = ({ setClassSizeJSON, fetchClassSize, onSubmit = () => {} }) => {
 
     const [startQuarter, setStartQuarter] = useState("20204");
     const [endQuarter, setEndQuarter] = useState("20211");
@@ -14,9 +14,9 @@ const ClassSizeForm = ({ setOccupancyJson, fetchJSON, onSubmit = () => {} }) => 
         console.log("submit pressed");
         onSubmit();
         setLoading(true);
-        fetchJSON({startQuarter, endQuarter})
+        fetchClassSize({startQuarter, endQuarter})
         .then((courseJSON)=> {
-            setOccupancyJson(courseJSON);
+            setClassSizeJSON(courseJSON);
             setLoading(false);
         });
     };
