@@ -105,7 +105,7 @@ The next thing you'll want to do is set up your Auth0 SPA App. Instructions for 
 At this point, you should be able to run the app locally via
 
 ```bash
-mvn spring-boot:run
+    mvn spring-boot:run
 ```
 
 ## Deploying to Production

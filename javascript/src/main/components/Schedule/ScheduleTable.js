@@ -20,7 +20,24 @@ export default ({courses,admin}) => {
 //            <Button variant="danger" data-testid="delete-button" onClick={() => deleteCourse(id)}>Delete</Button>
 //        )
 //    }
-
+    var temp = null
+    const courseTable = [
+        {time:'8:00-9:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'9:00-10:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'10:00-11:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'11:00-12:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'12:00-13:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'13:00-14:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'13:00-14:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'14:00-15:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'15:00-16:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'16:00-17:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'17:00-18:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'18:00-19:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'19:00-20:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'20:00-21:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp},
+        {time:'21:00-22:00',monday:temp,tuesday:temp,wednesday:temp,thursday:temp,friday:temp}
+    ]
     const columns = [{
         dataField: 'time',
         text: 'Time'
@@ -39,12 +56,6 @@ export default ({courses,admin}) => {
     }, {
         dataField: 'friday',
         text: 'Friday'
-    }, {
-        dataField: 'saturday',
-        text: 'Saturday'
-    }, {
-        dataField: 'sunday',
-        text: 'Sunday'
     }];
 
 //    if (admin) {
@@ -63,6 +74,6 @@ export default ({courses,admin}) => {
 //    }
 
     return (
-        <BootstrapTable keyField='id' data={courses} columns={columns} />
+        <BootstrapTable keyField='id' data={courseTable} columns={columns} />
     );
 }
