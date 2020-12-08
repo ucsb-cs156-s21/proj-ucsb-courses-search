@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
-import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
+import {  fetchGeQtrJSON } from "main/services/courseSearches";
 
 const Ge = () => {
 
@@ -25,7 +25,7 @@ const Ge = () => {
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search GE Through Various Quarters</h5>
-                <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseHistoryJSON} />
+                <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}

@@ -18,5 +18,5 @@ const fetchGeQtrJSON = async (event, fields) => {
     return courseResponse.json();
 };
 
-export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchGeQtrJSON };
+export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchGeQtrJSON};
     
