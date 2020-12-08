@@ -114,12 +114,12 @@ public class StatisticsController {
         
         UnwindOperation unwindOperation = unwind("$classSections", "index", false);
         
-        MatchOperation onlySections = match(Criteria.where("index").ne(0));
+        MatchOperation onlyLectures = match(Criteria.where("index").is(0));
 
-        GroupOperation groupOperation = group("$deptCode").avg("$classSections.enrolledTotal").as("avgClassSize");
+        GroupOperation groupOperation = group("$deptCode").avg("$classSections.maxEnroll").as("avgClassSize");
 
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlySections, groupOperation);
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, groupOperation);
 
         AggregationResults<AvgClassSize> result = mongoTemplate.aggregate(aggregation, "courses",
                 AvgClassSize.class);
