@@ -117,9 +117,11 @@ public class StatisticsController {
         MatchOperation onlyLectures = match(Criteria.where("index").is(0));
 
         GroupOperation groupOperation = group("$deptCode").avg("$classSections.maxEnroll").as("avgClassSize");
+       
+        SortOperation numberSort = sort(Sort.by(Direction.ASC, "avgClassSize"));
 
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, groupOperation);
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, groupOperation,numberSort);
 
         AggregationResults<AvgClassSize> result = mongoTemplate.aggregate(aggregation, "courses",
                 AvgClassSize.class);
