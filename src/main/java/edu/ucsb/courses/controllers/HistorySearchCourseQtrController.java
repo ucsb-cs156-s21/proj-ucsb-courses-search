@@ -21,8 +21,8 @@ import edu.ucsb.courses.services.UCSBCurriculumService;
 
 @RestController
 @RequestMapping("/api/public/history")
-public class HistorySearchDepQtrController {
-    private final Logger logger = LoggerFactory.getLogger(HistorySearchDepQtrController.class);
+public class HistorySearchCourseQtrController {
+    private final Logger logger = LoggerFactory.getLogger(HistorySearchCourseQtrController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
