@@ -71,6 +71,12 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
                                                             String endQuarter,
                                                             String instructorText);
 
+
+    // GE
+    @Query("{'quarter': {$gte : ?0, $lte : ?1}, 'courseId': ?2 }")
+    List<Course> findByQuarterIntervalAndGe(String startQuarter,
+                                                            String endQuarter,
+                                                            String formattedCourseName);
     /**
      * Returns a list of {@link Course} from the requested
      * quarter and for the requested dept
