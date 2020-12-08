@@ -46,8 +46,6 @@ public class QuarterDeptTests {
     public void test_equalsAnother() throws Exception {
         QuarterDept qd1 = new QuarterDept("20204","CMPSC",0);
         QuarterDept qd2 = new QuarterDept("20204","CMPSC",0);
-        qd2.setDeptCode("CMPSC"); 
-        qd2.setQuarter("20204");
         assertEquals(qd1, qd2);
     }
 
