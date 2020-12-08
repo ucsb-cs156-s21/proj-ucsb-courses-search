@@ -96,7 +96,7 @@ public class  ScheduleItem {
     @Override
     public String toString() {
         return "{" +" courseId='" + getCourseId() + "'" + ", enrollCode='" + getEnrollCode()
-                + "'" + ", scheduleId='" + getScheduleId() + "'"+""}";
+                + "'" + ", scheduleId='" + getScheduleId() + "'"+"}";
     }
 
 }
