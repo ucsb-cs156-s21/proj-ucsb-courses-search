@@ -5,16 +5,18 @@ import { fetchClassSize } from "main/services/statisticsService";
 import ClassSizeTable from "main/components/Statistics/ClassSizeTable";
 import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
 
+
 const ClassSize = () => {
     const initialData = [];
     const [data, setData] = useState(initialData);
 
-    fetchClassSize().then((data)=> {
-        setData(data);
-    });
-
     return (
-        <ClassSizeTable data={data} />
+        <Jumbotron>
+            <ClassSizeForm setClassSizeJSON={setData} fetchClassSize={fetchClassSize}/>
+            <ClassSizeTable data={data} />
+        </Jumbotron>
+
+        
     );
 };
 
