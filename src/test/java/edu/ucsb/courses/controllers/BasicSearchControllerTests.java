@@ -50,4 +50,14 @@ public class BasicSearchControllerTests {
         assertEquals(expectedResult, responseString);
     }
 
+    @Test
+    public void test_csvDownload() throws Exception {
+        String expectedResult = "expected";
+        String urlTemplate = "/api/public/basicsearch/downloadcsv?qtr=%s&dept=%s&level=%s";
+        String url = String.format(urlTemplate, "20204", "CMPSC", "L");
+        MvcResult response = mockMvc.perform(get(url).contentType("text/csv")).andExpect(status().isOk())
+                .andReturn();
+        assertEquals("expected", expectedResult);
+    }
+
 }

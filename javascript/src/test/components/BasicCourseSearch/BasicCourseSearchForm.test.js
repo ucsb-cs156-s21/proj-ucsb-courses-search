@@ -132,6 +132,5 @@ describe("BasicCourseSearchForm tests", () => {
         const csvButton = getByText("Download CSV");
         userEvent.click(csvButton);
     });
-
 });
 
