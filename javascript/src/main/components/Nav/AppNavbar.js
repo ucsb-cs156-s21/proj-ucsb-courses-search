@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import AuthNav from "main/components/Nav/AuthNav";
 import ProfileNav from "main/components/Nav/ProfileNav";
 import useSWR from "swr";
@@ -15,7 +16,7 @@ function AppNavbar() {
     fetchWithToken
   );
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
-
+  
   return (
     <Navbar bg="dark" variant="dark">
       <LinkContainer to={""}>
@@ -33,6 +34,20 @@ function AppNavbar() {
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
+        <NavDropdown title="Statistics">
+          <NavDropdown.Item as={Link} to="/statistics">
+            Full Classes by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics">
+            Course Occupancy by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics">
+            Course Occupancy by Class Level
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics">
+            Average Class Size by Department
+          </NavDropdown.Item>
+        </NavDropdown>
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">
