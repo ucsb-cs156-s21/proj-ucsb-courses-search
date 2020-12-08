@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap";
 import fetch from "isomorphic-unfetch";
 import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
-import { fromFormat } from "main/components/Statistics/QuarterFormSelect";;
 
 
 const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) => {
@@ -16,11 +15,9 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
         event.preventDefault();
         console.log("submit pressed");
         fetchJSON({startQuarter, endQuarter, department, level}).then((courseJSON)=> {
-            courseJSON.forEach((item) => {                          // readable quarter names
-                item["quarter"] = fromFormat(item["quarter"]);
-            });
+          
             setCourseJSON(courseJSON);
-            setFormSubmitted(true);
+            setFormSubmitted = true;
             console.log(courseJSON);
         });
     }; 
@@ -59,7 +56,7 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
                 <Form.Label>Course Level</Form.Label>
                 <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
                     <option value="U">Undergraduate</option>
-                    <option value="G" id="Y">Graduate</option>
+                    <option value="G">Graduate</option>
                 </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">

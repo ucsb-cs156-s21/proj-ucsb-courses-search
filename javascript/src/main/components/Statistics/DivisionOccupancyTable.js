@@ -27,10 +27,13 @@ const DivisionOccupancyTable = ( {data} ) => {
     console.log("bootstrapped removed");
   }
 
+  const options = {
+    noDataText: 'There are no results!'
+  };
+
   return (
     <div>
-      <h1></h1>
-      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} />
+      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} options={options}/>
     </div>
   );
 };
