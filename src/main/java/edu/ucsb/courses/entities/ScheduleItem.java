@@ -26,6 +26,8 @@ public class  ScheduleItem {
     @Column(nullable = false)
     private String enrollCode;
     @Column(nullable = false)
+    private String userId;
+    @Column(nullable = false)
     private Long schedule_id;
 
 
@@ -33,11 +35,12 @@ public class  ScheduleItem {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    public ScheduleItem(Long id, String courseId, String enrollCode, Long schedule_id) {
+    public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
         
         this.id = id;
         this.enrollCode = enrollCode;
         this.courseId = courseId;
+        this.userId = userId;
         this.schedule_id = schedule_id;
     }
 
@@ -48,6 +51,14 @@ public class  ScheduleItem {
 
     public void setId(Long id) {
       this.id = id;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCourseId() {
@@ -95,7 +106,7 @@ public class  ScheduleItem {
 
     @Override
     public String toString() {
-        return "{" +" courseId='" + getCourseId() + "'" + ", enrollCode='" + getEnrollCode()
+        return "{id="+ getId() +" courseId='" + getCourseId() + "'" + ", enrollCode='" + getEnrollCode()
                 + "'" + ", scheduleId='" + getScheduleId() + "}";
     }
 
