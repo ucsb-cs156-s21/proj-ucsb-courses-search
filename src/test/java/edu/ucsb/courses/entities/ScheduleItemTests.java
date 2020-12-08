@@ -49,7 +49,6 @@ public class ScheduleItemTests {
 
   @Test
   public void testScheduleItem_notEqualDifferentClass() {
-
       ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
     assertNotEquals(si, new Object());
   }

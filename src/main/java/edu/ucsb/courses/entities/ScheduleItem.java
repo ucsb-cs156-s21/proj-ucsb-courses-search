@@ -37,7 +37,6 @@ public class  ScheduleItem {
     private Schedule schedule;
 
 
-
     public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
         this.id = id;
         this.enrollCode = enrollCode;
@@ -61,8 +60,6 @@ public class  ScheduleItem {
     public void setId(Long id) {
       this.id = id;
     }
-
-
 
     public String getUserId() {
         return this.userId;

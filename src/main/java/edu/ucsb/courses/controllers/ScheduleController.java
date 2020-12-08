@@ -56,6 +56,7 @@ public class ScheduleController {
         return ResponseEntity.ok().body(savedSched.toString());
     }
 
+
     @DeleteMapping(value = "/deleteSchedule", produces = "application/json")
     public ResponseEntity<String> deleteSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
