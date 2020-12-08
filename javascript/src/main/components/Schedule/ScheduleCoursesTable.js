@@ -2,17 +2,13 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
 
-
-
 const buttonFormatter = (cell, row, rowIndex, formatExtraData) => {
-  return(
-    <Button onClick={()=> {}}> add </Button>  //add onClick funtion to add course to actual schedule
-  );
-};
-
-
-
-const BasicCourseTable = ( {classes} ) => {
+    return(
+      <Button onClick={()=> {}}> add </Button>  //add onClick funtion to add course to actual schedule
+    );
+  };
+  
+const ScheduleCoursesTable = ( {classes} ) => {
   
   const columns = [{
     dataField: 'courseId',
@@ -24,8 +20,8 @@ const BasicCourseTable = ( {classes} ) => {
     dataField: 'unitsFixed',
     text: 'Unit'
   },{
-    dataField: 'addToSched',
-    text: 'Add Course',
+    dataField: 'deleteFromSched',
+    text: 'Delete Course',
     formatter: buttonFormatter,
   }
 ];
@@ -35,4 +31,4 @@ const BasicCourseTable = ( {classes} ) => {
   );
 };
 
-export default BasicCourseTable;
+export default ScheduleCoursesTable;
