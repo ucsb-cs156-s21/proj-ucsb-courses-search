@@ -16,15 +16,13 @@ import org.slf4j.LoggerFactory;
 
 
 @Entity
-
 public class  ScheduleItem {
 
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-
     private String courseId;
     @Column(nullable = false)
     private String enrollCode;
@@ -37,6 +35,7 @@ public class  ScheduleItem {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
+
 
 
     public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
@@ -64,6 +63,7 @@ public class  ScheduleItem {
     }
 
 
+
     public String getUserId() {
         return this.userId;
     }
@@ -82,6 +82,7 @@ public class  ScheduleItem {
 
     public String getEnrollCode() {
         return this.enrollCode;
+
     }
 
     public void setEnrollCode(String enrollCode) {
