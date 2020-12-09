@@ -4,7 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 
 const buttonFormatter = (cell, row, rowIndex, formatExtraData) => {
     return(
-      <Button onClick={()=> {}}> add </Button>  //add onClick funtion to add course to actual schedule
+      <Button onClick={()=> {}}> Delete </Button>  //add onClick funtion to add course to actual schedule
     );
   };
   
@@ -27,7 +27,7 @@ const ScheduleCoursesTable = ( {classes} ) => {
 ];
   
   return (
-    <BootstrapTable keyField='courseId' data={classes} columns={columns} />
+    <BootstrapTable keyField='courseId' data={classes.classes} columns={columns} />
   );
 };
 
