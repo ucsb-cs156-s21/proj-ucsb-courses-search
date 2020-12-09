@@ -13,8 +13,8 @@ const ClassSize = () => {
     return (
         <Jumbotron>
             <ClassSizeForm setClassSizeJSON={setData} fetchClassSize={fetchClassSize}/>
-            <ClassSizeTable data={data} />
-        </Jumbotron>
+            {(data.length == 0) ? 'There are no results!' : <ClassSizeTable data={data} />}
+        </Jumbotron>       
 
         
     );
