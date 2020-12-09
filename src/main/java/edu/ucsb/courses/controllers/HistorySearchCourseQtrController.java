@@ -39,18 +39,12 @@ public class HistorySearchCourseQtrController {
         @RequestParam String courseSuf) 
         throws JsonProcessingException {
 
-        //String formattedSubjectArea = String.format() No formatting needed, comes formatted from the form
-        String formattedNumber = String.format("%3s",courseNumber); // '  8'
-        String formattedCourseSuffix = String.format("%-2s",courseSuf);
-
-        String formattedCourseName = subjectArea + formattedNumber + formattedCourseSuffix;
-
-        logger.info("subjectArea='{}'",subjectArea);
-        logger.info("formattedNumber='{}'",formattedNumber);
-        logger.info("formattedCourseSuffix='{}'",formattedCourseSuffix);
-        logger.info("formattedCourseName='{}'",formattedCourseName);
-
-        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndCourseName(startQtr, endQtr, formattedCourseName);
+        
+        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndCourseName (
+            startQtr    ,
+            endQtr      ,
+            makeFormattedCourseName(subjectArea, courseNumber, courseSuf)
+        );
 
         CoursePage cp = new CoursePage();
 
@@ -63,6 +57,19 @@ public class HistorySearchCourseQtrController {
         String body = mapper.writeValueAsString(cp);
 
         return ResponseEntity.ok().body(body);
+    }
+
+    private static String makeFormattedCourseName (
+        String subjectArea  ,
+        String courseNumber ,
+        String courseSuf    ) {
+
+        return
+              String.format( "%-8s", subjectArea  ) // 'CMPSC   '
+            + String.format( "%3s" , courseNumber ) // '  8'
+            + String.format( "%-2s", courseSuf    ) // 'A '
+        ;
+
     }
 
 }
