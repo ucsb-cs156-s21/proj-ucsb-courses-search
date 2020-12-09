@@ -55,7 +55,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                     <option value="F  ">F</option>
                     <option value="G  ">G</option>
                     <option value="AMH">American History</option>
-                    <option value="ETH">Ethnicities</option>
+                    <option value="ETH">Ethnicity</option>
                     <option value="EUR">European Cultures</option>
                     <option value="QNT">Quantitative Relationships</option>
                     <option value="WRT">Writing</option>
