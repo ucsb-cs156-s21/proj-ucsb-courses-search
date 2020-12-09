@@ -17,7 +17,7 @@ public class AvgClassSize {
 
     private static Logger logger = LoggerFactory.getLogger(QuarterDept.class);
 
-    private String _id;         //dept
+    private String _id;         //deptCode
     private int avgClassSize;
 
     public AvgClassSize() {
@@ -70,8 +70,7 @@ public class AvgClassSize {
     public String toString() {
         return "{" +
             " _id='" + _id + "'" +
-            ", avgClassSize='" + avgClassSize + "'" +
-            "}";
+            ", avgClassSize='" + avgClassSize + "'"+"}";
     }
     
     public static List<AvgClassSize> listFromJSON(String json) {
