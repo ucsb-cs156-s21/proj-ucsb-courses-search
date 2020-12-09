@@ -1,5 +1,6 @@
 package edu.ucsb.courses.controllers;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -44,6 +45,56 @@ public class ScheduleControllerTests {
 
   private String userToken() {
     return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
+  }
+
+  @Test
+    public void testUpdateSchedule_scheduleExists_updateValues() throws Exception {
+      Schedule inputSchedule = new Schedule(1L,"CS 156", "New", "Fall 2020", "123456");
+      Schedule savedSchedule = new Schedule(1L,"CS 156", "Old", "Fall 2020", "123456");
+      String body = objectMapper.writeValueAsString(inputSchedule);
+
+      when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
+      when(mockScheduleRepository.save(inputSchedule)).thenReturn(inputSchedule);
+      MvcResult response =
+          mockMvc
+              .perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+                  .characterEncoding("utf-8")
+                  .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()).content(body))
+              .andExpect(status().isOk()).andReturn();
+
+      verify(mockScheduleRepository, times(1)).findById(inputSchedule.getId());
+      verify(mockScheduleRepository, times(1)).save(inputSchedule);
+
+      String responseString = response.getResponse().getContentAsString();
+
+      assertEquals(body, responseString);
+    }
+
+  @Test
+    public void testUpdateSchedule_ScheduleNotFound() throws Exception {
+      Schedule inputSchedule = new Schedule(1L,"CS 156", "New", "Fall 2020", "123456");
+      String body = objectMapper.writeValueAsString(inputSchedule);
+
+      when(mockScheduleRepository.findById(1L)).thenReturn(Optional.empty());
+      mockMvc.perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+          .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
+          .content(body)).andExpect(status().isNotFound()).andReturn();
+      verify(mockScheduleRepository, times(1)).findById(1L);
+      verify(mockScheduleRepository, times(0)).save(any(Schedule.class));
+    }
+
+  @Test
+  public void testUpdateTodo_todoAtPathOwned_butTryingToInjectTodoForAnotherUser()
+      throws Exception {
+    Schedule inputSchedule = new Schedule(1L,"CS 156", "New trying to inject at user id 654321", "Fall 2020", "123456");
+    Schedule savedSchedule = new Schedule(1L,"CS 156", "Old", "Fall 2020", "NOT YOURS");
+    String body = objectMapper.writeValueAsString(inputSchedule);
+    when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
+    mockMvc.perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New trying to inject from user id 123456&quarter=Fall 2020").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
+        .content(body)).andExpect(status().isBadRequest()).andReturn();
+    verify(mockScheduleRepository, times(1)).findById(1L);
+    verify(mockScheduleRepository, times(0)).save(any(Schedule.class));
   }
 
   @Test
