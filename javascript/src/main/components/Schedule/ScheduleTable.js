@@ -72,8 +72,11 @@ export default ({courses,admin}) => {
 //            formatter: (cell, row) => renderDeleteButton(row.id)
 //        });
 //    }
-
+    // for(var i = 0; i < courses.courses.size(); i++){
+        
+    // };
     return (
+
         <BootstrapTable keyField='id' data={courseTable} columns={columns} />
     );
 }
