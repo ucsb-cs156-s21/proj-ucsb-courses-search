@@ -86,6 +86,26 @@ public class StatisticsController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @GetMapping(value = "/courseCount", produces = "application/json")
+    public ResponseEntity<String> courseCount() 
+        throws JsonProcessingException, Exception {
+
+        SortOperation sortByQuarterAndDeptCode = sort(Sort.by(Direction.DESC, "quarter")).and(Sort.by(Direction.ASC, "deptCode"));
+
+        GroupOperation groupByQuarterAndDeptCode = group("quarter","deptCode").count().as("courseCount");
+
+        Aggregation aggregation = newAggregation(groupByQuarterAndDeptCode, sortByQuarterAndDeptCode);
+
+        AggregationResults<QuarterDept> result = 
+            mongoTemplate.aggregate(aggregation, "courses", QuarterDept.class);
+
+        List<QuarterDept> qds = result.getMappedResults();
+
+        logger.info("qds={}",qds);
+        String body = mapper.writeValueAsString(qds);
+        return ResponseEntity.ok().body(body);
+    }
+
     @GetMapping(value = "/classSize", produces = "application/json")
     
     public ResponseEntity<String> classSize(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter)
