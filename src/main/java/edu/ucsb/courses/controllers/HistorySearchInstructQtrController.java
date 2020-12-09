@@ -30,8 +30,8 @@ public class HistorySearchInstructQtrController {
     ArchivedCourseRepository archivedCourseRepository;
 
 
-    @GetMapping(value = "/coursesearch", produces = "application/json")
-    public ResponseEntity<String> coursesearch(
+    @GetMapping(value = "/instructorsearch", produces = "application/json")
+    public ResponseEntity<String> instructorsearch(
         @RequestParam String startQtr, 
         @RequestParam String endQtr, 
         //@RequestParam String subjectArea,
@@ -43,7 +43,6 @@ public class HistorySearchInstructQtrController {
         //String formattedSubjectArea = String.format() No formatting needed, comes formatted from the form
         //String formattedNumber = String.format("%3s",courseNumber); // '  8'
         //String formattedCourseSuffix = String.format("%-2s",courseSuf);
-
         //String formattedCourseName = subjectArea + formattedNumber + formattedCourseSuffix;
 
         //logger.info("subjectArea='{}'",subjectArea);
