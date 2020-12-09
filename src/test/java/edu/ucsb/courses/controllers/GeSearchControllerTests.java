@@ -42,7 +42,7 @@ public class GeSearchControllerTests {
     public void test_GeSearch() throws Exception {
         List<Course> expectedResult = new ArrayList<Course>();
         String urlTemplate = "/api/public/history/gesearch?startQtr=%s&startQtr=%s&geCode=%s";
-        String url = String.format(urlTemplate, "20204", "20204", "A1 ");
+        String url = String.format(urlTemplate, "20211", "20211", "A1 ");
         when(archivedCourseRepository.findByQuarterIntervalAndGe(any(String.class), any(String.class), any(String.class))).thenReturn(expectedResult);
 
         MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
