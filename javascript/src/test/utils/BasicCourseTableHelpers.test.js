@@ -3,7 +3,6 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 describe("BasicCourseTableHelpers tests", () => {
   test("reformatJSON properly reformats the json", () => {
     const testOutput = reformatJSON(classesInput);
-    console.log(testOutput)
     expect(testOutput).toStrictEqual(sectionsOutput);
   });
 
