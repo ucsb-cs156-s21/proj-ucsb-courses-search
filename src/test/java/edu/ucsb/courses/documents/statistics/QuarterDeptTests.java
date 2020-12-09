@@ -3,7 +3,6 @@ package edu.ucsb.courses.documents.statistics;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class QuarterDeptTests {
 
     @Test
     public void test_fromJSON_withError() throws Exception {
-        String badJSON = "not good json!";
+        String badJSON = "this is not good json!";
         List<QuarterDept> lqd = QuarterDept.listFromJSON(badJSON);
         assertNull(lqd);
     }

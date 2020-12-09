@@ -3,6 +3,7 @@ package edu.ucsb.courses.controllers;
 import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
+
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
