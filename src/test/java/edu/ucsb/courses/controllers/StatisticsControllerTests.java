@@ -27,6 +27,7 @@ import edu.ucsb.courses.documents.statistics.AvgClassSize;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 // @Import(SecurityConfig.class) applies the security rules 
 // so that /api/public/** endpoints don't require authentication.
@@ -41,6 +42,9 @@ public class StatisticsControllerTests {
 
     @MockBean
     private MongoTemplate mongoTemplate;
+    
+    @MockBean
+    private ArchivedCourseRepository courseRepo;
     
     @Test
     public void test_courseCount() throws Exception {
@@ -72,8 +76,7 @@ public class StatisticsControllerTests {
         qdList.add(new QuarterOccupancy("20204", "100", "200"));
         AggregationResults<QuarterOccupancy> fakeResults = new AggregationResults<QuarterOccupancy>(qdList,
                 fakeRawResults);
-
-        when(mongoTemplate.aggregate(any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+        when(courseRepo.findOccupancyByQuarterIntervalAndDepartment(any(String.class), any(String.class), any(String.class))).thenReturn(qdList);
 
         MvcResult response = mockMvc
                 .perform(get(url).queryParam("startQuarter", "20204").queryParam("endQuarter", "20211")

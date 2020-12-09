@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.courses.documents.statistics.AvgClassSize;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
-import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 @RestController
 @RequestMapping("/api/public/statistics")
@@ -45,6 +45,9 @@ public class StatisticsController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    
+    @Autowired
+    private ArchivedCourseRepository courseRepository;
     
     @GetMapping(value = "/courseCount", produces = "application/json")
     public ResponseEntity<String> courseCount() 
@@ -132,21 +135,8 @@ public class StatisticsController {
     @GetMapping(value = "/courseOccupancy", produces = "application/json")
     public ResponseEntity<String> courseOccupancy(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, @RequestParam(required = true) String department)
             throws JsonProcessingException {
-        MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
-                .and("deptCode").is(department).and("instructionType").is("LEC"));
-        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-        MatchOperation onlySections = match(Criteria.where("index").ne(0));
-        GroupOperation groupOperation = group("$quarter").sum("$classSections.enrolledTotal").as("enrolled")
-                .sum("$classSections.maxEnroll").as("maxEnrolled");
-        SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlySections, groupOperation, sort);
-
-        AggregationResults<QuarterOccupancy> result = mongoTemplate.aggregate(aggregation, "courses",
-                QuarterOccupancy.class);
-        List<QuarterOccupancy> qo = result.getMappedResults();
-
-        String body = mapper.writeValueAsString(qo);
+        String body = mapper.writeValueAsString(courseRepository.findOccupancyByQuarterIntervalAndDepartment(startQuarter, endQuarter, department));
 
         return ResponseEntity.ok().body(body);
     }
