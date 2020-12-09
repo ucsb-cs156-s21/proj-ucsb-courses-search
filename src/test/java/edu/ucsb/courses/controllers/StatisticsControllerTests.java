@@ -4,6 +4,7 @@ import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
+import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 import org.bson.Document;
@@ -44,6 +45,27 @@ public class StatisticsControllerTests {
 
     @MockBean
     private MongoTemplate mongoTemplate;
+
+    @Test
+    public void test_courseCount() throws Exception {
+        List<Course> expectedResult = new ArrayList<Course>();
+        String url = "/api/public/statistics/courseCount";
+
+        org.bson.Document fakeRawResults = new org.bson.Document();
+        List<QuarterDept> qdList = new ArrayList<QuarterDept>();
+        qdList.add(new QuarterDept("20204","CMPSC",10));
+        AggregationResults<QuarterDept> fakeResults = new AggregationResults<QuarterDept>(qdList, fakeRawResults);
+
+        when(mongoTemplate.aggregate( any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
+                .andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<QuarterDept> resultFromPage = QuarterDept.listFromJSON(responseString);
+
+        assertEquals(qdList, resultFromPage);
+    }
 
     @Test
     public void test_courseOccupancyByDivision1() throws Exception {
