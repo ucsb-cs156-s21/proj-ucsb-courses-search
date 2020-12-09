@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import fetch from "isomorphic-unfetch";
 
 const ScheduleSearchForm = () => {
@@ -31,21 +31,27 @@ const ScheduleSearchForm = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="ScheduleSearch.schedule">
-                <Form.Label>Schedule</Form.Label>
+               {/* <Form.Label>Schedule</Form.Label> */}
                 <Form.Control as="select" onChange={handleScheduleOnChange} value={schedule} data-testid="select-schedule" >
                         {createSelectItems()}
-//                    <option value="0">DefaultSchedule</option>
+                    <option value="0">DefaultSchedule</option>
                 </Form.Control>
             </Form.Group>
+            
             <Button variant="primary" type="submit">
-                GetSchedule
+                Get Schedule
             </Button>
+            <Form.Group></Form.Group>
+            
+            
             <Button variant="primary">
-                DeleteSchedule
+                Delete Schedule
             </Button>
-            <Button variant="primary">
+            
+            
+            {/* <Button variant="primary">
                 AddSchedule
-            </Button>
+            </Button> */}
         </Form>
     );
 };
