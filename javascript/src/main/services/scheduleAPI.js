@@ -20,8 +20,9 @@ const fetchgetScheduleJSON = async (event, fields) => {
 }
 
 const fetchgetSchedulesJSON = async (event, fields) => {
-    const url = `/api/public/getSchedules?authorization=${fields.authorization}&id=${fields.id}`;
-    const getSchedules = await fetch(url);
+    const url = `/api/public/getSchedules?authorization=${fields.authorization}}`;
+    console.log(fields.authorization);
+    const getSchedules = await fetch(url,{headers:{'Authorization':fields.authorization}});
     return getSchedules.json();
 }
 //scheduleItem
