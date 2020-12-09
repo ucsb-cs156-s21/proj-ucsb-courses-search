@@ -28,8 +28,7 @@ public class DivisionOccupancy {
     public DivisionOccupancy() {
     }
 
-    public DivisionOccupancy(String _id, String quarter, String title, String courseId, String enrolled, String maxEnrolled) {
-        this._id = _id;
+    public DivisionOccupancy(String quarter, String title, String courseId, String enrolled, String maxEnrolled) {
         this.quarter = quarter;
         this.title = title;
         this.courseId = courseId;
@@ -37,13 +36,6 @@ public class DivisionOccupancy {
         this.maxEnrolled = maxEnrolled;
     }
 
-    public String get_id() {
-        return this._id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
 
     public String getQuarter() {
         return this.quarter;
@@ -97,21 +89,20 @@ public class DivisionOccupancy {
         DivisionOccupancy divOc = (DivisionOccupancy) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(_id, divOc.get_id()).append(quarter, divOc.getQuarter()).append(title, divOc.getTitle()).append(enrolled, divOc.getEnrolled()).append(maxEnrolled, divOc.getMaxEnrolled());
+        builder.append(quarter, divOc.getQuarter()).append(title, divOc.getTitle()).append(courseId, divOc.getCourseId()).append(enrolled, divOc.getEnrolled()).append(maxEnrolled, divOc.getMaxEnrolled());
         return builder.build();
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_id, title);
+        return Objects.hash(quarter, title, getCourseId(), enrolled, maxEnrolled);
     }
 
 
     @Override
     public String toString() {
         return "{" +
-            " _id='" + _id + "'" +
             " quarter='" + quarter + "'" +
             ", title='" + title + "'" +
             ", courseId='" + getCourseId() + "'" +

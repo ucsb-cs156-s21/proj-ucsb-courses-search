@@ -79,9 +79,9 @@ public class StatisticsController {
             MatchOperation sectionOrLect = null;     
 
             if(level.equals("U")) {
-                sectionOrLect = match(Criteria.where("index").ne(0));
+                sectionOrLect = match(Criteria.where("index").ne(0).and("classSections.enrolledTotal").ne(null));
             }else {
-                sectionOrLect = match(Criteria.where("index").ne(-1));
+                sectionOrLect = match(Criteria.where("index").ne(-1).and("classSections.enrolledTotal").ne(null));
             }
 
             GroupOperation groupOperation = group("_id", "$quarter", "title", "courseId").sum("$classSections.enrolledTotal").as("enrolled").sum("$classSections.maxEnroll").as("maxEnrolled");
