@@ -9,14 +9,21 @@ import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
 const ClassSize = () => {
     const initialData = [];
     const [data, setData] = useState(initialData);
+    const [tableVisibility, setTableVisibility] = useState(false);
+
+    const setJsonTableData = (json) => {
+        setData(json);
+        setTableVisibility(true);
+    }
+
+
 
     return (
         <Jumbotron>
-            <ClassSizeForm setClassSizeJSON={setData} fetchClassSize={fetchClassSize}/>
-            {(data.length == 0) ? 'There are no results!' : <ClassSizeTable data={data} />}
+            <ClassSizeForm setClassSizeJSON={setJsonTableData} fetchClassSize={fetchClassSize}/>
+            {tableVisibility && (data.length ? <ClassSizeTable data={data} /> : "There are no results!")}
         </Jumbotron>       
 
-        
     );
 };
 
