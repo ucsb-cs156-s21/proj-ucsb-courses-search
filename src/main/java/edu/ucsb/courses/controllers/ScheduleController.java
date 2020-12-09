@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,6 +64,29 @@ public class ScheduleController {
         return ResponseEntity.ok().body(savedSched.toString());
     }
 
+    @PutMapping(value = "/updateSchedule", produces = "application/json")
+    public ResponseEntity<String> updateSchedule(@RequestParam String id,
+                                                 @RequestParam String name,
+                                                 @RequestParam String description,
+                                                 @RequestParam String quarter,
+                                                 @RequestHeader("Authorization") String authorization) throws JsonProcessingException {
+        DecodedJWT jwt = JWT.decode(authorization.substring(7));
+        Long castId = Long.parseLong(id);
+        Optional<Schedule> schedule = scheduleRepository.findById(castId);
+        if (!schedule.isPresent()) {
+          return ResponseEntity.notFound().build();
+        }
+        if (!castId.equals(schedule.get().getId()) || !schedule.get().getUserId().equals(jwt.getSubject())) {
+          return ResponseEntity.badRequest().build();
+        }
+
+        schedule.get().setName(name);
+        schedule.get().setDescription(description);
+        schedule.get().setQuarter(quarter);
+        scheduleRepository.save(schedule.get());
+        String body = mapper.writeValueAsString(schedule.get());
+        return ResponseEntity.ok().body(body);
+      }
 
 
     @DeleteMapping(value = "/deleteSchedule", produces = "application/json")

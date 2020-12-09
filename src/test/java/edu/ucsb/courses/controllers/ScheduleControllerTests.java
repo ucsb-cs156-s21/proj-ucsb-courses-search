@@ -72,7 +72,7 @@ public class ScheduleControllerTests {
     Schedule returnVal = objectMapper.readValue(responseString, Schedule.class);
     assertEquals(returnVal, s1);
   }
-  
+
 
   @Test
   public void testGetScheduleNoAuth() throws Exception {
