@@ -69,7 +69,6 @@ public class HistorySearchCourseQtrController {
             + String.format( "%3s" , courseNumber ) // '  8'
             + String.format( "%-2s", courseSuf    ) // 'A '
         ;
-
     }
 
 }
