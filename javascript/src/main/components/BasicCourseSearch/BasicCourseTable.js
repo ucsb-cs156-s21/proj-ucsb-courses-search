@@ -3,14 +3,10 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
 const BasicCourseTable = ( {classes} ) => {
-  console.log(classes);
-
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, rowIndex) => {
-    return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: 
-            (rowIndex % 2 == 1)? {backgroundColor: '#EDF3FE'}: 
-            {backgroundColor: '#FFFFFF'}
+    return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
     const alignmnet = (row.section % 100 == 0)? 'left': 'right';
