@@ -23,8 +23,8 @@ describe("GeCourseSearchForm tests", () => {
     test("when I select a quarter, the state for quarter changes", () => {
         const {getByLabelText} = render(<GeCourseSearchForm />);
         const selectQuarter =getByLabelText("End Quarter")
-        userEvent.selectOptions(selectQuarter, "20211");
-        expect(selectQuarter.value).toBe("20211");
+        userEvent.selectOptions(selectQuarter, "20204");
+        expect(selectQuarter.value).toBe("20204");
     });
 
     test("when I select a GE, the state for GE changes", () => {
@@ -58,14 +58,14 @@ describe("GeCourseSearchForm tests", () => {
 
         const expectedFields = {
             startQuarter: "20211",
-            endQuarter: "20211",
+            endQuarter: "20204",
             geCode: "A1 "
         };
 
         const selectStartQuarter = getByLabelText("Start Quarter")
         userEvent.selectOptions(selectStartQuarter, "20211");
         const selectEndQuarter = getByLabelText("End Quarter")
-        userEvent.selectOptions(selectEndQuarter, "20211");
+        userEvent.selectOptions(selectEndQuarter, "20204");
         const selectGeCode = getByLabelText("GE Code")
         userEvent.selectOptions(selectGeCode, "A1 ");
 

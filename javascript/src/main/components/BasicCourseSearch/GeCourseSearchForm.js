@@ -29,14 +29,14 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="BasicSearch.Quarter">
+            <Form.Group controlId="BasicSearch.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.Quarter">
+            <Form.Group controlId="BasicSearch.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
                     <option value="20211">W21</option>
