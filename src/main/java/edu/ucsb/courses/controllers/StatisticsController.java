@@ -116,7 +116,7 @@ public class StatisticsController {
         
         MatchOperation onlyLectures = match(Criteria.where("index").is(0));
 
-        MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null));
+        MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
 
         GroupOperation groupOperation = group("$deptCode").avg("$classSections.maxEnroll").as("avgClassSize");
        
