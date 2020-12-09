@@ -71,16 +71,4 @@ public class QuarterDeptTests {
         assertNull(lqd);
     }
 
-    @Test
-    public void test_fromJSON_withoutError() throws Exception {
-        /*List<QuarterDept> curList; 
-        QuarterDept qd1 = new QuarterDept("20204","CMPSC",0);
-        curList.add(qd1);
-        String expected = curList.get(0).toString();*/
-
-        String expected = "{ quarter='20204', deptCode='CMPSC', courseCount='0'}";
-        List<QuarterDept> lqd = QuarterDept.listFromJSON(expected);
-        assertEquals(expected, lqd.toString());
-    }
-
 }
