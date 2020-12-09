@@ -48,11 +48,16 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                 <Form.Control as="select" onChange={handleGeCodeOnChange} value={geCode}>
                     <option value="A1 ">A1</option>
                     <option value="A2 ">A2</option>
+                    <option value="B  ">B</option>
+                    <option value="C  ">C</option>
                     <option value="D  ">D</option>
                     <option value="E  ">E</option>
                     <option value="F  ">F</option>
+                    <option value="G  ">G</option>
+                    <option value="AMH">American History</option>
                     <option value="ETH">Ethnicities</option>
                     <option value="EUR">European Cultures</option>
+                    <option value="QNT">Quantitative Relationships</option>
                     <option value="WRT">Writing</option>
                 </Form.Control>
             </Form.Group>
