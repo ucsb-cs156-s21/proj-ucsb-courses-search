@@ -5,7 +5,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
     const [startQuarter, setStartQuarter] = useState("20211");
     const [endQuarter, setEndQuarter] = useState("20211");
-    const [geCode, setGeCode] = useState("A");
+    const [geCode, setGeCode] = useState("A1 ");
 
     const handleSubmit = (event) => {
         //console.log(event);
