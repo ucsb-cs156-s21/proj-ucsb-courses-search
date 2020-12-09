@@ -60,23 +60,28 @@ describe("courseSearches tests",  () => {
   test("fetchCourseHistoryNameQtrJSON", async () => {
     
     const sampleReturnValue = {
-        "sampleKey": "sampleValue"
+        "quarter": "20204"
     };
 
-    fetch.mockResolvedValue({
-        status: 200,
-        json: () => {
+    fetch.mockImplementation( async () => {
+      return {
+        json : () => {
           return sampleReturnValue;
-        },
-      });
+        }
+      };
+    }
+    );
 
     const expectedFields = {
-        quarter: "20204",
-        department: "MATH",
-        level: "G"
+      startQuarter: "20204",
+      endQuarter: "20204",
+      subjectArea: "CMPSC   ",
+      courseNumber: "130",
+      courseSuf: "A "
     };
 
     const result = await fetchCourseHistoryNameQtrJSON({},expectedFields);
+    expect(fetch).toHaveBeenCalledWith(`/api/public/history/coursesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&subjectArea=${expectedFields.subjectArea}&courseNumber=${expectedFields.courseNumber}&courseSuf=${expectedFields.courseSuf}`)
     expect(result).toBe(sampleReturnValue);
 
   });
