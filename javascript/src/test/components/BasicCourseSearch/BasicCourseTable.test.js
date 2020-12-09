@@ -436,8 +436,7 @@ describe("BasicCourseTable tests", () => {
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(3);
   });
-<<<<<<< HEAD
-=======
+
   test("can click to add a course", async () => {
     const classes = [{
       "quarter": "20211",
@@ -500,5 +499,4 @@ describe("BasicCourseTable tests", () => {
     await waitFor(() => expect(pushSpy).toHaveBeenCalledTimes(1));
   });
 
->>>>>>> fd3c70120a37c7072992baca211c75bf301092cb
 });
