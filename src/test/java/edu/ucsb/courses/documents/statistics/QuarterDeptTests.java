@@ -3,6 +3,7 @@ package edu.ucsb.courses.documents.statistics;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -46,8 +47,6 @@ public class QuarterDeptTests {
     public void test_equalsAnother() throws Exception {
         QuarterDept qd1 = new QuarterDept("20204","CMPSC",0);
         QuarterDept qd2 = new QuarterDept("20204","CMPSC",0);
-        qd2.setDeptCode("CMPSC"); 
-        qd2.setQuarter("20204");
         assertEquals(qd1, qd2);
     }
 
@@ -67,9 +66,21 @@ public class QuarterDeptTests {
 
     @Test
     public void test_fromJSON_withError() throws Exception {
-        String badJSON = "this is not good json!";
+        String badJSON = "not good json!";
         List<QuarterDept> lqd = QuarterDept.listFromJSON(badJSON);
         assertNull(lqd);
+    }
+
+    @Test
+    public void test_fromJSON_withoutError() throws Exception {
+        /*List<QuarterDept> curList; 
+        QuarterDept qd1 = new QuarterDept("20204","CMPSC",0);
+        curList.add(qd1);
+        String expected = curList.get(0).toString();*/
+
+        String expected = "{ quarter='20204', deptCode='CMPSC', courseCount='0'}";
+        List<QuarterDept> lqd = QuarterDept.listFromJSON(expected);
+        assertEquals(expected, lqd.toString());
     }
 
 }
