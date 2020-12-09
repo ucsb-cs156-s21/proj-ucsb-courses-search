@@ -5,54 +5,57 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 const BasicCourseTable = ({ classes }) => {
   const sections = reformatJSON(classes);
 
-  const rowStyle = (row, rowIndex) => {
-    console.log(`row=`, row, `rowIndex`, rowIndex);
-    return (row.section % 100 == 0) ? { backgroundColor: '#CEDEFA' } : (rowIndex % 2 == 1) ? { backgroundColor: '#EDF3FE' } : { backgroundColor: '#FFFFFF' }
-  }
+const rowStyle = (row, rowIndex) => {
+  const color = (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}:
+                (row.courseCancelled == 'C         ' || row.classClosed == 'Y')? {backgroundColor:'#C97373'}:
+                (row.enrolledTotal >= row.maxEnroll)? {backgroundColor: '#D5BF80'}: 
+                {backgroundColor: '#EDF3FE'};
+  return color
+}
 
-  const dataAlignment = (cell, row) => {
-    // console.log(`cell=${cell} row=`, row);
-    const alignmnet = (row.section % 100 == 0) ? 'left' : 'right';
-    return alignmnet
-  }
+const dataAlignment = (cell, row) => {
+  const alignmnet = (row.section % 100 == 0)? 'left': 'right';
+  return alignmnet
+}
 
-  const renderSectionTimes = (cell, row) => {
+const renderSectionTimes = (cell, row) => {
 
-    const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
-    return times
-  }
-  const renderSectionDays = (cell, row) => {
+  const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
+  return times
+}
+const renderSectionDays = (cell, row) => {
 
-    const days = (row.timeLocations.length > 0) ? (row.timeLocations[0].days) : ("TBD");
-    return days
-  }
+  const days = (row.timeLocations.length > 0) ? (row.timeLocations[0].days) : ("TBD");
+  return days
+}
 
-  const renderMaxEnrolled = (cell, row) => {
-    const max = (row.courseCancelled == 'C         ' || row.classClosed == 'Y') ? 0 : row.maxEnroll;
-    return ( max ) 
-  }
+const renderMaxEnrolled = (cell, row) => {
+const max = (row.courseCancelled == 'C         ')?  0: row.maxEnroll;
+return ( max )
+}
 
-  const renderEnrolledTotal = (cell, row) => {
-    const enrolled = (row.courseCancelled == 'C         ') ? "Cancelled" : (row.classClosed == 'Y') ? "Closed" : row.enrolledTotal;
-    return (<span>{enrolled}</span>)
-  }
+const renderEnrolledTotal = (cell, row) => {
+const enrolled =  (row.courseCancelled == 'C         ')? "Cancelled": 
+                  (row.classClosed == 'Y')? "Closed":
+                  (row.enrolledTotal == null)? 0:
+                  row.enrolledTotal;
+return ( enrolled )
+}
 
-  const renderCourseId = (cell, row) => {
-    // console.log(`cell=${cell} row=`, row);
-    const courseId = (row.section % 100 == 0) ? row.course.courseId : "";
-    return (<span>{courseId}</span>)
-  }
+const renderCourseId = (cell, row) => {
+  const courseId = (row.section % 100 == 0)? row.course.courseId: "";
+  return (  courseId )
+}
 
-  const renderCourseTitle = (cell, row) => {
-    const courseTitle = (row.section % 100 == 0) ? row.course.title : "";
-    return (<span>{courseTitle}</span>)
-  }
+const renderCourseTitle = (cell, row) => {
+  const courseTitle = (row.section % 100 == 0)? row.course.title: "";
+  return (  courseTitle )
+}
 
-  const renderInstructors = (cell, row) => {
-    // console.log(`cell=${cell} row=`, row);
-    const instructor = (row.instructors.length > 0) ? row.instructors[0].instructor : "TBD";
-    return (<span>{instructor}</span>)
-  }
+const renderInstructors = (cell, row) => {
+  const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
+  return (  instructor )
+}
 
   const columns = [{
     dataField: 'course.courseId',
