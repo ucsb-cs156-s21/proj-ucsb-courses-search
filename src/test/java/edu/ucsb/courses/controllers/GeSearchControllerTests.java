@@ -39,7 +39,7 @@ public class GeSearchControllerTests {
     private ArchivedCourseRepository archivedCourseRepository;
 
     @Test
-    public void test_basicSearch() throws Exception {
+    public void test_GeSearch() throws Exception {
         List<Course> expectedResult = new ArrayList<Course>();
         String urlTemplate = "/api/public/history/gesearch?startQtr=%s&startQtr=%s&geCode=%s";
         String url = String.format(urlTemplate, "20204", "20204", "A1 ");
