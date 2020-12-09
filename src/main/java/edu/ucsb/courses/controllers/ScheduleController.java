@@ -78,7 +78,7 @@ public class ScheduleController {
     }
 
     @GetMapping(value = "/getSchedules", produces = "application/json")
-      public ResponseEntity<String> getSchedules(@RequestHeader("Authorization") String authorization, @RequestParam String id) 
+      public ResponseEntity<String> getSchedules(@RequestHeader("Authorization") String authorization) 
           throws JsonProcessingException{
           DecodedJWT jwt = JWT.decode(authorization.substring(7));
           List<Schedule> savedSchedules= scheduleRepository.findByUserId(jwt.getSubject());
@@ -92,3 +92,4 @@ public class ScheduleController {
           return ResponseEntity.ok().body(res);
      }
 }
+
