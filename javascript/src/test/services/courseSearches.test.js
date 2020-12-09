@@ -57,7 +57,7 @@ describe("courseSearches tests",  () => {
 
   });
 
-  test("fetchBasicCourseHistoryJSON", async () => {
+  test("fetchGeQtrJSON", async () => {
     const sampleReturnValue = {
       "sampleKey": "sampleValue"
   };
@@ -71,11 +71,12 @@ describe("courseSearches tests",  () => {
 
   const expectedFields = {
       startQuarter: "20211",
-      startQuarter: "20211",
-      level: "A1 "
+      endQuarter: "20211",
+      geCode: "A1 "
   };
 
-  const result = await fetchBasicCourseHistoryJSON({},expectedFields);
+  const result = await fetchGeQtrJSON({},expectedFields);
+  expect(fetch).toHaveBeenCalledWith(`/api/public/history/gesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&geCode=${expectedFields.geCode}`)
   expect(result).toBe(sampleReturnValue);
 
 });
