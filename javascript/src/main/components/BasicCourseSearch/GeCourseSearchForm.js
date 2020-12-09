@@ -44,7 +44,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="BasicSearch.GeCode">
-                <Form.Label>GE Area</Form.Label>
+                <Form.Label>GE Code</Form.Label>
                 <Form.Control as="select" onChange={handleGeCodeOnChange} value={geCode}>
                     <option value="A1 ">A1</option>
                     <option value="A2 ">A2</option>
