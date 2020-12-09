@@ -16,11 +16,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+
 
 
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.repositories.ScheduleRepository;
+
 
 
 @RestController
@@ -52,12 +55,14 @@ public class ScheduleController {
     public ResponseEntity<String> createSchedule(@RequestParam String name,
                                                  @RequestParam String description,
                                                  @RequestParam String quarter,
+
                                                  @RequestHeader("Authorization") String authorization){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Schedule newSched = new Schedule(null, name, description, quarter, jwt.getSubject());
         Schedule savedSched= scheduleRepository.save(newSched);
         return ResponseEntity.ok().body(savedSched.toString());
     }
+
 
 
     @DeleteMapping(value = "/deleteSchedule", produces = "application/json")
@@ -78,14 +83,15 @@ public class ScheduleController {
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(id);
         Optional<Schedule> target = scheduleRepository.findById(castId);
+
         if (target.isPresent()) {
             if (target.get().getUserId().equals(jwt.getSubject())){
                 String body = target.get().toString();
                 return ResponseEntity.ok().body(body);
             }
+
         }
         return ResponseEntity.badRequest().build();
     }
-
 
 }
