@@ -41,7 +41,7 @@ public class GeSearchControllerTests {
     @Test
     public void test_GeSearch() throws Exception {
         List<Course> expectedResult = new ArrayList<Course>();
-        String urlTemplate = "/api/public/history/gesearch?startQtr=%s&startQtr=%s&formattedGeCode=%s";
+        String urlTemplate = "/api/public/history/gesearch?startQtr=%s&endQtr=%s&geCode=%s";
         String url = String.format(urlTemplate, "20211", "20211", "A1 ");
         when(archivedCourseRepository.findByQuarterIntervalAndGe(any(String.class), any(String.class), any(String.class))).thenReturn(expectedResult);
 
