@@ -7,8 +7,8 @@ const BasicCourseTable = ({ classes }) => {
 
 const rowStyle = (row, rowIndex) => {
   const color = (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}:
-                (row.courseCancelled == 'C         ' || row.classClosed == 'Y')? {backgroundColor:'#C97373'}:
-                (row.enrolledTotal >= row.maxEnroll)? {backgroundColor: '#D5BF80'}: 
+                (row.courseCancelled == 'C         ' || row.classClosed == 'Y')? {backgroundColor:'#E0AAAA'}:
+                (row.enrolledTotal >= row.maxEnroll)? {backgroundColor: '#F0DC9E'}: 
                 {backgroundColor: '#EDF3FE'};
   return color
 }
@@ -30,7 +30,7 @@ const renderSectionDays = (cell, row) => {
 }
 
 const renderMaxEnrolled = (cell, row) => {
-const max = (row.courseCancelled == 'C         ')?  0: row.maxEnroll;
+const max = (row.courseCancelled == 'C         ' || row.maxEnroll == null)?  0: row.maxEnroll;
 return ( max )
 }
 
