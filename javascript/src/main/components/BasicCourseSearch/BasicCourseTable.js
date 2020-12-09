@@ -4,21 +4,6 @@ import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 const BasicCourseTable = ( {classes} ) => {
   const sections = [];
-/*  classes.forEach(
-    (course) => {
-      course.classSections.forEach(
-        (section) => {
-          section.course =
-          {
-            courseId: course.courseId,
-            title: course.title,
-            unitsFixed: course.unitsFixed
-          };
-          sections.push(section);
-        }
-      )
-    }
-  );*/
   const history = useHistory();
   var numSections = 0;
   classes.slice().reverse().forEach(
