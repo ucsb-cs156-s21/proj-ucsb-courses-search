@@ -41,9 +41,9 @@ public class GeSearchControllerTests {
     @Test
     public void test_basicSearch() throws Exception {
         List<Course> expectedResult = new ArrayList<Course>();
-        String urlTemplate = "/api/public/history/basicsearch?qtr=%s&dept=%s";
-        String url = String.format(urlTemplate, "20204", "CMPSC");
-        when(archivedCourseRepository.findByQuarterAndDepartment(any(String.class), any(String.class))).thenReturn(expectedResult);
+        String urlTemplate = "/api/public/history/gesearch?startQtr=%s&startQtr=%s&geCode=%s";
+        String url = String.format(urlTemplate, "20204", "20204", "A1 ");
+        when(archivedCourseRepository.findByQuarterIntervalAndGe(any(String.class), any(String.class), any(String.class))).thenReturn(expectedResult);
 
         MvcResult response = mockMvc.perform(get(url).contentType("application/json")).andExpect(status().isOk())
                 .andReturn();
