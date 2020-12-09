@@ -22,7 +22,7 @@ import edu.ucsb.courses.services.UCSBCurriculumService;
 @RestController
 @RequestMapping("/api/public/history")
 public class GeSearchController {
-    private final Logger logger = LoggerFactory.getLogger(HistorySearchController.class);
+    private final Logger logger = LoggerFactory.getLogger(GeSearchController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
