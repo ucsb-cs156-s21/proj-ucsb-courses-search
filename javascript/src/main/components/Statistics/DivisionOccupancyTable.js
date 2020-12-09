@@ -21,12 +21,6 @@ const DivisionOccupancyTable = ( {data} ) => {
   }
 ];
 
-  // need to clear the table each time, or it'll just append
-  const clearTable = () => {
-    ('#table').bootstrapTable('removeAll');
-    console.log("bootstrapped removed");
-  }
-
   const options = {
     noDataText: 'There are no results!'
   };

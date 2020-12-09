@@ -22,18 +22,6 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
         });
     }; 
 
-    const handleStartQuarterOnChange = (event) => {
-        setStartQuarter(event.target.value);
-    };
-
-    const handleEndQuarterOnChange = (event) => {
-        setEndQuarter(event.target.value);
-    };
-
-    const handleDepartmentOnChange = (event) => {
-        setDepartment(event.target.value);
-    };
-
     const handleLevelOnChange = (event) => {
         setLevel(event.target.value);
     };
