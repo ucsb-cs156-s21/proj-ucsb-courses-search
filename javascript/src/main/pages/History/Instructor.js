@@ -8,7 +8,7 @@ import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/Cours
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
-import {  fetchInstructorCourseHistoryJSON } from "main/services/courseSearches";
+import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
 //import { fetch}
 
 const Instructor = () => {
@@ -28,7 +28,7 @@ const Instructor = () => {
         <Jumbotron>
             <div className="text-left">
                 <h5>Search Archived Course Data from MongoDB Henlo hehehe</h5>
-                <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorCourseHistoryJSON} />
+                <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
