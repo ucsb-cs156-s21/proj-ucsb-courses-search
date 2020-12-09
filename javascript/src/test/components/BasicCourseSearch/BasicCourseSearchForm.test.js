@@ -129,8 +129,8 @@ describe("BasicCourseSearchForm tests", () => {
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
 
         // lets try the download csv now
-        const csvButton = getByText("Download CSV");
-        userEvent.click(csvButton);
+        // const csvButton = getByText("Download CSV");
+        // userEvent.click(csvButton);
     });
 });
 
