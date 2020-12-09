@@ -3,7 +3,7 @@ import fetch from "isomorphic-unfetch";
 //schedule
 const fetchcreateScheduleJSON = async (event, fields) => {
     const url = `/api/public/createSchedule?name=${fields.name}&description=${fields.description}&quarter=${fields.quarter}&authorization=${fields.authorization}`;
-    const createSchedule = await fetch(url);
+    const createSchedule = await fetch("/api/public/createSchedule?name=CS 156&description=Adv App Programming&quarter=Fall 2020&userId=123456");
     return createSchedule.json();
 }
 
@@ -22,7 +22,7 @@ const fetchgetScheduleJSON = async (event, fields) => {
 const fetchgetSchedulesJSON = async (event, fields) => {
     const url = `/api/public/getSchedules?authorization=${fields.authorization}}`;
     console.log(fields.authorization);
-    const getSchedules = await fetch(url,{headers:{'Authorization':fields.authorization}});
+    const getSchedules = await fetch("/api/public/getScheduleItem",{headers:{'Authorization':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M"}});
     return getSchedules.json();
 }
 //scheduleItem
