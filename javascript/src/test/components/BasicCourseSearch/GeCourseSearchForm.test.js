@@ -15,21 +15,21 @@ describe("GeCourseSearchForm tests", () => {
 
     test("when I select a quarter, the state for quarter changes", () => {
         const { getByTestId } = render(<GeCourseSearchForm />);
-        const selectQuarter = getByTestId("select-quarter")
+        const selectQuarter = getByTestId("Start Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
         expect(selectQuarter.value).toBe("20204");
     });
     
     test("when I select a quarter, the state for quarter changes", () => {
         const { getByTestId } = render(<GeCourseSearchForm />);
-        const selectQuarter = getByTestId("select-quarter")
+        const selectQuarter = getByTestId("End Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
         expect(selectQuarter.value).toBe("20204");
     });
 
     test("when I select a GE, the state for GE changes", () => {
         const { getByLabelText } = render(<GeCourseSearchForm />);
-        const selectGeCode = getByLabelText("select-ge")
+        const selectGeCode = getByLabelText("GE Code")
         userEvent.selectOptions(selectGeCode, "A1 ");
         expect(selectGeCode.value).toBe("A1 ");
     });
@@ -57,17 +57,17 @@ describe("GeCourseSearchForm tests", () => {
         );
 
         const expectedFields = {
-            quarter: "20204",
-            department: "MATH",
-            level: "G"
+            startQuarter: "20204",
+            endQuarter: "20204",
+            geCode: "A1 "
         };
 
-        const selectQuarter = getByLabelText("Quarter")
+        const selectQuarter = getByLabelText("Start Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
-        const selectLevel = getByLabelText("Course Level")
-        userEvent.selectOptions(selectLevel, "G");
+        const selectQuarter = getByLabelText("End Quarter")
+        userEvent.selectOptions(selectQuarter, "20204");
+        const selectQuarter = getByLabelText("GE Code")
+        userEvent.selectOptions(selectQuarter, "A1 ");
 
         const submitButton = getByText("Submit");
         userEvent.click(submitButton);
