@@ -10,17 +10,12 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [courseSuf, setCourseSuf] = useState("");
 
     const handleSubmit = (event) => {
-        //console.log(event);
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
 
-    // FALL = 4, F
-    // WINTER = 1, W
-    // SPRING = 2, S
-    // SUMMER = 3, M
     const handleStartQuarterOnChange = (event) => {
         setStartQuarter(event.target.value);
     };
@@ -40,30 +35,30 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const handleCourseSufOnChange = (event) => {
         setCourseSuf(event.target.value);
     }
-    // Note: Not all possible courses were able to be added in the subject area list as many of them were dead links that provided no information
+
+    // Note: Not all possible courses were able to be added in the subject area list as many of
+    // the subject areas from the database (as well as GOLD) provided no information, almost as if the classes never existed
+    // One example is Zoology
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="CourseNameSearch.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
                     <option value="20211">W21</option>
-
                     <option value="20204">F20</option>
-                    <option value="20201">W20</option>
-                    <option value="20202">S20</option>
                     <option value="20203">M20</option>
-
+                    <option value="20202">S20</option>
+                    <option value="20201">W20</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="CourseNameSearch.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
                     <option value="20211">W21</option>
-
                     <option value="20204">F20</option>
-                    <option value="20201">W20</option>
-                    <option value="20202">S20</option>
                     <option value="20203">M20</option>
+                    <option value="20202">S20</option>
+                    <option value="20201">W20</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="CourseNameSearch.SubjectArea">
