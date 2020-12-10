@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const AddSchedForm = () => {
+const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
+
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [quarter, setQuarter] = useState("");
 
     const handleSubmit = (event) => {
-        // event.preventDefault();
-        // fetchJSON(event, { quarter, department }).then((courseJSON) => {
-        //     setCourseJSON(courseJSON);
-        // });
+        event.preventDefault();
+        createSchedule({
+            name,
+            description,
+            quarter
+        }, getToken, onSuccess, onError)
     };
+
+    const handleNameOnChange = (event) => {
+        setName(event.target.value);
+    }
 
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formsSchedName">
                 <Form.Label>Schedule Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter Schedule Name" />
+                <Form.Control type="text" placeholder="Enter Schedule Name" value={name} onChange={handleNameOnChange} />
             </Form.Group>
 
             <Form.Group controlId="formSchedDes">

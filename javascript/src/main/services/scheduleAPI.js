@@ -1,10 +1,22 @@
-import fetch from "isomorphic-unfetch";
+import { fetchWithToken } from "main/utils/fetch"
 
 //schedule
-const fetchcreateScheduleJSON = async (event, fields) => {
-    const url = `/api/public/createSchedule?name=${fields.name}&description=${fields.description}&quarter=${fields.quarter}&authorization=${fields.authorization}`;
-    const createSchedule = await fetch("/api/public/createSchedule?name=CS 156&description=Adv App Programming&quarter=Fall 2020&userId=123456");
-    return createSchedule.json();
+const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/createSchedule?" + new URLSearchParams(schedule);
+    
+    try {
+        const createSchedule = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await createSchedule.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
 const fetchdeleteScheduleJSON = async (event, fields) => {
