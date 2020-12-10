@@ -12,6 +12,16 @@ const BasicCourseTable = ( {classes} ) => {
     const alignmnet = (row.section % 100 == 0)? 'left': 'right';
     return alignmnet
   }
+  const renderSectionTimes = (cell, row) => {
+
+    const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
+    return times
+  }
+  const renderSectionDays = (cell, row) => {
+
+    const days = (row.timeLocations.length > 0)? (row.timeLocations[0].days) : ("TBD");
+    return days
+  }
   const renderCourseId = (cell, row) => {
     const courseId = (row.section % 100 == 0)? row.course.courseId: "";
     return (  courseId )
@@ -47,6 +57,16 @@ const BasicCourseTable = ( {classes} ) => {
     },{
       dataField: 'enrollCode',
       text: 'Enroll Code',
+      align: (cell, row) => dataAlignment(cell, row)
+    },{
+      dataField: 'timeLocations',
+      text: 'Days',
+      formatter: (cell, row) => renderSectionDays(cell, row),
+      align: (cell, row) => dataAlignment(cell, row)
+    },{
+      dataField: 'timeLocations',
+      text: 'Time',
+      formatter: (cell, row) => renderSectionTimes(cell, row),
       align: (cell, row) => dataAlignment(cell, row)
     },{
       dataField: 'course.unitsFixed',
