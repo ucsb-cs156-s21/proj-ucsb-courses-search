@@ -11,8 +11,37 @@ describe("BasicCourseTable tests", () => {
   test("renders without crashing", () => {
     render(<BasicCourseTable classes={[]} />);
   });
-  test("renders an add course button for every course section in the table", () => {
-    const classes = [{
+  test("renders an add course button for every course section in the table", () => {    
+    const { getAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    const addCourseButtons = getAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(5);
+  });
+  test("renders an add course button for a lecture section without sections", () => {
+    const { getAllByText} = render(<BasicCourseTable classes = {classesOneLectureOnly} />);
+    const addCourseButtons = getAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(1);
+  });
+  test("renders an add course button for every lecture section without sections under the same course", () => {
+    const { getAllByText} = render(<BasicCourseTable classes = {classesManyLecturesNoSections} />);
+    const addCourseButtons = getAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(3);
+  });
+
+  test("can click to add a course", async () => {
+    const pushSpy = jest.fn();
+    useHistory.mockReturnValue({
+      push: pushSpy
+    });
+
+    const { getByText } = render(<BasicCourseTable classes = {classesOneLectureOnly} />);
+    const addCourseButton = getByText("Add Course");
+    userEvent.click(addCourseButton);
+
+    await waitFor(() => expect(pushSpy).toHaveBeenCalledTimes(1));
+  });
+
+
+    const classesLectureAndSections = [{
       "quarter": "20211",
       "courseId": "CMPSC     8  ",
       "title": "INTRO TO COMP SCI",
@@ -259,13 +288,9 @@ describe("BasicCourseTable tests", () => {
             "title": "INTRO TO COMP SCI",
             "unitsFixed": 4
           }
-        }]}];    
-    const { getAllByText} = render(<BasicCourseTable classes = {classes} />);
-    const addCourseButtons = getAllByText("Add Course")
-    expect(addCourseButtons.length).toBe(5);
-  });
-  test("renders an add course button for a lecture section without sections", () => {
-    const classes = [{
+        }]}];
+
+    const classesOneLectureOnly = [{
       "quarter": "20211",
       "courseId": "CMPSC   192  ",
       "title": "PROJECTS COMP SCI",
@@ -314,12 +339,8 @@ describe("BasicCourseTable tests", () => {
         }
       ]
     }];
-    const { getAllByText} = render(<BasicCourseTable classes = {classes} />);
-    const addCourseButtons = getAllByText("Add Course")
-    expect(addCourseButtons.length).toBe(1);
-  });
-  test("renders an add course button for every lecture section without sections under the same course", () => {
-    const classes = [{
+
+    const classesManyLecturesNoSections = [{
       "quarter": "20211",
       "courseId": "CMPSC   193  ",
       "title": "INTERN IN INDUSTRY",
@@ -432,71 +453,4 @@ describe("BasicCourseTable tests", () => {
         }
       ]
     }];
-    const { getAllByText} = render(<BasicCourseTable classes = {classes} />);
-    const addCourseButtons = getAllByText("Add Course")
-    expect(addCourseButtons.length).toBe(3);
-  });
-
-  test("can click to add a course", async () => {
-    const classes = [{
-      "quarter": "20211",
-      "courseId": "CMPSC   192  ",
-      "title": "PROJECTS COMP SCI",
-      "contactHours": 10,
-      "description": "Projects in computer science for advanced undergraduate   students.",
-      "college": "ENGR",
-      "objLevelCode": "U",
-      "subjectArea": "CMPSC   ",
-      "unitsFixed": null,
-      "unitsVariableHigh": 5,
-      "unitsVariableLow": 1,
-      "delayedSectioning": "I",
-      "inProgressCourse": null,
-      "gradingOption": "L",
-      "instructionType": "TUT",
-      "onLineCourse": false,
-      "deptCode": "CMPSC",
-      "generalEducation": [],
-      "classSections": [
-        {
-          "enrollCode": "08334",
-          "section": "0100",
-          "session": null,
-          "classClosed": null,
-          "courseCancelled": null,
-          "gradingOptionCode": null,
-          "enrolledTotal": null,
-          "maxEnroll": 20,
-          "secondaryStatus": null,
-          "departmentApprovalRequired": false,
-          "instructorApprovalRequired": false,
-          "restrictionLevel": null,
-          "restrictionMajor": null,
-          "restrictionMajorPass": null,
-          "restrictionMinor": null,
-          "restrictionMinorPass": null,
-          "concurrentCourses": [],
-          "timeLocations": [],
-          "instructors": [],
-          "course": {
-            "courseId": "CMPSC   192  ",
-            "title": "PROJECTS COMP SCI",
-            "unitsFixed": null,
-            "noSections": "true"
-          }
-        }
-      ]
-    }];
-    const pushSpy = jest.fn();
-    useHistory.mockReturnValue({
-      push: pushSpy
-    });
-
-    const { getByText } = render(<BasicCourseTable classes = {classes} />);
-    const addCourseButton = getByText("Add Course");
-    userEvent.click(addCourseButton);
-
-    await waitFor(() => expect(pushSpy).toHaveBeenCalledTimes(1));
-  });
-
 });
