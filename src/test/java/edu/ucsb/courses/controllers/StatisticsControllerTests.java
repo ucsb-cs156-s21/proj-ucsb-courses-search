@@ -149,6 +149,7 @@ public class StatisticsControllerTests {
         assertEquals(qdList, resultFromPage);
     }
 
+    @Test
     public void test_AvgClassSize() throws Exception {
         String url = "/api/public/statistics/classSize";
 
