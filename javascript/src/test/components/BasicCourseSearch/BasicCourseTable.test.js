@@ -133,22 +133,52 @@ describe("BasicCourseTable tests", () => {
 
   test("sections that are full displayed as light orange", () => {
   	const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
-  	expect(getBackgroundColor(getByText,"0102")).toBe("#D5BF80");
+  	expect(getBackgroundColor(getByText,"0102")).toBe("#F0DC9E");
   });
 
   test("lecture sections that are cancelled only are red", () => {
     const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
-  	expect(getBackgroundColor(getByText,"0103")).toBe("#C97373");
+  	expect(getBackgroundColor(getByText,"0103")).toBe("#E0AAAA");
   });
 
   test("lecture sections that are closed only are red", () => {
     const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
-  	expect(getBackgroundColor(getByText,"0104")).toBe("#C97373");
+  	expect(getBackgroundColor(getByText,"0104")).toBe("#E0AAAA");
   });
 
   test("lecture sections that are cancelled and closed are red", () => {
     const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
-  	expect(getBackgroundColor(getByText,"0105")).toBe("#C97373");
+  	expect(getBackgroundColor(getByText,"0105")).toBe("#E0AAAA");
+  });
+
+  test("enrolledTotal shows up correctly when the course is not closed or cancelled", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    expect(queryAllByText('24').length).toBe(2);
+  });
+
+  test("maxEnroll shows up correctly when the course is not closed or cancelled", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    expect(queryAllByText('25').length).toBe(2);
+  });
+
+  test("enrolledTotal shows closed when the course is closed", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    expect(queryAllByText('Closed').length).toBe(1);
+  });
+
+  test("enrolledTotal shows 0 when there are no students enrolled", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesSectionOnlyTimeDaysTBD} />);
+    expect(queryAllByText('0').length).toBe(1);
+  });
+
+  test("enrolledTotal shows up correctly when the course is cancelled", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    expect(queryAllByText('Cancelled').length).toBe(2);
+  });
+
+  test("maxEnroll shows up correctly when the course is cancelled", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    expect(queryAllByText('0').length).toBe(2);
   });
 
 const classesLectureAndSections = 
@@ -164,7 +194,7 @@ const classesLectureAndSections =
           "section": "0100",
           "classClosed": null,
           "courseCancelled": null,
-          "enrolledTotal": 25,
+          "enrolledTotal": 24,
           "maxEnroll": 25,
           "timeLocations": [
             {
@@ -207,8 +237,8 @@ const classesLectureAndSections =
           "section": "0102",
           "classClosed": null,
           "courseCancelled": null,
-          "enrolledTotal": 25,
-          "maxEnroll": 25,
+          "enrolledTotal": 30,
+          "maxEnroll": 30,
           "timeLocations": [
             {
               "room": "LINE",
@@ -224,8 +254,8 @@ const classesLectureAndSections =
         {
           "enrollCode": "07526",
           "section": "0103",
-          "classClosed": "C         ",
-          "courseCancelled": null,
+          "classClosed": null,
+          "courseCancelled": "C         ",
           "enrolledTotal": null,
           "maxEnroll": 25,
           "timeLocations": [
@@ -246,7 +276,7 @@ const classesLectureAndSections =
           "classClosed": "Y",
           "courseCancelled": null,
           "enrolledTotal": 24,
-          "maxEnroll": 25,
+          "maxEnroll": 30,
           "timeLocations": [
             {
               "room": "LINE",
@@ -424,7 +454,7 @@ const classesLectureAndSections =
           "section": "0101",
           "classClosed": null,
           "courseCancelled": null,
-          "enrolledTotal": 25,
+          "enrolledTotal": null,
           "maxEnroll": 25,
           "timeLocations": [],
           "instructors": [
