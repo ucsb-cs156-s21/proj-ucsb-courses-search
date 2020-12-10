@@ -7,10 +7,12 @@ const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) =
     const token = await getToken();
     const url = "/api/public/createSchedule?" + new URLSearchParams(schedule);
     try {
-        const createSchedule = await fetch(url, {
+        const createSchedule = await fetchWithToken(url, getToken, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${token}`
+                //Authorization: `Bearer ${token}`
+                "content-type": "application/json"
+
             }
         });
         const json = await createSchedule.json();
