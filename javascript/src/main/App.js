@@ -10,6 +10,7 @@ import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
+import ClassSize from "main/pages/Statistics/ClassSize";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
 import Ge from "main/pages/History/Ge";
@@ -42,6 +43,7 @@ function App() {
           <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
+          <Route path="/statistics/classSize" exact component={ClassSize} />
           <Route path="/history/ge" exact component={Ge} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
