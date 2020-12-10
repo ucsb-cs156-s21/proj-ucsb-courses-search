@@ -1,10 +1,11 @@
 import { fetchWithToken } from "main/utils/fetch"
 
+
+
 //schedule
 const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) => {
     const token = await getToken();
     const url = "/api/public/createSchedule?" + new URLSearchParams(schedule);
-    
     try {
         const createSchedule = await fetch(url, {
             method: "POST",
