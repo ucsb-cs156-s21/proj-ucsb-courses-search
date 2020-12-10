@@ -28,12 +28,11 @@ const Instructor = () => {
 
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
 
-
-    // const courseJSON = '{"course" : "cs156"}';
     return (
         <Jumbotron>
             <div className="text-left">
-                <h5>Search Archived Course Data from MongoDB</h5>
+                <h2>Search Archived Course Data from MongoDB</h2>
+                <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} />
             </div>

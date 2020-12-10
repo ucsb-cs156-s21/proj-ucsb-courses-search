@@ -34,21 +34,8 @@ public class HistorySearchInstructQtrController {
     public ResponseEntity<String> instructorsearch(
         @RequestParam String startQtr, 
         @RequestParam String endQtr, 
-        //@RequestParam String subjectArea,
-        //@RequestParam String courseNumber,
-        //@RequestParam String courseSuf
         @RequestParam String instructorText) 
         throws JsonProcessingException {
-
-        //String formattedSubjectArea = String.format() No formatting needed, comes formatted from the form
-        //String formattedNumber = String.format("%3s",courseNumber); // '  8'
-        //String formattedCourseSuffix = String.format("%-2s",courseSuf);
-        //String formattedCourseName = subjectArea + formattedNumber + formattedCourseSuffix;
-
-        //logger.info("subjectArea='{}'",subjectArea);
-        //logger.info("formattedNumber='{}'",formattedNumber);
-        //logger.info("formattedCourseSuffix='{}'",formattedCourseSuffix);
-        //logger.info("formattedCourseName='{}'",formattedCourseName);
 
         List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndInstructor(startQtr, endQtr, instructorText);
 

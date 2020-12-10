@@ -43,10 +43,9 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
-                    <option value="20201">W20</option>
-                    <option value="20202">S20</option>
                     <option value="20203">M20</option>
-
+                    <option value="20202">S20</option>
+                    <option value="20201">W20</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="Instructor.EndController">
@@ -54,15 +53,14 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
-                    <option value="20201">W20</option>
-                    <option value="20202">S20</option>
                     <option value="20203">M20</option>
+                    <option value="20202">S20</option>
+                    <option value="20201">W20</option>
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="InstructorSearch.Instructor">
                 <Form.Label>Instructor</Form.Label>
-                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText}>
-                    
+                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText}>   
                 </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
