@@ -25,7 +25,6 @@ const CourseName = () => {
                 <h5>Search By Course Name Through Various Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} />
-                
             </div>
         </Jumbotron>
     ); 
