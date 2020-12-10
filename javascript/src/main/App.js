@@ -18,11 +18,8 @@ import PrivateRoute from "main/components/Auth/PrivateRoute";
 import Admin from "main/pages/Admin/Admin";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
-<<<<<<< HEAD
 import CourseName from "./pages/History/CourseName";
-=======
 import Instructor from "./pages/History/Instructor";
->>>>>>> ap adding front-end test files
 
 function App() {
   const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
