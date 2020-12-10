@@ -32,7 +32,7 @@ const fetchdeleteScheduleJSON = async (id, getToken, onSuccess, onError) => {
             },
             noJSON: true,
         });
-        onSuccess(json);
+        onSuccess();
     } catch (e) {
         onError(e);
     }
@@ -105,7 +105,7 @@ const fetchremoveScheduleItemJSON = async (id, getToken, onSuccess, onError) => 
             },
             noJSON: true,
         });
-        onSuccess(json);
+        onSuccess();
     } catch (e) {
         onError(e);
     }
@@ -159,7 +159,7 @@ const fetchremoveScheduleItemsByScheduleIdJSON = async (id, getToken, onSuccess,
             },
             noJSON: true,
         });
-        onSuccess(json);
+        onSuccess();
     } catch (e) {
         onError(e);
     }
