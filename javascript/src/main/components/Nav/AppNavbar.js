@@ -25,6 +25,7 @@ function AppNavbar() {
       <Nav>
         <NavDropdown title="Course History">
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
+            <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
         </NavDropdown>
         { isAdmin &&
