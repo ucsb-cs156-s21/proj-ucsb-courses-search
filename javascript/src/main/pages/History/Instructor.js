@@ -29,6 +29,7 @@ const Instructor = () => {
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} />
+                
             </div>
         </Jumbotron>
     );

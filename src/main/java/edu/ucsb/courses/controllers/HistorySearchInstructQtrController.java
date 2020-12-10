@@ -36,9 +36,8 @@ public class HistorySearchInstructQtrController {
         @RequestParam String endQtr, 
         @RequestParam String instructorText) 
         throws JsonProcessingException {
-
+        
         List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndInstructor(startQtr, endQtr, instructorText);
-
         CoursePage cp = new CoursePage();
 
         cp.setPageNumber(1);
