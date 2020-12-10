@@ -12,11 +12,18 @@ const fetchBasicCourseHistoryJSON = async (event, fields) => {
     return courseResponse.json();
 };
 
+const fetchGeQtrJSON = async (event, fields) => {
+    const url = `/api/public/history/gesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&geCode=${fields.geCode}`;
+    const courseResponse = await fetch(url);
+    return courseResponse.json();
+};
+  
 const fetchCourseHistoryNameQtrJSON = async (event, fields) => {
     const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&subjectArea=${fields.subjectArea}&courseNumber=${fields.courseNumber}&courseSuf=${fields.courseSuf}`;
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };
 
-export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON };
+
+export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON};
     
