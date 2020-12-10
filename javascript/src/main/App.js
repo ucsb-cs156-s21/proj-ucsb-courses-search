@@ -17,6 +17,7 @@ import PrivateRoute from "main/components/Auth/PrivateRoute";
 import Admin from "main/pages/Admin/Admin";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
+import CourseName from "./pages/History/CourseName";
 
 function App() {
   const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
@@ -37,6 +38,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
+          <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route path="/history/ge" exact component={Ge} />
           <PrivateRoute path="/profile" component={Profile} />
