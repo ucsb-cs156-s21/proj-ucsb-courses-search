@@ -19,54 +19,150 @@ const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) =
     }
 }
 
-const fetchdeleteScheduleJSON = async (event, fields) => {
-    const url = `/api/public/deleteSchedule?authorization=${fields.authorization}&id=${fields.id}`;
-    const deleteSchedule = await fetch(url);
-    return deleteSchedule.json();
+const fetchdeleteScheduleJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/deleteSchedule?" + new URLSearchParams(id);
+    
+    try {
+        const deleteSchedule = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            noJSON: true,
+        });
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchgetScheduleJSON = async (event, fields) => {
-    const url = `/api/public/getSchedule?authorization=${fields.authorization}&id=${fields.id}`;
-    const getSchedule = await fetch(url);
-    return getSchedule.json();
+const fetchgetScheduleJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/getSchedule?" + new URLSearchParams(id);
+    
+    try {
+        const getSchedule = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await getSchedule.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchgetSchedulesJSON = async (event, fields) => {
-    const url = `/api/public/getSchedules?authorization=${fields.authorization}}`;
-    console.log(fields.authorization);
-    const getSchedules = await fetch("/api/public/getScheduleItem",{headers:{'Authorization':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M"}});
-    return getSchedules.json();
+const fetchgetSchedulesJSON = async (getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/getSchedules";
+    
+    try {
+        const getSchedules = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await getSchedules.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
+
 //scheduleItem
-const fetchAddScheduleItemJSON = async (event, fields) => {
-    const url = `/api/public/addScheduleItem?authorization=${fields.authorization}&scheduleId=${fields.scheduleId}&enrollCode=${fields.enrollCode}&courseId=${fields.courseId}`;
-    const addScheduleItem = await fetch(url);
-    return addScheduleItem.json();
+const fetchaddScheduleItemJSON = async (scheduleItem, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/addScheduleItem?" + new URLSearchParams(scheduleItem);
+    
+    try {
+        const addScheduleItem = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await addScheduleItem.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchRemoveScheduleItemJSON = async (event, fields) => {
-    const url = `/api/public/removeScheduleItem?authorization=${fields.authorization}&id=${fields.id}`;
-    const removeScheduleItem = await fetch(url);
-    return removeScheduleItem.json();
+const fetchremoveScheduleItemJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/removeScheduleItem?" + new URLSearchParams(id);
+    
+    try {
+        const removeScheduleItem = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            noJSON: true,
+        });
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchgetScheduleItemsByScheduleIdJSON = async (event, fields) => {
-    const url = `/api/public/getScheduleItemsByScheduleId?authorization=${fields.authorization}&scheduleId=${fields.scheduleId}`;
-    const getScheduleItemsByScheduleId = await fetch(url);
-    return getScheduleItemsByScheduleId.json();
+const fetchgetScheduleItemsByScheduleIdJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/getScheduleItemsByScheduleId?" + new URLSearchParams(id);
+    
+    try {
+        const getScheduleItemsByScheduleId = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await getScheduleItemsByScheduleId.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchgetScheduleItemByIdJSON = async (event, fields) => {
-    const url = `/api/public/getScheduleItemById?authorization=${fields.authorization}&id=${fields.id}`;
-    const getScheduleItemById = await fetch(url);
-    return getScheduleItemById.json();
+const fetchgetScheduleItemByIdJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/getScheduleItemsById?" + new URLSearchParams(id);
+    
+    try {
+        const getScheduleItemById = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const json = await getScheduleItemById.json();
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-const fetchremoveScheduleItemsByScheduleIdJSON = async (event, fields) => {
-    const url = `/api/public/removeScheduleItemsByScheduleId?authorization=${fields.authorization}&scheduleId=${fields.scheduleId}`;
-    const removeScheduleItemsByScheduleId = await fetch(url);
-    return removeScheduleItemsByScheduleId.json();
+const fetchremoveScheduleItemsByScheduleIdJSON = async (id, getToken, onSuccess, onError) => {
+    const token = await getToken();
+    const url = "/api/public/removeScheduleItemsByScheduleId?" + new URLSearchParams(id);
+    
+    try {
+        const removeScheduleItemsByScheduleId = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            noJSON: true,
+        });
+        onSuccess(json);
+    } catch (e) {
+        onError(e);
+    }
 }
 
-export { fetchcreateScheduleJSON, fetchdeleteScheduleJSON, fetchgetScheduleJSON, fetchgetSchedulesJSON, fetchAddScheduleItemJSON, fetchRemoveScheduleItemJSON, fetchgetScheduleItemsByScheduleIdJSON, fetchgetScheduleItemByIdJSON, fetchremoveScheduleItemsByScheduleIdJSON};
+export { fetchcreateScheduleJSON, fetchdeleteScheduleJSON, fetchgetScheduleJSON, fetchgetSchedulesJSON, fetchaddScheduleItemJSON, fetchremoveScheduleItemJSON, fetchgetScheduleItemsByScheduleIdJSON, fetchgetScheduleItemByIdJSON, fetchremoveScheduleItemsByScheduleIdJSON};
     
