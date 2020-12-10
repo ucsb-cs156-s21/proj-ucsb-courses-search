@@ -85,3 +85,4 @@ const DepartmentFormSelect = ({ handleSelect, value }) => {
 };
 
 export default DepartmentFormSelect;
+
