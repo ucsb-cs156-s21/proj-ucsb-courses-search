@@ -19,7 +19,6 @@ import Admin from "main/pages/Admin/Admin";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
 import CourseName from "./pages/History/CourseName";
-import Instructor from "./pages/History/Instructor";
 
 function App() {
   const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
