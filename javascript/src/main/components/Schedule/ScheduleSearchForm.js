@@ -41,21 +41,13 @@ const ScheduleSearchForm = ({ setScheduleJSON, fetchJSON }) => {
 //JL - Dec 8-
     //Dynamically add dropdown menu itmes:
     //https://stackoverflow.com/questions/36205673/how-do-i-create-a-dynamic-drop-down-list-with-react-bootstrap
-    const createSelectItems = () => {
-         let items = [];         
-         for (let i = 0; i <= 0; i++) {             
-              items.push(<option value = {i}>{i}</option>);
-         }
-         return items;
-     };
+
                          
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="ScheduleSearch.schedule">
                 <Form.Label>Schedule</Form.Label>
-                <Form.Control as="select" onChange={handleNameOnChange} value={name} data-testid="select-schedule" >
-                        {createSelectItems()}
-                </Form.Control>
+
             </Form.Group>
             
             <Button variant="primary" type="submit">

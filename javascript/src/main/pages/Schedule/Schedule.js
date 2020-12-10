@@ -6,7 +6,7 @@ import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import ScheduleCoursesTable from "main/components/Schedule/ScheduleCoursesTable";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import AddSchedForm from "main/components/Schedule/AddSchedForm";
-import { fetchgetSchedulesJSON, fetchcreateSchedulesJSON } from "main/services/scheduleAPI";
+import { fetchgetSchedulesJSON, fetchcreateScheduleJSON } from "main/services/scheduleAPI";
 import { useAuth0 } from "@auth0/auth0-react";
 
 var data = new Array();
@@ -55,7 +55,7 @@ const Schedule = () => {
   return (
     <Jumbotron>
       <h1>Create Personal Schedule</h1>
-      <AddSchedForm createSchedule={fetchcreateSchedulesJSON} getToken={getToken} onSuccess={(json) => 
+      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={(json) =>
         console.log(`It worked! Got: ${JSON.stringify(json)}`)
       } onError={(error) => console.log(error)}/>
       <Form.Group> </Form.Group>
