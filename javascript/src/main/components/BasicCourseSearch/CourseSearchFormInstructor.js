@@ -12,17 +12,12 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
     
 
     const handleSubmit = (event) => {
-        //console.log(event);
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, instructorText}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
 
-    // FALL = 4, F
-    // WINTER = 1, W
-    // SPRING = 2, S
-    // SUMMER = 3, M
     const handleStartQuarterOnChange = (event) => {
         setStartQuarter(event.target.value);
     };
@@ -35,7 +30,6 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
         setInstructor(event.target.value);
     };
 
-    // Note:
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="InstructorSearch.StartController">

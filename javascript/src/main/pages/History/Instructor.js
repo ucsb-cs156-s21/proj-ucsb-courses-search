@@ -13,12 +13,6 @@ import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches
 
 const Instructor = () => {
 
-    // every function that starts with "use" is a hook
-    // e.g. useState, useSWR, useAuth0
-
-    // courseJSON is the variable for the state
-    // setCourseJSON is the setter
-    // the parameter to useState is the initial value of the state
     const initialCourseJSON = {
         "pageNumber": 1,
         "pageSize": 1,

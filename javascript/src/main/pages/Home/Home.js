@@ -6,7 +6,6 @@ import { Redirect } from "react-router-dom";
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
-//import {fetchInstructorHistoryNameQtrJSON} from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 
 const Home = () => {
