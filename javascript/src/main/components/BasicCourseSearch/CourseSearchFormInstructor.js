@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import fetch from "isomorphic-unfetch";
+//import fetch from "isomorphic-unfetch";
 
 const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
 
 
 
-    const [startQuarter, setStartQuarter] = useState("20211");
-    const [endQuarter, setEndQuarter] = useState("20211");
+    const [startQuarter, setStartQuarter] = useState("20204");
+    const [endQuarter, setEndQuarter] = useState("20204");
     const [instructorText, setInstructor]=useState("");
     
 
@@ -38,11 +38,10 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
     // Note:
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="BasicSearch.Quarter">
+            <Form.Group controlId="InstructorSearch.StartController">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
                     <option value="20211">W21</option>
-
                     <option value="20204">F20</option>
                     <option value="20201">W20</option>
                     <option value="20202">S20</option>
@@ -50,7 +49,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
 
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.Quarter">
+            <Form.Group controlId="Instructor.EndController">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
                     <option value="20211">W21</option>
@@ -60,7 +59,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20203">M20</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.Instructor">
+            <Form.Group controlId="InstructorSearch.Instructor">
                 <Form.Label>Instructor</Form.Label>
                 <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText}>
                     
