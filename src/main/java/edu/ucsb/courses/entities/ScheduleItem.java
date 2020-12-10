@@ -46,13 +46,7 @@ public class  ScheduleItem {
     
     public ScheduleItem(){
         this.id = 0L;
-        this.quarter = "null";
         this.courseId = "null";
-        this.title = "null";
-        this.description = "null";
-        this.classSection = "null";
-        this.generalEducation = "null";
-        this.finalExam = "null";
     }
 
 
