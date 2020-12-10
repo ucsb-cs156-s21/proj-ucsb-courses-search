@@ -7,7 +7,21 @@ import useSWR from "swr";
 jest.mock("swr");
 
 describe("Schedule tests", () => {
-  
+
+   beforeEach(() => {
+    useAuth0.mockReturnValue({
+      user: {
+        name: "test user",
+        email: "test@test.com",
+        picture: "https://picsum.photos/200",
+      },
+    });
+    useSWR.mockReturnValue({
+      data: {
+        role : "Admin"
+      }
+    })
+  });
   test("renders without crashing", () => {
     render(<Schedule />);
   });
@@ -19,6 +33,6 @@ describe("Schedule tests", () => {
 //   });
   test("renders role correctly", () => {
     const { getByText } =render(<Schedule />);
-    expect(getByText("Personal Schedule features coming soon")).toBeInTheDocument();
+    expect(getByText("Create Personal Schedule")).toBeInTheDocument();
   });
 });

@@ -118,7 +118,7 @@ public class  ScheduleItem {
     @Override
     public String toString() {
         return "{id="+ getId() +" courseId='" + getCourseId() + "'" + ", enrollCode='" + getEnrollCode()
-                + "'" + ", scheduleId='" + getScheduleId() + "}";
+                + "'" + ", scheduleId='" + getScheduleId() + "'}";
     }
 
 }
