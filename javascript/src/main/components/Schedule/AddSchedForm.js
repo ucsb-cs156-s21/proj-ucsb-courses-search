@@ -5,7 +5,7 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [quarter, setQuarter] = useState("");
+    const [quarter, setQuarter] = useState("W21");
 
     const handleSubmit = (event) => {
         event.preventDefault();
