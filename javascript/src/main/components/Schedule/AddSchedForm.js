@@ -20,6 +20,10 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
         setName(event.target.value);
     }
 
+    const handleDescriptionOnChange = (event) => {
+        setDescription(event.target.value);
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formsSchedName">
