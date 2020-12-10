@@ -72,29 +72,33 @@ public class ScheduleItemController {
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
         Optional<Schedule> sched = scheduleRepository.findById(castId);
-
-        String res = "{";
+        if (sched.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        String res = "";
         for (ScheduleItem item: savedSched){
             if (item.getUserId().equals(jwt.getSubject())) {
                 Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), item.getCourseId());
-
                 // Add course data
-                res.concat("courseId= '"+course.get().getCourseId()+"', ");
-                res.concat("title= '"+course.get().getTitle()+"', ");
+                if (course.isEmpty()){
+                    return ResponseEntity.badRequest().build();
+                }
+                res = res.concat("{courseId= '"+course.get().getCourseId()+"', ");
+                res = res.concat("title= '"+course.get().getTitle()+"', ");
 
                 for(Section section : course.get().getClassSections()){
                     if(item.getEnrollCode().equals(section.getEnrollCode())){
                         TimeLocation tl = section.getTimeLocations().get(0);
-                        res.concat("days= '"+tl.getDays()+"', ");
-                        res.concat("beginTime= '"+tl.getBeginTime()+"', ");
-                        res.concat("endTime= '"+tl.getEndTime()+"'}");
+                        res = res.concat("days= '"+tl.getDays()+"', ");
+                        res = res.concat("beginTime= '"+tl.getBeginTime()+"', ");
+                        res = res.concat("endTime= '"+tl.getEndTime()+"'}");
                     }
                 }
-//                res = res.concat(mapper.writeValueAsString(item) + "!");
+                res = res.concat("!");
             }
         }
         if (res.length() == 0){return ResponseEntity.noContent().build();}
-        return ResponseEntity.ok().body(res);
+        return ResponseEntity.ok().body(res.substring(0,res.length()-1));
     }
 
     @GetMapping(value = "/getScheduleItemById", produces = "application/json")

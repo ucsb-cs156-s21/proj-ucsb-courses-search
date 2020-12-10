@@ -3,10 +3,15 @@ package edu.ucsb.courses.controllers;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import edu.ucsb.courses.config.SecurityConfig;
+import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.TimeLocation;
 import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 import edu.ucsb.courses.repositories.ScheduleItemRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
+import org.apache.commons.lang3.arch.Processor;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +52,12 @@ public class ScheduleItemControllerTests {
 
     @MockBean
     private ScheduleItemRepository scheduleItemRepository;
+
+    @MockBean
+    private ScheduleRepository scheduleRepository;
+
+    @MockBean
+    private ArchivedCourseRepository courseRepo;
 
     private String userToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
 
@@ -167,31 +178,57 @@ public class ScheduleItemControllerTests {
 
     @Test
     public void test_getScheduleItemsByScheduleIdSuccess() throws Exception {
-        String expectedResult = "1,2";
+        String expectedResult = "{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}!{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}";
         String urlTemplate = "/api/public/getScheduleItemsByScheduleId?scheduleId=%s";
         String url = String.format(urlTemplate, "1");
 
         DecodedJWT jwt = JWT.decode(userToken.substring(7));
 
-        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", jwt.getSubject(), 1L);
-        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", jwt.getSubject(),1L);
+        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", jwt.getSubject(), 1L);
+        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", jwt.getSubject(),1L);
         List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
+        Schedule s = new Schedule(1L, "Blah","blah","W20",jwt.getSubject());
+
+        Optional<Schedule> parent = Optional.of(s);
+
         when(scheduleItemRepository.findByScheduleId(any(Long.class)))
                 .thenReturn(scheduleItem);
+
+        TimeLocation tL = new TimeLocation();
+        tL.setDays("MW");
+        tL.setBeginTime("8");
+        tL.setEndTime("9");
+        List<TimeLocation> tLs = new ArrayList<TimeLocation>();
+        tLs.add(tL);
+
+        Section sec = new Section();
+        sec.setEnrollCode("a");
+        sec.setTimeLocations(tLs);
+        List<Section> secs = new ArrayList<Section>();
+        secs.add(sec);
+
+        Course c = new Course();
+        c.setQuarter("W20");
+        c.setCourseId("CS 156");
+        c.setTitle("Adv App Programming");
+        c.setClassSections(secs);
+        Optional<Course> oC = Optional.of(c);
+
+
+        when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
+        when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
+
 
         MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
                 .andReturn();
 
-        String responseString = response.getResponse().getContentAsString();
-        String[] returnVal = responseString.split("!");
-        ScheduleItem r1 = objectMapper.readValue(returnVal[0],ScheduleItem.class);
-        ScheduleItem r2 = objectMapper.readValue(returnVal[1],ScheduleItem.class);
 
-        assertEquals(s1, r1);
-        assertEquals(s2,r2);
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(responseString, expectedResult);
     }
 
     @Test
