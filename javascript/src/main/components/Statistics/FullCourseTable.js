@@ -3,19 +3,27 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import Badge from 'react-bootstrap/Badge'
 import Container from 'react-bootstrap/Container'
 
-const white = {
+const headerStyleColor = {
   backgroundColor: '#ffffff'
 };
 
-const d2d4d7 = {
+const footerStyleColor = {
   backgroundColor: '#d2d4d7'
+}
+
+const evenRows = {
+  backgroundColor: '#e9ecef'
+}
+
+const oddRows = {
+  backgroundColor: '#edf0f2'
 }
 
 const alternate = (cell, row, rowIndex, colIndex) => {
   if (rowIndex % 2 === 0) 
-    return { backgroundColor: '#e9ecef' };
+    return evenRows;
   else
-    return { backgroundColor: '#edf0f2' };
+    return oddRows;
 };
 
 const defaultSorted = [{
@@ -29,30 +37,30 @@ const FullCourseTable = ( {data} ) => {
     dataField: 'index',
     text: '#',
     style: alternate,
-    headerStyle: white,
-    footerStyle: d2d4d7,
+    headerStyle: headerStyleColor,
+    footerStyle: footerStyleColor,
     hidden: true
   },{
     dataField: 'quarter',
     text: 'Quarter',
     style: alternate,
     sort: true,
-    headerStyle: white,
-    footerStyle: d2d4d7
+    headerStyle: headerStyleColor,
+    footerStyle: footerStyleColor
   },{
     dataField: 'courseId',
     text: 'Course ID',
     style: alternate,
     sort: true,
-    headerStyle: white,
-    footerStyle: d2d4d7
+    headerStyle: headerStyleColor,
+    footerStyle: footerStyleColor
   },{
     dataField: 'title',
     text: 'Course Title',
     style: alternate,
     sort: true,
-    headerStyle: white,
-    footerStyle: d2d4d7
+    headerStyle: headerStyleColor,
+    footerStyle: footerStyleColor
   }
 ];
 
