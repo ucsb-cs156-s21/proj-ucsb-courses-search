@@ -39,8 +39,23 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("check that lecture sections unit appears", () => {
-  	const {queryAllByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
-  	expect(queryAllByText("4").length).toBe(1);
+  	const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+  	expect(queryByText("4")).not.toBe(null);
+  });
+
+  test("check that lectures days appear", () => {
+    const {queryByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
+    expect( queryByText("T R")).not.toBe(null);
+  });
+
+  test("check that lectures times appear", () => {
+    const {queryByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
+    expect( queryByText("09:30 - 10:45")).not.toBe(null);
+  });
+
+  test("check that lectures times and days appear as TBD when they don't exist", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureOnlyTimeDaysTBD} />);
+    expect( queryAllByText("TBD").length).toBe(2);
   });
 
   // Testing Sections
@@ -70,14 +85,29 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("check that sections unit appears", () => {
-  	const {queryAllByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
-  	expect(queryAllByText("4").length).toBe(1);
+  	const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+  	expect(queryByText("4")).not.toBe(null);
   });
 
   test("check that instructors appear as TBD when there are none", () => {
   	const {queryByText} = render(<BasicCourseTable classes={classesSectionOnlyTBD} />);
   	expect(queryByText("TBD")).not.toBe(null);
-  });  
+  });
+
+  test("check that sections days appear", () => {
+    const {queryByText} = render(<BasicCourseTable classes = {classesSectionOnly} />);
+    expect( queryByText("W")).not.toBe(null);
+  });
+
+  test("check that sections times appear", () => {
+    const {queryByText} = render(<BasicCourseTable classes = {classesSectionOnly} />);
+    expect( queryByText("09:00 - 09:50")).not.toBe(null);
+  });
+
+  test("check that sections times and days appear as TBD when they don't exist", () => {
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesSectionOnlyTimeDaysTBD} />);
+    expect( queryAllByText("TBD").length).toBe(2);
+  });
 
   // Testing styling
   test("check that lectures have a blue background color", () => {
@@ -98,11 +128,6 @@ describe("BasicCourseTable tests", () => {
   test("check that sections are aligned to the right", () => {
   	const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
   	expect( getByText("0101").style.textAlign).toBe("right");
-  });
-
-  test("check that lectures days appear", () => {
-  	const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
-  	expect( queryAllByText("T R").length).toBe(1);
   });
 
 const classesLectureAndSections = 
@@ -258,6 +283,59 @@ const classesLectureAndSections =
             }
           ],
           "instructors": []
+        }
+      ]
+    }
+  ];
+  const classesLectureOnlyTimeDaysTBD = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0100",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [],
+          "instructors": [
+            {
+              "instructor": "CONRAD P",
+              "functionCode": "Teaching but not in charge"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const classesSectionOnlyTimeDaysTBD = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0101",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [],
+          "instructors": [
+            {
+              "instructor": "CONRAD P",
+              "functionCode": "Teaching but not in charge"
+            }
+          ]
         }
       ]
     }

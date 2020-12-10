@@ -59,12 +59,12 @@ const BasicCourseTable = ( {classes} ) => {
       text: 'Enroll Code',
       align: (cell, row) => dataAlignment(cell, row)
     },{
-      dataField: 'timeLocations',
+      dataField: 'days',
       text: 'Days',
       formatter: (cell, row) => renderSectionDays(cell, row),
       align: (cell, row) => dataAlignment(cell, row)
     },{
-      dataField: 'timeLocations',
+      dataField: 'times',
       text: 'Time',
       formatter: (cell, row) => renderSectionTimes(cell, row),
       align: (cell, row) => dataAlignment(cell, row)
