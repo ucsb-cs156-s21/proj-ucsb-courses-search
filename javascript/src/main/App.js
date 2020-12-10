@@ -12,11 +12,13 @@ import Statistics from "main/pages/Statistics/Statistics";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
+import Ge from "main/pages/History/Ge";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
 import Admin from "main/pages/Admin/Admin";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
+import CourseName from "./pages/History/CourseName";
 
 function App() {
   const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
@@ -37,8 +39,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
+          <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
+          <Route path="/history/ge" exact component={Ge} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
