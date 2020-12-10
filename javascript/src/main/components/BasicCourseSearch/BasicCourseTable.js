@@ -2,10 +2,13 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 const BasicCourseTable = ( {classes} ) => {
   const sections = [];
   const history = useHistory();
   var numSections = 0;
+  const { user, getAccessTokenSilently: getToken } = useAuth0();
+
   classes.slice().reverse().forEach(
     (course) => {
       course.classSections.slice().reverse().forEach(
@@ -99,12 +102,14 @@ const renderAddCourseButton = (id,cell,row) => {
   }
 ];
 
-  columns.push({
-      text: "",
-      isDummyField: true,
-      dataField: "add-course",
-      formatter: (cell, row) => renderAddCourseButton(row.id, cell, row)
-  });
+if (user!==false){
+    columns.push({
+        text: "",
+        isDummyField: true,
+        dataField: "add-course",
+        formatter: (cell, row) => renderAddCourseButton(row.id, cell, row)
+    });
+}
 
   return (
     <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>

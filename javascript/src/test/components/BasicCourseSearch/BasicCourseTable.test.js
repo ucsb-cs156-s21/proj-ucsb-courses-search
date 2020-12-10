@@ -11,6 +11,128 @@ describe("BasicCourseTable tests", () => {
   test("renders without crashing", () => {
     render(<BasicCourseTable classes={[]} />);
   });
+  test ("renders an add buttons if the user is login in",()=>{
+    const classes = [{
+      "quarter": "20211",
+      "courseId": "CMPSC   192  ",
+      "title": "PROJECTS COMP SCI",
+      "contactHours": 10,
+      "description": "Projects in computer science for advanced undergraduate   students.",
+      "college": "ENGR",
+      "objLevelCode": "U",
+      "subjectArea": "CMPSC   ",
+      "unitsFixed": null,
+      "unitsVariableHigh": 5,
+      "unitsVariableLow": 1,
+      "delayedSectioning": "I",
+      "inProgressCourse": null,
+      "gradingOption": "L",
+      "instructionType": "TUT",
+      "onLineCourse": false,
+      "deptCode": "CMPSC",
+      "generalEducation": [],
+      "classSections": [
+        {
+          "enrollCode": "08334",
+          "section": "0100",
+          "session": null,
+          "classClosed": null,
+          "courseCancelled": null,
+          "gradingOptionCode": null,
+          "enrolledTotal": null,
+          "maxEnroll": 20,
+          "secondaryStatus": null,
+          "departmentApprovalRequired": false,
+          "instructorApprovalRequired": false,
+          "restrictionLevel": null,
+          "restrictionMajor": null,
+          "restrictionMajorPass": null,
+          "restrictionMinor": null,
+          "restrictionMinorPass": null,
+          "concurrentCourses": [],
+          "timeLocations": [],
+          "instructors": [],
+          "course": {
+            "courseId": "CMPSC   192  ",
+            "title": "PROJECTS COMP SCI",
+            "unitsFixed": null,
+            "noSections": "true"
+          }
+        }
+      ]
+    }];
+    const user={
+      email: "jianlyu@ucsb.edu",
+      email_verified: true,
+      family_name: "Mao",
+      given_name: "Gordon",
+      locale: "en",
+      name: "Gordon Mao",
+      nickname: "jianlyu",
+      picture: "https://lh4.googleusercontent.com/-bhI7X9hDfZQ/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucnCKE2itkFidS6-kKlG7g5GvjChyA/s96-c/photo.jpg",
+      updated_at: "2020-12-10T08:13:08.675Z"
+    };
+    const { container} = render(<BasicCourseTable classes = {classes}/>);
+    container.user=user;
+    expect(container.user.email_verified).toBe(true);
+  });
+
+  test("do not render an add button if user is not log in",()=>{
+    const classes = [{
+      "quarter": "20211",
+      "courseId": "CMPSC   192  ",
+      "title": "PROJECTS COMP SCI",
+      "contactHours": 10,
+      "description": "Projects in computer science for advanced undergraduate   students.",
+      "college": "ENGR",
+      "objLevelCode": "U",
+      "subjectArea": "CMPSC   ",
+      "unitsFixed": null,
+      "unitsVariableHigh": 5,
+      "unitsVariableLow": 1,
+      "delayedSectioning": "I",
+      "inProgressCourse": null,
+      "gradingOption": "L",
+      "instructionType": "TUT",
+      "onLineCourse": false,
+      "deptCode": "CMPSC",
+      "generalEducation": [],
+      "classSections": [
+        {
+          "enrollCode": "08334",
+          "section": "0100",
+          "session": null,
+          "classClosed": null,
+          "courseCancelled": null,
+          "gradingOptionCode": null,
+          "enrolledTotal": null,
+          "maxEnroll": 20,
+          "secondaryStatus": null,
+          "departmentApprovalRequired": false,
+          "instructorApprovalRequired": false,
+          "restrictionLevel": null,
+          "restrictionMajor": null,
+          "restrictionMajorPass": null,
+          "restrictionMinor": null,
+          "restrictionMinorPass": null,
+          "concurrentCourses": [],
+          "timeLocations": [],
+          "instructors": [],
+          "course": {
+            "courseId": "CMPSC   192  ",
+            "title": "PROJECTS COMP SCI",
+            "unitsFixed": null,
+            "noSections": "true"
+          }
+        }
+      ]
+    }];
+    const user=false;
+    const { container} = render(<BasicCourseTable classes = {classes}/>);
+    container.user=user;
+    expect(container.user).toBe(false);
+  });
+
   test("renders an add course button for every course section in the table", () => {
     const classes = [{
       "quarter": "20211",
