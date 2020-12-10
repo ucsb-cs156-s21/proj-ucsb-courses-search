@@ -1,11 +1,20 @@
 package edu.ucsb.courses.controllers;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import edu.ucsb.courses.config.SecurityConfig;
+import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.CoursePage;
+import edu.ucsb.courses.documents.statistics.QuarterDept;
+import edu.ucsb.courses.documents.statistics.AvgClassSize;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +96,28 @@ public class StatisticsControllerTests {
             .andReturn();
         String responseString = response.getResponse().getContentAsString();
         List<FullCourse> resultFromPage = FullCourse.listFromJSON(responseString);
+
+        assertEquals(qdList, resultFromPage);
+    }
+
+    @Test
+    public void test_AvgClassSize() throws Exception {
+        String url = "/api/public/statistics/classSize";
+
+        org.bson.Document fakeRawResults = new org.bson.Document();
+        List<AvgClassSize> qdList = new ArrayList<AvgClassSize>();
+        qdList.add(new AvgClassSize("20204", 52));
+        AggregationResults<AvgClassSize> fakeResults = new AggregationResults<AvgClassSize>(qdList,
+                fakeRawResults);
+
+        when(mongoTemplate.aggregate(any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+
+        MvcResult response = mockMvc
+                .perform(get(url).queryParam("startQuarter", "20204").queryParam("endQuarter", "20211")
+                        .contentType("application/json"))
+                .andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<AvgClassSize> resultFromPage = AvgClassSize.listFromJSON(responseString);
 
         assertEquals(qdList, resultFromPage);
     }
