@@ -245,6 +245,13 @@ public class ScheduleItemControllerTests {
         when(scheduleItemRepository.findByScheduleId(any(Long.class)))
                 .thenReturn(scheduleItem);
 
+        Schedule s = new Schedule(1L, "Blah","blah","W20",jwt.getSubject());
+
+        Optional<Schedule> parent = Optional.of(s);
+
+        when(scheduleRepository.findById(any(Long.class)))
+                .thenReturn(parent);
+
         MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isNoContent())
                 .andReturn();
 

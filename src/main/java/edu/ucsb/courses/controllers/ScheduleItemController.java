@@ -79,9 +79,8 @@ public class ScheduleItemController {
         for (ScheduleItem item: savedSched){
             if (item.getUserId().equals(jwt.getSubject())) {
                 Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), item.getCourseId());
-                // Add course data
                 if (course.isEmpty()){
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.noContent().build();
                 }
                 res = res.concat("{courseId= '"+course.get().getCourseId()+"', ");
                 res = res.concat("title= '"+course.get().getTitle()+"', ");
