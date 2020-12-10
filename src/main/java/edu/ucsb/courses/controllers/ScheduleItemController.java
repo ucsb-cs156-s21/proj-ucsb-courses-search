@@ -4,13 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.courses.documents.Course;
-import edu.ucsb.courses.documents.Section;
-import edu.ucsb.courses.documents.TimeLocation;
 import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 import edu.ucsb.courses.repositories.ScheduleItemRepository;
-import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +28,11 @@ public class ScheduleItemController {
     @Autowired
     ScheduleItemRepository scheduleItemRepository;
 
-    @Autowired
-    ScheduleRepository scheduleRepository;
-
-    @Autowired
-    ArchivedCourseRepository archivedCourseRepository;
-
     @GetMapping(value = "/addScheduleItem", produces = "application/json")
     public ResponseEntity<String> addScheduleItem(@RequestHeader("Authorization") String authorization,
                                                   @RequestParam String scheduleId,
-                                                 @RequestParam String enrollCode,
-                                                 @RequestParam String courseId) throws JsonProcessingException {
+                                                  @RequestParam String enrollCode,
+                                                  @RequestParam String courseId) throws JsonProcessingException {
         Long castId = Long.parseLong(scheduleId);
         ScheduleItem newSched = new ScheduleItem(null, courseId, enrollCode, JWT.decode(authorization.substring(7)).getSubject(), castId);
         ScheduleItem savedSched = scheduleItemRepository.save(newSched);
