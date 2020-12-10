@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import fetch from "isomorphic-unfetch";
+import { Form, Button} from "react-bootstrap";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
     const [quarter, setQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
         fetchJSON(event, {quarter, department, level}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
         });
@@ -55,7 +53,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
-        </Button>
+            </Button>
         </Form>
     );
 };
