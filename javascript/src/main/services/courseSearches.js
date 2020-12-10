@@ -12,5 +12,11 @@ const fetchBasicCourseHistoryJSON = async (event, fields) => {
     return courseResponse.json();
 };
 
-export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON };
+const fetchGeQtrJSON = async (event, fields) => {
+    const url = `/api/public/history/gesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&geCode=${fields.geCode}`;
+    const courseResponse = await fetch(url);
+    return courseResponse.json();
+};
+
+export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchGeQtrJSON};
     
