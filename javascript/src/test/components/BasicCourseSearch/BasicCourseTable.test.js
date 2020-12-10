@@ -32,7 +32,6 @@ describe("BasicCourseTable tests", () => {
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(3);
   });
-
   test("does not render without crashing when not logged in", () => {
     useAuth0.mockReturnValue({isAuthenticated: false,}); 
     render(<BasicCourseTable classes={[]} />);

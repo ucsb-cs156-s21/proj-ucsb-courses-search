@@ -9,6 +9,7 @@ const BasicCourseTable = ( {classes} ) => {
   const sections = [];
   const history = useHistory();
   var numSections = 0;
+
   classes.slice().reverse().forEach(
     (course) => {
       course.classSections.slice().reverse().forEach(
@@ -101,6 +102,7 @@ const renderAddCourseButton = (id,cell,row) => {
     align: (cell, row) => dataAlignment(cell, row)
   }
 ];
+
 
   const { isAuthenticated } = useAuth0();
   if(isAuthenticated){
