@@ -7,9 +7,15 @@ import { Redirect } from "react-router-dom";
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
+<<<<<<< HEAD
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
 //import { fetch}
+=======
+//import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
+//import {  fetchInstructorCourseHistoryJSON } from "main/services/courseSearches";
+import {fetchInstructorHistoryNameQtrJSON} from "main/services/courseSearches";
+>>>>>>> ap adding front-end test files
 
 const Instructor = () => {
 
@@ -27,7 +33,7 @@ const Instructor = () => {
     return (
         <Jumbotron>
             <div className="text-left">
-                <h5>Search Archived Course Data from MongoDB Henlo hehehe</h5>
+                <h5>Search Archived Course Data from MongoDB</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
