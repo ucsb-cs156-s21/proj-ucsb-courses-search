@@ -70,8 +70,6 @@ public class HistorySearchCourseQtrControllerTests {
         assertEquals( expectedResult, cp.getClasses() );
     }
 
-
-
     @Test
     public void test_basicSearch_goodUrl() throws Exception {
         
@@ -104,16 +102,4 @@ public class HistorySearchCourseQtrControllerTests {
 
         assertEquals( expectedResult, cp.getClasses() );
     }
-
-
-    
-    // @Test
-    // public void test_makeFormattedCourseName() throws Exception {
-    //     String expectedResult = "CMPSC   130A ";
-    //     String actualResult = HistorySearchCourseQtrController.makeFormattedCourseName (
-    //         "CMPSC", "130", "A"
-    //     );
-    //     assertEquals( expectedResult, actualResult );
-    // }
-
 }
