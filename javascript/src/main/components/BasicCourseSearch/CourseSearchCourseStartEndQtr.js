@@ -43,7 +43,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     // Note: Not all possible courses were able to be added in the subject area list as many of them were dead links that provided no information
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="BasicSearch.StartQuarter">
+            <Form.Group controlId="CourseNameSearch.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
                     <option value="20211">W21</option>
@@ -55,7 +55,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.EndQuarter">
+            <Form.Group controlId="CourseNameSearch.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
                     <option value="20211">W21</option>
@@ -66,7 +66,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20203">M20</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.SubjectArea">
+            <Form.Group controlId="CourseNameSearch.SubjectArea">
                 <Form.Label>Subject Area</Form.Label>
                 <Form.Control as="select" onChange={handleSubjectAreaOnChange} value={subjectArea}>
                     <option value="ANTH    ">ANTH - Anthropology</option>
@@ -162,11 +162,11 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                     <option value="W%26L  CS ">W&L - Writing and Literature (Creative Studies)</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.CourseNumber">
+            <Form.Group controlId="CourseNameSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
             </Form.Group>
-            <Form.Group controlId="BasicSearch.CourseSuf">
+            <Form.Group controlId="CourseNameSearch.CourseSuf">
                 <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
                 <Form.Control onChange={handleCourseSufOnChange} defaultValue={courseSuf} />
             </Form.Group>

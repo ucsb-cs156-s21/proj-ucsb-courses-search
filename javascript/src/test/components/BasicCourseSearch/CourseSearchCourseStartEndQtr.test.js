@@ -51,7 +51,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
     test("when I click submit, I get back the information about a specified course name between certain quarters", async () => {
 
         const sampleReturnValue = {
-            "sampleKey": "sampleValue"
+            "quarter": "20204"
         };
 
         // Create spy functions (aka jest function, magic function)
