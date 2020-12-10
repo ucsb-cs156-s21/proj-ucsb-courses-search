@@ -37,7 +37,6 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
                 <Form.Control as="select">
                     <option>W21</option>
                     <option>F20</option>
-
                 </Form.Control>
             </Form.Group>
 

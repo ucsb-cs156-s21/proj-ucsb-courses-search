@@ -8,7 +8,8 @@ public class ScheduleItemTests {
   @Test
   public void testScheduleItem_toString() {
       ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492", "4L", 4L);
-    assertEquals("{id=123 courseId='CS       130A ', enrollCode='07492', scheduleId='4}", si.toString());
+    assertEquals("{id=123 courseId='CS       130A ', enrollCode='07492', scheduleId='4'}", si.toString());
+
   }
 
   @Test
