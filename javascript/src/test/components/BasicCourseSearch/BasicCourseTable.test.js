@@ -6,28 +6,58 @@ import { useHistory } from "react-router-dom";
 jest.mock("react-router-dom", () => ({
   useHistory: jest.fn(),
 }));
+import { useAuth0 } from "@auth0/auth0-react";
+jest.mock("@auth0/auth0-react");
 
 describe("BasicCourseTable tests", () => {
-  test("renders without crashing", () => {
+  test("renders without crashing when logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,}); 
     render(<BasicCourseTable classes={[]} />);
   });
-  test("renders an add course button for every course section in the table", () => {    
+  test("renders an add course button for every course section in the table when logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});    
     const { getAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(5);
   });
-  test("renders an add course button for a lecture section without sections", () => {
+  test("renders an add course button for a lecture section without sections when logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
     const { getAllByText} = render(<BasicCourseTable classes = {classesOneLectureOnly} />);
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(1);
   });
-  test("renders an add course button for every lecture section without sections under the same course", () => {
+  test("renders an add course button for every lecture section without sections under the same course when logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
     const { getAllByText} = render(<BasicCourseTable classes = {classesManyLecturesNoSections} />);
     const addCourseButtons = getAllByText("Add Course")
     expect(addCourseButtons.length).toBe(3);
   });
 
+  test("does not render without crashing when not logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: false,}); 
+    render(<BasicCourseTable classes={[]} />);
+  });
+  test("does not render an add course button for every course section in the table when not logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: false,});    
+    const { queryAllByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+    const addCourseButtons = queryAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(0);
+  });
+  test("does not render an add course button for a lecture section without sections when not logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: false,});
+    const { queryAllByText} = render(<BasicCourseTable classes = {classesOneLectureOnly} />);
+    const addCourseButtons = queryAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(0);
+  });
+  test("does not render an add course button for every lecture section without sections under the same course when not logged in", () => {
+    useAuth0.mockReturnValue({isAuthenticated: false,});
+    const { queryAllByText} = render(<BasicCourseTable classes = {classesManyLecturesNoSections} />);
+    const addCourseButtons = queryAllByText("Add Course")
+    expect(addCourseButtons.length).toBe(0);
+  });
+
   test("can click to add a course", async () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
     const pushSpy = jest.fn();
     useHistory.mockReturnValue({
       push: pushSpy
