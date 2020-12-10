@@ -6,16 +6,6 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [quarter, setQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
     const [level, setLevel] = useState("U");
-
-    // const downloadCSVurl = () => {
-        
-    //     const url = `/api/public/basicsearch/downloadcsv?qtr=${quarter}&dept=${department}&level=${level}`;
-    //     return url;
-    // }
-    // const handleDownload = (event) => {
-    //     event.preventDefault();
-    //     window.location.href=downloadCSVurl();
-    // }
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -64,12 +54,6 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
-            {/* <Button
-                variant = "primary"
-                onClick={handleDownload}
-                >
-                Download CSV
-            </Button> */}
         </Form>
     );
 };

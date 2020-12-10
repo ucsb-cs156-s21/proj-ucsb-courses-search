@@ -29,7 +29,7 @@ const Home = () => {
     
     // courseId, title, sectionNumber, instructor, enroll code, units, total enrolled students, max enrolled
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
-    const headers = [
+    const courseHeaders = [
         { label: "courseId", key: "courseId" },
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }
@@ -39,7 +39,7 @@ const Home = () => {
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
-                <Button><CSVLink style={{color: "white"}} headers={headers} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
+                <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
                 <BasicCourseTable classes={courseJSON.classes} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
