@@ -65,9 +65,9 @@ public class HistorySearchCourseQtrController {
         String courseSuf    ) {
 
         return
-              String.format( "%-8s", subjectArea  ) // 'CMPSC   '
-            + String.format( "%3s" , courseNumber ) // '  8'
-            + String.format( "%-2s", courseSuf    ) // 'A '
+              String.format( "%-8s", subjectArea                ) // 'CMPSC   '
+            + String.format( "%3s" , courseNumber               ) // '  8'
+            + String.format( "%-2s", courseSuf.toUpperCase()    ) // 'A '
         ;
     }
 
