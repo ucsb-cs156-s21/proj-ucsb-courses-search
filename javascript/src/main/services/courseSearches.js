@@ -17,6 +17,13 @@ const fetchGeQtrJSON = async (event, fields) => {
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };
+  
+const fetchCourseHistoryNameQtrJSON = async (event, fields) => {
+    const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&subjectArea=${fields.subjectArea}&courseNumber=${fields.courseNumber}&courseSuf=${fields.courseSuf}`;
+    const courseResponse = await fetch(url);
+    return courseResponse.json();
+};
 
-export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchGeQtrJSON};
+
+export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON};
     
