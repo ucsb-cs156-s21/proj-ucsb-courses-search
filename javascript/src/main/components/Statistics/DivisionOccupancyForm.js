@@ -13,12 +13,9 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
         fetchJSON({startQuarter, endQuarter, department, level}).then((courseJSON)=> {
-          
             setCourseJSON(courseJSON);
             setFormSubmitted = true;
-            console.log(courseJSON);
         });
     }; 
 

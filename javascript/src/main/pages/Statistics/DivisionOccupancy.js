@@ -9,6 +9,9 @@ import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
 const DivisionOccupancy = () => {
     const [courseJSON, setCourseJSON] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
+
+    // transforms quarter JSON item from quarter code (like 20204) to human-readable text 
+    // like "WINTER 2021" using fromFormat function from the QuarterFormSelect file
     const setInitialData = (courseJSON) => {
         let newArray = courseJSON.map((item, index) => ({index, ...item}));
         for (var i = 0; i < newArray.length; i++) {
@@ -30,7 +33,7 @@ const DivisionOccupancy = () => {
                 </div>
             </Jumbotron>
             
-            {formSubmitted && (courseJSON.length == 0) ? 'There are no results!' : <DivisionOccupancyTable data={courseJSON} />}
+            {formSubmitted && (courseJSON.length == 0 ? 'There are no results!' : <DivisionOccupancyTable data={courseJSON} />)}
         </div>
     );
 };
