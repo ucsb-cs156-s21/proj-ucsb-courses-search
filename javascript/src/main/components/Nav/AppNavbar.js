@@ -26,6 +26,8 @@ function AppNavbar() {
       <Nav>
         <NavDropdown title="Course History">
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
+            <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
+            <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
         </NavDropdown>
         { isAdmin &&
           (<LinkContainer to={"/admin"}>
@@ -45,7 +47,7 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics">
             Course Occupancy by Class Level
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
+          <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
         </NavDropdown>
