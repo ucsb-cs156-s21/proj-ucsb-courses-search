@@ -106,6 +106,7 @@ public class StatisticsController {
 
 
             return ResponseEntity.ok().body(body);
+        }
 
     @GetMapping(value = "/classSize", produces = "application/json")
     
