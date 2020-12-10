@@ -100,6 +100,10 @@ describe("BasicCourseTable tests", () => {
   	expect( getByText("0101").style.textAlign).toBe("right");
   });
 
+  test("check that lectures days appear", () => {
+  	const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
+  	expect( queryAllByText("T R").length).toBe(1);
+  });
 
 const classesLectureAndSections = 
     [
