@@ -15,6 +15,47 @@ const buttonFormatter = (cell, row, rowIndex, formatExtraData) => {
 
 const BasicCourseTable = ( {classes} ) => {
 
+  const columns = [{
+        dataField: 'course.courseId',
+        text: 'Course Number',
+        isDummyField: true,
+        formatter: (cell, row) => renderCourseId(cell, row)
+      },{
+        dataField: 'course.title',
+        text: 'Title',
+        isDummyField: true,
+        formatter: (cell, row) => renderCourseTitle(cell, row)
+      },{
+        dataField: 'section',
+        text: 'Section',
+        align: (cell, row) => dataAlignment(cell, row)
+      },{
+        dataField: "instructors",
+        text: "Instructor",
+        isDummyField: true,
+        formatter: (cell, row) => renderInstructors(cell, row),
+        align: (cell, row) => dataAlignment(cell, row)
+      },{
+        dataField: 'enrollCode',
+        text: 'Enroll Code',
+        align: (cell, row) => dataAlignment(cell, row)
+      },{
+        dataField: 'days',
+        text: 'Days',
+        formatter: (cell, row) => renderSectionDays(cell, row),
+        align: (cell, row) => dataAlignment(cell, row)
+      },{
+        dataField: 'times',
+        text: 'Time',
+        formatter: (cell, row) => renderSectionTimes(cell, row),
+        align: (cell, row) => dataAlignment(cell, row)
+      },{
+        dataField: 'course.unitsFixed',
+        text: 'Unit',
+        align: (cell, row) => dataAlignment(cell, row)
+      }
+    ];
+
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, rowIndex) => {
@@ -46,46 +87,7 @@ const BasicCourseTable = ( {classes} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
-    const columns = [{
-      dataField: 'course.courseId',
-      text: 'Course Number',
-      isDummyField: true,
-      formatter: (cell, row) => renderCourseId(cell, row)
-    },{
-      dataField: 'course.title',
-      text: 'Title',
-      isDummyField: true,
-      formatter: (cell, row) => renderCourseTitle(cell, row)
-    },{
-      dataField: 'section',
-      text: 'Section',
-      align: (cell, row) => dataAlignment(cell, row)
-    },{
-      dataField: "instructors",
-      text: "Instructor",
-      isDummyField: true,
-      formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
-    },{
-      dataField: 'enrollCode',
-      text: 'Enroll Code',
-      align: (cell, row) => dataAlignment(cell, row)
-    },{
-      dataField: 'days',
-      text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
-    },{
-      dataField: 'times',
-      text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
-    },{
-      dataField: 'course.unitsFixed',
-      text: 'Unit',
-      align: (cell, row) => dataAlignment(cell, row)
-    }
-  ];
+
     return (
       <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
     );
