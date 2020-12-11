@@ -26,11 +26,17 @@ describe("Schedule tests", () => {
     render(<Schedule />);
   });
 
+  test("renders AddSchedForm", () => {
+      const {getByTestId} = render(<Schedule />);
+      expect(getByTestId("schedule-name")).toBeInTheDocument();
+    });
 
-//   test("renders role correctly", () => {
-//     const { getByText } =render(<Schedule />);
-//     expect(getByText("Admin")).toBeInTheDocument();
-//   });
+  test("renders ScheduleSearchForm", () => {
+        const {getByTestId} = render(<Schedule />);
+        expect(getByTestId("schedule-id")).toBeInTheDocument();
+      });
+
+
   test("renders role correctly", () => {
     const { getByText } =render(<Schedule />);
     expect(getByText("Create Personal Schedule")).toBeInTheDocument();
