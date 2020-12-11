@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 @Entity
 public class  ScheduleItem {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,6 +29,7 @@ public class  ScheduleItem {
     private String userId;
     @Column(nullable = false)
     private Long scheduleId;
+
 
 
     /*@ManyToOne
@@ -44,11 +44,9 @@ public class  ScheduleItem {
         this.userId = userId;
         this.scheduleId = schedule_id;
     }
-    
+
 
     public ScheduleItem(){}
-
-
 
 
     public Long getId() {
@@ -104,7 +102,7 @@ public class  ScheduleItem {
         ScheduleItem c = (ScheduleItem) o;
         EqualsBuilder builder = new EqualsBuilder();
 
-        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId());
+        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId()).append(userId,c.getUserId());
 
         return builder.build();
     }

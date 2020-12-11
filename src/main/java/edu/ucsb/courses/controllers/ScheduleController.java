@@ -1,6 +1,9 @@
 package edu.ucsb.courses.controllers;
 
 import java.util.HashMap;
+
+import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -21,24 +24,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-
-
 
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.repositories.ScheduleRepository;
-
 
 
 @RestController
@@ -51,17 +48,18 @@ public class ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-
     @PostMapping(value = "/createSchedule", produces = "application/json")
     public ResponseEntity<String> createSchedule(@RequestParam String name,
                                                  @RequestParam String description,
                                                  @RequestParam String quarter,
+
 
                                                  @RequestHeader("Authorization") String authorization){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Schedule newSched = new Schedule(null, name, description, quarter, jwt.getSubject());
         Schedule savedSched= scheduleRepository.save(newSched);
         return ResponseEntity.ok().body(savedSched.toString());
+
     }
 
     @PutMapping(value = "/updateSchedule", produces = "application/json")
@@ -88,7 +86,6 @@ public class ScheduleController {
         return ResponseEntity.ok().body(body);
       }
 
-
     @DeleteMapping(value = "/deleteSchedule", produces = "application/json")
     public ResponseEntity<String> deleteSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id){
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
@@ -102,12 +99,11 @@ public class ScheduleController {
     }
 
     @GetMapping(value = "/getSchedule", produces = "application/json")
-    public ResponseEntity<String> getSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id) 
+    public ResponseEntity<String> getSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id)
         throws JsonProcessingException{
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(id);
         Optional<Schedule> target = scheduleRepository.findById(castId);
-
         if (target.isPresent()) {
             if (target.get().getUserId().equals(jwt.getSubject())){
                 String body = target.get().toString();
@@ -118,6 +114,21 @@ public class ScheduleController {
         return ResponseEntity.badRequest().build();
     }
 
+
+    @GetMapping(value = "/getSchedules", produces = "application/json")
+      public ResponseEntity<String> getSchedules(@RequestHeader("Authorization") String authorization)
+          throws JsonProcessingException{
+          DecodedJWT jwt = JWT.decode(authorization.substring(7));
+          List<Schedule> savedSchedules= scheduleRepository.findByUserId(jwt.getSubject());
+          String res = "";
+          for (Schedule sched: savedSchedules){
+            res = res.concat(mapper.writeValueAsString(sched) + "!");
+          }
+          if (res.length() == 0) {
+            return ResponseEntity.noContent().build();
+          }
+          return ResponseEntity.ok().body(res);
+     }
 
 }
 

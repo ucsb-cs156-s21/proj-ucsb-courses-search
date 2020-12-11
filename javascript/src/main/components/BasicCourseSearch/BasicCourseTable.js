@@ -14,7 +14,6 @@ const buttonFormatter = (cell, row, rowIndex, formatExtraData) => {
 
 
 const BasicCourseTable = ( {classes} ) => {
-
   const columns = [{
         dataField: 'course.courseId',
         text: 'Course Number',

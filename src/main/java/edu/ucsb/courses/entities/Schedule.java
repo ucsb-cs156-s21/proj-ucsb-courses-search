@@ -93,6 +93,7 @@ public class Schedule {
     return Objects.hash(id, name, description, quarter, userId);
   }
 
+
   @Override
   public String toString() {
     return String.format("Schedule[ id=%d, name=%s, description=%s, quarter=%s, userId=%s ]", id, name, description, quarter, userId);
