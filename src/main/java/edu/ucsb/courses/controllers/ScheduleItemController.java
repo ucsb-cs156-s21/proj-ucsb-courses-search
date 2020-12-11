@@ -4,9 +4,13 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.TimeLocation;
 import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 import edu.ucsb.courses.repositories.ScheduleItemRepository;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +32,17 @@ public class ScheduleItemController {
     @Autowired
     ScheduleItemRepository scheduleItemRepository;
 
+    @Autowired
+    ScheduleRepository scheduleRepository;
+
+    @Autowired
+    ArchivedCourseRepository archivedCourseRepository;
+
     @GetMapping(value = "/addScheduleItem", produces = "application/json")
     public ResponseEntity<String> addScheduleItem(@RequestHeader("Authorization") String authorization,
                                                   @RequestParam String scheduleId,
-                                                  @RequestParam String enrollCode,
-                                                  @RequestParam String courseId) throws JsonProcessingException {
+                                                 @RequestParam String enrollCode,
+                                                 @RequestParam String courseId) throws JsonProcessingException {
         Long castId = Long.parseLong(scheduleId);
         ScheduleItem newSched = new ScheduleItem(null, courseId, enrollCode, JWT.decode(authorization.substring(7)).getSubject(), castId);
         ScheduleItem savedSched = scheduleItemRepository.save(newSched);
@@ -61,14 +71,33 @@ public class ScheduleItemController {
         DecodedJWT jwt = JWT.decode(authorization.substring(7));
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
+        Optional<Schedule> sched = scheduleRepository.findById(castId);
+        if (sched.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
         String res = "";
         for (ScheduleItem item: savedSched){
             if (item.getUserId().equals(jwt.getSubject())) {
-                res = res.concat(mapper.writeValueAsString(item) + "!");
+                Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), item.getCourseId());
+                if (course.isEmpty()){
+                    return ResponseEntity.noContent().build();
+                }
+                res = res.concat("{courseId= '"+course.get().getCourseId()+"', ");
+                res = res.concat("title= '"+course.get().getTitle()+"', ");
+
+                for(Section section : course.get().getClassSections()){
+                    if(item.getEnrollCode().equals(section.getEnrollCode())){
+                        TimeLocation tl = section.getTimeLocations().get(0);
+                        res = res.concat("days= '"+tl.getDays()+"', ");
+                        res = res.concat("beginTime= '"+tl.getBeginTime()+"', ");
+                        res = res.concat("endTime= '"+tl.getEndTime()+"'}");
+                    }
+                }
+                res = res.concat("!");
             }
         }
         if (res.length() == 0){return ResponseEntity.noContent().build();}
-        return ResponseEntity.ok().body(res);
+        return ResponseEntity.ok().body(res.substring(0,res.length()-1));
     }
 
     @GetMapping(value = "/getScheduleItemById", produces = "application/json")

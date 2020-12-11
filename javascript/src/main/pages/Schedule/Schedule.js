@@ -6,7 +6,7 @@ import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import ScheduleCoursesTable from "main/components/Schedule/ScheduleCoursesTable";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import AddSchedForm from "main/components/Schedule/AddSchedForm";
-import { fetchgetSchedulesJSON, fetchcreateScheduleJSON } from "main/services/scheduleAPI";
+import { fetchgetScheduleJSON, fetchcreateScheduleJSON, fetchdeleteScheduleJSON } from "main/services/scheduleAPI";
 import { useAuth0 } from "@auth0/auth0-react";
 
 var data = new Array();
@@ -51,11 +51,25 @@ const Schedule = () => {
 
   };
 
-  const [scheduleJSON, setScheduleJSON] = useState(initialScheduleJSON);
+  const [scheduleJSON,setScheduleJSON] = useState("");
+
   return (
     <Jumbotron>
       <h1>Create Personal Schedule</h1>
+      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={ (json) =>
+        console.log(`Successfully Created! Got: ${JSON.stringify(json)}`)
+        }  onError={(error) => console.log(error)}/>
+      <Form.Group> </Form.Group>
 
+      <h1>Load Schedule</h1>
+      <ScheduleSearchForm deleteSchedule={fetchdeleteScheduleJSON} getSchedule={fetchgetScheduleJSON} getToken={getToken}  onSuccess={(json) => setScheduleJSON(json)} 
+        onError={(error) => console.log(error)}/>
+      <Form.Group> </Form.Group>
+      <Form.Group> </Form.Group>
+      <h1><div>{scheduleJSON.name}</div> </h1>
+      <p>{scheduleJSON.description}</p>
+      <ScheduleCoursesTable classes={initialClassJSON} />
+      {/* delete courses in this table */}
 
     </Jumbotron>
   );

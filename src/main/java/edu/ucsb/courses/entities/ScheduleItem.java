@@ -46,7 +46,11 @@ public class  ScheduleItem {
     }
 
 
-    public ScheduleItem(){}
+    public ScheduleItem(){
+        this.id = 0L;
+        this.courseId = "null";
+    }
+
 
 
     public Long getId() {
