@@ -61,6 +61,9 @@ public class ScheduleItemController {
                 scheduleItemRepository.deleteById(castId);
                 return ResponseEntity.ok().build();
             }
+            else{
+                return ResponseEntity.badRequest().build();
+            }
         }
         return ResponseEntity.notFound().build();
     }
@@ -95,6 +98,7 @@ public class ScheduleItemController {
                 }
                 res = res.concat("!");
             }
+            else{return ResponseEntity.badRequest().build();}
         }
         if (res.length() == 0){return ResponseEntity.noContent().build();}
         return ResponseEntity.ok().body(res.substring(0,res.length()-1));
@@ -130,7 +134,7 @@ public class ScheduleItemController {
             scheduleItemRepository.deleteByScheduleId(castId);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().build();
     }
 
 

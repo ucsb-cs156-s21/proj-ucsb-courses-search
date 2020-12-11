@@ -177,6 +177,50 @@ public class ScheduleItemControllerTests {
     }
 
     @Test
+    public void test_removeScheduleFailureNoAuth() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/removeScheduleItem?id=%s";
+        String url = String.format(urlTemplate, "1");
+
+        //DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        ScheduleItem scheduleItem = new ScheduleItem(1L,"CS 156", "Adv App Programming", "", 1L);
+
+        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
+
+        when(scheduleItemRepository.findById(any(Long.class)))
+                .thenReturn(opt);
+
+        MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
+    public void test_removeScheduleFailureNotFound() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/removeScheduleItem?id=%s";
+        String url = String.format(urlTemplate, "1");
+
+        //DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        Optional<ScheduleItem> opt = Optional.empty();
+
+        when(scheduleItemRepository.findById(any(Long.class)))
+                .thenReturn(opt);
+
+        MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isNotFound())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
     public void test_getScheduleItemsByScheduleIdSuccess() throws Exception {
         String expectedResult = "{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}!{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}";
         String urlTemplate = "/api/public/getScheduleItemsByScheduleId?scheduleId=%s";
@@ -207,8 +251,14 @@ public class ScheduleItemControllerTests {
         Section sec = new Section();
         sec.setEnrollCode("a");
         sec.setTimeLocations(tLs);
+        Section sec1 = new Section();
+        sec1.setEnrollCode("b");
+        sec1.setTimeLocations(tLs);
         List<Section> secs = new ArrayList<Section>();
         secs.add(sec);
+        secs.add(sec1);
+
+
 
         Course c = new Course();
         c.setQuarter("W20");
@@ -261,6 +311,127 @@ public class ScheduleItemControllerTests {
     }
 
     @Test
+    public void test_getScheduleItemsByScheduleIdSuccessNoSchedule() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/getScheduleItemsByScheduleId?scheduleId=%s";
+        String url = String.format(urlTemplate, "1");
+        DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", jwt.getSubject(), 1L);
+        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", jwt.getSubject(),1L);
+        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+
+        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+                .thenReturn(scheduleItem);
+
+
+        Optional<Schedule> parent = Optional.empty();
+
+        when(scheduleRepository.findById(any(Long.class)))
+                .thenReturn(parent);
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isBadRequest())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
+    public void test_getScheduleItemsByScheduleIdSuccessNoCourse() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/getScheduleItemsByScheduleId?scheduleId=%s";
+        String url = String.format(urlTemplate, "1");
+        DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", jwt.getSubject(), 1L);
+        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", jwt.getSubject(),1L);
+        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        scheduleItem.add(s1);
+        scheduleItem.add(s2);
+
+        Schedule s = new Schedule(1L, "Blah","blah","W20","");
+
+        Optional<Schedule> parent = Optional.of(s);
+
+        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+                .thenReturn(scheduleItem);
+
+        Optional<Course> oC = Optional.empty();
+
+
+        when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
+        when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
+
+        when(scheduleRepository.findById(any(Long.class)))
+                .thenReturn(parent);
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isNoContent())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+
+    @Test
+    public void test_getScheduleItemsByScheduleIdSuccessNoAuth() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/getScheduleItemsByScheduleId?scheduleId=%s";
+        String url = String.format(urlTemplate, "1");
+        DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", "", 1L);
+        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", "",1L);
+        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        scheduleItem.add(s1);
+        scheduleItem.add(s2);
+
+        Schedule s = new Schedule(1L, "Blah","blah","W20","");
+
+        Optional<Schedule> parent = Optional.of(s);
+
+        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+                .thenReturn(scheduleItem);
+
+        TimeLocation tL = new TimeLocation();
+        tL.setDays("MW");
+        tL.setBeginTime("8");
+        tL.setEndTime("9");
+        List<TimeLocation> tLs = new ArrayList<TimeLocation>();
+        tLs.add(tL);
+
+        Section sec = new Section();
+        sec.setEnrollCode("a");
+        sec.setTimeLocations(tLs);
+        List<Section> secs = new ArrayList<Section>();
+        secs.add(sec);
+
+        Course c = new Course();
+        c.setQuarter("W20");
+        c.setCourseId("CS 156");
+        c.setTitle("Adv App Programming");
+        c.setClassSections(secs);
+        Optional<Course> oC = Optional.of(c);
+
+
+        when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
+        when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
+
+        when(scheduleRepository.findById(any(Long.class)))
+                .thenReturn(parent);
+
+        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isBadRequest())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
     public void test_deleteScheduleItemByScheduleIdSuccess() throws Exception {
         String expectedResult = "";
         String urlTemplate = "/api/public/removeScheduleItemsByScheduleId?scheduleId=%s";
@@ -280,6 +451,33 @@ public class ScheduleItemControllerTests {
 
 
         MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
+    public void test_deleteScheduleItemByScheduleIdNoAuth() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/public/removeScheduleItemsByScheduleId?scheduleId=%s";
+        String url = String.format(urlTemplate, "1");
+
+        DecodedJWT jwt = JWT.decode(userToken.substring(7));
+
+        ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", "", 1L);
+        ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", "",1L);
+        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        scheduleItem.add(s1);
+        scheduleItem.add(s2);
+
+        when(scheduleItemRepository.findByScheduleId(any(Long.class)))
+                .thenReturn(scheduleItem);
+
+
+
+        MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();

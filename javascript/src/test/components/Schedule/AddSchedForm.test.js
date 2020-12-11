@@ -83,7 +83,6 @@ describe("AddSchedForm tests", () => {
 
         // assert that ourSpy was called with the right value
         expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields, "token", "success", "error");
-
     });
 
 });

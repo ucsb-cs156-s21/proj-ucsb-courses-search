@@ -99,6 +99,23 @@ public class ScheduleControllerTests {
 
 
   @Test
+  public void testUpdateSchedule_ScheduleNotMatch() throws Exception {
+    Schedule inputSchedule = new Schedule(1L,"CS 156", "New", "Fall 2020", "123456");
+    String body = objectMapper.writeValueAsString(inputSchedule);
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
+    Schedule savedSchedule = new Schedule(2L,"CS 156", "Old", "Fall 2020", "NOT YOURS");
+    when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
+    when(mockScheduleRepository.findById(1L)).thenReturn(Optional.of(savedSchedule));
+    mockMvc.perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
+            .content(body)).andExpect(status().isBadRequest()).andReturn();
+    verify(mockScheduleRepository, times(1)).findById(1L);
+    verify(mockScheduleRepository, times(0)).save(any(Schedule.class));
+  }
+
+  @Test
   public void testUpdateTodo_todoAtPathOwned_butTryingToInjectTodoForAnotherUser()
           throws Exception {
     Schedule inputSchedule = new Schedule(1L,"CS 156", "New trying to inject at user id 654321", "Fall 2020", "123456");
