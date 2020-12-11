@@ -5,7 +5,7 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [quarter, setQuarter] = useState("");
+    const [quarter, setQuarter] = useState("W21");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,6 +24,10 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
         setDescription(event.target.value);
     }
 
+    const handleQuarterOnChange = (event) => {
+        setQuarter(event.target.value);
+    }
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formsSchedName">
@@ -33,12 +37,12 @@ const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
 
             <Form.Group controlId="formSchedDes">
                 <Form.Label>description</Form.Label>
-                <Form.Control type="text" placeholder="Enter Schedule Description" />
+                <Form.Control type="text" placeholder="Enter Schedule Description" value={description} onChange={handleDescriptionOnChange} />
             </Form.Group>
 
             <Form.Group controlId="formQuarter">
                 <Form.Label>Choose Schedule quarter</Form.Label>
-                <Form.Control as="select">
+                <Form.Control as="select" value={quarter} onChange={handleQuarterOnChange}>
                     <option>W21</option>
                     <option>F20</option>
                 </Form.Control>

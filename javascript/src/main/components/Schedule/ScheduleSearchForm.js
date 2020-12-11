@@ -1,42 +1,32 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import fetch from "isomorphic-unfetch";
-import useSWR from "swr";
-import { useAuth0 } from "@auth0/auth0-react";
-import { fetchWithToken } from "main/utils/fetch";
+import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 
-const ScheduleSearchForm = ({ setScheduleJSON, fetchJSON }) => {
+const ScheduleSearchForm = ({ deleteSchedule, getSchedule, getToken, onSuccess, onError }) => {
 
-    const [schedule, setSchedule] = useState("0");
-    
-    const [name, setName] = useState("Schedule0");
-    const [description, setDescription] = useState("Default Description");
-    const [quarter, setQuarter] = useState("Fall20");
-    const { user, getAccessTokenSilently } = useAuth0();
-    
-    const getAccessToken = async () => {
-      try {
-        const token = await getAccessTokenSilently()
-        console.log(token);
-          return token;
-      } catch (e) {
-        
-      }
-    }
-    
-    const [authorization, setAuthorization] = useState(getAccessToken);
-    const [id,setId] = useState("0");
+    const [id,setId] = useState("");
+    const state = {
+        button: 1
+    };
+
+    var scheduleOUTPUT = "";
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
-        fetchJSON(event, {authorization}).then((scheduleJSON)=> {
-            setScheduleJSON(scheduleJSON);
-        });
+        if (state.button === 1){}
+        scheduleOUTPUT = JSON.stringify(getSchedule({
+            id
+        }, getToken, onSuccess, onError))
+
+        if (state.button === 2){
+            deleteSchedule({
+                id
+            }, getToken, onSuccess, onError)
+        }
     };
 
-    const handleNameOnChange = (event) => {
-        setName(event.target.value);
+    const handleIdOnChange = (event) => {
+        setId(event.target.value);
     };
 //JL - Dec 8-
     //Dynamically add dropdown menu itmes:
@@ -47,24 +37,20 @@ const ScheduleSearchForm = ({ setScheduleJSON, fetchJSON }) => {
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="ScheduleSearch.schedule">
                 <Form.Label>Schedule</Form.Label>
-
+                <Form.Control type="text" placeholder="Enter Schedule id" value={id} onChange={handleIdOnChange} />
             </Form.Group>
             
-            <Button variant="primary" type="submit">
+            <Button onClick={() => (state.button = 1)} variant="primary" type="submit">
                 Get Schedule
             </Button>
-            <Form.Group></Form.Group>
-            
-            
-            <Button variant="primary">
+
+            <Button onClick={() => (state.button = 2)} variant="primary" type="submit">
                 Delete Schedule
             </Button>
-            
-            
-            {/* <Button variant="primary">
-                AddSchedule
-            </Button> */}
+            <Form.Group></Form.Group>
         </Form>
+
+        
     );
 };
 
