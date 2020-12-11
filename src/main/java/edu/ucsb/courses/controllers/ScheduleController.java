@@ -117,14 +117,14 @@ public class ScheduleController {
           AppUser user = authController.getUser(authorization);
           String userId = String.valueOf(user.getId());
           List<Schedule> savedSchedules= scheduleRepository.findByUserId(userId);
-          String res = "";
+          String res = "[";
           for (Schedule sched: savedSchedules){
-            res = res.concat(mapper.writeValueAsString(sched) + "!");
+            res = res.concat(mapper.writeValueAsString(sched) + ",");
           }
-          if (res.length() == 0) {
+          if (res.length() == 1) {
             return ResponseEntity.noContent().build();
           }
-          return ResponseEntity.ok().body(res);
+          return ResponseEntity.ok().body(res.substring(0,res.length()-1)+"]");
      }
 }
 

@@ -3,6 +3,7 @@ package edu.ucsb.courses.controllers;
 
 import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.entities.AppUser;
+import netscape.javascript.JSObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -197,12 +198,10 @@ public class ScheduleControllerTests {
       verify(mockScheduleRepository, times(1)).findByUserId("123456");
 
       String responseString = response.getResponse().getContentAsString();
-      String[] returnVal = responseString.split("!");
-      Schedule r1 = objectMapper.readValue(returnVal[0],Schedule.class);
-      Schedule r2 = objectMapper.readValue(returnVal[1],Schedule.class);
+      List<Schedule> responses = objectMapper.readValue(responseString, new TypeReference<List<Schedule>>(){});
 
-      assertEquals(s1, r1);
-      assertEquals(s2,r2);
+      assertEquals(s1, responses.get(0));
+      assertEquals(s2,responses.get(1));
     }
 
   @Test
