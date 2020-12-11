@@ -43,8 +43,8 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics">
             Course Occupancy by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
-            Course Occupancy by Class Level
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
+            Course Occupancy by Class Division
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
