@@ -37,14 +37,14 @@ const ScheduleSearchForm = ({ deleteSchedule, getSchedule, getToken, onSuccess, 
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="ScheduleSearch.schedule">
                 <Form.Label>Schedule</Form.Label>
-                <Form.Control type="text" placeholder="Enter Schedule id" value={id} onChange={handleIdOnChange} />
+                <Form.Control type="text" placeholder="Enter Schedule id" value={id} onChange={handleIdOnChange} data-testid="schedule-id" />
             </Form.Group>
             
-            <Button onClick={() => (state.button = 1)} variant="primary" type="submit">
+            <Button onClick={() => (state.button = 1)} variant="primary" type="submit" data-testid="schedule-get">
                 Get Schedule
             </Button>
 
-            <Button onClick={() => (state.button = 2)} variant="primary" type="submit">
+            <Button onClick={() => (state.button = 2)} variant="primary" type="submit" data-testid="schedule-delete">
                 Delete Schedule
             </Button>
             <Form.Group></Form.Group>
