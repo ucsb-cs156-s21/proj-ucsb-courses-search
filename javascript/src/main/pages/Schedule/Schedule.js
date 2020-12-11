@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import ScheduleSearchForm from "main/components/Schedule/ScheduleSearchForm";
-import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import ScheduleCoursesTable from "main/components/Schedule/ScheduleCoursesTable";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import AddSchedForm from "main/components/Schedule/AddSchedForm";
