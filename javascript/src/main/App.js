@@ -11,6 +11,7 @@ import About from "main/pages/About/About";
 
 import Statistics from "main/pages/Statistics/Statistics";
 import Schedule from "main/pages/Schedule/Schedule";
+import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
 
 import Home from "main/pages/Home/Home";
@@ -44,11 +45,9 @@ function App() {
           <Route path="/history/basic" exact component={Basic} />
           <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
-
+          <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
           <Route path="/statistics/classSize" exact component={ClassSize} />
-
           <Route path="/history/ge" exact component={Ge} />
-
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />

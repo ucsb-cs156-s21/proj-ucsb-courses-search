@@ -41,3 +41,4 @@ describe("QuarterFormSelect conversion tests", () => {
     expect(toFormat("1", "2021")).toBe("20211");
   });
 });
+

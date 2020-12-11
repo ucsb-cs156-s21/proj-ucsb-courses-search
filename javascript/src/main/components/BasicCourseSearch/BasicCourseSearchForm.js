@@ -25,7 +25,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const handleLevelOnChange = (event) => {
         setLevel(event.target.value);
     };
-
+ 
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
