@@ -51,28 +51,23 @@ const Schedule = () => {
 
   };
 
-  const [scheduleJSON, setScheduleJSON] = useState(initialScheduleJSON);
+  const [scheduleJSON,setScheduleJSON] = useState("");
+
   return (
     <Jumbotron>
       <h1>Create Personal Schedule</h1>
-      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={(json) =>
-        console.log(`It worked! Got: ${JSON.stringify(json)}`)
+      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={ (json) =>
+        console.log(`Successfully Created! Got: ${JSON.stringify(json)}`)
         }  onError={(error) => console.log(error)}/>
       <Form.Group> </Form.Group>
 
       <h1>Load Schedule</h1>
-      <ScheduleSearchForm deleteSchedule={fetchdeleteScheduleJSON} getSchedule={fetchgetScheduleJSON} getToken={getToken} onSuccess={(json) =>
-        console.log(`It worked! Got: ${JSON.stringify(json)}`)
-        }  onError={(error) => console.log(error)}/>
+      <ScheduleSearchForm deleteSchedule={fetchdeleteScheduleJSON} getSchedule={fetchgetScheduleJSON} getToken={getToken}  onSuccess={(json) => setScheduleJSON(json)} 
+        onError={(error) => console.log(error)}/>
       <Form.Group> </Form.Group>
-      <h1>Personal Schedule</h1>
-      <ScheduleTable courses={initialClassJSON} admin={true} />
-      <JSONPrettyCard
-        expression={"scheduleJSON"}
-        value={scheduleJSON}
-      />
       <Form.Group> </Form.Group>
-      <h1>Personal Schedule Courses List</h1>
+      <h1><div>{scheduleJSON.name}</div> </h1>
+      <p>{scheduleJSON.description}</p>
       <ScheduleCoursesTable classes={initialClassJSON} />
       {/* delete courses in this table */}
 
