@@ -70,6 +70,363 @@ describe("BasicCourseTable tests", () => {
   });
 
 
+    function getBackgroundColor (getByText, text) {
+    return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
+  }
+
+  // Testing Lectures
+  test("check that lecture sections course number appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("CMPSC 8")).not.toBe(null);
+  });
+
+  test("check that lecture sections title appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("INTRO TO COMP SCI")).not.toBe(null);
+  });
+
+  test("check that lecture sections section number appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("0100")).not.toBe(null);
+  });
+
+  test("check that lecture sections instructor appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("KHARITONOVA Y")).not.toBe(null);
+  });
+
+  test("check that lecture sections enroll code appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("07492")).not.toBe(null);
+  });
+
+  test("check that lecture sections unit appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesLectureOnly} />);
+    expect(queryByText("4")).not.toBe(null);
+  });
+
+  test("check that lectures days appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
+    expect( queryByText("T R")).not.toBe(null);
+  });
+
+  test("check that lectures times appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes = {classesLectureOnly} />);
+    expect( queryByText("09:30 - 10:45")).not.toBe(null);
+  });
+
+  test("check that lectures times and days appear as TBD when they don't exist", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesLectureOnlyTimeDaysTBD} />);
+    expect( queryAllByText("TBD").length).toBe(2);
+  });
+
+  // Testing Sections
+  test("check that sections course number does not appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("CMPSC 8")).toBe(null);
+  });
+
+  test("check that sections title does not appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("INTRO TO COMP SCI")).toBe(null);
+  });
+
+  test("check that sections section number appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("0101")).not.toBe(null);
+  });
+
+  test("check that sections instructor appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("CONRAD P")).not.toBe(null);
+  });
+
+  test("check that sections enroll code appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("07500")).not.toBe(null);
+  });
+
+  test("check that sections unit appears", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnly} />);
+    expect(queryByText("4")).not.toBe(null);
+  });
+
+  test("check that instructors appear as TBD when there are none", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes={classesSectionOnlyTBD} />);
+    expect(queryByText("TBD")).not.toBe(null);
+  });
+
+  test("check that sections days appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes = {classesSectionOnly} />);
+    expect( queryByText("W")).not.toBe(null);
+  });
+
+  test("check that sections times appear", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryByText} = render(<BasicCourseTable classes = {classesSectionOnly} />);
+    expect( queryByText("09:00 - 09:50")).not.toBe(null);
+  });
+
+  test("check that sections times and days appear as TBD when they don't exist", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {queryAllByText} = render(<BasicCourseTable classes = {classesSectionOnlyTimeDaysTBD} />);
+    expect( queryAllByText("TBD").length).toBe(2);
+  });
+
+  // Testing styling
+  test("check that lectures have a blue background color", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections1} />);
+    expect( getBackgroundColor(getByText, "0100") ).toBe("#CEDEFA");
+  });
+
+  test("check that sections have a light blue background color", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections1} />);
+    expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
+  });
+
+  test("check that lectures are aligned to the left", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections1} />);
+    expect( getByText("0100").style.textAlign).toBe("left");
+  });
+
+  test("check that sections are aligned to the right", () => {
+    useAuth0.mockReturnValue({isAuthenticated: true,});
+    const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections1} />);
+    expect( getByText("0101").style.textAlign).toBe("right");
+  });
+
+const classesLectureAndSections1 = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07492",
+          "section": "0100",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": " T R   ",
+              "beginTime": "09:30",
+              "endTime": "10:45"
+            }
+          ],
+          "instructors": [
+            {
+              "instructor": "KHARITONOVA Y",
+              "functionCode": "Teaching and in charge"
+            }
+          ]
+        },
+        {
+          "enrollCode": "07500",
+          "section": "0101",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": "  W    ",
+              "beginTime": "09:00",
+              "endTime": "09:50"
+            }
+          ],
+          "instructors": []
+        }
+      ]
+    }
+  ];
+
+  const classesLectureOnly = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07492",
+          "section": "0100",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": " T R   ",
+              "beginTime": "09:30",
+              "endTime": "10:45"
+            }
+          ],
+          "instructors": [
+            {
+              "instructor": "KHARITONOVA Y",
+              "functionCode": "Teaching and in charge"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+    const classesSectionOnly = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0101",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": "  W    ",
+              "beginTime": "09:00",
+              "endTime": "09:50"
+            }
+          ],
+          "instructors": [
+            {
+              "instructor": "CONRAD P",
+              "functionCode": "Teaching but not in charge"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const classesSectionOnlyTBD =
+  [
+     {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0101",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": "  W    ",
+              "beginTime": "09:00",
+              "endTime": "09:50"
+            }
+          ],
+          "instructors": []
+        }
+      ]
+    }
+  ];
+  const classesLectureOnlyTimeDaysTBD = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0100",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [],
+          "instructors": [
+            {
+              "instructor": "CONRAD P",
+              "functionCode": "Teaching but not in charge"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const classesSectionOnlyTimeDaysTBD = 
+    [
+      {
+      "quarter": "20211",
+      "courseId": "CMPSC     8  ",
+      "title": "INTRO TO COMP SCI",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07500",
+          "section": "0101",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [],
+          "instructors": [
+            {
+              "instructor": "CONRAD P",
+              "functionCode": "Teaching but not in charge"
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+
     const classesLectureAndSections = [{
       "quarter": "20211",
       "courseId": "CMPSC     8  ",
@@ -483,3 +840,6 @@ describe("BasicCourseTable tests", () => {
       ]
     }];
 });
+
+
+
