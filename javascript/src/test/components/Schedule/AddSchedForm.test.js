@@ -72,7 +72,7 @@ describe("AddSchedForm tests", () => {
         const schedQuarter = getByTestId("schedule-quarter")
         userEvent.selectOptions(schedQuarter, "F20");
 
-        const submitButton = getByTestId("schedSubmit");
+        const submitButton = getByTestId("schedule-submit");
         userEvent.click(submitButton);
 
         // we need to be careful not to assert this expectation
