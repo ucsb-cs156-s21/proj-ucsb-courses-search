@@ -1,6 +1,8 @@
 package edu.ucsb.courses.controllers;
 
 
+import edu.ucsb.courses.advice.AuthControllerAdvice;
+import edu.ucsb.courses.entities.AppUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -43,6 +45,9 @@ public class ScheduleControllerTests {
   @MockBean
   ScheduleRepository mockScheduleRepository;
 
+  @MockBean
+  AuthControllerAdvice authController;
+
   private String userToken() {
     return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTYiLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.MkiS50WhvOFwrwxQzd5Kp3VzkQUZhvex3kQv-CLeS3M";
   }
@@ -52,6 +57,9 @@ public class ScheduleControllerTests {
       Schedule inputSchedule = new Schedule(1L,"CS 156", "New", "Fall 2020", "123456");
       Schedule savedSchedule = new Schedule(1L,"CS 156", "Old", "Fall 2020", "123456");
       String body = objectMapper.writeValueAsString(inputSchedule);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
 
       when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
       when(mockScheduleRepository.save(inputSchedule)).thenReturn(inputSchedule);
@@ -74,6 +82,9 @@ public class ScheduleControllerTests {
     public void testUpdateSchedule_ScheduleNotFound() throws Exception {
       Schedule inputSchedule = new Schedule(1L,"CS 156", "New", "Fall 2020", "123456");
       String body = objectMapper.writeValueAsString(inputSchedule);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
 
       when(mockScheduleRepository.findById(1L)).thenReturn(Optional.empty());
       mockMvc.perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
@@ -90,6 +101,9 @@ public class ScheduleControllerTests {
     Schedule savedSchedule = new Schedule(1L,"CS 156", "Old", "Fall 2020", "NOT YOURS");
     String body = objectMapper.writeValueAsString(inputSchedule);
     when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     mockMvc.perform(put("/api/public/updateSchedule?id=1&name=CS 156&description=New trying to inject from user id 123456&quarter=Fall 2020").with(csrf()).contentType(MediaType.APPLICATION_JSON)
         .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
         .content(body)).andExpect(status().isBadRequest()).andReturn();
@@ -103,6 +117,9 @@ public class ScheduleControllerTests {
     Optional<Schedule> expectedSchedules = Optional.of(s1);
 
     when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     MvcResult response =
         mockMvc
             .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
@@ -121,6 +138,9 @@ public class ScheduleControllerTests {
     Optional<Schedule> expectedSchedules = Optional.empty();
     String expectedResult = "";
     when(mockScheduleRepository.findById(any(Long.class))).thenReturn(expectedSchedules);
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     MvcResult response =
         mockMvc
             .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
@@ -140,6 +160,9 @@ public class ScheduleControllerTests {
     Optional<Schedule> expectedSchedules = Optional.of(s1);
     String expectedResult = "";
     when(mockScheduleRepository.findById(any(Long.class))).thenReturn(expectedSchedules);
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     MvcResult response =
         mockMvc
             .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
@@ -162,6 +185,9 @@ public class ScheduleControllerTests {
       schedules.add(s2);
 
       when(mockScheduleRepository.findByUserId("123456")).thenReturn(schedules);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
       MvcResult response =
           mockMvc
               .perform(get("/api/public/getSchedules").contentType("application/json")
@@ -184,6 +210,9 @@ public class ScheduleControllerTests {
       List<Schedule> schedules = new ArrayList<Schedule>();
       String expectedResult = "";
       when(mockScheduleRepository.findByUserId("123456")).thenReturn(schedules);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
       MvcResult response =
           mockMvc
               .perform(get("/api/public/getSchedules").contentType("application/json")
@@ -201,6 +230,9 @@ public class ScheduleControllerTests {
     public void testCreateSchedule() throws Exception {
       Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "123456");
       when(mockScheduleRepository.save(any(Schedule.class))).thenReturn(s1);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
       MvcResult response = mockMvc
           .perform(post("/api/public/createSchedule?name=CS 156&description=Adv App Programming&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
               .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
@@ -218,6 +250,10 @@ public class ScheduleControllerTests {
       Optional<Schedule> expectedSchedules = Optional.empty();
 
       when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
+
       MvcResult response =
           mockMvc
               .perform(get("/api/public/getSchedule?id=1").contentType("application/json")
@@ -235,6 +271,9 @@ public class ScheduleControllerTests {
     public void testDeleteSchedule_scheduleExists() throws Exception {
       Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "123456");
       when(mockScheduleRepository.findById(1L)).thenReturn(Optional.of(s1));
+      AppUser user = new AppUser();
+      user.setId(123456L);
+      when(authController.getUser(any(String.class))).thenReturn(user);
       MvcResult response = mockMvc
           .perform(delete("/api/public/deleteSchedule?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
               .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
@@ -251,6 +290,9 @@ public class ScheduleControllerTests {
   public void testDeleteSchedule_scheduleNotFound() throws Exception {
     long id = 1L;
     when(mockScheduleRepository.findById(id)).thenReturn(Optional.empty());
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     mockMvc
         .perform(delete("/api/public/deleteSchedule?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
@@ -263,6 +305,9 @@ public class ScheduleControllerTests {
   public void testDeleteTodo_NotOwned() throws Exception {
     Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "NOT YOURS");
     when(mockScheduleRepository.findById(s1.getId())).thenReturn(Optional.of(s1));
+    AppUser user = new AppUser();
+    user.setId(123456L);
+    when(authController.getUser(any(String.class))).thenReturn(user);
     mockMvc
         .perform(delete("/api/public/deleteSchedule?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
