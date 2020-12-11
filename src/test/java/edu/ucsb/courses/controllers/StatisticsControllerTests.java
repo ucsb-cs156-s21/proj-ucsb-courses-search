@@ -34,6 +34,7 @@ import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 // @Import(SecurityConfig.class) applies the security rules 
 // so that /api/public/** endpoints don't require authentication.
@@ -48,6 +49,9 @@ public class StatisticsControllerTests {
 
     @MockBean
     private MongoTemplate mongoTemplate;
+
+    @MockBean
+    private ArchivedCourseRepository courseRepo;
 
     @Test
     public void test_basicSearch() throws Exception {
@@ -72,11 +76,11 @@ public class StatisticsControllerTests {
     
     @Test
     public void test_numFullCoursesByDept() throws Exception {
-        List<FullCourse> expectedResult = new ArrayList<FullCourse>();
         String url = "/api/public/statistics/fullCoursesByDept";
 
         org.bson.Document fakeRawResults = new org.bson.Document();
         List<FullCourse> qdList = new ArrayList<FullCourse>();
+        qdList.add(new FullCourse("20204","SP TOPICS: GENERAL","CMPSC 190N"));
         qdList.add(new FullCourse("20204","SP TOP: GENERAL","CMPSC 190J"));
         qdList.add(new FullCourse("20204","TRANS PROG LANG","CMPSC 160"));
         qdList.add(new FullCourse("20204","ADV APP PROGRAM","CMPSC 156"));
@@ -88,7 +92,7 @@ public class StatisticsControllerTests {
         qdList.add(new FullCourse("20211","COMPUTER ARCHITECT","CMPSC 154"));
         AggregationResults<FullCourse> fakeResults = new AggregationResults<FullCourse>(qdList, fakeRawResults);
 
-        when(mongoTemplate.aggregate( any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+        when(courseRepo.findFullCoursesByQuarterIntervalAndDepartment( any(String.class), any(String.class), any(String.class))).thenReturn(qdList);
 
 
         MvcResult response = mockMvc.perform(get(url).queryParam("startQuarter", "20204").queryParam("endQuarter", "20211")

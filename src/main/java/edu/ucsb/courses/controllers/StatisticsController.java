@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
+import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 import com.mongodb.client.model.Accumulators;   
 import com.mongodb.client.model.Filters;
@@ -57,6 +58,9 @@ public class StatisticsController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ArchivedCourseRepository courseRepository;
     
     @GetMapping(value = "/courseCount", produces = "application/json")
     public ResponseEntity<String> courseCount() 
@@ -79,34 +83,13 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/fullCoursesByDept", produces = "application/json")
-    public ResponseEntity<String> numFullCoursesByDept(
-        @RequestParam String startQuarter,
-        @RequestParam String endQuarter,
-        @RequestParam String department)
-        throws JsonProcessingException, Exception {
+    public ResponseEntity<String> numFullCoursesByDept(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, @RequestParam(required = true) String department)
+            throws JsonProcessingException {
 
-            MatchOperation filterQuarterDept = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
-                .and("deptCode").is(department).and("instructionType").is("LEC"));
-            UnwindOperation unwindOperation = unwind("$classSections","arrayIndex", false);
-            MatchOperation filterSection = match(Criteria.where("arrayIndex").ne(0));
-            GroupOperation groupOperation = group("$_id", "$quarter", "$title", "$courseId").sum("$classSections.enrolledTotal").as("enrolled")
-                .sum("$classSections.maxEnroll").as("maxEnrolled");
-            ProjectionOperation project = project("_id", "quarter", "title", "courseId", "enrolled", "maxEnrolled").andExpression("maxEnrolled - enrolled").as("diff");
-            MatchOperation filterFull = match(Criteria.where("diff").lte(0));
-            SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
+        String body = mapper.writeValueAsString(courseRepository.findFullCoursesByQuarterIntervalAndDepartment(startQuarter, endQuarter, department));
 
-            Aggregation aggregation = newAggregation(filterQuarterDept, unwindOperation, filterSection, groupOperation, project, filterFull, sort);
-
-            AggregationResults<FullCourse> result = mongoTemplate.aggregate(aggregation, "courses", FullCourse.class);
-
-            List<FullCourse> fcs = result.getMappedResults();
-
-            logger.info("fcs={}",fcs);
-            String body = mapper.writeValueAsString(fcs);
-
-
-            return ResponseEntity.ok().body(body);
-        }
+        return ResponseEntity.ok().body(body);
+    }
 
     @GetMapping(value = "/classSize", produces = "application/json")
     
