@@ -55,14 +55,11 @@ const Schedule = () => {
   return (
     <Jumbotron>
       <h1>Create Personal Schedule</h1>
-      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={ (json) =>
-        console.log(`Successfully Created! Got: ${JSON.stringify(json)}`)
-        }  onError={(error) => console.log(error)}  />
+      <AddSchedForm createSchedule={fetchcreateScheduleJSON} getToken={getToken} onSuccess={ (json) => console.log(`Successfully Created! Got: ${JSON.stringify(json)}`)}  onError={(error) => console.log(error)}  />
       <Form.Group> </Form.Group>
 
       <h1>Load Schedule</h1>
-      <ScheduleSearchForm deleteSchedule={fetchdeleteScheduleJSON} getSchedule={fetchgetScheduleJSON} getToken={getToken}
-         onSuccess={(json) => setScheduleJSON(json)} onError={(error) => console.log(error)} />
+      <ScheduleSearchForm deleteSchedule={fetchdeleteScheduleJSON} getSchedule={fetchgetScheduleJSON} getToken={getToken} onSuccess={(json) => setScheduleJSON(json)} onError={(error) => console.log(error)} />
       <Form.Group> </Form.Group>
       <Form.Group> </Form.Group>
       <h1><div>{scheduleJSON.name}</div> </h1>
