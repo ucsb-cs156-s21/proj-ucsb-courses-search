@@ -17,6 +17,7 @@ import CourseOccupancy from "main/pages/Statistics/CourseOccupancy";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
 import Ge from "main/pages/History/Ge";
+import Instructor from "main/pages/History/Instructor";
 import Profile from "main/pages/Profile/Profile";
 import PrivateRoute from "main/components/Auth/PrivateRoute";
 import Admin from "main/pages/Admin/Admin";
@@ -46,10 +47,11 @@ function App() {
           <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route path="/statistics/numFullCoursesByDept" exact component={NumFullCoursesByDept} />
-          <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
           <Route path="/statistics/classSize" exact component={ClassSize} />
           <Route path="/statistics/courseOccupancy" exact component={CourseOccupancy} />
           <Route path="/history/ge" exact component={Ge} />
+          <Route path="/history/instructor" exact component={Instructor} />
+          <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
           <PrivateRoute path="/profile" component={Profile} />
           <AuthorizedRoute path="/admin" component={Admin} authorizedRoles={["admin"]}  />
           <Route path="/about" component={About} />
