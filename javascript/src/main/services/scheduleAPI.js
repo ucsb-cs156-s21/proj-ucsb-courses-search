@@ -3,7 +3,7 @@ import { fetchWithToken } from "main/utils/fetch"
 
 
 //schedule
-const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) => {
+const fetchCreateScheduleJSON = async (schedule, getToken, onSuccess, onError) => {
     const token = await getToken();
     const url = "/api/public/createSchedule?" + new URLSearchParams(schedule);
     try {
@@ -19,7 +19,7 @@ const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) =
     }
 }
 
-const fetchdeleteScheduleJSON = async (id, getToken, onError) => {
+const fetchDeleteScheduleJSON = async (id, getToken, onError) => {
     const token = await getToken();
     const url = "/api/public/deleteSchedule?" + new URLSearchParams(id);
     
@@ -36,7 +36,7 @@ const fetchdeleteScheduleJSON = async (id, getToken, onError) => {
     }
 }
 
-const fetchgetScheduleJSON = async (id, getToken, onSuccess, onError) => {
+const fetchGetScheduleJSON = async (id, getToken, onSuccess, onError) => {
     const token = await getToken();
     const url = "/api/public/getSchedule?" + new URLSearchParams(id);
     console.log("Getting schedule...");
@@ -54,7 +54,7 @@ const fetchgetScheduleJSON = async (id, getToken, onSuccess, onError) => {
     }
 }
 
-const fetchgetSchedulesJSON = async (getToken, onSuccess, onError) => {
+const fetchGetSchedulesJSON = async (getToken, onSuccess, onError) => {
     const token = await getToken();
     const url = "/api/public/getSchedules";
     
@@ -72,4 +72,4 @@ const fetchgetSchedulesJSON = async (getToken, onSuccess, onError) => {
     }
 }
 
-export { fetchcreateScheduleJSON, fetchdeleteScheduleJSON, fetchgetScheduleJSON, fetchgetSchedulesJSON};
+export { fetchCreateScheduleJSON, fetchDeleteScheduleJSON, fetchGetScheduleJSON, fetchGetSchedulesJSON};
