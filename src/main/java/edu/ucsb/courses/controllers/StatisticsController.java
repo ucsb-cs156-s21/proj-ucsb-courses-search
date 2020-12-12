@@ -1,11 +1,10 @@
 package edu.ucsb.courses.controllers;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
@@ -17,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -148,7 +148,6 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/classSize", produces = "application/json")
-    
     public ResponseEntity<String> classSize(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter)
             throws JsonProcessingException {
         MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
@@ -169,9 +168,19 @@ public class StatisticsController {
         AggregationResults<AvgClassSize> result = mongoTemplate.aggregate(aggregation, "courses",
                 AvgClassSize.class);
         List<AvgClassSize> qo = result.getMappedResults();
-
+                
         String body = mapper.writeValueAsString(qo);
 
         return ResponseEntity.ok().body(body);
     }
+    
+    @GetMapping(value = "/courseOccupancy", produces = "application/json")
+    public ResponseEntity<String> courseOccupancy(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, @RequestParam(required = true) String department)
+            throws JsonProcessingException {
+
+        String body = mapper.writeValueAsString(courseRepository.findOccupancyByQuarterIntervalAndDepartment(startQuarter, endQuarter, department));
+
+        return ResponseEntity.ok().body(body);
+    }
+    
 }

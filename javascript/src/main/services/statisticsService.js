@@ -18,4 +18,11 @@ const fetchClassSize = async (fields) => {
     return classSizeResponse.json();
 }
 
-export {fetchClassSize, fetchDivisionOccupancy, fetchFullCourses };
+const fetchCourseOccupancy = async(fields) => {
+    const url = `/api/public/statistics/courseOccupancy?startQuarter=${encodeURIComponent(fields.startQuarter)}&endQuarter=${encodeURIComponent(fields.endQuarter)}&department=${encodeURIComponent(fields.department)}`;
+    const response = await fetch(url);
+
+    return response.json();
+}
+
+export { fetchClassSize, fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses };

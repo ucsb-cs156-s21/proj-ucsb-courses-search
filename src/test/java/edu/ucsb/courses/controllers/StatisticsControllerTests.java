@@ -1,22 +1,11 @@
 package edu.ucsb.courses.controllers;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import edu.ucsb.courses.config.SecurityConfig;
-import edu.ucsb.courses.documents.Course;
-import edu.ucsb.courses.documents.CoursePage;
-
-import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
-import edu.ucsb.courses.documents.statistics.QuarterDept;
-import edu.ucsb.courses.documents.statistics.AvgClassSize;
-import edu.ucsb.courses.repositories.ArchivedCourseRepository;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +22,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import edu.ucsb.courses.config.SecurityConfig;
+import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.statistics.FullCourse;
+import edu.ucsb.courses.documents.statistics.AvgClassSize;
+import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
+import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 // @Import(SecurityConfig.class) applies the security rules 
@@ -51,10 +44,10 @@ public class StatisticsControllerTests {
 
     @MockBean
     private MongoTemplate mongoTemplate;
-
+    
     @MockBean
     private ArchivedCourseRepository courseRepo;
-
+    
     @Test
     public void test_courseCount() throws Exception {
         List<Course> expectedResult = new ArrayList<Course>();
@@ -102,6 +95,27 @@ public class StatisticsControllerTests {
             .andReturn();
         String responseString = response.getResponse().getContentAsString();
         List<FullCourse> resultFromPage = FullCourse.listFromJSON(responseString);
+  
+      ``assertEquals(qdList, resultFromPage);
+    }
+  
+    @Test
+    public void test_CourseOccupancy() throws Exception {
+        String url = "/api/public/statistics/courseOccupancy";
+
+        org.bson.Document fakeRawResults = new org.bson.Document();
+        List<QuarterOccupancy> qdList = new ArrayList<QuarterOccupancy>();
+        qdList.add(new QuarterOccupancy("20204", "100", "200"));
+        AggregationResults<QuarterOccupancy> fakeResults = new AggregationResults<QuarterOccupancy>(qdList,
+                fakeRawResults);
+        when(courseRepo.findOccupancyByQuarterIntervalAndDepartment(any(String.class), any(String.class), any(String.class))).thenReturn(qdList);
+
+        MvcResult response = mockMvc
+                .perform(get(url).queryParam("startQuarter", "20204").queryParam("endQuarter", "20211")
+                        .queryParam("department", "CMPSC").contentType("application/json"))
+                .andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<QuarterOccupancy> resultFromPage = QuarterOccupancy.listFromJSON(responseString);
 
         assertEquals(qdList, resultFromPage);
     }
