@@ -3,7 +3,7 @@ package edu.ucsb.courses.controllers;
 
 import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.entities.AppUser;
-import netscape.javascript.JSObject;
+import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,7 +30,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.courses.repositories.ScheduleRepository;
 import edu.ucsb.courses.entities.Schedule;
 
 @WebMvcTest(value = ScheduleController.class)

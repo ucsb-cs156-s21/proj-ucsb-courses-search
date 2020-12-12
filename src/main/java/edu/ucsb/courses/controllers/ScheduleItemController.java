@@ -1,7 +1,5 @@
 package edu.ucsb.courses.controllers;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.courses.advice.AuthControllerAdvice;
