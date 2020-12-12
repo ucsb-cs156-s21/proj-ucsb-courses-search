@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import AuthNav from "main/components/Nav/AuthNav";
 import ProfileNav from "main/components/Nav/ProfileNav";
+import ScheduleNav from "main/components/Nav/ScheduleNav";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchWithToken } from "main/utils/fetch";
@@ -27,6 +28,7 @@ function AppNavbar() {
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
+            <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
         </NavDropdown>
         { isAdmin &&
           (<LinkContainer to={"/admin"}>
@@ -40,16 +42,17 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics">
             Full Classes by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancy">
             Course Occupancy by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
-            Course Occupancy by Class Level
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
+            Course Occupancy by Class Division
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
         </NavDropdown>
+        <ScheduleNav/>
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">

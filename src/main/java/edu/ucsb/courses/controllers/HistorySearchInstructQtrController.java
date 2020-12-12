@@ -21,8 +21,8 @@ import edu.ucsb.courses.services.UCSBCurriculumService;
 
 @RestController
 @RequestMapping("/api/public/history")
-public class HistorySearchCourseQtrController {
-    private final Logger logger = LoggerFactory.getLogger(HistorySearchCourseQtrController.class);
+public class HistorySearchInstructQtrController {
+    private final Logger logger = LoggerFactory.getLogger(HistorySearchInstructQtrController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -30,22 +30,14 @@ public class HistorySearchCourseQtrController {
     ArchivedCourseRepository archivedCourseRepository;
 
 
-    @GetMapping(value = "/coursesearch", produces = "application/json")
-    public ResponseEntity<String> coursesearch(
+    @GetMapping(value = "/instructorsearch", produces = "application/json")
+    public ResponseEntity<String> instructorsearch(
         @RequestParam String startQtr, 
         @RequestParam String endQtr, 
-        @RequestParam String subjectArea,
-        @RequestParam String courseNumber,
-        @RequestParam String courseSuf) 
+        @RequestParam String instructorText) 
         throws JsonProcessingException {
-
         
-        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndCourseName (
-            startQtr    ,
-            endQtr      ,
-            makeFormattedCourseName(subjectArea, courseNumber, courseSuf)
-        );
-
+        List<Course> courseResults = archivedCourseRepository.findByQuarterIntervalAndInstructor(startQtr, endQtr, instructorText.toUpperCase());
         CoursePage cp = new CoursePage();
 
         cp.setPageNumber(1);
@@ -57,18 +49,6 @@ public class HistorySearchCourseQtrController {
         String body = mapper.writeValueAsString(cp);
 
         return ResponseEntity.ok().body(body);
-    }
-
-    private static String makeFormattedCourseName (
-        String subjectArea  ,
-        String courseNumber ,
-        String courseSuf    ) {
-
-        return
-              String.format( "%-8s", subjectArea                ) // 'CMPSC   '
-            + String.format( "%3s" , courseNumber               ) // '  8'
-            + String.format( "%-2s", courseSuf.toUpperCase()    ) // 'A '
-        ;
     }
 
 }
