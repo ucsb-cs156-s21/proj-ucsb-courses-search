@@ -34,7 +34,8 @@ describe("Schedule tests", () => {
 
   test("renders role correctly", () => {
     const { getByText } =render(<Schedule />);
-    expect(getByText("Create Personal Schedule")).toBeInTheDocument();
+    expect(getByText("Schedule Name")).toBeInTheDocument();
+    expect(getByText("Get Schedule")).toBeInTheDocument();
   });
 
 });
