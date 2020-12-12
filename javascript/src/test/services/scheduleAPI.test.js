@@ -1,3 +1,4 @@
+
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -11,7 +12,7 @@ jest.mock("@auth0/auth0-react");
 
 describe("ScheduleAPI tests",  () => {
   test("fetchCreateSchedule", async () => {
-
+    
     const sampleReturnValue = {
         id: 1,
         name: "main",
@@ -37,9 +38,11 @@ describe("ScheduleAPI tests",  () => {
 
     const onSuccess = jest.fn();
     const onError = jest.fn();
+    const getToken = jest.fn();
 
-    const result = fetchcreateScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
+    const result = fetchcreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
   });
 
@@ -66,13 +69,13 @@ describe("ScheduleAPI tests",  () => {
           description: "test",
           userId: "123",
           quarter: "W20"
-      };
+      };  
 
-      const onSuccess = jest.fn();
       const onError = jest.fn();
+      const getToken = jest.fn();
 
-      const result = fetchdeleteScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
-      await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
+      const result = fetchdeleteScheduleJSON(expectedFields,getToken,onError);
+      await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
     });
 
@@ -103,9 +106,11 @@ test("fetchGetSchedule", async () => {
 
   const onSuccess = jest.fn();
   const onError = jest.fn();
+  const getToken = jest.fn();
 
-  const result = fetchgetScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
+  const result = fetchgetScheduleJSON(expectedFields,getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
 });
 
@@ -135,9 +140,11 @@ test("fetchGetSchedule", async () => {
 
   const onSuccess = jest.fn();
   const onError = jest.fn();
+  const getToken = jest.fn();
 
-  const result = fetchgetSchedulesJSON(useAuth0,onSuccess,onError);
+  const result = fetchgetSchedulesJSON(getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
 });
 
@@ -165,9 +172,11 @@ test("fetchCreateScheduleError", async () => {
 
     const onSuccess = jest.fn();
     const onError = jest.fn();
+    const getToken = jest.fn();
 
-    const result = fetchcreateScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
+    const result = fetchcreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
+    await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
   });
 
@@ -193,11 +202,11 @@ test("fetchCreateScheduleError", async () => {
           quarter: "W20"
       };
 
-      const onSuccess = jest.fn();
       const onError = jest.fn();
+      const getToken = jest.fn();
 
-      const result = fetchdeleteScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
-      await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
+      const result = fetchdeleteScheduleJSON(expectedFields,getToken,onError);
+      await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
     });
 
@@ -225,9 +234,11 @@ test("fetchGetScheduleError", async () => {
 
   const onSuccess = jest.fn();
   const onError = jest.fn();
+  const getToken = jest.fn();
 
-  const result = fetchgetScheduleJSON(expectedFields,useAuth0,onSuccess,onError);
+  const result = fetchgetScheduleJSON(expectedFields,getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 });
 
@@ -254,9 +265,11 @@ test("fetchGetScheduleError", async () => {
 
   const onSuccess = jest.fn();
   const onError = jest.fn();
+  const getToken = jest.fn();
 
-  const result = fetchgetSchedulesJSON(useAuth0,onSuccess,onError);
+  const result = fetchgetSchedulesJSON(getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
 });
 

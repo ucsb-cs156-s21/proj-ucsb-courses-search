@@ -10,7 +10,6 @@ const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) =
         const json = await fetchWithToken(url, getToken, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${token}`,
                 "content-type": "application/json"
             }
         });
@@ -20,7 +19,7 @@ const fetchcreateScheduleJSON = async (schedule, getToken, onSuccess, onError) =
     }
 }
 
-const fetchdeleteScheduleJSON = async (id, getToken, onSuccess, onError) => {
+const fetchdeleteScheduleJSON = async (id, getToken, onError) => {
     const token = await getToken();
     const url = "/api/public/deleteSchedule?" + new URLSearchParams(id);
     
@@ -28,12 +27,10 @@ const fetchdeleteScheduleJSON = async (id, getToken, onSuccess, onError) => {
         const deleteSchedule = await fetchWithToken(url, getToken, {
             method: "DELETE",
             headers: {
-                Authorization: `Bearer ${token}`,
                 "content-type": "application/json"
             },
             noJSON: true,
         });
-        onSuccess();
     } catch (e) {
         onError(e);
     }
@@ -47,7 +44,6 @@ const fetchgetScheduleJSON = async (id, getToken, onSuccess, onError) => {
         const json = await fetchWithToken(url, getToken, {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${token}`,
                 "content-type": "application/json"
             }
         });
@@ -66,7 +62,6 @@ const fetchgetSchedulesJSON = async (getToken, onSuccess, onError) => {
         const json = await fetchWithToken(url, getToken, {
             method: "GET",
             headers: {
-                Authorization: `Bearer ${token}`,
                 "content-type": "application/json"
 
             }
@@ -78,4 +73,3 @@ const fetchgetSchedulesJSON = async (getToken, onSuccess, onError) => {
 }
 
 export { fetchcreateScheduleJSON, fetchdeleteScheduleJSON, fetchgetScheduleJSON, fetchgetSchedulesJSON};
-    
