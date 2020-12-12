@@ -1,14 +1,16 @@
 package edu.ucsb.courses.repositories;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import edu.ucsb.courses.documents.Course;
-
-import java.util.List;
-import java.util.Optional;
+import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 
 @Repository
 public interface ArchivedCourseRepository extends MongoRepository<Course, ObjectId> {
@@ -105,4 +107,23 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      */                                                       
      @Query("{'quarter': ?0, 'deptCode': ?1}")
      List<Course> findByQuarterAndDepartment(String quarter, String dept);
+     
+     /**
+      * Returns a list of {@link QuarterOccupancy} from the requested
+      * quarter interval and department
+      * 
+      * @param startQuarter quarter formatted as YYYYQ string
+      * @param endQuarter quarter formatted as YYYYQ string
+      * @param department the department code 
+      * @return a list of {@link QuarterOccupancy}
+      */
+     @Aggregation(pipeline= {
+             "{$match:{'quarter':{'$gte':?0,'$lte':?1},'deptCode':?2,'instructionType':'LEC',}}",
+             "{$addFields:{'classSize':{'$size':'$classSections'}}}",
+             "{$unwind:{'path':'$classSections','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}",
+             "{$match:{'classSections.courseCancelled':{$eq:null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}",
+             "{$group:{'_id':'$quarter','enrolled':{$sum:'$classSections.enrolledTotal'},'maxEnrolled':{$sum:'$classSections.maxEnroll'}}}",
+             "{$sort:{_id:1}}"
+     })
+     List<QuarterOccupancy> findOccupancyByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
 }
