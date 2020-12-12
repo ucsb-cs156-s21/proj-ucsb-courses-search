@@ -96,7 +96,7 @@ public class StatisticsControllerTests {
         String responseString = response.getResponse().getContentAsString();
         List<FullCourse> resultFromPage = FullCourse.listFromJSON(responseString);
   
-      ``assertEquals(qdList, resultFromPage);
+        assertEquals(qdList, resultFromPage);
     }
   
     @Test
