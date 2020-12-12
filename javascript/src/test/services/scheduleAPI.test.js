@@ -3,7 +3,7 @@ import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Home from "main/pages/Home/Home";
-import {fetchcreateScheduleJSON, fetchdeleteScheduleJSON, fetchgetScheduleJSON, fetchgetSchedulesJSON} from "main/services/scheduleAPI";
+import {fetchCreateScheduleJSON, fetchDeleteScheduleJSON, fetchGetScheduleJSON, fetchGetSchedulesJSON} from "main/services/scheduleAPI";
 
 import {fetchWithToken} from "main/utils/fetch";
 jest.mock("main/utils/fetch");
@@ -40,7 +40,7 @@ describe("ScheduleAPI tests",  () => {
     const onError = jest.fn();
     const getToken = jest.fn();
 
-    const result = fetchcreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
+    const result = fetchCreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
@@ -74,7 +74,7 @@ describe("ScheduleAPI tests",  () => {
       const onError = jest.fn();
       const getToken = jest.fn();
 
-      const result = fetchdeleteScheduleJSON(expectedFields,getToken,onError);
+      const result = fetchDeleteScheduleJSON(expectedFields,getToken,onError);
       await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
     });
@@ -108,7 +108,7 @@ test("fetchGetSchedule", async () => {
   const onError = jest.fn();
   const getToken = jest.fn();
 
-  const result = fetchgetScheduleJSON(expectedFields,getToken,onSuccess,onError);
+  const result = fetchGetScheduleJSON(expectedFields,getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
@@ -142,7 +142,7 @@ test("fetchGetSchedule", async () => {
   const onError = jest.fn();
   const getToken = jest.fn();
 
-  const result = fetchgetSchedulesJSON(getToken,onSuccess,onError);
+  const result = fetchGetSchedulesJSON(getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(0));
@@ -174,7 +174,7 @@ test("fetchCreateScheduleError", async () => {
     const onError = jest.fn();
     const getToken = jest.fn();
 
-    const result = fetchcreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
+    const result = fetchCreateScheduleJSON(expectedFields,getToken,onSuccess,onError);
     await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
     await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
@@ -205,7 +205,7 @@ test("fetchCreateScheduleError", async () => {
       const onError = jest.fn();
       const getToken = jest.fn();
 
-      const result = fetchdeleteScheduleJSON(expectedFields,getToken,onError);
+      const result = fetchDeleteScheduleJSON(expectedFields,getToken,onError);
       await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
     });
@@ -236,7 +236,7 @@ test("fetchGetScheduleError", async () => {
   const onError = jest.fn();
   const getToken = jest.fn();
 
-  const result = fetchgetScheduleJSON(expectedFields,getToken,onSuccess,onError);
+  const result = fetchGetScheduleJSON(expectedFields,getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
   await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
@@ -267,7 +267,7 @@ test("fetchGetScheduleError", async () => {
   const onError = jest.fn();
   const getToken = jest.fn();
 
-  const result = fetchgetSchedulesJSON(getToken,onSuccess,onError);
+  const result = fetchGetSchedulesJSON(getToken,onSuccess,onError);
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(0));
   await waitFor(() => expect(getToken).toHaveBeenCalledTimes(1));
   await waitFor(() => expect(onError).toHaveBeenCalledTimes(1));
