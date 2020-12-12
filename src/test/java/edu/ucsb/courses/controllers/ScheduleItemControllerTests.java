@@ -36,10 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 
-// @Import(SecurityConfig.class) applies the security rules 
-// so that /api/public/** endpoints don't require authentication.
-// Otherwise you may get authorization errors when running the test
-
 @WebMvcTest(value = ScheduleItemController.class)
 @WithMockUser
 public class ScheduleItemControllerTests {
@@ -327,7 +323,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", userId, 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", userId,1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -342,7 +338,7 @@ public class ScheduleItemControllerTests {
         tL.setDays("MW");
         tL.setBeginTime("8");
         tL.setEndTime("9");
-        List<TimeLocation> tLs = new ArrayList<TimeLocation>();
+        List<TimeLocation> tLs = new ArrayList<>();
         tLs.add(tL);
 
         Section sec = new Section();
@@ -351,7 +347,7 @@ public class ScheduleItemControllerTests {
         Section sec1 = new Section();
         sec1.setEnrollCode("b");
         sec1.setTimeLocations(tLs);
-        List<Section> secs = new ArrayList<Section>();
+        List<Section> secs = new ArrayList<>();
         secs.add(sec);
         secs.add(sec1);
 
@@ -391,7 +387,7 @@ public class ScheduleItemControllerTests {
         when(authController.getUser(any(String.class))).thenReturn(user);
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", userId, 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", userId,1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
 
         when(scheduleItemRepository.findByScheduleId(any(Long.class)))
                 .thenReturn(scheduleItem);
@@ -425,7 +421,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", userId, 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", userId,1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
 
         when(scheduleItemRepository.findByScheduleId(any(Long.class)))
                 .thenReturn(scheduleItem);
@@ -458,7 +454,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", userId, 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", userId,1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -501,7 +497,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", "", 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", "",1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -516,13 +512,13 @@ public class ScheduleItemControllerTests {
         tL.setDays("MW");
         tL.setBeginTime("8");
         tL.setEndTime("9");
-        List<TimeLocation> tLs = new ArrayList<TimeLocation>();
+        List<TimeLocation> tLs = new ArrayList<>();
         tLs.add(tL);
 
         Section sec = new Section();
         sec.setEnrollCode("a");
         sec.setTimeLocations(tLs);
-        List<Section> secs = new ArrayList<Section>();
+        List<Section> secs = new ArrayList<>();
         secs.add(sec);
 
         Course c = new Course();
@@ -560,7 +556,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "a", "", 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "a", "",1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -575,13 +571,13 @@ public class ScheduleItemControllerTests {
         tL.setDays("MW");
         tL.setBeginTime("8");
         tL.setEndTime("9");
-        List<TimeLocation> tLs = new ArrayList<TimeLocation>();
+        List<TimeLocation> tLs = new ArrayList<>();
         tLs.add(tL);
 
         Section sec = new Section();
         sec.setEnrollCode("a");
         sec.setTimeLocations(tLs);
-        List<Section> secs = new ArrayList<Section>();
+        List<Section> secs = new ArrayList<>();
         secs.add(sec);
 
         Course c = new Course();
@@ -616,7 +612,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", userId, 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", userId,1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -645,7 +641,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", "", 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", "",1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
@@ -675,7 +671,7 @@ public class ScheduleItemControllerTests {
 
         ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "Adv App Programming", "", 1L);
         ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "Adv App Programming", "",1L);
-        List<ScheduleItem> scheduleItem = new ArrayList<ScheduleItem>();
+        List<ScheduleItem> scheduleItem = new ArrayList<>();
         scheduleItem.add(s1);
         scheduleItem.add(s2);
 
