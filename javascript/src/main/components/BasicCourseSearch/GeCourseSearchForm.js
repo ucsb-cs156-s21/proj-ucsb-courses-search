@@ -8,7 +8,6 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [geCode, setGeCode] = useState("A1 ");
 
     const handleSubmit = (event) => {
-        //console.log(event);
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             setCourseJSON(courseJSON);
