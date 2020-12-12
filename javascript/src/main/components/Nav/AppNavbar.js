@@ -41,7 +41,7 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics">
             Full Classes by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancy">
             Course Occupancy by Department
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
