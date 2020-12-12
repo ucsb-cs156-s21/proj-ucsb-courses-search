@@ -11,15 +11,14 @@ const ScheduleSearchForm = ({ deleteSchedule, getSchedule, getToken, onSuccess, 
     };
 
 
-    var scheduleOUTPUT = "";
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (state.button === 1){}
-        scheduleOUTPUT = JSON.stringify(getSchedule({
+        getSchedule({
             id
-        }, getToken, onSuccess, onError))
+        }, getToken, onSuccess, onError)
 
         if (state.button === 2){
             deleteSchedule({
