@@ -3,15 +3,25 @@ import { useState } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import ScheduleSearchForm from "main/components/Schedule/ScheduleSearchForm";
 import ScheduleCoursesTable from "main/components/Schedule/ScheduleCoursesTable";
+import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import AddSchedForm from "main/components/Schedule/AddSchedForm";
-import { fetchGetScheduleJSON, fetchCreateScheduleJSON, fetchDeleteScheduleJSON } from "main/services/scheduleAPI";
+import { fetchGetScheduleJSON, fetchCreateScheduleJSON, fetchDeleteScheduleJSON, fetchGetSchedulesJSON} from "main/services/scheduleAPI";
 import { useAuth0 } from "@auth0/auth0-react";
+import useSWR from "swr";
+import { fetchWithToken } from "main/utils/fetch";
+import {
+  buildCreateSchedule,
+  buildDeleteSchedule,
+  buildUpdateSchedule
+} from "main/services/Schedule/scheduleService";
 
 var data = new Array();
 
 const Schedule = () => {
   const { getAccessTokenSilently: getToken} = useAuth0();
+  const { data: schedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
+  console.log("schedules=",schedules);
   const initialScheduleJSON = {
     "pageNumber": 1,
     "pageSize": 1,
@@ -63,8 +73,7 @@ const Schedule = () => {
       <h1>Load Schedule</h1>
       <ScheduleSearchForm deleteSchedule={fetchDeleteScheduleJSON} getSchedule={fetchGetScheduleJSON} getToken={getToken}  onSuccess={(json) => setScheduleJSON(json)}
         onError={(error) => console.log(error)}/>
-      <Form.Group> </Form.Group>
-      <Form.Group> </Form.Group>
+      {schedules && (<ScheduleTable data={schedules}/>)}
       <h1><div>{scheduleJSON.name}</div> </h1>
       <p>{scheduleJSON.description}</p>
       <ScheduleCoursesTable classes={initialClassJSON} />

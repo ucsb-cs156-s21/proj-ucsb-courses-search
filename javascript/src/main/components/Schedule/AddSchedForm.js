@@ -1,31 +1,54 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const AddSchedForm = ({ createSchedule, getToken, onSuccess, onError }) => {
+const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [quarter, setQuarter] = useState("W21");
+    //const [name, setName] = useState("");
+    //const [description, setDescription] = useState("");
+    //const [quarter, setQuarter] = useState("W21");
+
+    const emptySchedule = {
+        name: "",
+        description:"",
+        quarter:"",
+        userId:""
+    };
+
+    const [schedule, setSchedule] = useState(existingSchedule || emptySchedule);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        createSchedule({
+        /*createSchedule({
             name,
             description,
             quarter
-        }, getToken, onSuccess, onError)
+        }, getToken, onSuccess, onError)*/
+        if (createSchedule) {
+            createSchedule(schedule);
+        }
+        else
+            updateSchedule(schedule, schedule.id);
     };
 
     const handleNameOnChange = (event) => {
-        setName(event.target.value);
+        setSchedule({
+            ...schedule,
+            name: event.target.value
+          });
     }
 
     const handleDescriptionOnChange = (event) => {
-        setDescription(event.target.value);
+        setSchedule({
+            ...schedule,
+            description: event.target.value
+          });
     }
 
     const handleQuarterOnChange = (event) => {
-        setQuarter(event.target.value);
+        setSchedule({
+          ...schedule,
+          quarter: event.target.value
+        });
     }
 
     return (

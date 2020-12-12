@@ -62,8 +62,6 @@ describe("ScheduleSearchForm tests", () => {
         // until all of the async promises are resolved
         await waitFor(() => expect(getSpy).toHaveBeenCalledTimes(1));
 
-
-
         // assert that ourSpy was called with the right value
         expect(getSpy).toHaveBeenCalledWith(expectedFields, "token", "success", "error");
 

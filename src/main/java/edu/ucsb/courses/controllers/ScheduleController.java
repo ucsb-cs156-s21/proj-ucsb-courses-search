@@ -126,13 +126,7 @@ public class ScheduleController {
             return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
           }
           List<Schedule> savedSchedules= scheduleRepository.findByUserId(userId);
-          String res = "[";
-          for (Schedule sched: savedSchedules){
-            res = res.concat(mapper.writeValueAsString(sched) + ",");
-          }
-          if (res.length() == 1) {
-            return ResponseEntity.noContent().build();
-          }
-          return ResponseEntity.ok().body(res.substring(0,res.length()-1)+"]");
+          String result = mapper.writeValueAsString(savedSchedules);
+          return ResponseEntity.ok().body(result);
      }
 }
