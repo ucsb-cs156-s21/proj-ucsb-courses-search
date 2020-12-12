@@ -68,7 +68,6 @@ const Schedule = () => {
       <h1><div>{scheduleJSON.name}</div> </h1>
       <p>{scheduleJSON.description}</p>
       <ScheduleCoursesTable classes={initialClassJSON} />
-      {/* delete courses in this table */}
 
     </Jumbotron>
   );
