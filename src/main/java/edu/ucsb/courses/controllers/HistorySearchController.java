@@ -41,7 +41,6 @@ public class HistorySearchController {
         logger.info("formattedDept='{}'",formattedDept);
 
         List<Course> courseResults = archivedCourseRepository.findByQuarterAndDepartment(qtr,formattedDept);
-
         CoursePage cp = new CoursePage();
 
         cp.setPageNumber(1);

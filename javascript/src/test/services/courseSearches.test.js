@@ -3,7 +3,7 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Home from "main/pages/Home/Home";
 
-import { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON} from "main/services/courseSearches";
+import { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON, fetchInstructorHistoryNameQtrJSON} from "main/services/courseSearches";
 
 import fetch from "isomorphic-unfetch";
 jest.mock("isomorphic-unfetch");
@@ -108,6 +108,30 @@ describe("courseSearches tests",  () => {
     const result = await fetchGeQtrJSON({},expectedFields);
     expect(fetch).toHaveBeenCalledWith(`/api/public/history/gesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&geCode=${expectedFields.geCode}`)
     expect(result).toBe(sampleReturnValue);
+  });
+  
+  test("fetchInstructorHistoryNameQtrJSON", async () => {
+    const sampleReturnValue = {
+      "quarter": "20204"
+  };
 
+  fetch.mockImplementation( async () => {
+    return {
+      json : () => {
+        return sampleReturnValue;
+      }
+    };
+  }
+  );
+
+  const expectedFields = {
+    startQuarter: "20204",
+    endQuarter: "20204",
+    instructorText:"KHARITONOVA"
+  };
+
+  const result = await fetchInstructorHistoryNameQtrJSON({},expectedFields);
+  expect(fetch).toHaveBeenCalledWith(`/api/public/history/instructorsearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&instructorText=${expectedFields.instructorText}`)
+  expect(result).toBe(sampleReturnValue);
   });
 });
