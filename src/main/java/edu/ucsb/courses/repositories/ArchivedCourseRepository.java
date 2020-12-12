@@ -66,9 +66,10 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      * @param startQuarter   the first quarter to consider in the search formatted in YYYYQ
      * @param endQuarter     the final quarter to consider in the search formatted in YYYYQ
      * @param instructorText instructor name search query
+     * @param functionCode function code search query
      * @return a list of matching {@link Course}
      */
-    @Query("{'quarter': {$gte : ?0, $lte : ?1}, $text: { $search: ?2 }}")
+    @Query("{'quarter': {$gte : ?0, $lte : ?1}, classSections: {'$elemMatch': {'instructors': {'$elemMatch': {'instructor': {$regex : ?2}, 'functionCode':  'Teaching and in charge' }}}}}")
     List<Course> findByQuarterIntervalAndInstructor(String startQuarter,
                                                             String endQuarter,
                                                             String instructorText);
