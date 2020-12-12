@@ -48,7 +48,7 @@ public class ScheduleItemController {
                                                  @RequestParam String enrollCode,
                                                  @RequestParam String courseId) throws JsonProcessingException {
         if(!authControllerAdvice.getIsMember(authorization)){
-            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         AppUser user = authControllerAdvice.getUser(authorization);
         String userId = String.valueOf(user.getId());
@@ -63,7 +63,7 @@ public class ScheduleItemController {
     public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
                                                      @RequestParam String id){
         if(!authControllerAdvice.getIsMember(authorization)){
-            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         AppUser user = authControllerAdvice.getUser(authorization);
         String userId = String.valueOf(user.getId());
@@ -85,7 +85,7 @@ public class ScheduleItemController {
     public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization,
                                                                @RequestParam String scheduleId) throws JsonProcessingException {
         if(!authControllerAdvice.getIsMember(authorization)){
-            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         AppUser user = authControllerAdvice.getUser(authorization);
         String userId = String.valueOf(user.getId());
@@ -128,13 +128,14 @@ public class ScheduleItemController {
         String userId = String.valueOf(user.getId());
         Long castId = Long.parseLong(id);
         if(!authControllerAdvice.getIsMember(authorization)){
-            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         Optional<ScheduleItem> savedSched = scheduleItemRepository.findById(castId);
         if (savedSched.isPresent() && savedSched.get().getUserId().equals(userId)) {
             String body = savedSched.get().toString();
             return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched.get()));
         }
+
         return ResponseEntity.badRequest().build();
     }
 
@@ -145,7 +146,7 @@ public class ScheduleItemController {
         AppUser user = authControllerAdvice.getUser(authorization);
         String userId = String.valueOf(user.getId());
         if(!authControllerAdvice.getIsMember(authorization)){
-            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
@@ -153,6 +154,7 @@ public class ScheduleItemController {
         for (ScheduleItem item: savedSched){
             if (!item.getUserId().equals(userId)){
                 verified = false;
+                break;
             }
         }
         if (verified) {
