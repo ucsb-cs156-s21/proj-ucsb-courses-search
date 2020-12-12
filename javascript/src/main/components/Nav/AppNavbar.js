@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import AuthNav from "main/components/Nav/AuthNav";
 import ProfileNav from "main/components/Nav/ProfileNav";
+import ScheduleNav from "main/components/Nav/ScheduleNav";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchWithToken } from "main/utils/fetch";
@@ -40,7 +41,7 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics">
             Full Classes by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics">
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancy">
             Course Occupancy by Department
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
@@ -50,6 +51,7 @@ function AppNavbar() {
             Average Class Size by Department
           </NavDropdown.Item>
         </NavDropdown>
+        <ScheduleNav/>
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">
