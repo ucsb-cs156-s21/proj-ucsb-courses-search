@@ -1,22 +1,21 @@
 package edu.ucsb.courses.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import javax.validation.Valid;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+
 
 import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.entities.AppUser;
 import edu.ucsb.courses.entities.Schedule;
-import edu.ucsb.courses.services.UCSBCurriculumService;
+import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,13 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import edu.ucsb.courses.documents.Course;
-import edu.ucsb.courses.documents.CoursePage;
-import edu.ucsb.courses.repositories.ScheduleRepository;
-
-
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api/member/schedule")
 public class ScheduleController {
     private final Logger logger = LoggerFactory.getLogger(BasicSearchController.class);
 
@@ -47,19 +41,22 @@ public class ScheduleController {
     @Autowired
     AuthControllerAdvice authController;
 
-    @PostMapping(value = "/createSchedule", produces = "application/json")
+    @PostMapping(value = "/new", produces = "application/json")
     public ResponseEntity<String> createSchedule(@RequestParam String name,
                                                  @RequestParam String description,
                                                  @RequestParam String quarter,
                                                  @RequestHeader("Authorization") String authorization) throws JsonProcessingException {
         AppUser user = authController.getUser(authorization);
         String userId = String.valueOf(user.getId());
+        if(!authController.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Schedule newSched = new Schedule(null, name, description, quarter, userId);
         Schedule savedSched= scheduleRepository.save(newSched);
         return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
-    @PutMapping(value = "/updateSchedule", produces = "application/json")
+    @PutMapping(value = "/update", produces = "application/json")
     public ResponseEntity<String> updateSchedule(@RequestParam String id,
                                                  @RequestParam String name,
                                                  @RequestParam String description,
@@ -67,9 +64,12 @@ public class ScheduleController {
                                                  @RequestHeader("Authorization") String authorization) throws JsonProcessingException {
         AppUser user = authController.getUser(authorization);
         String userId = String.valueOf(user.getId());
+        if(!authController.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Long castId = Long.parseLong(id);
         Optional<Schedule> schedule = scheduleRepository.findById(castId);
-        if (!schedule.isPresent()) {
+        if (schedule.isEmpty()) {
           return ResponseEntity.notFound().build();
         }
         if (!castId.equals(schedule.get().getId()) || !schedule.get().getUserId().equals(userId)) {
@@ -84,24 +84,30 @@ public class ScheduleController {
         return ResponseEntity.ok().body(body);
       }
 
-    @DeleteMapping(value = "/deleteSchedule", produces = "application/json")
+    @DeleteMapping(value = "/delete", produces = "application/json")
     public ResponseEntity<String> deleteSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id){
         AppUser user = authController.getUser(authorization);
         String userId = String.valueOf(user.getId());
+        if(!authController.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Long castId = Long.parseLong(id);
         Optional<Schedule> target = scheduleRepository.findById(castId);
-        if (!target.isPresent() || !target.get().getUserId().equals(userId)) {
+        if (target.isEmpty() || !target.get().getUserId().equals(userId)) {
             return ResponseEntity.notFound().build();
         }
         scheduleRepository.deleteById(castId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/getSchedule", produces = "application/json")
+    @GetMapping(value = "/get", produces = "application/json")
     public ResponseEntity<String> getSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id) 
         throws JsonProcessingException{
         AppUser user = authController.getUser(authorization);
         String userId = String.valueOf(user.getId());
+        if(!authController.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Long castId = Long.parseLong(id);
         Optional<Schedule> target = scheduleRepository.findById(castId);
         if (target.isPresent() && target.get().getUserId().equals(userId)) {
@@ -116,6 +122,9 @@ public class ScheduleController {
           throws JsonProcessingException{
           AppUser user = authController.getUser(authorization);
           String userId = String.valueOf(user.getId());
+          if(!authController.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+          }
           List<Schedule> savedSchedules= scheduleRepository.findByUserId(userId);
           String res = "[";
           for (Schedule sched: savedSchedules){
