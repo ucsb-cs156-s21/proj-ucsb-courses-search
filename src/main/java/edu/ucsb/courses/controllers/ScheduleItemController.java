@@ -4,9 +4,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.Section;
 import edu.ucsb.courses.documents.TimeLocation;
+import edu.ucsb.courses.entities.AppUser;
 import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 import edu.ucsb.courses.repositories.ScheduleItemRepository;
@@ -15,6 +17,7 @@ import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +26,14 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api/member/scheduleItems")
 public class ScheduleItemController {
     private final Logger logger = LoggerFactory.getLogger(BasicSearchController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
+
+    @Autowired
+    private AuthControllerAdvice authControllerAdvice;
 
     @Autowired
     ScheduleItemRepository scheduleItemRepository;
@@ -38,26 +44,35 @@ public class ScheduleItemController {
     @Autowired
     ArchivedCourseRepository archivedCourseRepository;
 
-    @GetMapping(value = "/addScheduleItem", produces = "application/json")
+    @GetMapping(value = "/new", produces = "application/json")
     public ResponseEntity<String> addScheduleItem(@RequestHeader("Authorization") String authorization,
                                                   @RequestParam String scheduleId,
                                                  @RequestParam String enrollCode,
                                                  @RequestParam String courseId) throws JsonProcessingException {
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
+        AppUser user = authControllerAdvice.getUser(authorization);
+        String userId = String.valueOf(user.getId());
         Long castId = Long.parseLong(scheduleId);
-        ScheduleItem newSched = new ScheduleItem(null, courseId, enrollCode, JWT.decode(authorization.substring(7)).getSubject(), castId);
+        ScheduleItem newSched = new ScheduleItem(null, courseId, enrollCode, userId, castId);
         ScheduleItem savedSched = scheduleItemRepository.save(newSched);
         return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
     //Stub
-    @DeleteMapping(value = "/removeScheduleItem", produces = "application/json")
+    @DeleteMapping(value = "/delete", produces = "application/json")
     public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
                                                      @RequestParam String id){
-        DecodedJWT jwt = JWT.decode(authorization.substring(7));
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
+        AppUser user = authControllerAdvice.getUser(authorization);
+        String userId = String.valueOf(user.getId());
         Long castId = Long.parseLong(id);
         Optional<ScheduleItem> s1 = scheduleItemRepository.findById(castId);
         if(s1.isPresent()){
-            if(s1.get().getUserId().equals(jwt.getSubject())) {
+            if(s1.get().getUserId().equals(userId)) {
                 scheduleItemRepository.deleteById(castId);
                 return ResponseEntity.ok().build();
             }
@@ -68,10 +83,14 @@ public class ScheduleItemController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping(value = "/getScheduleItemsByScheduleId", produces = "application/json")
+    @GetMapping(value = "/getByScheduleId", produces = "application/json")
     public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization,
                                                                @RequestParam String scheduleId) throws JsonProcessingException {
-        DecodedJWT jwt = JWT.decode(authorization.substring(7));
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
+        AppUser user = authControllerAdvice.getUser(authorization);
+        String userId = String.valueOf(user.getId());
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
         Optional<Schedule> sched = scheduleRepository.findById(castId);
@@ -80,7 +99,7 @@ public class ScheduleItemController {
         }
         String res = "";
         for (ScheduleItem item: savedSched){
-            if (item.getUserId().equals(jwt.getSubject())) {
+            if (item.getUserId().equals(userId)) {
                 Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), item.getCourseId());
                 if (course.isEmpty()){
                     return ResponseEntity.noContent().build();
@@ -104,13 +123,17 @@ public class ScheduleItemController {
         return ResponseEntity.ok().body(res.substring(0,res.length()-1));
     }
 
-    @GetMapping(value = "/getScheduleItemById", produces = "application/json")
+    @GetMapping(value = "/get", produces = "application/json")
     public ResponseEntity<String> getScheduleItemById(@RequestHeader("Authorization") String authorization,
                                                       @RequestParam String id) throws JsonProcessingException {
-        DecodedJWT jwt = JWT.decode(authorization.substring(7));
+        AppUser user = authControllerAdvice.getUser(authorization);
+        String userId = String.valueOf(user.getId());
         Long castId = Long.parseLong(id);
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Optional<ScheduleItem> savedSched = scheduleItemRepository.findById(castId);
-        if (savedSched.isPresent() && savedSched.get().getUserId().equals(jwt.getSubject())) {
+        if (savedSched.isPresent() && savedSched.get().getUserId().equals(userId)) {
             String body = savedSched.get().toString();
             return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched.get()));
         }
@@ -118,15 +141,19 @@ public class ScheduleItemController {
     }
 
 
-    @DeleteMapping(value = "/removeScheduleItemsByScheduleId", produces = "application/json")
+    @DeleteMapping(value = "/deleteByScheduleId", produces = "application/json")
     public ResponseEntity<String> removeScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization,
                                                                   @RequestParam String scheduleId){
-        DecodedJWT jwt = JWT.decode(authorization.substring(7));
+        AppUser user = authControllerAdvice.getUser(authorization);
+        String userId = String.valueOf(user.getId());
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<String>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
         Long castId = Long.parseLong(scheduleId);
         List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(castId);
         boolean verified = true;
         for (ScheduleItem item: savedSched){
-            if (!item.getUserId().equals(jwt.getSubject())){
+            if (!item.getUserId().equals(userId)){
                 verified = false;
             }
         }
