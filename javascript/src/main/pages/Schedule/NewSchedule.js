@@ -17,7 +17,6 @@ const NewSchedule = () => {
   const { getAccessTokenSilently: getToken } = useAuth0();
 
 
-  //TODO COVER THE TWO FUNCTIONS
   const createSchedule = buildCreateSchedule(
     getToken,
     (response) => {

@@ -3,10 +3,6 @@ import { Form, Button } from "react-bootstrap";
 
 const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
-    //const [name, setName] = useState("");
-    //const [description, setDescription] = useState("");
-    //const [quarter, setQuarter] = useState("W21");
-
     const emptySchedule = {
         name: "",
         description:"",
@@ -64,10 +60,6 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
             <Form.Group controlId="formQuarter">
                 <Form.Label>Choose Schedule quarter</Form.Label>
                 <Form.Control type="text" placeholder="Enter Schedule Quarter" value={schedule.quarter} onChange={handleQuarterOnChange} data-testid="schedule-quarter" />
-                {/* <Form.Control as="select" value={schedule.quarter} onChange={handleQuarterOnChange} data-testid="schedule-quarter" >
-                    <option value = "W21">W21</option>
-                    <option value = "F20">F20</option>
-                </Form.Control> */}
             </Form.Group>
 
             <Button variant="primary" type="submit" data-testid="schedule-submit">
