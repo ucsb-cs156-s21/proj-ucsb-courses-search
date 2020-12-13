@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Jumbotron, Form } from "react-bootstrap";
 import ScheduleSearchForm from "main/components/Schedule/ScheduleSearchForm";
-import ScheduleCoursesTable from "main/components/Schedule/ScheduleCoursesTable";
 import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import AddSchedForm from "main/components/Schedule/AddSchedForm";
@@ -24,9 +23,13 @@ var data = new Array();
 const Schedule = () => {
   const { addToast } = useToasts();
   const { getAccessTokenSilently: getToken} = useAuth0();
-  const { data: schedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
+  const { data: schedules, error, mutate: mutateSchedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
   const history = useHistory();
   console.log("schedules=",schedules);
+
+  useEffect(() => {
+    mutateSchedules();
+  }, []);
 
   const deleteSchedule = buildDeleteSchedule(
     getToken,
@@ -36,7 +39,8 @@ const Schedule = () => {
         addToast(response.error, { appearance: 'error' });
       }
       else {
-        history.push("/schedule");
+        // history.push("/schedule");
+        mutateSchedules();
         addToast("Schedule deleted", { appearance: 'success' });
       }
     },
@@ -95,7 +99,6 @@ const Schedule = () => {
           New Schedule
         </Button>
       {schedules && (<ScheduleTable data={schedules} deleteSchedule={deleteSchedule}/>)}
-      <ScheduleCoursesTable classes={initialClassJSON} />
 
     </Jumbotron>
   );

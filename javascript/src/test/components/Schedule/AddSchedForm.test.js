@@ -31,7 +31,7 @@ describe("AddSchedForm tests", () => {
     test("when I choose a quarter, the state for quarter changes", () => {
         const { getByTestId } = render(<AddSchedForm />);
         const schedQuarter = getByTestId("schedule-quarter")
-        userEvent.selectOptions(schedQuarter, "F20");
+        userEvent.type(schedQuarter, "F20");
         expect(schedQuarter.value).toBe("F20");
     });
 
@@ -62,7 +62,8 @@ describe("AddSchedForm tests", () => {
         const expectedFields = {
             name: "MySchedule",
             description: "Classes",
-            quarter: "F20"
+            quarter: "F20",
+            userId: ""
         };
 
         const schedName = getByTestId("schedule-name")
@@ -70,7 +71,7 @@ describe("AddSchedForm tests", () => {
         const schedDescription = getByTestId("schedule-description")
         userEvent.type(schedDescription, "Classes");
         const schedQuarter = getByTestId("schedule-quarter")
-        userEvent.selectOptions(schedQuarter, "F20");
+        userEvent.type(schedQuarter, "F20");
 
         const submitButton = getByTestId("schedule-submit");
         userEvent.click(submitButton);
@@ -82,7 +83,7 @@ describe("AddSchedForm tests", () => {
 
 
         // assert that ourSpy was called with the right value
-        expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields, "token", "success", "error");
+        expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields);
     });
 
 });

@@ -12,6 +12,7 @@ import Statistics from "main/pages/Statistics/Statistics";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
 import Schedule from "main/pages/Schedule/Schedule";
+import EditSchedule from "main/pages/Schedule/EditSchedule";
 import NewSchedule from "main/pages/Schedule/NewSchedule";
 import CourseOccupancy from "main/pages/Statistics/CourseOccupancy";
 import Home from "main/pages/Home/Home";
@@ -56,6 +57,7 @@ function App() {
           <Route path="/about" component={About} />
           <AuthorizedRoute path="/schedule" component={Schedule} exact authorizedRoles={["admin", "member"]}/>
           <AuthorizedRoute path="/schedule/new" component={NewSchedule} exact authorizedRoles={["admin", "member"]}/>
+          <AuthorizedRoute path="/schedule/update/:scheduleId" component={EditSchedule} exact authorizedRoles={["admin", "member"]}/>
         </Switch>
       </Container>
       <AppFooter />

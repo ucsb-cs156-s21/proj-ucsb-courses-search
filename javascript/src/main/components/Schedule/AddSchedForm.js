@@ -18,16 +18,14 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        /*createSchedule({
-            name,
-            description,
-            quarter
-        }, getToken, onSuccess, onError)*/
+        console.log("AddSchedForm Handle Submit");
         if (createSchedule) {
             createSchedule(schedule);
         }
-        else
+        else{
+            console.log("Update schedule=",schedule);
             updateSchedule(schedule, schedule.id);
+        }
     };
 
     const handleNameOnChange = (event) => {
@@ -45,13 +43,10 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
     }
 
     const handleQuarterOnChange = (event) => {
-        console.log("event=",event);
-        console.log("Before quarter=",schedule.quarter);
         setSchedule({
           ...schedule,
           quarter: event.target.value
         });
-        console.log("After quarter=",schedule.quarter);
     }
 
     return (
@@ -76,7 +71,7 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
             </Form.Group>
 
             <Button variant="primary" type="submit" data-testid="schedule-submit">
-                Create Schedule
+                Submit
             </Button>
         </Form>
     );

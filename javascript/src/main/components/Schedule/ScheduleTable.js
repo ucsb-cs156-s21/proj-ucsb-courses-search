@@ -8,13 +8,16 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
   const history = useHistory();
   const renderEditButton = (id) => {
     return (
-      <Button data-testid="edit-button" onClick={() => { history.push(`/schedules/edit/${id}`) }}>Edit</Button>
+      <Button data-testid={`edit-button-${id}`} onClick={() => { 
+        console.log("Updating:", id);
+        history.push(`/schedule/update/${id}`) ;
+      }}>Edit</Button>
     )
   }
 
   const renderDeleteButton = (id) => {
     return (
-      <Button variant="danger" data-testid="delete-button" onClick={() => {
+      <Button variant="danger" data-testid={`delete-button-${id}`} onClick={() => {
         console.log("id=",id);
         return deleteSchedule(id);
       }}>Delete</Button>
@@ -50,7 +53,7 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
   ];
 
   return (
-    <BootstrapTable keyField='_id' data={data || []} columns={columns} />
+    <BootstrapTable keyField='id' data={data || []} columns={columns} />
   );
 };
 

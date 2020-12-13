@@ -22,7 +22,6 @@ const NewSchedule = () => {
     getToken,
     (response) => {
       if (response.error) {
-        console.log("error message: ", response.error);
         addToast(response.error, { appearance: 'error' });
       }
       else {
@@ -31,7 +30,6 @@ const NewSchedule = () => {
       }
     },
     (err) => {
-      console.log("error message: ", err);
       addToast("Error saving schedule", { appearance: 'error' });
     }
   );

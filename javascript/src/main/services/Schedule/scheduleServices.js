@@ -13,6 +13,7 @@ const buildCreateSchedule = (getToken, onSuccess, onError) => {
       });
       onSuccess(response);
     } catch (err) {
+      console.log("err=",err);
       onError(err);
     }
   };
@@ -21,7 +22,7 @@ const buildCreateSchedule = (getToken, onSuccess, onError) => {
 
 const buildUpdateSchedule = (getToken, onSuccess, onError) => {
   const func = async (schedule, id) => {
-  const url = "/api/member/schedule/update?" + new URLSearchParams(id);
+  const url = "/api/member/schedule/update/" + id;
     try {
       await fetchWithToken(url, getToken, {
         method: "PUT",
