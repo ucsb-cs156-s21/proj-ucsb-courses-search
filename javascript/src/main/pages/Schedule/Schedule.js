@@ -14,14 +14,38 @@ import {
   buildCreateSchedule,
   buildDeleteSchedule,
   buildUpdateSchedule
-} from "main/services/Schedule/scheduleService";
+} from "main/services/Schedule/scheduleServices";
+import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { useToasts } from 'react-toast-notifications'
 
 var data = new Array();
 
 const Schedule = () => {
+  const { addToast } = useToasts();
   const { getAccessTokenSilently: getToken} = useAuth0();
   const { data: schedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
+  const history = useHistory();
   console.log("schedules=",schedules);
+
+  const deleteSchedule = buildDeleteSchedule(
+    getToken,
+    (response) => {
+      if (response.error) {
+        console.log("error message: ", response.error);
+        addToast(response.error, { appearance: 'error' });
+      }
+      else {
+        history.push("/schedule");
+        addToast("Schedule deleted", { appearance: 'success' });
+      }
+    },
+    (err) => {
+      console.log("error message: ", err);
+      addToast("Error deleting schedule", { appearance: 'error' });
+    }
+  );
+
   const initialScheduleJSON = {
     "pageNumber": 1,
     "pageSize": 1,
@@ -64,18 +88,13 @@ const Schedule = () => {
 
   return (
     <Jumbotron>
-      <h1>Create Personal Schedule</h1>
-      <AddSchedForm createSchedule={fetchCreateScheduleJSON} getToken={getToken} onSuccess={ (json) =>
-        console.log(`Successfully Created! Got: ${JSON.stringify(json)}`)
-        }  onError={(error) => console.log(error)}/>
-      <Form.Group> </Form.Group>
-
-      <h1>Load Schedule</h1>
-      <ScheduleSearchForm deleteSchedule={fetchDeleteScheduleJSON} getSchedule={fetchGetScheduleJSON} getToken={getToken}  onSuccess={(json) => setScheduleJSON(json)}
-        onError={(error) => console.log(error)}/>
-      {schedules && (<ScheduleTable data={schedules}/>)}
-      <h1><div>{scheduleJSON.name}</div> </h1>
-      <p>{scheduleJSON.description}</p>
+      <Button
+          data-testid={`new-schedule-button`}
+          onClick={() => history.push("/schedule/new")}
+        >
+          New Schedule
+        </Button>
+      {schedules && (<ScheduleTable data={schedules} deleteSchedule={deleteSchedule}/>)}
       <ScheduleCoursesTable classes={initialClassJSON} />
 
     </Jumbotron>

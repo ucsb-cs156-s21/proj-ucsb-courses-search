@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,19 +85,18 @@ public class ScheduleController {
         return ResponseEntity.ok().body(body);
       }
 
-    @DeleteMapping(value = "/delete", produces = "application/json")
-    public ResponseEntity<String> deleteSchedule(@RequestHeader("Authorization") String authorization, @RequestParam String id){
+    @DeleteMapping(value = "/delete/{id}", produces = "application/json")
+    public ResponseEntity<String> deleteSchedule(@RequestHeader("Authorization") String authorization, @PathVariable Long id){
         AppUser user = authController.getUser(authorization);
         String userId = String.valueOf(user.getId());
         if(!authController.getIsMember(authorization)){
             return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
-        Long castId = Long.parseLong(id);
-        Optional<Schedule> target = scheduleRepository.findById(castId);
+        Optional<Schedule> target = scheduleRepository.findById(id);
         if (target.isEmpty() || !target.get().getUserId().equals(userId)) {
             return ResponseEntity.notFound().build();
         }
-        scheduleRepository.deleteById(castId);
+        scheduleRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

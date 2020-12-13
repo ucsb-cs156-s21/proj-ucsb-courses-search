@@ -1,11 +1,11 @@
 import React from "react";
-import CourseForm from "main/components/Courses/CourseForm";
+//import CourseForm from "main/components/Courses/CourseForm";
 import { useAuth0 } from "@auth0/auth0-react";
-import { buildCreateCourse } from "main/services/Courses/CourseService";
-import { useHistory } from "react-router-dom";
+//import { buildCreateCourse } from "main/services/Courses/CourseService";
+import { useHistory } from "react-router-dom";  
 import { useToasts } from 'react-toast-notifications'
-import { buildCreateSchedule } from "main/services/Schedule/scheduleService";
-import
+import { buildCreateSchedule } from "main/services/Schedule/scheduleServices";
+import AddSchedForm from "main/components/Schedule/AddSchedForm";
 
 
 
