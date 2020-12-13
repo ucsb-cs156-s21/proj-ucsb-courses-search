@@ -1,18 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Jumbotron, Form } from "react-bootstrap";
-import ScheduleSearchForm from "main/components/Schedule/ScheduleSearchForm";
+import { Jumbotron } from "react-bootstrap";
 import ScheduleTable from "main/components/Schedule/ScheduleTable";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
-import AddSchedForm from "main/components/Schedule/AddSchedForm";
-import { fetchGetScheduleJSON, fetchCreateScheduleJSON, fetchDeleteScheduleJSON, fetchGetSchedulesJSON} from "main/services/scheduleAPI";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
 import {
-  buildCreateSchedule,
-  buildDeleteSchedule,
-  buildUpdateSchedule
+  buildDeleteSchedule
 } from "main/services/Schedule/scheduleServices";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -39,7 +34,6 @@ const Schedule = () => {
         addToast(response.error, { appearance: 'error' });
       }
       else {
-        // history.push("/schedule");
         mutateSchedules();
         addToast("Schedule deleted", { appearance: 'success' });
       }

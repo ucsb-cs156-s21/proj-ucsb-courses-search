@@ -4,10 +4,6 @@ import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import userEvent from "@testing-library/user-event";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-// import { useHistory } from "react-router-dom";
-// jest.mock("react-router-dom", () => ({
-//   useHistory: jest.fn(),
-// }));
 
 const schedulesList = [{
     "id": 1,
