@@ -3,7 +3,7 @@ import loading from "main/assets/loading.svg";
 
 const Loading = () => {
   return (
-    <div className="spinner">
+    <div className="spinner" data-testid={`spinner`}>
       <img src={loading} alt="Loading" />
     </div>
   );
