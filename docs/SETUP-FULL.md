@@ -28,7 +28,8 @@ services that require configuration
 * Auth0.com (for authentication)
 * Google (for authentication)
 * A postgres database provisioned on Heroku
-
+* UCSB Developer API <https://developer.ucsb.edu/>
+* MongoDB Database provisioned at <https://cloud.mongodb.com/>
 
 ## Step 0: Get Organized
 
@@ -172,7 +173,9 @@ auth0.tenant: ucsb-cs156-cgaucho
 auth0.domain:
 auth0.clientId: 
 google.clientId:
-google.clientSecret: 
+google.clientSecret:
+app.ucsb.api.consumer_key:
+spring.data.mongodb.uri:
 ```
 
 ## Step 3: Set up new Auth0 application
@@ -239,6 +242,8 @@ auth0.domain: ucsb-cs156-cgaucho.us.auth0.com
 auth0.clientid: 6KoPsWMM2A27PjAejHHWTXApra8CVQ6C
 google.clientId:
 google.clientSecret: 
+app.ucsb.api.consumer_key:
+spring.data.mongodb.uri:
 ```
 
 ## Step 4: Set up an API under Auth0
@@ -380,8 +385,21 @@ function (user, context, callback) {
 }
 ```
 
+## Step 8: Custom configuration for this app
 
-## Step 8: Set up the secrets files
+Steps 1-7 and Step 9 are generally the same for all applications in this course.   
+Step 8 is where we put special configuration that is particular this this application.
+
+## Step 8a: UCSB Developer API Key
+
+See the top level README.md for details about how to set the value of `app.ucsb.api.consumer_key:` in `temp-credentials.txt`
+
+## Step 8b: MongoDB Database credentials
+
+See the top level README.md for details about how to set the value of `spring.data.mongodb.uri:` in `temp-credentials.txt`
+
+
+## Step 9: Set up the secrets files
 
 There are now three files that you have to configure in your app&mdash;two for the frontend, and two for backend.  
 
@@ -409,7 +427,7 @@ to the actual filename, and then edit the file to put in the correct values.
 We'll do this first for the files needed to run on localhost, and then
 on the files needed for Heroku.
 
-### Step 8a: Set up the secrets files for localhost
+### Step 9a: Set up the secrets files for localhost
 
 For localhost, copy from the `.SAMPLE` files to the actual files
 needed for the application.  From the root of the repo:
@@ -428,6 +446,8 @@ preferred text editor, and fill in the values as shown below:
 | `app.admin.emails` | `phtcon@ucsb.edu,youremail@ucsb.edu` | A comma separated list of emails for admins for the app.  Add your email. |  (none) |
 | `auth0.domain` | `ucsb-cs156-cgaucho.us.auth0.com` | The DNS hostname used to access Auth0 services; starts wtih the name of your tenant, and ends with something like `.us.auth0.com` |  `auth0.domain` |
 | `auth0.clientId` | `6KoPsWMM2A27PjAejHHWTXApra8CVQ6C` | The value that identifies the specific Auth0 application from your tenant |  `auth0.clientId` |
+| `app.ucsb.api.consumer_key` | | Key for UCSB Developer API| `app.ucsb.api.consumer_key` |
+| `spring.data.mongodb.uri` | | URI for accessing MongoDB data | `spring.data.mongodb.uri` |
 | `security.oauth2.resource.id` | `https://dsr-min-cgaucho.herokuapp.com` | Copy the same value as `app.namespace`  |  `heroku.url` |
 |`security.oauth2.resource.jwk.keySetUri`| (no change)| Leave unchanged from value in `.SAMPLE` file | | 
 
@@ -446,7 +466,7 @@ At this point, you should be able to run the app on localhost with the command:
 mvn spring-boot:run
 ```
 
-### Step 8b: Set up the secrets files for Heroku
+### Step 9b: Set up the secrets files for Heroku
 
 For Heroku, copy from the `.SAMPLE` file the backend file to the
 actual file:
@@ -468,6 +488,8 @@ app.namespace
 app.admin.emails
 auth0.domain
 auth0.clientId
+app.ucsb.api.consumer_key
+spring.data.mongodb.uri
 security.oauth2.resource.id
 security.oauth2.resource.jwk.keySetUri
 ```
