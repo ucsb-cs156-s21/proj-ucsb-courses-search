@@ -275,7 +275,7 @@ app.admin.emails
 auth0.domain
 auth0.clientId
 app.ucsb.api.consumer_key
-app.ucsb.api.consumer_key
+spring.data.mongodb.uri
 security.oauth2.resource.id
 security.oauth2.resource.jwk.keySetUri
 ```
