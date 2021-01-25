@@ -56,7 +56,7 @@ are things that you *should not commit into a GitHub repo*, and should
 not be put into a file that you save inside your repo.  Make this a 
 temporary file that you have open just while working on the app.
 
-We have put the name `temp-credentials.txt` into the `.gitignore of this
+We have put the name `temp-credentials.txt` into the `.gitignore` of this
 repo to avoid a scenario where you accidentally commit this file to the
 repo.
 
@@ -550,6 +550,5 @@ If after the second deploy attempt you are still getting
 the logs for further debugging. You can see these either through the
 Heroku Dashboard, or at the command line if you have the Heroku CLI
 installed. The command is: `heroku logs --app APP-NAME-ON-HEROKU`.
-
 
 
