@@ -95,6 +95,7 @@ public class RoleController {
   @GetMapping("/myRole")
   public ResponseEntity<String> myRole(@RequestHeader("Authorization") String authorization)
       throws JsonProcessingException {
+    authControllerAdvice.updateAppUsers(authorization);
     String role = authControllerAdvice.getRole(authorization);
     Map<String, String> response = new HashMap<>();
     response.put("role", role);
