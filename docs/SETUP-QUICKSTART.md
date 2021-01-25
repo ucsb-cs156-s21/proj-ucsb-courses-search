@@ -172,7 +172,7 @@ application. Accordingly, we are putting this step only into the
 [SETUP-FULL.md](./SETUP-FULL.md) version at Step 5.  Please see that version if you haven't done this step yet for your Auth0 Tenant.
 
 
- # Step 6: Set up new Auth0 Social Login Connection (once per Auth0 tentant)
+## Step 6: Set up new Auth0 Social Login Connection (once per Auth0 tentant)
 
 
 NOTE: This step only has to be done *once per Auth0 tenant*, not once per
@@ -319,5 +319,4 @@ If you need to see the logs to debug problems on Heroku, use this command:
 ```
 heroku logs --tail --app APP-NAME-ON-HEROKU`.
 ```
-
 
