@@ -339,7 +339,7 @@
 			<id>heroku</id>
 			<activation>
 				<property>
-					<name>env.HEROKU_PROPERTIES</name>
+					<name>env.SPRING_PROPERTIES</name>
 				</property>
 			</activation>
 			<build>
@@ -362,7 +362,7 @@
 				</dependency>
 			</dependencies>
 			<properties>
-				<environment-properties>${env.HEROKU_PROPERTIES}</environment-properties>
+				<environment-properties>${env.SPRING_PROPERTIES}</environment-properties>
 			</properties>
 		</profile>
 	</profiles>
