@@ -15,8 +15,6 @@ def setVarsFromFile(filename,app_name,message):
 
   with open(filename) as f:
     lines = f.read().split('\n')
-    #print("Contents from ",filename,":")
-    #print("\n".join(lines))
     print("Setting variables from ",filename,"...")
     for line in lines:
       try:
