@@ -44,7 +44,7 @@ To get started, you'll need to do two things first:
   
   If you do NOT see your organization or repo, you can also try just 
   putting in a URL directly that has the following form, replacing `ORG-NAME`
-  with the name of your class organization e.g. `ucsb-cs156-f20` and
+  with the name of your class organization e.g. `ucsb-cs156-w21` and
   `REPO-NAME` with the name of your repo.
 
   ```
