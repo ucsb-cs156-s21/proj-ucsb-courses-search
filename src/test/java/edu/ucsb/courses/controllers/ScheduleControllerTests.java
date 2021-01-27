@@ -66,7 +66,7 @@ public class ScheduleControllerTests {
       when(mockScheduleRepository.save(inputSchedule)).thenReturn(inputSchedule);
       MvcResult response =
           mockMvc
-              .perform(put("/api/member/schedule/update?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+              .perform(put("/api/member/schedule/update/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
                   .characterEncoding("utf-8")
                   .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()).content(body))
               .andExpect(status().isOk()).andReturn();
@@ -89,7 +89,7 @@ public class ScheduleControllerTests {
       when(authController.getIsMember(any(String.class))).thenReturn(true);
 
       when(mockScheduleRepository.findById(1L)).thenReturn(Optional.empty());
-      mockMvc.perform(put("/api/member/schedule/update?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+      mockMvc.perform(put("/api/member/schedule/update/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
           .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
           .content(body)).andExpect(status().isNotFound()).andReturn();
       verify(mockScheduleRepository, times(1)).findById(1L);
@@ -106,7 +106,7 @@ public class ScheduleControllerTests {
     when(authController.getIsMember(any(String.class))).thenReturn(false);
 
     when(mockScheduleRepository.findById(1L)).thenReturn(Optional.empty());
-    mockMvc.perform(put("/api/member/schedule/update?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(put("/api/member/schedule/update/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
             .content(body)).andExpect(status().isUnauthorized()).andReturn();
   }
@@ -119,10 +119,10 @@ public class ScheduleControllerTests {
     user.setId(123456L);
     when(authController.getUser(any(String.class))).thenReturn(user);
     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    Schedule savedSchedule = new Schedule(2L,"CS 156", "Old", "Fall 2020", "NOT YOURS");
+    Schedule savedSchedule = new Schedule(2L,"CS 156", "Old", "Fall 2020", "123456");
     when(mockScheduleRepository.findById(any(Long.class))).thenReturn(Optional.of(savedSchedule));
     when(mockScheduleRepository.findById(1L)).thenReturn(Optional.of(savedSchedule));
-    mockMvc.perform(put("/api/member/schedule/update?id=1&name=CS 156&description=New&quarter=Fall 2020&userId=123456").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(put("/api/member/schedule/update/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
             .content(body)).andExpect(status().isBadRequest()).andReturn();
     verify(mockScheduleRepository, times(1)).findById(1L);
@@ -130,7 +130,7 @@ public class ScheduleControllerTests {
   }
 
   @Test
-  public void testUpdateTodo_todoAtPathOwned_butTryingToInjectTodoForAnotherUser()
+  public void testUpdateSchedule_scheduleAtPathOwned_butTryingToInjectScheduleForAnotherUser()
       throws Exception {
     Schedule inputSchedule = new Schedule(1L,"CS 156", "New trying to inject at user id 654321", "Fall 2020", "123456");
     Schedule savedSchedule = new Schedule(1L,"CS 156", "Old", "Fall 2020", "NOT YOURS");
@@ -140,7 +140,7 @@ public class ScheduleControllerTests {
     user.setId(123456L);
     when(authController.getUser(any(String.class))).thenReturn(user);
     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    mockMvc.perform(put("/api/member/schedule/update?id=1&name=CS 156&description=New trying to inject from user id 123456&quarter=Fall 2020").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(put("/api/member/schedule/update/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
         .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken())
         .content(body)).andExpect(status().isBadRequest()).andReturn();
     verify(mockScheduleRepository, times(1)).findById(1L);
@@ -159,7 +159,7 @@ public class ScheduleControllerTests {
     when(authController.getIsMember(any(String.class))).thenReturn(true);
     MvcResult response =
         mockMvc
-            .perform(get("/api/member/schedule/get?id=1").contentType("application/json")
+            .perform(get("/api/member/schedule/get/1").contentType("application/json")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
             .andExpect(status().isOk()).andReturn();
 
@@ -181,7 +181,7 @@ public class ScheduleControllerTests {
     when(authController.getIsMember(any(String.class))).thenReturn(true);
     MvcResult response =
         mockMvc
-            .perform(get("/api/member/schedule/get?id=1").contentType("application/json")
+            .perform(get("/api/member/schedule/get/1").contentType("application/json")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
             .andExpect(status().isBadRequest()).andReturn();
 
@@ -204,7 +204,7 @@ public class ScheduleControllerTests {
     when(authController.getIsMember(any(String.class))).thenReturn(true);
     MvcResult response =
         mockMvc
-            .perform(get("/api/member/schedule/get?id=1").contentType("application/json")
+            .perform(get("/api/member/schedule/get/1").contentType("application/json")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
             .andExpect(status().isBadRequest()).andReturn();
 
@@ -227,7 +227,7 @@ public class ScheduleControllerTests {
     when(authController.getIsMember(any(String.class))).thenReturn(false);
     MvcResult response =
             mockMvc
-                    .perform(get("/api/member/schedule/get?id=1").contentType("application/json")
+                    .perform(get("/api/member/schedule/get/1").contentType("application/json")
                             .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
                     .andExpect(status().isUnauthorized()).andReturn();
   }
@@ -263,7 +263,7 @@ public class ScheduleControllerTests {
   @Test
     public void testGetSchedulesNoContent() throws Exception {
       List<Schedule> schedules = new ArrayList<>();
-      String expectedResult = "";
+      String expectedResult = "[]";
       when(mockScheduleRepository.findByUserId("123456")).thenReturn(schedules);
       AppUser user = new AppUser();
       user.setId(123456L);
@@ -273,7 +273,7 @@ public class ScheduleControllerTests {
           mockMvc
               .perform(get("/api/member/schedule/getSchedules").contentType("application/json")
                   .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
-              .andExpect(status().isNoContent()).andReturn();
+              .andExpect(status().isOk()).andReturn();
 
       verify(mockScheduleRepository, times(1)).findByUserId("123456");
 
@@ -344,7 +344,7 @@ public class ScheduleControllerTests {
 
       MvcResult response =
           mockMvc
-              .perform(get("/api/member/schedule/get?id=1").contentType("application/json")
+              .perform(get("/api/member/schedule/get/1").contentType("application/json")
                   .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
               .andExpect(status().isBadRequest()).andReturn();
 
@@ -364,7 +364,7 @@ public class ScheduleControllerTests {
       when(authController.getUser(any(String.class))).thenReturn(user);
       when(authController.getIsMember(any(String.class))).thenReturn(true);
       MvcResult response = mockMvc
-          .perform(delete("/api/member/schedule/delete?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+          .perform(delete("/api/member/schedule/delete/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
               .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
           .andExpect(status().isNoContent()).andReturn();
       verify(mockScheduleRepository, times(1)).findById(s1.getId());
@@ -384,7 +384,7 @@ public class ScheduleControllerTests {
     when(authController.getUser(any(String.class))).thenReturn(user);
     when(authController.getIsMember(any(String.class))).thenReturn(true);
     mockMvc
-        .perform(delete("/api/member/schedule/delete?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .perform(delete("/api/member/schedule/delete/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNotFound()).andReturn();
     verify(mockScheduleRepository, times(1)).findById(id);
@@ -400,7 +400,7 @@ public class ScheduleControllerTests {
     when(authController.getUser(any(String.class))).thenReturn(user);
     when(authController.getIsMember(any(String.class))).thenReturn(true);
     mockMvc
-        .perform(delete("/api/member/schedule/delete?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+        .perform(delete("/api/member/schedule/delete/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
             .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
         .andExpect(status().isNotFound()).andReturn();
     verify(mockScheduleRepository, times(1)).findById(s1.getId());
@@ -415,7 +415,7 @@ public class ScheduleControllerTests {
     when(authController.getUser(any(String.class))).thenReturn(user);
     when(authController.getIsMember(any(String.class))).thenReturn(false);
     mockMvc
-            .perform(delete("/api/member/schedule/delete?id=1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
+            .perform(delete("/api/member/schedule/delete/1").with(csrf()).contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("utf-8").header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
             .andExpect(status().isUnauthorized()).andReturn();
   }
