@@ -17,6 +17,7 @@ function AppNavbar() {
     fetchWithToken
   );
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
+  const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
   
   return (
     <Navbar bg="dark" variant="dark">
@@ -52,7 +53,10 @@ function AppNavbar() {
             Average Class Size by Department
           </NavDropdown.Item>
         </NavDropdown>
-        <ScheduleNav/>
+        { (isAdmin || isMember) &&
+            (<ScheduleNav/>)
+        }
+
         <ProfileNav />
       </Nav>
       <Navbar.Collapse className="justify-content-end">
