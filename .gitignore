@@ -1,3 +1,32 @@
+# We don't want node_modules, package.json or package-lock.json at top level
+# Only under javascript/ directory
+
+node_modules
+package.json
+package-lock.json
+!javascript/package.json
+!javascript/package-lock.json
+
+# No emacs backup files
+
+\#*\#
+*~
+
+# Don't store the temporary scratch file for credentials
+# referred to in the setup instructions
+
+temp-credentials.txt
+temp_credentials.txt
+
+# No vim temp files
+
+*.swo
+*.swp
+
+# No MacOS .DS_Store files
+.DS_Store
+
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
