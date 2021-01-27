@@ -15,8 +15,7 @@ Here are the secrets you need to create:
 
 | Secret Name | Value | 
 |-|-|
-| `TEST_PROPERTIES` | Copy exactly the contents of `secrets-localhost.properties.SAMPLE`.  Note that you do *not* need real values; the values such as `FILL-IT-IN` are fine for this purpose.  The important thing is that the values
-exist and are not *undefined*; the actual values are not used in the tests. |
+| `TEST_PROPERTIES` | Copy exactly the contents of `secrets-localhost.properties`.  Note that for this particular project, it is not sufficient to copy the placeholder values from the `.SAMPLE` version; real values are needed for some of the items. |
 | `CODECOV_TOKEN` | This value is a token that allows you to publish test code coverage statistics for your project to the website <https://codecov.io>.  To obtain a value for this token, please refer to the instructions below.  |
 
 # Obtaining a `CODECOV_TOKEN`
@@ -45,7 +44,7 @@ To get started, you'll need to do two things first:
   
   If you do NOT see your organization or repo, you can also try just 
   putting in a URL directly that has the following form, replacing `ORG-NAME`
-  with the name of your class organization e.g. `ucsb-cs156-f20` and
+  with the name of your class organization e.g. `ucsb-cs156-w21` and
   `REPO-NAME` with the name of your repo.
 
   ```
