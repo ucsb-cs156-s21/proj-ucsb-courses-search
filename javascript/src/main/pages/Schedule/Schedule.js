@@ -24,7 +24,7 @@ const Schedule = () => {
 
   useEffect(() => {
     mutateSchedules();
-  }, []);
+  }, [mutateSchedules]);
 
   const deleteSchedule = buildDeleteSchedule(
     getToken,

@@ -1,9 +1,9 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-jest.mock("isomorphic-unfetch");
 
-import ClassSizeForm from "main/components/Statistics/ClassSizeForm"; 
+import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
+jest.mock("isomorphic-unfetch"); 
 
 describe("ClassSizeForm tests", () => {
 

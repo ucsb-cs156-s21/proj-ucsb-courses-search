@@ -2,10 +2,10 @@ import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import fetch from "isomorphic-unfetch";
-jest.mock("isomorphic-unfetch");
 
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
 import JSONPretty from "react-json-pretty";
+jest.mock("isomorphic-unfetch");
 
 describe("CourseSearchFormQtrDeptOnly tests", () => {
 

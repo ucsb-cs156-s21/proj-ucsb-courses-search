@@ -3,24 +3,24 @@ import { render } from "@testing-library/react";
 import Schedule from "main/pages/Schedule/Schedule";
 import { useAuth0 } from "@auth0/auth0-react";
 import userEvent from "@testing-library/user-event";
-jest.mock("@auth0/auth0-react");
 import useSWR from "swr";
-jest.mock("swr");
 import { waitFor } from "@testing-library/react";
-jest.mock("main/utils/fetch");
 import { useToasts } from "react-toast-notifications";
-jest.mock("react-toast-notifications", () => ({
-  useToasts: jest.fn()
-}));
 import { useHistory } from "react-router-dom";
-jest.mock("react-router-dom", () => ({
-  useHistory: jest.fn()
-}));
 import {
   buildCreateSchedule,
   buildDeleteSchedule,
   buildUpdateSchedule
 } from "main/services/Schedule/scheduleServices";
+jest.mock("@auth0/auth0-react");
+jest.mock("swr");
+jest.mock("main/utils/fetch");
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
+jest.mock("react-router-dom", () => ({
+  useHistory: jest.fn()
+}));
 jest.mock("main/services/Schedule/scheduleServices", () => ({
   buildCreateSchedule: jest.fn(),
   buildDeleteSchedule: jest.fn(),
