@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import edu.ucsb.courses.documents.Course;
+
+import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 
 @Repository
@@ -107,23 +109,46 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      */                                                       
      @Query("{'quarter': ?0, 'deptCode': ?1}")
      List<Course> findByQuarterAndDepartment(String quarter, String dept);
-     
+
      /**
-      * Returns a list of {@link QuarterOccupancy} from the requested
+      * Returns a list of {@link FullCourse} from the requested
       * quarter interval and department
       * 
       * @param startQuarter quarter formatted as YYYYQ string
       * @param endQuarter quarter formatted as YYYYQ string
       * @param department the department code 
-      * @return a list of {@link QuarterOccupancy}
+      * @return a list of {@link FullCourse}
       */
+      @Aggregation(pipeline= {
+        "{$match:{'quarter':{'$gte':?0,'$lte':?1},'deptCode':?2,'instructionType':'LEC',}}",
+        "{$addFields:{'classSize':{'$size':'$classSections'}}}",
+        "{$unwind:{'path':'$classSections','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}",
+        "{$match:{'classSections.courseCancelled':{$eq:null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}",
+        "{$group:{'_id':'$_id',quarter:{$first:'$quarter'},title:{$first:'$title'},courseId:{$first:'$courseId'},'enrolled':{$sum:'$classSections.enrolledTotal'},'maxEnrolled':{$sum:'$classSections.maxEnroll'}}}",
+        "{$match:{'maxEnrolled':{'$gt':0}}}",
+        "{$project:{_id:1,quarter:1,title:1,courseId:1,diff:{$subtract:['$maxEnrolled','$enrolled']}}}",
+        "{$match:{'diff':{'$lte':0}}}",
+        "{$sort:{_id:1}}"
+    })
+    List<FullCourse> findFullCoursesByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
+
+     /**
+     * Returns a list of {@link QuarterOccupancy} from the requested
+     * quarter interval and department
+     * 
+     * @param startQuarter quarter formatted as YYYYQ string
+     * @param endQuarter quarter formatted as YYYYQ string
+     * @param department the department code 
+     * @return a list of {@link QuarterOccupancy}
+     */
      @Aggregation(pipeline= {
-             "{$match:{'quarter':{'$gte':?0,'$lte':?1},'deptCode':?2,'instructionType':'LEC',}}",
-             "{$addFields:{'classSize':{'$size':'$classSections'}}}",
-             "{$unwind:{'path':'$classSections','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}",
-             "{$match:{'classSections.courseCancelled':{$eq:null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}",
-             "{$group:{'_id':'$quarter','enrolled':{$sum:'$classSections.enrolledTotal'},'maxEnrolled':{$sum:'$classSections.maxEnroll'}}}",
-             "{$sort:{_id:1}}"
-     })
-     List<QuarterOccupancy> findOccupancyByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
+       "{$match:{'quarter':{'$gte':?0,'$lte':?1},'deptCode':?2,'instructionType':'LEC',}}",
+       "{$addFields:{'classSize':{'$size':'$classSections'}}}",
+       "{$unwind:{'path':'$classSections','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}",
+       "{$match:{'classSections.courseCancelled':{$eq:null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}",
+       "{$group:{'_id':'$quarter','enrolled':{$sum:'$classSections.enrolledTotal'},'maxEnrolled':{$sum:'$classSections.maxEnroll'}}}",
+       "{$sort:{_id:1}}"
+    })
+    List<QuarterOccupancy> findOccupancyByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
 }
+
