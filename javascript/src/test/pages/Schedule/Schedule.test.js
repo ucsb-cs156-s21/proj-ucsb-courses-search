@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { waitFor } from "@testing-library/react";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
+import { fetchWithToken } from "main/utils/fetch";
 jest.mock("@auth0/auth0-react");
 jest.mock("swr");
 jest.mock("main/utils/fetch");
@@ -15,11 +16,6 @@ jest.mock("react-toast-notifications", () => ({
 }));
 jest.mock("react-router-dom", () => ({
   useHistory: jest.fn()
-}));
-jest.mock("main/services/Schedule/scheduleServices", () => ({
-  buildCreateSchedule: jest.fn(),
-  buildDeleteSchedule: jest.fn(),
-  buildUpdateSchedule: jest.fn()
 }));
 
 const schedules = [{
@@ -58,18 +54,44 @@ describe("Schedule tests", () => {
     render(<Schedule />);
   });
 
-  test("renders an error message when there is an error", () => {
+  test("renders an error message when there is an error response in delete", async () => {
     useSWR.mockReturnValue({
       data: schedules,
       error: undefined,
       mutate: mutateSpy
     });
+    fetchWithToken.mockReturnValue({ error: "An error occured!" });
+    const { findByTestId } = render(<Schedule />);
+    const deleteButton = await findByTestId("delete-button-1");
+    userEvent.click(deleteButton);
+    await waitFor(() => expect(addToast).toHaveBeenCalledTimes(1));
+  });
+
+  test("test an error message appears when a response code is not 200 ok when deleting", async () => {
     useSWR.mockReturnValue({
-      data: undefined,
-      error: new Error("this is an error"),
+      data: schedules,
+      error: undefined,
       mutate: mutateSpy
     });
-    const { _getByText } = render(<Schedule />);
+    fetchWithToken.mockImplementation(() => { throw new Error("An error occured!") });
+    const { findByTestId } = render(<Schedule />);
+    const deleteButton = await findByTestId("delete-button-1");
+    userEvent.click(deleteButton);
+    await waitFor(() => expect(addToast).toHaveBeenCalledTimes(1));
+  });
+
+  test("test deleting a schedule successfully", async () => {
+    useSWR.mockReturnValue({
+      data: schedules,
+      error: undefined,
+      mutate: mutateSpy
+    });
+    fetchWithToken.mockReturnValue({});
+    const { findByTestId } = render(<Schedule />);
+    const deleteButton = await findByTestId("delete-button-1");
+    userEvent.click(deleteButton);
+    await waitFor(() => expect(mutateSpy).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(addToast).toHaveBeenCalledTimes(1));
   });
 
   test("new button takes us to the new schedule page", async () => {
