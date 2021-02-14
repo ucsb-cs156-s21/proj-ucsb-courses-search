@@ -1,9 +1,8 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import NewSchedule from "main/pages/Schedule/NewSchedule";
 import userEvent from "@testing-library/user-event";
-import useSWR from "swr";
 import { useHistory } from 'react-router-dom';
 
 import { fetchWithToken } from "main/utils/fetch";

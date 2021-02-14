@@ -47,7 +47,7 @@ describe("Admin tests", () => {
     useAuth0.mockReturnValue({
       getAccessTokenSilently: jest.fn(),
     });
-    useSWR.mockImplementation(([endpoint, getToken], fetch) => {
+    useSWR.mockImplementation(([endpoint, _getToken], _fetch) => {
       if (endpoint === "/api/users")
         return {
           data: users,
@@ -65,7 +65,7 @@ describe("Admin tests", () => {
   });
 
   test("renders when no admins exist", () => {
-    useSWR.mockImplementation(([endpoint, getToken], fetch) => {
+    useSWR.mockImplementation(([endpoint, _getToken], _fetch) => {
       if (endpoint === "/api/users")
         return {
           data: users,

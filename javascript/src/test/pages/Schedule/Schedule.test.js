@@ -7,11 +7,6 @@ import useSWR from "swr";
 import { waitFor } from "@testing-library/react";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
-import {
-  buildCreateSchedule,
-  buildDeleteSchedule,
-  buildUpdateSchedule
-} from "main/services/Schedule/scheduleServices";
 jest.mock("@auth0/auth0-react");
 jest.mock("swr");
 jest.mock("main/utils/fetch");
@@ -74,7 +69,7 @@ describe("Schedule tests", () => {
       error: new Error("this is an error"),
       mutate: mutateSpy
     });
-    const { getByText } = render(<Schedule />);
+    const { _getByText } = render(<Schedule />);
   });
 
   test("new button takes us to the new schedule page", async () => {

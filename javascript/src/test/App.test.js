@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "main/App";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";

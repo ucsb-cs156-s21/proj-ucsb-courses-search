@@ -56,7 +56,7 @@ describe("ClassSizeForm tests", () => {
 
         fetchJSONSpy.mockResolvedValue(sampleReturnValue);
 
-        const { getByText, getByTestId } = render(
+        const { getByText, _getByTestId } = render(
             <ClassSizeForm setClassSizeJSON={setClassSizeJSON} fetchClassSize={fetchJSONSpy} />
         );
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import fetch from "isomorphic-unfetch";
 
 import DivisionOccupancyForm from "main/components/Statistics/DivisionOccupancyForm";
 jest.mock("isomorphic-unfetch");
