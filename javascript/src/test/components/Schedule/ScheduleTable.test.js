@@ -22,13 +22,16 @@ const schedulesList = [{
 
 describe("ScheduleForm tests", () => {
   test("renders without crashing", () => {
-    
-    const deleteSchedule = jest.fn();
+    render(<ScheduleTable />);
+  });
 
-    render(<ScheduleTable
-        data={schedulesList}
-        deleteSchedule={deleteSchedule}
-      />);
+  test("renders with schedule", async () => {
+    const { findByText } = render(<ScheduleTable 
+      data={schedulesList}
+    />);
+
+    await findByText("first");
+    await findByText("second");
   });
 
   test("renders with edit/delete buttons ", () => {
