@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "@testing-library/react";
 import NumFullCoursesByDept from "main/pages/Statistics/NumFullCoursesByDept";
 import userEvent from "@testing-library/user-event";
-import { act } from 'react-dom/test-utils';
 
 import { fetchFullCourses } from "main/services/statisticsService";
 jest.mock("main/services/statisticsService");

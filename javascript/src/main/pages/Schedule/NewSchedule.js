@@ -28,7 +28,7 @@ const NewSchedule = () => {
         addToast("New Schedule Saved", { appearance: 'success' });
       }
     },
-    (err) => {
+    (_err) => {
       addToast("Error saving schedule", { appearance: 'error' });
     }
   );

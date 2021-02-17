@@ -33,7 +33,7 @@ function App() {
     ["/api/myRole", getToken],
     fetchWithToken
   );
-  const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
+  const _isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
 
   if (isLoading) {
     return <Loading />;
