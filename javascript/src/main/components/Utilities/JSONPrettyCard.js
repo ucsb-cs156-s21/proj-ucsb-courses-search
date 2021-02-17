@@ -2,10 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap'
 import JSONPretty from 'react-json-pretty';
+
 export default class JSONPrettyCard extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <Fragment>
