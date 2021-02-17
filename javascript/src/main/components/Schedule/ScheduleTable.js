@@ -47,12 +47,12 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
     text: "Edit",
     isDummyField: true,
     dataField: "edit",
-    formatter: (cell, row) => renderEditButton(row.id)
+    formatter: (_cell, row) => renderEditButton(row.id)
   }, {
     text: "Delete",
     isDummyField: true,
     dataField: "delete",
-    formatter: (cell, row) => renderDeleteButton(row.id)
+    formatter: (_cell, row) => renderDeleteButton(row.id)
   }
   ];
 

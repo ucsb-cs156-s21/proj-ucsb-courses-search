@@ -1,11 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router-dom";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchCourseHistoryNameQtrJSON } from "main/services/courseSearches";
 
 const CourseName = () => {

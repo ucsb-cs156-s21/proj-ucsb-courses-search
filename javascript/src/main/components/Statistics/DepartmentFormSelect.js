@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React from "react";
+import { Form } from "react-bootstrap";
 // hard coded depts from mongodb
 // can be dynamically fetched!
 const depts = [

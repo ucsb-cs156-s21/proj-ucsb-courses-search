@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import fetch from "isomorphic-unfetch";
 import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 
-const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) => {
+const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20204");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [department, setDepartment] = useState("CMPSC");
@@ -15,7 +14,6 @@ const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON, setFormSubmitted }) =
         event.preventDefault();
         fetchJSON({startQuarter, endQuarter, department, level}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
-            setFormSubmitted = true;
         });
     }; 
 

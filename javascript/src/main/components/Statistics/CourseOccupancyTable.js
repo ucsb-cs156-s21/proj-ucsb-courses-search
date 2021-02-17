@@ -13,7 +13,7 @@ const average = (arr) => {
   return (arr.reduce((a, b) => parseInt(a) + parseInt(b), 0) / arr.length).toFixed(0);
 };
 
-const alternate = (cell, row, rowIndex, colIndex) => {
+const alternate = (_cell, _row, rowIndex, _colIndex) => {
   if (rowIndex % 2 === 0) 
     return { backgroundColor: '#e9ecef' };
   else
