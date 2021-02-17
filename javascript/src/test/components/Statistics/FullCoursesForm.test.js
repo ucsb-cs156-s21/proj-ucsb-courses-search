@@ -2,44 +2,44 @@ import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import CourseOccupancyForm from "main/components/Statistics/CourseOccupancyForm";
+import FullCoursesForm from "main/components/Statistics/FullCoursesForm";
 
-describe("CourseOccupancyForm tests", () => {
+describe("FullCoursesForm tests", () => {
 
     test("renders without crashing", () => {
-        render(<CourseOccupancyForm />);
+        render(<FullCoursesForm />);
     });
 
     test("when I select a start quarter, the state for start quarter changes", () => {
-        const { getByTestId } = render(<CourseOccupancyForm />);
+        const { getByTestId } = render(<FullCoursesForm />);
         const selectQuarter = getByTestId("select-start-quarter")
         userEvent.selectOptions(selectQuarter, "3");
         expect(selectQuarter.value).toBe("3");
     });
 
     test("when I select a end quarter, the state for end quarter changes", () => {
-        const { getByTestId } = render(<CourseOccupancyForm />);
+        const { getByTestId } = render(<FullCoursesForm />);
         const selectQuarter = getByTestId("select-end-quarter")
         userEvent.selectOptions(selectQuarter, "3");
         expect(selectQuarter.value).toBe("3");
     });
 
     test("when I select a start quarter year, the state for start quarter year changes", () => {
-        const { getByTestId } = render(<CourseOccupancyForm />);
+        const { getByTestId } = render(<FullCoursesForm />);
         const selectQuarter = getByTestId("select-start-year")
         userEvent.selectOptions(selectQuarter, "2019");
         expect(selectQuarter.value).toBe("2019");
     });
 
     test("when I select a end quarter year, the state for end quarter year changes", () => {
-        const { getByTestId } = render(<CourseOccupancyForm />);
+        const { getByTestId } = render(<FullCoursesForm />);
         const selectQuarter = getByTestId("select-end-year")
         userEvent.selectOptions(selectQuarter, "2019");
         expect(selectQuarter.value).toBe("2019");
     });
 
     test("when I select a department, the state for department changes", () => {
-        const { getByTestId } = render(<CourseOccupancyForm />);
+        const { getByTestId } = render(<FullCoursesForm />);
         const selectDepartment = getByTestId("select-department")
         userEvent.selectOptions(selectDepartment, "CMPSC");
         expect(selectDepartment.value).toBe("CMPSC");
@@ -57,13 +57,13 @@ describe("CourseOccupancyForm tests", () => {
         // it was called, how many times it was called,
         // and what it was passed.
 
-        const setOccupancyJSON = jest.fn();
+        const setCourseJSON = jest.fn();
         const fetchJSONSpy = jest.fn();
 
         fetchJSONSpy.mockResolvedValue(sampleReturnValue);
 
         const { getByText, _getByTestId } = render(
-            <CourseOccupancyForm setOccupancyJson={setOccupancyJSON} fetchJSON={fetchJSONSpy} />
+            <FullCoursesForm setCourseJSON={setCourseJSON} fetchJSON={fetchJSONSpy} />
         );
 
         const expectedFields = {
@@ -77,14 +77,13 @@ describe("CourseOccupancyForm tests", () => {
 
         // we need to be careful not to assert this expectation
         // until all of the async promises are resolved
-        await waitFor(() => expect(setOccupancyJSON).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(setCourseJSON).toHaveBeenCalledTimes(1));
         await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
 
         // assert that ourSpy was called with the right value
-        expect(setOccupancyJSON).toHaveBeenCalledWith(sampleReturnValue);
+        expect(setCourseJSON).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields);
 
     });
 
 });
-

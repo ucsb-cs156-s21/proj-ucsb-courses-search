@@ -1,52 +1,44 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
+const FullCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
 
-const DivisionOccupancyForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20204");
-    const [endQuarter, setEndQuarter] = useState("20212");
+    const [endQuarter, setEndQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
-    const [level, setLevel] = useState("U");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON({startQuarter, endQuarter, department, level}).then((courseJSON)=> {
+        onSubmit();
+        setLoading(true);
+        fetchJSON({startQuarter, endQuarter, department}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
+            setLoading(false);
         });
     }; 
 
-    const handleLevelOnChange = (event) => {
-        setLevel(event.target.value);
-    };
-
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="DivisionOccupancy.StartQuarter">
+            <Form.Group controlId="FullCourses.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setStartQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
-            <Form.Group controlId="DivisionOccupancy.EndQuarter">
+            <Form.Group controlId="FullCourses.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setEndQuarter} initialQuarter={1} initialYear={2021} testId={"select-end"}/>
             </Form.Group>
-            <Form.Group controlId="DivisionOccupancy.Department">
+            <Form.Group controlId="FullCourses.Department">
                 <Form.Label>Department</Form.Label>
                 <DepartmentFormSelect handleSelect={setDepartment} value={department}/>
             </Form.Group>
-            <Form.Group controlId="DivisionOccupancy.CourseLevel">
-                <Form.Label>Course Level</Form.Label>
-                <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
-                    <option value="U">Undergraduate</option>
-                    <option value="G">Graduate</option>
-                </Form.Control>
-            </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className={"text-center"} disabled={loading}>
                 Submit
-        </Button>
+            </Button>
+            {loading && <Spinner size={"sm"} style={{ marginLeft: "5px" }} animation="border" />}
         </Form>
     );
 };
-
-export default DivisionOccupancyForm;
+export default FullCoursesForm;
