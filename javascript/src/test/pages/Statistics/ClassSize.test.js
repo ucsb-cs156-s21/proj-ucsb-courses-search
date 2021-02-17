@@ -12,6 +12,12 @@ describe("ClassSize page tests", () => {
     render(<ClassSize />);
   });
 
+  test("the header is there", () => {
+    const { findByText } =  render(<ClassSize />);
+    const header = getByText("Average Class Size By Department");
+    expect(header).toBeInTheDocument();
+  });
+  
   test("ClassSize table appears with data after pressing submit", async () => {
     const { findByText } = render(<ClassSize />);
     const sampleReturnValue = [{
