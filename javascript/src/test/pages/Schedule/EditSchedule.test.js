@@ -1,13 +1,16 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
-import { Router, useHistory, useParams } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { useHistory, useParams } from 'react-router-dom';
 import EditSchedule from "main/pages/Schedule/EditSchedule";
 import userEvent from "@testing-library/user-event";
 
 import useSWR from "swr";
-jest.mock("swr");
 import { useAuth0 } from "@auth0/auth0-react";
+
+import { fetchWithToken } from "main/utils/fetch";
+
+import { useToasts } from 'react-toast-notifications'
+jest.mock("swr");
 jest.mock("@auth0/auth0-react");
 
 jest.mock("react-router-dom", () => ({
@@ -15,13 +18,9 @@ jest.mock("react-router-dom", () => ({
   useParams: jest.fn(), // except for just this one
   useHistory: jest.fn() // and this one too
 }));
-
-import { fetchWithToken } from "main/utils/fetch";
 jest.mock("main/utils/fetch", () => ({
   fetchWithToken: jest.fn()
 }));
-
-import { useToasts } from 'react-toast-notifications'
 jest.mock('react-toast-notifications', () => ({
   useToasts: jest.fn()
 }));
