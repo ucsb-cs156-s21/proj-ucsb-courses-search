@@ -80,5 +80,11 @@ test("when I click submit, I get back the information about a specified instruct
 
 });
 
+test("Instructor placeholder text correctly renders", async () => {
+    const { findByText } = render(<CourseSearchFormInstructor />);
+
+    await findByText("If there are multiple instructors with the same last name, do a search by last name first to determine how the instructor first name is abbreviated, e.g. WANG R K, WANG Y X, WANG Y F, etc. and then repeat the search.");
+  });
+
 });
 
