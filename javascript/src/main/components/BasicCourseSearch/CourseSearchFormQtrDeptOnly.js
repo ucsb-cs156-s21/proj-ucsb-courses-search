@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
-
-    const [quarter, setQuarter] = useState("20211");
+    const [quarter, setQuarter] = useState("20212");
     const [department, setDepartment] = useState("CMPSC");
 
     const handleSubmit = (event) => {
@@ -26,6 +25,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="BasicSearch.Quarter">
                 <Form.Label>Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
