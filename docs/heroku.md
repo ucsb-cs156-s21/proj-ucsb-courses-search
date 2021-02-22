@@ -10,7 +10,7 @@ This consists of the following steps:
 
 ```bash
 cp javascript/.env.local javascript/.env.production
-cp secrets-heroku.properties secrets-heroku.properties
+cp secrets-heroku.properties.SAMPLE secrets-heroku.properties
 ```
 
 5. In the step above, we copied from
