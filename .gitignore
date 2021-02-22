@@ -25,7 +25,6 @@ heroku.json
 *.iml
 *.ipr
 
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
