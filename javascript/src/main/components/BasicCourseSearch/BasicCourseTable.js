@@ -3,16 +3,6 @@ import { Button } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-
-
-//const buttonFormatter = (cell, row, rowIndex, formatExtraData) => {
-//  return(
-//    <Button onClick={()=> {}}> add </Button>  //add onClick funtion to add course to actual schedule
-//  );
-//};
-
-
-
 const BasicCourseTable = ( {classes} ) => {
   const columns = [{
         dataField: 'course.courseId',
