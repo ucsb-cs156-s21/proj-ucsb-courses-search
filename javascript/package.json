@@ -41,7 +41,8 @@
       "!src/serviceWorker.js",
       "!src/setupTests.js",
       "!src/main/components/Auth/*",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/stories/**/*"
     ],
     "coverageThreshold": {
       "global": {
