@@ -9,10 +9,6 @@ export default {
   component: SelectSubject
 };
 
-const setSubject = (subj) => {
-  console.log("setSubject called with parameter:" + subj);
-}
-
 const Template = (args) => {
   const [subject, setSubject] = useState("ANTH");
 

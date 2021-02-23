@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { compareValues } from "main/utils/sortHelper"
 
-const SelectSubject = ({ subjects, subject, setSubject}) => {
+const SelectSubject = ({ subjects, _subject, setSubject}) => {
 
     const handleSubjectOnChange = (event) => {
         setSubject(event.target.value);
