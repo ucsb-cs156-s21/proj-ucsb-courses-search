@@ -18,10 +18,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
         fetchSubjectAreas,
         {
             initialData: allTheSubjects,
-            revalidateOnMount: true,
-            onError: (err, _key, _config) => {
-                console.log(err);
-            }
+            revalidateOnMount: true
         }
     );
 
