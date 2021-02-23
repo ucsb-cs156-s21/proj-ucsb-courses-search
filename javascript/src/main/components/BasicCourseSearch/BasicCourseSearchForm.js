@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { Form, Button} from "react-bootstrap";
+import SelectSubject from "./SelectSubject";
+
+import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [quarter, setQuarter] = useState("20212");
-    const [department, setDepartment] = useState("CMPSC");
+    const [subject, setSubject] = useState("CMPSC");
     const [level, setLevel] = useState("U");
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON(event, {quarter, department, level}).then((courseJSON)=> {
+        fetchJSON(event, {quarter, subject, level}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
         });
     };
 
     const handleQuarterOnChange = (event) => {
         setQuarter(event.target.value);
-    };
-
-    const handleDepartmentOnChange = (event) => {
-        setDepartment(event.target.value);
     };
 
     const handleLevelOnChange = (event) => {
@@ -35,13 +34,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20204">F20</option>
                 </Form.Control>
             </Form.Group>
-            <Form.Group controlId="BasicSearch.Department">
-                <Form.Label>Department</Form.Label>
-                <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
-                    <option>CMPSC</option>
-                    <option>MATH</option>
-                </Form.Control>
-            </Form.Group>
+            <SelectSubject subjects={allTheSubjects} subject={subject} setSubject={setSubject} />
             <Form.Group controlId="BasicSearch.CourseLevel">
                 <Form.Label>Course Level</Form.Label>
                 <Form.Control as="select" onChange={handleLevelOnChange} value={level}>

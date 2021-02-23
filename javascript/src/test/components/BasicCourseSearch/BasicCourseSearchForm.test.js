@@ -19,7 +19,7 @@ describe("BasicCourseSearchForm tests", () => {
 
     test("when I select a department, the state for department changes", () => {
         const { getByLabelText } = render(<BasicCourseSearchForm />);
-        const selectDepartment = getByLabelText("Department")
+        const selectDepartment = getByLabelText("Subject Area")
         userEvent.selectOptions(selectDepartment, "MATH");
         expect(selectDepartment.value).toBe("MATH");
     });
@@ -60,7 +60,7 @@ describe("BasicCourseSearchForm tests", () => {
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
+        const selectDepartment = getByLabelText("Subject Area")
         userEvent.selectOptions(selectDepartment, "MATH");
         const selectLevel = getByLabelText("Course Level")
         userEvent.selectOptions(selectLevel, "G");
@@ -108,7 +108,7 @@ describe("BasicCourseSearchForm tests", () => {
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
+        const selectDepartment = getByLabelText("Subject Area")
         userEvent.selectOptions(selectDepartment, "MATH");
         const selectLevel = getByLabelText("Course Level")
         userEvent.selectOptions(selectLevel, "G");
