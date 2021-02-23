@@ -1,23 +1,43 @@
-import React, { useState } from "react";
-import { Form, Button} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import SelectSubject from "./SelectSubject";
-
-import {fetchSubjectAreas} from "main/services/subjectAreaService";
+import useSWR from "swr";
+import { useToasts } from "react-toast-notifications";
+import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
+import { fetchSubjectAreas } from "main/services/subjectAreaService";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [quarter, setQuarter] = useState("20212");
     const [subject, setSubject] = useState("CMPSC");
     const [level, setLevel] = useState("U");
-    
-    const [subjects, setSubjects] = useState([]);
+    const { addToast } = useToasts();
+    const [errorNotified, setErrorNotified] = useState(false);
 
-    fetchSubjectAreas().then((subjectAreaJSON)=> {
-        setSubjects(subjectAreaJSON);
-    });
+    const { data: subjects, error: errorGettingSubjects } = useSWR(
+        "/api/public/subjects",
+        fetchSubjectAreas,
+        {
+            initialData: allTheSubjects,
+            revalidateOnMount: true,
+            onError: (err, _key, _config) => {
+                console.log(err);
+            }
+        }
+    );
+
+    useEffect(
+        () => {
+            if (!errorNotified && errorGettingSubjects) {
+              addToast(`${errorGettingSubjects}`, { appearance: "error" });
+              setErrorNotified(true);
+            }
+        },
+        [errorGettingSubjects, errorNotified, addToast]
+    );
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON(event, {quarter, subject, level}).then((courseJSON)=> {
+        fetchJSON(event, { quarter, subject, level }).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
     };
@@ -29,7 +49,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const handleLevelOnChange = (event) => {
         setLevel(event.target.value);
     };
- 
+
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="BasicSearch.Quarter">
