@@ -7,8 +7,9 @@ import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
+    const firstDepartment = allTheSubjects[0].subjectCode;
     const [quarter, setQuarter] = useState("20212");
-    const [subject, setSubject] = useState("CMPSC");
+    const [subject, setSubject] = useState(firstDepartment);
     const [level, setLevel] = useState("U");
     const { addToast } = useToasts();
     const [errorNotified, setErrorNotified] = useState(false);
