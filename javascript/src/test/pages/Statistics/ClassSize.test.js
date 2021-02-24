@@ -11,9 +11,9 @@ describe("ClassSize page tests", () => {
   test("renders without crashing", () => {
     render(<ClassSize />);
   });
-
+  
   test("the header is there", () => {
-    const { findByText } =  render(<ClassSize />);
+    const { getByText } =  render(<ClassSize />);
     const header = getByText("Average Class Size By Department");
     expect(header).toBeInTheDocument();
   });
