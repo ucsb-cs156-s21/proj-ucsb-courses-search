@@ -9,7 +9,7 @@ const BasicCourseTable = ( {classes} ) => {
     return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
-    const alignmnet = (row.section % 100 == 0)? 'left': 'right';
+    const alignmnet = 'left';
     return alignmnet
   }
   const renderSectionTimes = (cell, row) => {
