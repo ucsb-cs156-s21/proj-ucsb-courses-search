@@ -8,7 +8,7 @@ const BasicCourseTable = ( {classes} ) => {
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
-  const dataAlignment = (cell, row) => {
+  const dataAlignment = () => {
     const alignmnet = 'left';
     return alignmnet
   }

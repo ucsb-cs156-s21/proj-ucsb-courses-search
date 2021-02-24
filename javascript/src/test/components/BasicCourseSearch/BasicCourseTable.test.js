@@ -127,7 +127,7 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("check that sections are aligned to the left", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {classesLectureAndSections} />);
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
   	expect( getByText("0101").style.textAlign).toBe("left");
   });
 
