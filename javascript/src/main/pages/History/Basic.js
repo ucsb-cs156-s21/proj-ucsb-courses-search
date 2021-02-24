@@ -20,7 +20,10 @@ const Basic = () => {
     return (
         <Jumbotron>
             <div className="text-left">
-                <h5>Search Archived Course Data from MongoDB</h5>
+                <h5>Search Archived Course Data</h5>
+                <p>Data on this page is accurate for past quarters, but may be 
+                    incomplete or out of date for current and future quarters.
+                    Course information is not immediately updated.</p>
                 <CourseSearchFormQtrDeptOnly setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseHistoryJSON} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
