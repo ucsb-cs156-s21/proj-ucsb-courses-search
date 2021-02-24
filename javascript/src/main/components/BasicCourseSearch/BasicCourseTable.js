@@ -8,10 +8,7 @@ const BasicCourseTable = ( {classes} ) => {
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
-  const dataAlignment = () => {
-    const alignmnet = 'left';
-    return alignmnet
-  }
+
   const renderSectionTimes = (_cell, row) => {
 
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
@@ -47,31 +44,31 @@ const BasicCourseTable = ( {classes} ) => {
     },{
       dataField: 'section',
       text: 'Section',
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     },{
       dataField: "instructors",
       text: "Instructor",
       isDummyField: true,
       formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     },{
       dataField: 'enrollCode',
       text: 'Enroll Code',
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     },{
       dataField: 'days',
       text: 'Days',
       formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     },{
       dataField: 'times',
       text: 'Time',
       formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     },{
       dataField: 'course.unitsFixed',
       text: 'Unit',
-      align: (cell, row) => dataAlignment(cell, row)
+      align: (cell, row) => 'left'
     }
   ];
     return (
