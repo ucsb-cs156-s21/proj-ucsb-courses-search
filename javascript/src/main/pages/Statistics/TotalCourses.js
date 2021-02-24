@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { fetchClassSize } from "main/services/statisticsService";
-import ClassSizeTable from "main/components/Statistics/ClassSizeTable";
-import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
+import { fetchTotalCoursesByDept } from "main/services/statisticsService";
+import TotalCoursesTable from "main/components/Statistics/TotalCoursesTable";
+import TotalCoursesForm from "main/components/Statistics/TotalCoursesForm";
+//import { fetchTotalCoursesByDept } from "../../services/statisticsService";
 
 
 const TotalCourses = () => {
@@ -20,8 +21,8 @@ const TotalCourses = () => {
 
     return (
         <Jumbotron>
-            <ClassSizeForm setClassSizeJSON={setJsonTableData} fetchClassSize={fetchClassSize}/>
-            {tableVisibility && (data.length ? <ClassSizeTable data={data} /> : "There are no results!")}
+            <TotalCoursesForm setTotalCoursesJSON={setJsonTableData} fetchTotalCoursesByDept={fetchTotalCoursesByDept}/>
+            {tableVisibility && (data.length ? <TotalCoursesTable data={data} /> : "There are no results!")}
         </Jumbotron>
 
     );
