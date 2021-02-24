@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron, Container, Spinner } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import { fetchClassSize } from "main/services/statisticsService";
 import ClassSizeTable from "main/components/Statistics/ClassSizeTable";
 import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
