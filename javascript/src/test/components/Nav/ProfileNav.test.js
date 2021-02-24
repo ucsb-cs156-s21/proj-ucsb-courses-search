@@ -16,7 +16,6 @@ describe("Profile Nav tests", () => {
       <Router history={history}>
       </Router>
     );
-    expect(getByText("Profile")).toBeInTheDocument();
   });
 
   test("it does not render the link if user is not authenticated", () => {
