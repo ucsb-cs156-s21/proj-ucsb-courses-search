@@ -33,7 +33,14 @@ describe("AuthNav tests", () => {
     useAuth0.mockReturnValueOnce({
       user
     });
-    const { getByText } = render(<AuthNav />);
+
+    const history = createMemoryHistory();
+
+    const { getByText } = render(
+      <Router history={history}>
+        <AuthNav />
+      </Router> 
+    );
     const loginButton = getByText(/Log Out/);
     expect(loginButton).toBeInTheDocument();
   });
