@@ -1,6 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import AuthNav from "main/components/Nav/AuthNav";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";	
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 describe("AuthNav tests", () => {
@@ -41,12 +43,19 @@ describe("AuthNav tests", () => {
     useAuth0.mockReturnValueOnce({
       user
     });
-    const { getByText, getByAltText } = render(<AuthNav />);
+
+    const history = createMemoryHistory();
+
+    const { getByText, getByAltText } = render(
+      <Router history={history}>
+        <AuthNav />
+      </Router>
+    );
     const welcomeText = getByText("Hello, " + user.name);
 
     expect(welcomeText.closest('a')).toHaveAttribute('href', '/profile');
     expect(welcomeText).toBeInTheDocument();
     const profileImage = getByAltText("Profile");
     expect(profileImage).toBeInTheDocument();
-    });
+  });
 });
