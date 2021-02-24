@@ -7,6 +7,10 @@ package-lock.json
 !javascript/package.json
 !javascript/package-lock.json
 
+# Don't check in a built storybook
+
+javascript/storybook-static
+
 # No emacs backup files
 
 \#*\#
