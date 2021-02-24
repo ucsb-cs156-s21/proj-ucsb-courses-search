@@ -23,7 +23,17 @@ const AppFooter = () => {
       >
         GitHub
       </a>
-      !
+      !<br />
+      This is not an official source of UCSB course information. The official
+      source for UCSB course information can be found at{" "}
+      <a
+        href="https://my.sa.ucsb.edu/public/curriculum/coursesearch.aspx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Official UCSB Course Search
+      </a>
+      .
     </footer>
   );
 };
