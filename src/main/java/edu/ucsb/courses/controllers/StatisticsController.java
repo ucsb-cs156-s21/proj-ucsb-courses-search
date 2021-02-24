@@ -182,12 +182,15 @@ public class StatisticsController {
     public ResponseEntity<String> totalCourses(@RequestParam(required = true) String quarter) throws JsonProcessingException{
         MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
         UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+
         MatchOperation onlyLectures = match(Criteria.where("index").is(0));
         MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
-        GroupOperation groupOperation = group("$deptCode").count().as("totalCourses");
-        SortOperation numberSort = sort(Sort.by(Direction.ASC, "totalCourses"));
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation,numberSort);
+        GroupOperation groupOperation = group("$deptCode").count().as("totalCourses");
+
+        SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
+
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation, deptSort);
 
         AggregationResults<TotalCoursesDept> result = mongoTemplate.aggregate(aggregation, "courses",
                 TotalCoursesDept.class);
