@@ -5,32 +5,32 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
 
-  const rowStyle = (row, rowIndex) => {
-    return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
+  const rowStyle = (row, _rowIndex) => {
+    return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
     const alignmnet = 'left';
     return alignmnet
   }
-  const renderSectionTimes = (cell, row) => {
+  const renderSectionTimes = (_cell, row) => {
 
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
   }
-  const renderSectionDays = (cell, row) => {
+  const renderSectionDays = (_cell, row) => {
 
     const days = (row.timeLocations.length > 0)? (row.timeLocations[0].days) : ("TBD");
     return days
   }
-  const renderCourseId = (cell, row) => {
-    const courseId = (row.section % 100 == 0)? row.course.courseId: "";
+  const renderCourseId = (_cell, row) => {
+    const courseId = (row.section % 100 === 0)? row.course.courseId: "";
     return (  courseId )
   }
-  const renderCourseTitle = (cell, row) => {
-    const courseTitle = (row.section % 100 == 0)? row.course.title: "";
+  const renderCourseTitle = (_cell, row) => {
+    const courseTitle = (row.section % 100 === 0)? row.course.title: "";
     return (  courseTitle )
   }
-  const renderInstructors = (cell, row) => {
+  const renderInstructors = (_cell, row) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }

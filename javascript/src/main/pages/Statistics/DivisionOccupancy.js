@@ -29,11 +29,11 @@ const DivisionOccupancy = () => {
             <Jumbotron> 
                 <div className="text-left">
                     <h5>Search Archived Course Data from MongoDB by Division Occupancy</h5>
-                    <DivisionOccupancyForm setCourseJSON={setInitialData} fetchJSON={fetchDivisionOccupancy} setFormSubmitted={setFormSubmitted}/>
+                    <DivisionOccupancyForm setCourseJSON={setInitialData} fetchJSON={fetchDivisionOccupancy}/>
                 </div>
             </Jumbotron>
             
-            {formSubmitted && (courseJSON.length == 0 ? 'There are no results!' : <DivisionOccupancyTable data={courseJSON} />)}
+            {formSubmitted && (courseJSON.length === 0 ? 'There are no results!' : <DivisionOccupancyTable data={courseJSON} />)}
         </div>
     );
 };

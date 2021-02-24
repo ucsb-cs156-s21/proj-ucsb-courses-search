@@ -1,11 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron, Container, Spinner  } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import { fetchFullCourses } from "main/services/statisticsService";
 import FullCoursesForm from "main/components/Statistics/FullCoursesForm";
 import FullCourseTable from "main/components/Statistics/FullCourseTable";
 import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
-import Loading from "main/components/Loading/Loading";
 
 const NumFullCoursesByDept = () => {
     const [tableVisibility, setTableVisibility] = useState(false);

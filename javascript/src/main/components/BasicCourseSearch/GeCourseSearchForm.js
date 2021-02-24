@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-
-    const [startQuarter, setStartQuarter] = useState("20211");
-    const [endQuarter, setEndQuarter] = useState("20211");
+    const [startQuarter, setStartQuarter] = useState("20212");
+    const [endQuarter, setEndQuarter] = useState("20212");
     const [geCode, setGeCode] = useState("A1 ");
 
     const handleSubmit = (event) => {
@@ -31,6 +30,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="BasicSearch.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
@@ -38,6 +38,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="BasicSearch.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                 </Form.Control>
