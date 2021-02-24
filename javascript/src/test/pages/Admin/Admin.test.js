@@ -3,10 +3,10 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Admin from "main/pages/Admin/Admin";
 import { useAuth0 } from "@auth0/auth0-react";
-jest.mock("@auth0/auth0-react");
 import useSWR from "swr";
-jest.mock("swr");
 import { fetchWithToken } from "main/utils/fetch";
+jest.mock("@auth0/auth0-react");
+jest.mock("swr");
 jest.mock("main/utils/fetch");
 
 describe("Admin tests", () => {
@@ -47,7 +47,7 @@ describe("Admin tests", () => {
     useAuth0.mockReturnValue({
       getAccessTokenSilently: jest.fn(),
     });
-    useSWR.mockImplementation(([endpoint, getToken], fetch) => {
+    useSWR.mockImplementation(([endpoint, _getToken], _fetch) => {
       if (endpoint === "/api/users")
         return {
           data: users,
@@ -65,7 +65,7 @@ describe("Admin tests", () => {
   });
 
   test("renders when no admins exist", () => {
-    useSWR.mockImplementation(([endpoint, getToken], fetch) => {
+    useSWR.mockImplementation(([endpoint, _getToken], _fetch) => {
       if (endpoint === "/api/users")
         return {
           data: users,

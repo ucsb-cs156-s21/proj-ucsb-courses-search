@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "extends": [
+    "react-app"
+  ],
+  "env": {
+    "browser": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/test/**/*.js"
+      ],
+      "env": {
+        "node": true,
+        "jest": true
+      }
+    }
+  ],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ]
+  }
+}

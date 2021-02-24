@@ -6,6 +6,16 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
+
+import java.lang.String;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import java.util.List;
 
@@ -22,6 +32,10 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
+
+import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
+import org.springframework.data.mongodb.core.aggregation.LimitOperation;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +46,29 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.ucsb.courses.documents.statistics.AvgClassSize;
+
+import edu.ucsb.courses.documents.statistics.FullCourse;
+
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
+
+import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.CoursePage;
+
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
+
+import com.mongodb.client.model.Accumulators;   
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
+
+
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import edu.ucsb.courses.documents.statistics.AvgClassSize;
 
 @RestController
 @RequestMapping("/api/public/statistics")
@@ -45,7 +78,7 @@ public class StatisticsController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
-    
+
     @Autowired
     private ArchivedCourseRepository courseRepository;
     
@@ -103,6 +136,15 @@ public class StatisticsController {
             String body = mapper.writeValueAsString(divOc);
 
             return ResponseEntity.ok().body(body);
+    }
+
+    @GetMapping(value = "/fullCoursesByDept", produces = "application/json")
+    public ResponseEntity<String> numFullCoursesByDept(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, @RequestParam(required = true) String department)
+            throws JsonProcessingException {
+
+        String body = mapper.writeValueAsString(courseRepository.findFullCoursesByQuarterIntervalAndDepartment(startQuarter, endQuarter, department));
+
+        return ResponseEntity.ok().body(body);
     }
 
     @GetMapping(value = "/classSize", produces = "application/json")
