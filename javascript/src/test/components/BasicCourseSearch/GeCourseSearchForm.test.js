@@ -1,11 +1,8 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import fetch from "isomorphic-unfetch";
-jest.mock("isomorphic-unfetch");
-
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
-import JSONPretty from "react-json-pretty";
+jest.mock("isomorphic-unfetch");
 
 describe("GeCourseSearchForm tests", () => {
 

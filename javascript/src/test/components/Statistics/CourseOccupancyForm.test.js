@@ -62,7 +62,7 @@ describe("CourseOccupancyForm tests", () => {
 
         fetchJSONSpy.mockResolvedValue(sampleReturnValue);
 
-        const { getByText, getByTestId } = render(
+        const { getByText, _getByTestId } = render(
             <CourseOccupancyForm setOccupancyJson={setOccupancyJSON} fetchJSON={fetchJSONSpy} />
         );
 

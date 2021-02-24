@@ -63,4 +63,23 @@ public class UCSBCurriculumServiceTest {
         assertEquals(expectedResult, result);
     }
 
+
+    @Test
+    public void test_getSubjectsJSON_success() throws Exception {
+        String expectedResult = "[ {deptCode: \"ANTH\"} ]";
+        when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), any(HttpEntity.class), eq(String.class)))
+                .thenReturn(new ResponseEntity<String>(expectedResult, HttpStatus.OK));
+        String result = ucs.getSubjectsJSON();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void test_getSubjectsJSON_exception() throws Exception {
+        String expectedResult = "{\"error\": \"401: Unauthorized\"}";
+        when(restTemplate.exchange(any(String.class), eq(HttpMethod.GET), any(HttpEntity.class), eq(String.class)))
+                .thenThrow(HttpClientErrorException.class);
+        String result = ucs.getSubjectsJSON();
+        assertEquals(expectedResult, result);
+    }
+
 }
