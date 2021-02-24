@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { render, waitFor } from "@testing-library/react";
+import React from "react";
+import { render } from "@testing-library/react";
 import ScheduleTable from "main/components/Schedule/ScheduleTable";
 import userEvent from "@testing-library/user-event";
 import { Router } from "react-router-dom";
@@ -22,13 +22,16 @@ const schedulesList = [{
 
 describe("ScheduleForm tests", () => {
   test("renders without crashing", () => {
-    
-    const deleteSchedule = jest.fn();
+    render(<ScheduleTable />);
+  });
 
-    render(<ScheduleTable
-        data={schedulesList}
-        deleteSchedule={deleteSchedule}
-      />);
+  test("renders with schedule", async () => {
+    const { findByText } = render(<ScheduleTable 
+      data={schedulesList}
+    />);
+
+    await findByText("first");
+    await findByText("second");
   });
 
   test("renders with edit/delete buttons ", () => {
