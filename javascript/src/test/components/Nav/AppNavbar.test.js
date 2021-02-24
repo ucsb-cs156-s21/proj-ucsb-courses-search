@@ -26,7 +26,7 @@ describe("AppNavbar tests", () => {
   });
   test("should have the correct links in the navbar", () => {
     const history = createMemoryHistory();
-    const { getByText } = render(
+    render(
       <Router history={history}>
         <AppNavbar />
       </Router>

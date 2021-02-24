@@ -12,7 +12,7 @@ describe("Profile Nav tests", () => {
       isAuthenticated: true,
     });
     const history = createMemoryHistory();
-    const { getByText } = render(
+    render(
       <Router history={history}>
       </Router>
     );
