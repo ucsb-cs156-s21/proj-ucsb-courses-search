@@ -24,12 +24,17 @@ const Statistics = () => {
     }
 
     return (
-        <Jumbotron>
-            <div className="text-left">
-                <h5>Summarize Department Statistics</h5>
-                <AggregateStatisticsForm setCourseJSON={setInitialData} fetchJSON={fetchDivisionOccupancy}/>
-            </div>
-        </Jumbotron>
+        <div>
+            <Jumbotron>
+                <div className="text-left">
+                    <h5>Summarize Department Statistics</h5>
+                    <AggregateStatisticsForm setCourseJSON={setInitialData} fetchJSON={fetchDivisionOccupancy}/>
+                </div>
+            </Jumbotron>
+
+            {formSubmitted && (courseJSON.length === 0 ? 'There are no results!' : <AggregateStatisticsTable data={courseJSON} />)}
+        </div>
+
     );
 
 };
