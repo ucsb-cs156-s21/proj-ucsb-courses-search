@@ -29,11 +29,15 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
     text: 'id'
   }, {
     dataField: 'name',
-    text: 'Name'
+    text: 'Name',
+    align: "left",
+    headerAlign: "left"
   },
   {
     dataField: 'description',
-    text: 'Description'
+    text: 'Description',
+    align: "left",
+    headerAlign: "left"
   },
   {
     dataField: 'quarter',
