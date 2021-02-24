@@ -1,11 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron, Container, Spinner } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import { fetchCourseOccupancy } from "main/services/statisticsService";
 import CourseOccupancyForm from "main/components/Statistics/CourseOccupancyForm";
 import CourseOccupancyTable from "main/components/Statistics/CourseOccupancyTable";
 import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
-import Loading from "main/components/Loading/Loading";
 
 const calcPercent = (first, second) => {
     first = parseInt(first);

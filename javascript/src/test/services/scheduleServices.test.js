@@ -1,6 +1,3 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import AppFooter from "main/components/Footer/AppFooter";
 import { buildCreateSchedule, buildDeleteSchedule, buildUpdateSchedule } from "main/services/Schedule/scheduleServices";
 
 import { fetchWithToken } from "main/utils/fetch";

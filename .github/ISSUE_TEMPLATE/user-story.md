@@ -4,7 +4,6 @@ about: This is a template for defining user stories
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 # User Story
