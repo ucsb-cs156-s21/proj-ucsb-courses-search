@@ -1,5 +1,4 @@
 import React from "react";
-import ProfileNav from "main/components/Nav/ProfileNav";
 import { render } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
