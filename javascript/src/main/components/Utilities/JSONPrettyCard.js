@@ -1,22 +1,36 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Card } from 'react-bootstrap'
-import JSONPretty from 'react-json-pretty';
+import React, { Fragment, useState } from "react";
+import PropTypes from "prop-types";
+import { Card, Accordion } from "react-bootstrap";
+import JSONPretty from "react-json-pretty";
 
-export default class JSONPrettyCard extends Component {
-    render() {
-        return (
-            <Fragment>
-                <Card id={`JSONPrettyPanel-${this.props.expression}`}>
-                    <Card.Body>
-                        <Card.Title><code>{this.props.expression}</code></Card.Title>
-                        <JSONPretty data={this.props.value} />
-                    </Card.Body>
-                </Card>
-            </Fragment>
-        );
-    }
-}
-JSONPrettyCard.propTypes = {
-    expression: PropTypes.string.isRequired,
+const JSONPrettyCard = (props) => {
+  const [activeKey, setActiveKey] = useState(null);
+
+  return (
+    <Fragment>
+      <Card id={`JSONPrettyPanel-${props.expression}`}>
+        <Card.Body>
+          <Accordion onSelect={(eventKey) => setActiveKey(eventKey)}>
+            <Accordion.Toggle
+              style={{ cursor: "pointer" }}
+              as={Card.Header}
+              variant="link"
+              eventKey="0"
+            >
+              {props.expression} ({activeKey === "0" ? "visible" : "hidden"})
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <JSONPretty data={props.value} />
+            </Accordion.Collapse>
+          </Accordion>
+        </Card.Body>
+      </Card>
+    </Fragment>
+  );
 };
+
+JSONPrettyCard.propTypes = {
+  expression: PropTypes.string.isRequired,
+};
+
+export default JSONPrettyCard;
