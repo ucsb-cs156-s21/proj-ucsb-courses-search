@@ -14,7 +14,6 @@ describe("Profile Nav tests", () => {
     const history = createMemoryHistory();
     const { getByText } = render(
       <Router history={history}>
-        <ProfileNav />
       </Router>
     );
     expect(getByText("Profile")).toBeInTheDocument();
@@ -27,7 +26,6 @@ describe("Profile Nav tests", () => {
     const history = createMemoryHistory();
     const { queryByText } = render(
       <Router history={history}>
-        <ProfileNav />
       </Router>
     );
     expect(queryByText("Profile")).toBeNull();
