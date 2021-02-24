@@ -4,7 +4,7 @@ import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 const TotalCoursesForm = ({ setTotalCoursesJSON, fetchTotalCoursesByDept, onSubmit = () => {} }) => {
 
-    const [quarter, setQuarter] = useState("20204")
+    const [quarter, setQuarter] = useState("20211")
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
@@ -23,7 +23,7 @@ const TotalCoursesForm = ({ setTotalCoursesJSON, fetchTotalCoursesByDept, onSubm
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="AvgClassSize.StartQuarter">
-                <Form.Label>Start Quarter</Form.Label>
+                <Form.Label>Select a Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setQuarter} initialQuarter={1} initialYear={2021} testId={"select-start"}/>
             </Form.Group>
             <Button variant="primary" type="submit" className={"text-center"} disabled={loading}>
