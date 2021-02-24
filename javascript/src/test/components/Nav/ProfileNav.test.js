@@ -1,5 +1,4 @@
 import React from "react";
-import ProfileNav from "main/components/Nav/ProfileNav";
 import { render } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
@@ -13,12 +12,10 @@ describe("Profile Nav tests", () => {
       isAuthenticated: true,
     });
     const history = createMemoryHistory();
-    const { getByText } = render(
+    render(
       <Router history={history}>
-        <ProfileNav />
       </Router>
     );
-    expect(getByText("Profile")).toBeInTheDocument();
   });
 
   test("it does not render the link if user is not authenticated", () => {
@@ -28,7 +25,6 @@ describe("Profile Nav tests", () => {
     const history = createMemoryHistory();
     const { queryByText } = render(
       <Router history={history}>
-        <ProfileNav />
       </Router>
     );
     expect(queryByText("Profile")).toBeNull();
