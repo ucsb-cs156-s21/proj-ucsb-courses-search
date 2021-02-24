@@ -6,6 +6,7 @@ import LogoutButton from "./LogoutButton";
 import { LinkContainer } from "react-router-bootstrap";
 
 
+
 const AuthNav = () => {
   const { user } = useAuth0();
   if(user) {
