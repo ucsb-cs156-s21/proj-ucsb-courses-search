@@ -44,31 +44,31 @@ const BasicCourseTable = ( {classes} ) => {
     },{
       dataField: 'section',
       text: 'Section',
-      align: (cell, row) => 'left'
+      align: 'left'
     },{
       dataField: "instructors",
       text: "Instructor",
       isDummyField: true,
       formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => 'left'
+      align: 'left'
     },{
       dataField: 'enrollCode',
       text: 'Enroll Code',
-      align: (cell, row) => 'left'
+      align: 'left'
     },{
       dataField: 'days',
       text: 'Days',
       formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => 'left'
+      align: 'left'
     },{
       dataField: 'times',
       text: 'Time',
       formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => 'left'
+      align: 'left'
     },{
       dataField: 'course.unitsFixed',
       text: 'Unit',
-      align: (cell, row) => 'left'
+      align: 'left'
     }
   ];
     return (
