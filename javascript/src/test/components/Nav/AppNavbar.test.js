@@ -26,14 +26,14 @@ describe("AppNavbar tests", () => {
   });
   test("should have the correct links in the navbar", () => {
     const history = createMemoryHistory();
-    render(
+    const { getByText } = render(
       <Router history={history}>
         <AppNavbar />
       </Router>
     );
 
 
-    //const userInfoLink = getByText(/Profile/);
-    //expect(userInfoLink.href).toMatch("/profile");
+    const userInfoLink = getByText(/Profile/);
+    expect(userInfoLink.href).toMatch("/profile");
   });
 });
