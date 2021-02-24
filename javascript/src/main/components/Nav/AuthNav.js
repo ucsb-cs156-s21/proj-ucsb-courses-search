@@ -1,15 +1,19 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
+import { LinkContainer } from "react-router-bootstrap";
+
 
 const AuthNav = () => {
   const { user } = useAuth0();
   if(user) {
     const { name, picture } = user;
     return <>
-      <Navbar.Text style={{marginRight: 15}}>{"Hello, " + name}</Navbar.Text>  
+    <LinkContainer to={"/profile"}>
+      <Nav.Link style={{marginRight: 15}}>{"Hello, " + name}</Nav.Link>
+    </LinkContainer> 
       <img
             src={picture}
             alt="Profile"

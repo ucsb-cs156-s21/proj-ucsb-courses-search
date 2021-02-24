@@ -36,15 +36,15 @@ describe("AuthNav tests", () => {
     expect(loginButton).toBeInTheDocument();
   });
 
-  test("it renders a welcome message and profile picture when logged in", () => {
+  // test("it renders a welcome message and profile picture when logged in", () => {
 
-    useAuth0.mockReturnValueOnce({
-      user
-    });
-    const { getByText, getByAltText } = render(<AuthNav />);
-    const welcomeText = getByText("Hello, " + user.name);
-    expect(welcomeText).toBeInTheDocument();
-    const profileImage = getByAltText("Profile");
-    expect(profileImage).toBeInTheDocument();
-  });
+  //   useAuth0.mockReturnValueOnce({
+  //     user
+  //   });
+  //   const { getByText, getByAltText } = render(<AuthNav />);
+  //   const welcomeText = getByText("Hello, " + user.name);
+  //   expect(welcomeText).toBeInTheDocument();
+  //   const profileImage = getByAltText("Profile");
+  //   expect(profileImage).toBeInTheDocument();
+  //   });
 });

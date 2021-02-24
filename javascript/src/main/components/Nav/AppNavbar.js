@@ -59,7 +59,7 @@ function AppNavbar() {
             (<ScheduleNav/>)
         }
 
-        <ProfileNav />
+        
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />
