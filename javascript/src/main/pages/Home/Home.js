@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router-dom";
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";

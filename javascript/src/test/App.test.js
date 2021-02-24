@@ -1,11 +1,11 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "main/App";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-jest.mock("@auth0/auth0-react");
 import useSWR from "swr";
+jest.mock("@auth0/auth0-react");
 jest.mock("swr");
 
 describe("App tests", () => {

@@ -19,17 +19,12 @@ const oddRows = {
   backgroundColor: '#edf0f2'
 }
 
-const alternate = (cell, row, rowIndex, colIndex) => {
+const alternate = (_cell, _row, rowIndex, _colIndex) => {
   if (rowIndex % 2 === 0) 
     return evenRows;
   else
     return oddRows;
 };
-
-const defaultSorted = [{
-  dataField: 'index',
-  order: 'desc'
-}];
 
 const FullCourseTable = ( {data} ) => {
 
