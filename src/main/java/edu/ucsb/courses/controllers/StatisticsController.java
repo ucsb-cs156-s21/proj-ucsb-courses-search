@@ -186,7 +186,7 @@ public class StatisticsController {
     @GetMapping(value = "/fullDeptSummary", produces = "application/json")
     public ResponseEntity<String> fullDeptSummary(@RequestParam(required = true) String startQuarter)
             throws JsonProcessingException {
-        MatchOperation matchOperation = match(Criteria.where("quarter").is(startQuarter));
+        MatchOperation matchOperation = match(Criteria.where("quarter").is(startQuarter);
 
         UnwindOperation unwindOperation = unwind("$classSections", "index", false);
 
@@ -194,7 +194,7 @@ public class StatisticsController {
 
         MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
 
-        GroupOperation groupOperation = group("$deptCode").count().as("numCourses");
+        GroupOperation groupOperation1 = group("$deptCode").count().as("numCourses");
 
         SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
 
