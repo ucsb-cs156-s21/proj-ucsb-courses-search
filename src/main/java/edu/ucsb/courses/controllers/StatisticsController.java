@@ -186,7 +186,7 @@ public class StatisticsController {
     @GetMapping(value = "/fullDeptSummary", produces = "application/json")
     public ResponseEntity<String> fullDeptSummary(@RequestParam(required = true) String startQuarter)
             throws JsonProcessingException {
-        MatchOperation matchOperation = match(Criteria.where("quarter").is(startQuarter);
+        MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
 
         UnwindOperation unwindOperation = unwind("$classSections", "index", false);
 
@@ -195,10 +195,12 @@ public class StatisticsController {
         MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
 
         GroupOperation groupOperation1 = group("$deptCode").count().as("numCourses");
+        GroupOperation groupOperation2 = group("$deptCode").count().as("numFullCourses");
+
 
         SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
 
-        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation, deptSort);
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation1, groupOperation2, deptSort);
 
         AggregationResults<FullSummary> result = mongoTemplate.aggregate(aggregation, "courses",
                 FullSummary.class);
