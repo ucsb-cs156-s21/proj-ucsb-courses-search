@@ -194,7 +194,7 @@ public class StatisticsController {
 
         MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
 
-        GroupOperation groupOperation1 = group("$deptCode").count().as("numCourses");
+        GroupOperation groupOperation = group("$deptCode").count().as("numCourses");
 
         SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
 
