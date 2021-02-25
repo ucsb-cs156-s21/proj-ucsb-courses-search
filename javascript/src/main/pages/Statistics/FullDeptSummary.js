@@ -22,7 +22,7 @@ const FullDeptSummary = () => {
                 <FullDeptForm setFullDeptJSON={setJsonTableData} fetchFullDept={fetchFullDept} onSubmit={() => { setTableVisibility(false) }} />
             </Container>
             <Container style={{ marginTop: "20px" }} className={"text-center"}>
-                {tableVisibility && (tableData.length ? <FullDeptTable data={tableData} /> : "There are no results!")}
+                {tableVisibility && (data.length ? <FullDeptTable data={data} /> : "There are no results!")}
             </Container>
         </Jumbotron>
     );
