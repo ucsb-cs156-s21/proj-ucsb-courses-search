@@ -12,6 +12,7 @@ import Statistics from "main/pages/Statistics/Statistics";
 import NumFullCoursesByDept from "main/pages/Statistics/NumFullCoursesByDept";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
+import FullDeptSummary from "main/pages/Statistics/FullDeptSummary";
 import Schedule from "main/pages/Schedule/Schedule";
 import EditSchedule from "main/pages/Schedule/EditSchedule";
 import NewSchedule from "main/pages/Schedule/NewSchedule";

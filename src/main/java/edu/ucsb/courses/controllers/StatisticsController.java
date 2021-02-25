@@ -48,7 +48,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import edu.ucsb.courses.documents.statistics.FullCourse;
-
+import edu.ucsb.courses.documents.statistics.FullSummary;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 
 import edu.ucsb.courses.documents.Course;
@@ -57,7 +57,7 @@ import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
-import com.mongodb.client.model.Accumulators;   
+import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Sorts;
@@ -81,9 +81,9 @@ public class StatisticsController {
 
     @Autowired
     private ArchivedCourseRepository courseRepository;
-    
+
     @GetMapping(value = "/courseCount", produces = "application/json")
-    public ResponseEntity<String> courseCount() 
+    public ResponseEntity<String> courseCount()
         throws JsonProcessingException, Exception {
 
         SortOperation sortByQuarterAndDeptCode = sort(Sort.by(Direction.DESC, "quarter")).and(Sort.by(Direction.ASC, "deptCode"));
@@ -92,7 +92,7 @@ public class StatisticsController {
 
         Aggregation aggregation = newAggregation(groupByQuarterAndDeptCode, sortByQuarterAndDeptCode);
 
-        AggregationResults<QuarterDept> result = 
+        AggregationResults<QuarterDept> result =
             mongoTemplate.aggregate(aggregation, "courses", QuarterDept.class);
 
         List<QuarterDept> qds = result.getMappedResults();
@@ -104,7 +104,7 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/courseOccupancyByDivision", produces = "application/json")
-    public ResponseEntity<String> courseOccupancyByDivision( 
+    public ResponseEntity<String> courseOccupancyByDivision(
         @RequestParam(required=true) String startQuarter,
         @RequestParam(required=true) String endQuarter,
         @RequestParam(required=true) String department,
@@ -113,7 +113,7 @@ public class StatisticsController {
             MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
                 .and("deptCode").is(department).and("instructionType").is("LEC").and("objLevelCode").is(level));
             UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-            MatchOperation sectionOrLect = null;     
+            MatchOperation sectionOrLect = null;
 
             if(level.equals("U")) {
                 sectionOrLect = match(Criteria.where("index").ne(0).and("classSections.enrolledTotal").ne(null));
@@ -151,15 +151,15 @@ public class StatisticsController {
     public ResponseEntity<String> classSize(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter)
             throws JsonProcessingException {
         MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
-        
+
         UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-        
+
         MatchOperation onlyLectures = match(Criteria.where("index").is(0));
 
         MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
 
         GroupOperation groupOperation = group("$deptCode").avg("$classSections.maxEnroll").as("avgClassSize");
-       
+
         SortOperation numberSort = sort(Sort.by(Direction.ASC, "avgClassSize"));
 
 
@@ -168,12 +168,12 @@ public class StatisticsController {
         AggregationResults<AvgClassSize> result = mongoTemplate.aggregate(aggregation, "courses",
                 AvgClassSize.class);
         List<AvgClassSize> qo = result.getMappedResults();
-                
+
         String body = mapper.writeValueAsString(qo);
 
         return ResponseEntity.ok().body(body);
     }
-    
+
     @GetMapping(value = "/courseOccupancy", produces = "application/json")
     public ResponseEntity<String> courseOccupancy(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, @RequestParam(required = true) String department)
             throws JsonProcessingException {
@@ -182,5 +182,32 @@ public class StatisticsController {
 
         return ResponseEntity.ok().body(body);
     }
-    
+
+    @GetMapping(value = "/fullDeptSummary", produces = "application/json")
+    public ResponseEntity<String> fullDeptSummary(@RequestParam(required = true) String startQuarter)
+            throws JsonProcessingException {
+        MatchOperation matchOperation = match(Criteria.where("quarter").is(startQuarter);
+
+        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+
+        MatchOperation onlyLectures = match(Criteria.where("index").is(0));
+
+        MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
+
+        GroupOperation groupOperation1 = group("$deptCode").count().as("numCourses");
+
+        SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
+
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation, deptSort);
+
+        AggregationResults<FullSummary> result = mongoTemplate.aggregate(aggregation, "courses",
+                FullSummary.class);
+        List<FullSummary> qo = result.getMappedResults();
+
+        String body = mapper.writeValueAsString(qo);
+
+        return ResponseEntity.ok().body(body);
+    }
+
+
 }
