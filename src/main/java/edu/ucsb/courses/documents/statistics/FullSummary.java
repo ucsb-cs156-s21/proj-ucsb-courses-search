@@ -52,7 +52,7 @@ public class FullSummary {
     }
 
     public void setNumFullCourses(String NumFullCourses) {
-        this.NumFullCourses = numFullCourses;
+        this.numFullCourses = numFullCourses;
     }
 
     @Override
