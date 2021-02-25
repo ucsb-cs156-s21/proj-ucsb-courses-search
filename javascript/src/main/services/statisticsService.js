@@ -26,7 +26,7 @@ const fetchCourseOccupancy = async(fields) => {
 }
 
 const fetchFullDept = async(fields) => {
-    const url = `/api/public/statistics/totalCourses?quarter=${encodeURIComponent(fields.quarter)}`;
+    const url = `/api/public/statistics/fullDeptSummary?quarter=${encodeURIComponent(fields.quarter)}`;
     const response = await fetch(url);
     return response.json();
 }
