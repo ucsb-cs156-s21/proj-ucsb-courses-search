@@ -5,7 +5,7 @@ import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 const FullDeptForm = ({ setFullDeptJSON, fetchFullDept, onSubmit = () => {} }) => {
 
-    const [startQuarter, setStartQuarter] = useState("20204");
+    const [quarter, setQuarter] = useState("20204");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
@@ -13,7 +13,7 @@ const FullDeptForm = ({ setFullDeptJSON, fetchFullDept, onSubmit = () => {} }) =
         console.log("submit pressed");
         onSubmit();
         setLoading(true);
-        fetchFullDept({startQuarter}).then((courseJSON)=> {
+        fetchFullDept({quarter: quarter}).then((courseJSON)=> {
             setFullDeptJSON(courseJSON);
             setLoading(false);
         });
@@ -21,11 +21,11 @@ const FullDeptForm = ({ setFullDeptJSON, fetchFullDept, onSubmit = () => {} }) =
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="FullDept.startQuarter">
-                <Form.Label>startQuarter</Form.Label>
-                <QuarterFormSelect handleSelect={setStartQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
+            <Form.Group controlId="AvgClassSize.StartQuarter">
+                <Form.Label>Select a Quarter!</Form.Label>
+                <QuarterFormSelect handleSelect={setQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
-            <Button style={{margin: "1em 0"}} variant="primary" type="submit" className={"text-center"} disabled={loading}>
+            <Button variant="primary" type="submit" className={"text-center"} disabled={loading}>
                 Submit
             </Button>
             {loading && <Spinner size={"sm"} style={{ marginLeft: "5px" }} animation="border" />}
