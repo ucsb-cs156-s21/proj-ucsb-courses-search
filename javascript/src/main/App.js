@@ -52,6 +52,7 @@ function App() {
           <Route path="/statistics/numFullCoursesByDept" exact component={NumFullCoursesByDept} />
           <Route path="/statistics/classSize" exact component={ClassSize} />
           <Route path="/statistics/courseOccupancy" exact component={CourseOccupancy} />
+          <Route path="/statistics/fullDeptSummary" exact component={FullDeptSummary} />
           <Route path="/history/ge" exact component={Ge} />
           <Route path="/history/instructor" exact component={Instructor} />
           <Route path="/statistics/courseOccupancyByDivision" exact component={DivisionOccupancy} />
