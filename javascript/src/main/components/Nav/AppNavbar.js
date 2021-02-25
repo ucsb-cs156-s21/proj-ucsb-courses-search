@@ -52,12 +52,9 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
-<<<<<<< Updated upstream
-=======
           <NavDropdown.Item as={Link} to="/statistics/fullDeptSummary"> 
             Full Classes Summary
           </NavDropdown.Item>
->>>>>>> Stashed changes
         </NavDropdown>
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
