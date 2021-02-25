@@ -18,7 +18,7 @@ function AppNavbar() {
   );
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
   const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
-  
+
   return (
     <Navbar bg="dark" variant="dark">
       <LinkContainer to={""}>
@@ -52,7 +52,7 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/statistics/fullDeptSummary"> 
+          <NavDropdown.Item as={Link} to="/statistics/fullDeptSummary">
             Full Classes Summary
           </NavDropdown.Item>
         </NavDropdown>
