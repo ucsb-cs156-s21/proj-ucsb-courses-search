@@ -184,7 +184,7 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/fullDeptSummary", produces = "application/json")
-    public ResponseEntity<String> fullDeptSummary(@RequestParam(required = true) String startQuarter)
+    public ResponseEntity<String> fullDeptSummary(@RequestParam(required = true) String quarter)
             throws JsonProcessingException {
         MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
 
