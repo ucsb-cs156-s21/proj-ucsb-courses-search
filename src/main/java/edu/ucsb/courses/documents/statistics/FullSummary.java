@@ -43,7 +43,7 @@ public class FullSummary {
         return numCourses;
     }
 
-    public void setNumCourses(String enrolled) {
+    public void setNumCourses(String numCourses) {
         this.numCourses = numCourses;
     }
 
@@ -51,7 +51,7 @@ public class FullSummary {
         return numFullCourses;
     }
 
-    public void setNumFullCourses(String NumFullCourses) {
+    public void setNumFullCourses(String numFullCourses) {
         this.numFullCourses = numFullCourses;
     }
 
@@ -78,10 +78,9 @@ public class FullSummary {
     @Override
     public String toString() {
         return "{" +
-            " department='" + _id + "'" +
+            " _id='" + _id + "'" +
             ", numCourses='" + numCourses + "'" +
-            ", numFullCourses='" + numFullCourses + "'" +
-            "}";
+            ", numFullCourses='" + numFullCourses + "'}";
     }
 
     public static List<FullSummary> listFromJSON(String json) {
