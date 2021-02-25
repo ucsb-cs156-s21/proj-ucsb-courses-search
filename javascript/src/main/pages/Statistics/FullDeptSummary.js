@@ -17,13 +17,8 @@ const FullDeptSummary = () => {
 
     return (
         <Jumbotron>
-            <Container className="text-left">
-                <h1>Full Department Courses Summary</h1>
-                <FullDeptForm setFullDeptJSON={setJsonTableData} fetchFullDept={fetchFullDept} onSubmit={() => { setTableVisibility(false) }} />
-            </Container>
-            <Container style={{ marginTop: "20px" }} className={"text-center"}>
-                {tableVisibility && (data.length ? <FullDeptTable data={data} /> : "There are no results!")}
-            </Container>
+            <FullDeptForm setFullDeptJSON={setJsonTableData} fetchFullDept={fetchFullDept} />
+            {tableVisibility && (data.length ? <FullDeptTable data={data} /> : "There are no results!")}
         </Jumbotron>
     );
 };
