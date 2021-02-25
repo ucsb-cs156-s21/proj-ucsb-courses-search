@@ -12,10 +12,10 @@ const FullDeptTable = ( {data} ) => {
   },{
     dataField: 'numFullCourses',
     text: 'Number of Full Courses'
-  },{
+  },/*{
     dataField: 'Percentage of Full Courses',
     text: 'percentFullCourses'
-  }
+  },*/
 ];
 
   const options = {
@@ -23,9 +23,7 @@ const FullDeptTable = ( {data} ) => {
   };
 
   return (
-    <div>
-      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} options={options}/>
-    </div>
+      <BootstrapTable keyField='_id' striped hover condensed data={data} columns={columns} options={options}/>
   );
 };
 
