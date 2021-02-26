@@ -46,6 +46,16 @@ public class TotalCoursesDeptTest {
         TotalCoursesDept td1 = new TotalCoursesDept("CMPSC",20);
         TotalCoursesDept td2 = new TotalCoursesDept("CMPSC", 20);
         assertEquals(td1, td2);
+
+        // test different number of total courses
+        TotalCoursesDept td3 = new TotalCoursesDept("CMPSC",20);
+        TotalCoursesDept td4 = new TotalCoursesDept("CMPSC", 25);
+        assertNotEquals(td3, td4);
+
+        // test different department
+        TotalCoursesDept td5 = new TotalCoursesDept("CMPSC",20);
+        TotalCoursesDept td6 = new TotalCoursesDept("MATH", 20);
+        assertNotEquals(td5, td6);
     }
 
     @Test
