@@ -28,12 +28,12 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     };
 
     const handleCourseNumberOnChange = (event) => {
-        setCourseNumber(event.target.value);
-    }
-
-    const handleCourseSufOnChange = (event) => {
-        setCourseSuf(event.target.value);
-    }
+        const rawCourse = event.target.value;
+        const number = rawCourse.match(/\d+/g)[0];
+        const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];
+        setCourseNumber(number);
+        setCourseSuf(suffix);
+    };
 
     // Note: Not all possible courses were able to be added in the subject area list as many of
     // the subject areas from the database (as well as GOLD) provided no information, almost as if the classes never existed
@@ -161,10 +161,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="CourseNameSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
-            </Form.Group>
-            <Form.Group controlId="CourseNameSearch.CourseSuf">
-                <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
-                <Form.Control onChange={handleCourseSufOnChange} defaultValue={courseSuf} />
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
