@@ -29,10 +29,14 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 
     const handleCourseNumberOnChange = (event) => {
         const rawCourse = event.target.value;
-        const number = rawCourse.match(/\d+/g)[0];
-        const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];
-        setCourseNumber(number);
-        setCourseSuf(suffix);
+        if (rawCourse.match(/\d+/g) != null) {
+            const number = rawCourse.match(/\d+/g)[0];
+            setCourseNumber(number);
+        }
+        if (rawCourse.match(/[a-zA-Z]+/g) != null) {
+            const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];
+            setCourseSuf(suffix);
+        }
     };
 
     // Note: Not all possible courses were able to be added in the subject area list as many of
