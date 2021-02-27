@@ -8,10 +8,7 @@ const BasicCourseTable = ( {classes} ) => {
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> e510d1d1f75956e7cc317215e502715e49e624c7
+  
   const renderSectionTimes = (_cell, row) => {
 
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
@@ -46,17 +43,11 @@ const BasicCourseTable = ( {classes} ) => {
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
-<<<<<<< HEAD
       text: 'Section'
-=======
-      text: 'Section',
-      align: 'left'
->>>>>>> e510d1d1f75956e7cc317215e502715e49e624c7
     },{
       dataField: "instructors",
       text: "Instructor",
       isDummyField: true,
-<<<<<<< HEAD
       formatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
@@ -72,28 +63,6 @@ const BasicCourseTable = ( {classes} ) => {
     },{
       dataField: 'course.unitsFixed',
       text: 'Unit'
-=======
-      formatter: (cell, row) => renderInstructors(cell, row),
-      align: 'left'
-    },{
-      dataField: 'enrollCode',
-      text: 'Enroll Code',
-      align: 'left'
-    },{
-      dataField: 'days',
-      text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row),
-      align: 'left'
-    },{
-      dataField: 'times',
-      text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: 'left'
-    },{
-      dataField: 'course.unitsFixed',
-      text: 'Unit',
-      align: 'left'
->>>>>>> e510d1d1f75956e7cc317215e502715e49e624c7
     }
   ];
     return (
