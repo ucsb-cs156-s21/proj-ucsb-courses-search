@@ -65,7 +65,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
             endQuarter: "20204",
             subjectArea: "CMPSC   ",
             courseNumber: "130",
-            courseSuf: "A "
+            courseSuf: "A"
         };
 
         const selectStartQuarter = getByLabelText("Start Quarter")
@@ -75,7 +75,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         const selectSubjectArea = getByLabelText("Subject Area")
         userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
         const selectCourseNumber = getByLabelText("Course Number")
-        userEvent.type(selectCourseNumber, "130A");
+        userEvent.type(selectCourseNumber, "130A  ");
 
         const submitButton = getByText("Submit");
         userEvent.click(submitButton);
