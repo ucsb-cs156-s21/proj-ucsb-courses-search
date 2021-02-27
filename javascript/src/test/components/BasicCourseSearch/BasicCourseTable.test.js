@@ -121,6 +121,19 @@ describe("BasicCourseTable tests", () => {
   	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
 
+<<<<<<< HEAD
+=======
+  test("check that lectures are aligned to the left", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+  	expect( getByText("0100").style.textAlign).toBe("left");
+  });
+
+  test("check that sections are aligned to the left", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+  	expect( getByText("0101").style.textAlign).toBe("left");
+  });
+
+>>>>>>> e510d1d1f75956e7cc317215e502715e49e624c7
 
 });
 
