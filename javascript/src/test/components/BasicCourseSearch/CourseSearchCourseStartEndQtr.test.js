@@ -31,18 +31,12 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         expect(selectSubjectArea.value).toBe("MATH    ");
     });
     
-    test("when I select a course number area, the state for course number changes", () => {
+
+    test("when I select a course number with suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
         const selectCourseNumber = getByLabelText("Course Number")
-        userEvent.type(selectCourseNumber, "130");
-        expect(selectCourseNumber.value).toBe("130");
-    });
-
-    test("when I select a course suffix, the state for subject area changes", () => {
-        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseSuffix = getByLabelText("Course Suffix (i.e. A, B, etc.)")
-        userEvent.type(selectCourseSuffix, "A");
-        expect(selectCourseSuffix.value).toBe("A");
+        userEvent.type(selectCourseNumber, "130A");
+        expect(selectCourseNumber.value).toBe("130A");
     });
 
     test("when I click submit, I get back the information about a specified course name between certain quarters", async () => {
@@ -81,9 +75,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         const selectSubjectArea = getByLabelText("Subject Area")
         userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
         const selectCourseNumber = getByLabelText("Course Number")
-        userEvent.type(selectCourseNumber, "130");
-        const selectCourseSuffix = getByLabelText("Course Suffix (i.e. A, B, etc.)")
-        userEvent.type(selectCourseSuffix, "A ");
+        userEvent.type(selectCourseNumber, "130A");
 
         const submitButton = getByText("Submit");
         userEvent.click(submitButton);
