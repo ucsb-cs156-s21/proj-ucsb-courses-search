@@ -30,13 +30,26 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         userEvent.selectOptions(selectSubjectArea, "MATH    ");
         expect(selectSubjectArea.value).toBe("MATH    ");
     });
-    
+
+    test("when I select a course number without suffix, the state for course number changes,", () => {
+        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "16");
+        expect(selectCourseNumber.value).toBe("16");
+    });
 
     test("when I select a course number with suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
         const selectCourseNumber = getByLabelText("Course Number")
         userEvent.type(selectCourseNumber, "130A");
         expect(selectCourseNumber.value).toBe("130A");
+    });
+
+    test("when I select a course number without number, the state for course number changes,", () => {
+        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "A");
+        expect(selectCourseNumber.value).toBe("A");
     });
 
     test("when I click submit, I get back the information about a specified course name between certain quarters", async () => {
