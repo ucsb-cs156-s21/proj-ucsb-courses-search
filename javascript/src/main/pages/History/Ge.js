@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
-import {  fetchGeQtrJSON } from "main/services/courseSearches";
+import { fetchGeQtrJSON } from "main/services/courseSearches";
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
 
@@ -28,8 +28,7 @@ const Ge = () => {
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
     const courseHeaders = [
         { label: "courseId", key: "courseId" },
-        { label: "title", key: "title" },
-        { label: "units", key: "unitsFixed" }
+        { label: "title", key: "title" }
     ]
     return (
         <Jumbotron>
