@@ -26,9 +26,9 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
 
     test("when I select a subject area, the state for subject area changes", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectSubjectArea = getByLabelText("Subject Area")
-        userEvent.selectOptions(selectSubjectArea, "MATH    ");
-        expect(selectSubjectArea.value).toBe("MATH    ");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "MATH    ");
+        expect(SelectSubject.value).toBe("MATH    ");
     });
 
     test("when I select a course number without suffix, the state for course number changes,", () => {
@@ -85,8 +85,8 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         userEvent.selectOptions(selectStartQuarter, "20204");
         const selectEndQuarter = getByLabelText("End Quarter")
         userEvent.selectOptions(selectEndQuarter, "20204");
-        const selectSubjectArea = getByLabelText("Subject Area")
-        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "CMPSC   ");
         const selectCourseNumber = getByLabelText("Course Number")
         userEvent.type(selectCourseNumber, "130A  ");
 
