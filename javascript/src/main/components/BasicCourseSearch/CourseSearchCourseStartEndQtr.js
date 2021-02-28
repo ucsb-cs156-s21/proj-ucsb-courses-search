@@ -32,10 +32,15 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
         if (rawCourse.match(/\d+/g) != null) {
             const number = rawCourse.match(/\d+/g)[0];
             setCourseNumber(number);
+        } else {
+            setCourseNumber("");
         }
+        
         if (rawCourse.match(/[a-zA-Z]+/g) != null) {
             const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];
             setCourseSuf(suffix);
+        } else {
+            setCourseSuf("");
         }
     };
 
