@@ -101,6 +101,71 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         // assert that ourSpy was called with the right value
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
+        
+    });
+
+    test("when I click submit, the previous data fields are cleared and I get back the information about a specified course name between certain quarters", async () => {
+
+        const sampleReturnValue = {
+            "quarter": "20204"
+        };
+
+        // Create spy functions (aka jest function, magic function)
+        // The function doesn't have any implementation unless
+        // we specify one.  But it does keep track of whether 
+        // it was called, how many times it was called,
+        // and what it was passed.
+
+        const setCourseJSONSpy = jest.fn();
+        const fetchJSONSpy = jest.fn();
+
+        fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+        const { getByText, getByLabelText } = render(
+            <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
+        );
+
+        // First Search for a course with a suffix
+        const selectStartQuarter = getByLabelText("Start Quarter")
+        userEvent.selectOptions(selectStartQuarter, "20204");
+        const selectEndQuarter = getByLabelText("End Quarter")
+        userEvent.selectOptions(selectEndQuarter, "20204");
+        const selectSubjectArea = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "130A  ");
+
+        const submitButton = getByText("Submit");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
+        
+        // Then Search for a course without a suffix to make sure it is cleared
+        const modifiedFields = {
+            startQuarter: "20204",
+            endQuarter: "20204",
+            subjectArea: "CMPSC   ",
+            courseNumber: "138",
+            courseSuf: ""
+        };
+     
+        userEvent.selectOptions(selectStartQuarter, "20204");
+        userEvent.selectOptions(selectEndQuarter, "20204");
+        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+        userEvent.type(selectCourseNumber, "138  ");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(2));
+        await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(2));
+
+        // assert that ourSpy was called with the right value
+        expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
+        expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), modifiedFields);       
 
     });
 
