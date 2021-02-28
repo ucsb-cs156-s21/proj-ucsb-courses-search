@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import { fetchClassSize } from "main/services/statisticsService";
 import ClassSizeTable from "main/components/Statistics/ClassSizeTable";
 import ClassSizeForm from "main/components/Statistics/ClassSizeForm";
@@ -20,6 +20,9 @@ const ClassSize = () => {
 
     return (
         <Jumbotron>
+            <Container className="text-left">
+                <h1>Average Class Size By Department</h1>
+            </Container>
             <ClassSizeForm setClassSizeJSON={setJsonTableData} fetchClassSize={fetchClassSize}/>
             {tableVisibility && (data.length ? <ClassSizeTable data={data} /> : "There are no results!")}
         </Jumbotron>       
