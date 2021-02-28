@@ -105,7 +105,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
     });
 
     test("when I click submit, the previous data fields are cleared and I get back the information about a specified course name between certain quarters", async () => {
-
+        // Search with suffix (130a)
         const sampleReturnValue = {
             "quarter": "20204"
         };
@@ -125,13 +125,12 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
             <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
         );
 
-        // First Search for a course with a suffix
         const selectStartQuarter = getByLabelText("Start Quarter")
         userEvent.selectOptions(selectStartQuarter, "20204");
         const selectEndQuarter = getByLabelText("End Quarter")
         userEvent.selectOptions(selectEndQuarter, "20204");
-        const selectSubjectArea = getByLabelText("Subject Area")
-        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "CMPSC   ");
         const selectCourseNumber = getByLabelText("Course Number")
         userEvent.type(selectCourseNumber, "130A  ");
 
@@ -142,20 +141,20 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         // until all of the async promises are resolved
         await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(1));
         await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
-        
-        // Then Search for a course without a suffix to make sure it is cleared
-        const modifiedFields = {
+
+        // Search without suffix (138) to ensure that it clears the previous value
+        const cs138Fields = {
             startQuarter: "20204",
             endQuarter: "20204",
             subjectArea: "CMPSC   ",
             courseNumber: "138",
             courseSuf: ""
         };
-     
-        userEvent.selectOptions(selectStartQuarter, "20204");
-        userEvent.selectOptions(selectEndQuarter, "20204");
-        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+
+        // Clear previous selection before entering new
+        userEvent.clear(selectCourseNumber);
         userEvent.type(selectCourseNumber, "138  ");
+
         userEvent.click(submitButton);
 
         // we need to be careful not to assert this expectation
@@ -165,9 +164,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
 
         // assert that ourSpy was called with the right value
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
-        expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), modifiedFields);       
-
+        expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), cs138Fields);
     });
-
 });
 
