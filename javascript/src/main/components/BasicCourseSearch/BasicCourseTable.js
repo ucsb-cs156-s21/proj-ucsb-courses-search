@@ -6,7 +6,15 @@ const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, rowIndex) => {
-    return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
+	if (row.section % 100 == 0)
+	{
+	  return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
+  	}
+	if(row.enrolledTotal > row.maxEnroll || row.courseCancelled === "Y" || row.classClosed === "Y")
+	{
+		return {backgroundColor: '#FF0000'};
+	}
+	return {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
     const alignmnet = (row.section % 100 == 0)? 'left': 'right';
