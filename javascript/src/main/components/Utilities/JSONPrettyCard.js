@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Accordion } from "react-bootstrap";
 import JSONPretty from "react-json-pretty";
