@@ -29,6 +29,7 @@ import edu.ucsb.courses.documents.statistics.AvgClassSize;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
+import edu.ucsb.courses.documents.statistics.TotalCoursesDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 // @Import(SecurityConfig.class) applies the security rules 
@@ -220,6 +221,25 @@ public class StatisticsControllerTests {
         List<AvgClassSize> resultFromPage = AvgClassSize.listFromJSON(responseString);
   
         assertEquals(qdList, resultFromPage);
+    }
+
+    @Test
+    public void test_totalClassesByDept() throws Exception {
+        String url = "/api/public/statistics/totalCourses";
+
+        org.bson.Document fakeRawResults = new org.bson.Document();
+        List<TotalCoursesDept> tdList = new ArrayList<TotalCoursesDept>();
+        tdList.add(new TotalCoursesDept("CMPSC", 43));
+        AggregationResults<TotalCoursesDept> fakeResults = new AggregationResults<>(tdList, fakeRawResults);
+
+        when(mongoTemplate.aggregate(any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+
+        MvcResult response = mockMvc.perform(get(url).queryParam("quarter", "20211").contentType("application/json"))
+                                .andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<TotalCoursesDept> resultFromPage = TotalCoursesDept.listFromJSON(responseString);
+
+        assertEquals(tdList, resultFromPage);
     }
 
 }
