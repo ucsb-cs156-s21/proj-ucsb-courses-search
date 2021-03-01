@@ -10,6 +10,7 @@ import AppFooter from "main/components/Footer/AppFooter";
 import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
 import NumFullCoursesByDept from "main/pages/Statistics/NumFullCoursesByDept";
+import NumOpenCoursesByDept from "main/pages/Statistics/NumOpenCoursesByDept";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
 import Schedule from "main/pages/Schedule/Schedule";
@@ -49,6 +50,7 @@ function App() {
           <Route path="/history/courseName" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route path="/statistics/numFullCoursesByDept" exact component={NumFullCoursesByDept} />
+          <Route path="/statistics/numOpenCoursesByDept" exact component={NumOpenCoursesByDept} />
           <Route path="/statistics/classSize" exact component={ClassSize} />
           <Route path="/statistics/courseOccupancy" exact component={CourseOccupancy} />
           <Route path="/history/ge" exact component={Ge} />
