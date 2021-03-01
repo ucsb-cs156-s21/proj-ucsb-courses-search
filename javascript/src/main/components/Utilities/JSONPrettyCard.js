@@ -7,10 +7,11 @@ const JSONPrettyCard = (props) => {
   const [activeKey, setActiveKey] = useState(null);
 
   return (
-    <Card id={`JSONPrettyPanel-${props.expression}`}>
+    <Card>
       <Card.Body>
         <Accordion onSelect={(eventKey) => setActiveKey(eventKey)}>
           <Accordion.Toggle
+            data-testid={`JSONPrettyPanel-${props.expression}-toggle`}
             style={{ cursor: "pointer" }}
             as={Card.Header}
             variant="link"
@@ -18,7 +19,10 @@ const JSONPrettyCard = (props) => {
           >
             {props.expression} ({activeKey === "0" ? "visible" : "hidden"})
           </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
+          <Accordion.Collapse
+            eventKey="0"
+            data-testid={`JSONPrettyPanel-${props.expression}-collapse`}
+          >
             <JSONPretty data={props.value} />
           </Accordion.Collapse>
         </Accordion>
