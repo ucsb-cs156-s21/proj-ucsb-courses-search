@@ -181,12 +181,11 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
 						<configuration>
-							<target combine.children="append">
+							<target>
 								<copy todir="${project.build.directory}/classes/public">
 									<fileset dir="${project.basedir}/javascript/build" />
 								</copy>
@@ -284,16 +283,23 @@
 				</resources>
 				<plugins>
 					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
 						<executions>
 							<execution>
-								<phase>generate-resources</phase>
+								<id>copy-resources</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
 								<configuration>
-									<target>
-										<copy todir="${project.build.directory}/classes">
-											<file file="${project.basedir}/secrets-localhost.properties" />
-										</copy>
-									</target>
+									<outputDirectory>${basedir}/target/classes</outputDirectory>
+									<resources>
+										<resource>
+											<directory>.</directory>
+											<include>secrets-localhost.properties</include>
+										</resource>
+									</resources>
 								</configuration>
 							</execution>
 						</executions>
