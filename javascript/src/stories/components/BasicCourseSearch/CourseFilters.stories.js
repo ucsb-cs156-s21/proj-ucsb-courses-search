@@ -10,7 +10,6 @@ export default {
 
 const Template = (args) => <CourseFilters {...args} />;
 
-//const Template = (_args) => <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange} />;
 
 export const AllUnchecked = Template.bind({});
 AllUnchecked.args = {
