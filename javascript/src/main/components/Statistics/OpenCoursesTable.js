@@ -50,7 +50,7 @@ const OpenCourseTable = ( {data} ) => {
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor
   },{
-    dataField: 'openSeats',
+    dataField: 'numOpenSeats',
     text: 'Open Seats',
     style: alternate,
     sort: true,
