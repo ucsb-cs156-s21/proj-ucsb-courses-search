@@ -27,7 +27,6 @@ const Ge = () => {
     // const courseJSON = '{"course" : "cs156"}';
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
     const courseHeaders = [
-        { label: "geCode", key:"geCode"},
         { label: "courseId", key: "courseId" },
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }

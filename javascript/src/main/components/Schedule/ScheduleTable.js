@@ -10,7 +10,7 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
     return (
       <Button data-testid={`edit-button-${id}`} onClick={() => { 
         console.log("Updating:", id);
-        history.push(`/schedule/update/${id}`) ;
+        history.push(`/schedule/update/${id}`);
       }}>Edit</Button>
     )
   }
