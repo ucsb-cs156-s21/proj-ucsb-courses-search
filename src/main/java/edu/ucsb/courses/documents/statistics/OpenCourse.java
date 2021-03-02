@@ -19,14 +19,34 @@ public class OpenCourse {
     private String title;
     private String courseId;
     private int numOpenSeats;
+    private int totalEnroll;
+    private int maxEnroll;
 
     public OpenCourse(){}
 
-    public OpenCourse(String quarter, String title, String courseId, int numOpenSeats) {
+    public OpenCourse(String quarter, String title, String courseId, int numOpenSeats, int totalEnroll, int maxEnroll) {
         this.quarter = quarter;
         this.title = title;
         this.courseId = courseId;
         this.numOpenSeats = numOpenSeats;
+        this.totalEnroll = totalEnroll;
+        this.maxEnroll = maxEnroll;
+    }
+
+    public int getTotalEnroll() {
+        return totalEnroll;
+    }
+
+    public void setTotalEnroll(int totalEnroll) {
+        this.totalEnroll = totalEnroll;
+    }
+
+    public int getMaxEnroll() {
+        return maxEnroll;
+    }
+
+    public void setMaxEnroll(int maxEnroll) {
+        this.maxEnroll = maxEnroll;
     }
 
     public String getQuarter() {
@@ -72,13 +92,14 @@ public class OpenCourse {
         OpenCourse oc = (OpenCourse) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(quarter, oc.getQuarter()).append(title, oc.getTitle()).append(courseId, oc.getCourseId()).append(numOpenSeats, oc.getNumOpenSeats());
+        builder.append(quarter, oc.getQuarter()).append(title, oc.getTitle()).append(courseId, oc.getCourseId())
+                .append(totalEnroll, oc.getTotalEnroll()).append(maxEnroll, oc.getMaxEnroll()).append(numOpenSeats, oc.getNumOpenSeats());
         return builder.build();
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(quarter, title, courseId, numOpenSeats);
+        return Objects.hash(quarter, title, courseId, totalEnroll, maxEnroll, numOpenSeats);
     }
 
     @Override
@@ -87,6 +108,8 @@ public class OpenCourse {
                 " quarter='" + getQuarter() + "'" +
                 ", title='" + getTitle() + "'" +
                 ", courseId='" + getCourseId() + "'" +
+                ", totalEnroll='" + getTotalEnroll() + "'" +
+                ", maxEnroll='" + getMaxEnroll() + "'" +
                 ", numOpenSeats='" + getNumOpenSeats() + "'" +
                 "}";
     }
