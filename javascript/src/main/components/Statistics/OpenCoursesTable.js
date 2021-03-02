@@ -29,13 +29,6 @@ const alternate = (_cell, _row, rowIndex, _colIndex) => {
 const OpenCourseTable = ( {data} ) => {
 
   const columns = [{
-    dataField: 'index',
-    text: '#',
-    style: alternate,
-    headerStyle: headerStyleColor,
-    footerStyle: footerStyleColor,
-    hidden: true
-  },{
     dataField: 'courseId',
     text: 'Course ID',
     style: alternate,
@@ -56,7 +49,6 @@ const OpenCourseTable = ( {data} ) => {
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor
-  },{
   }
 ];
 
