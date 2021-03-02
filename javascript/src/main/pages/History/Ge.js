@@ -25,13 +25,24 @@ const Ge = () => {
     // const courseJSON = '{"course" : "cs156"}';
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
 
+    //Checkbox
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+    var callbackFunction = (Cancelled,Closed,Full) => {
+        setCancelledChecked(Cancelled);
+        setClosedChecked(Closed);
+        setFullChecked(Full);
+    };
+    //Checkbox
+
     return (
         <Jumbotron>
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search GE Through Various Quarters</h5>
-                <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
-                <BasicCourseTable classes={courseJSON.classes} />
+                <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} parentCallback={callbackFunction}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
             </div>
         </Jumbotron>
     );

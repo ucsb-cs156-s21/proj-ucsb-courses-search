@@ -9,9 +9,9 @@ export const classesLectureAndSections =
         {
           "enrollCode": "07492",
           "section": "0100",
-          "classClosed": null,
+          "classClosed": "Y",
           "courseCancelled": null,
-          "enrolledTotal": 25,
+          "enrolledTotal": 26,
           "maxEnroll": 25,
           "timeLocations": [
             {
@@ -33,7 +33,7 @@ export const classesLectureAndSections =
         {
           "enrollCode": "07500",
           "section": "0101",
-          "classClosed": null,
+          "classClosed": "Y",
           "courseCancelled": null,
           "enrolledTotal": 25,
           "maxEnroll": 25,

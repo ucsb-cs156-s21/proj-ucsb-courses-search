@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
+const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON,  parentCallback}) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [subjectArea, setSubjectArea] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
+    //Checkbox
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false);
+    //Checkbox
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
+        parentCallback(cancelled,closed,full);
     };
 
     const handleStartQuarterOnChange = (event) => {
@@ -34,6 +40,26 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const handleCourseSufOnChange = (event) => {
         setCourseSuf(event.target.value);
     }
+
+    //Checkbox
+    const handleCancelledOnChange = (event) => {
+        console.log("In cancelled");
+        setCancelledChecked(!cancelled);
+        console.log(cancelled);
+    };
+
+    const handleClosedOnChange = (event) => {
+        console.log("In closed");
+        setClosedChecked(!closed);
+        console.log(closed);
+    };
+
+    const handleFullOnChange = (event) => {
+        console.log("In full");
+        setFullChecked(!full);
+        console.log(full);
+    };
+    //Checkbox
 
     // Note: Not all possible courses were able to be added in the subject area list as many of
     // the subject areas from the database (as well as GOLD) provided no information, almost as if the classes never existed
@@ -165,6 +191,11 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="CourseNameSearch.CourseSuf">
                 <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
                 <Form.Control onChange={handleCourseSufOnChange} defaultValue={courseSuf} />
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.Hide">
+                <Form.Check type="checkbox" label="Cancelled" value={cancelled} onChange={handleCancelledOnChange} id={`inline-checkbox-1`}/>
+                <Form.Check type="checkbox"  label="Closed" value={closed} onChange={handleClosedOnChange} id={`inline-checkbox-2`}/>
+                <Form.Check type="checkbox" label="Full" value={full} onChange={handleFullOnChange} id={`inline-checkbox-3`}/>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit

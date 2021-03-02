@@ -1,5 +1,24 @@
+function filterClasses(classes,checks) {
+  const [cancelled,closed,full] = checks;
+  console.log("In filterClasses");
+  console.log(cancelled);
+  console.log(closed);
+  console.log(full);
+  var newClass = [];
+  classes.forEach(
+    (course) => {
+      if(((!cancelled) || (cancelled&&course.classSections[0].courseCancelled===null)) &&
+        ((!closed) || (closed&&course.classSections[0].classClosed===null)) &&
+        ((!full) || (full&&course.classSections[0].maxEnroll>=course.classSections[0].enrolledTotal))) {
+          newClass.push(course);
+        }
+    }
+  );
+  return newClass;
+}
 
-export function reformatJSON(classes) {
+
+function reformatJSON(classes) {
   const sections = [];
   classes.forEach(
     (course) => {
@@ -11,10 +30,13 @@ export function reformatJSON(classes) {
           title: course.title,
           unitsFixed: course.unitsFixed
           };
-         sections.push(section);
-       }
+          sections.push(section);
+        }
       )
     }
+      
   );
   return sections
 }
+
+export {reformatJSON,filterClasses};

@@ -8,7 +8,6 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
 
-
 const Home = () => {
 
     // every function that starts with "use" is a hook
@@ -27,18 +26,33 @@ const Home = () => {
     
     // courseId, title, sectionNumber, instructor, enroll code, units, total enrolled students, max enrolled
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
+
     const courseHeaders = [
         { label: "courseId", key: "courseId" },
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }
     ]
+
+    //Checkbox
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+    var callbackFunction = (Cancelled,Closed,Full) => {
+        setCancelledChecked(Cancelled);
+        setClosedChecked(Closed);
+        setFullChecked(Full);
+    };
+    //Checkbox
+
+
     return (
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
-                <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
+                <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} parentCallback={callbackFunction}/>
+                {/* <BasicCourseCheckbox parentCallback={callbackFunction}/> */}
                 <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
-                <BasicCourseTable classes={courseJSON.classes} />
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}

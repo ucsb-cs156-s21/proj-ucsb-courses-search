@@ -15,6 +15,7 @@ const Basic = () => {
     // the parameter to useState is the initial value of the state
 
     const [courseJSON, setCourseJSON] = useState('{"course" : "cs148"}');
+    
 
     // const courseJSON = '{"course" : "cs156"}';
     return (

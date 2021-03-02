@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
+const GeCourseSearchForm = ({ setCourseJSON, fetchJSON, parentCallback }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [geCode, setGeCode] = useState("A1 ");
+    //Checkbox
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false);
+    //Checkbox
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             setCourseJSON(courseJSON);
         });
+        parentCallback(cancelled,closed,full);
     };
 
     const handleStartQuarterOnChange = (event) => {
@@ -24,6 +30,26 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const handleGeCodeOnChange = (event) => {
         setGeCode(event.target.value);
     };
+
+    //Checkbox
+    const handleCancelledOnChange = (event) => {
+        console.log("In cancelled");
+        setCancelledChecked(!cancelled);
+        console.log(cancelled);
+    };
+
+    const handleClosedOnChange = (event) => {
+        console.log("In closed");
+        setClosedChecked(!closed);
+        console.log(closed);
+    };
+
+    const handleFullOnChange = (event) => {
+        console.log("In full");
+        setFullChecked(!full);
+        console.log(full);
+    };
+    //Checkbox
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -60,6 +86,11 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                     <option value="QNT">Quantitative Relationships</option>
                     <option value="WRT">Writing</option>
                 </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="BasicSearch.Hide">
+                <Form.Check type="checkbox" label="Cancelled" value={cancelled} onChange={handleCancelledOnChange} id={`inline-checkbox-1`}/>
+                <Form.Check type="checkbox"  label="Closed" value={closed} onChange={handleClosedOnChange} id={`inline-checkbox-2`}/>
+                <Form.Check type="checkbox" label="Full" value={full} onChange={handleFullOnChange} id={`inline-checkbox-3`}/>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
