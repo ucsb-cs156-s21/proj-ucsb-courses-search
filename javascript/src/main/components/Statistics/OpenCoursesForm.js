@@ -22,7 +22,7 @@ const OpenCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="OpenCourses.StartQuarter">
-                <Form.Label>Start Quarter</Form.Label>
+                <Form.Label>Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
             <Form.Group controlId="OpenCourses.Department">
