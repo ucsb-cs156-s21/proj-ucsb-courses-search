@@ -5,7 +5,7 @@ import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 const OpenCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
 
-    const [quarter, setQuarter] = useState("20211");
+    const [quarter, setQuarter] = useState("20204");
     const [department, setDepartment] = useState("CMPSC");
     const [loading, setLoading] = useState(false);
 
