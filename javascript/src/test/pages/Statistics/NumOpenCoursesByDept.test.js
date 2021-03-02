@@ -18,6 +18,12 @@ describe("NumOpenCoursesByDept page tests", () => {
       "courseId": "CMPSC 156",
       "title": "ADV APP PROG",
       "openSeats": "18"
+    },
+    {
+        "quarter": "20211",
+        "courseId": "CMPSC 32",
+        "title": "OBJ ORIENT DESIGN",
+        "openSeats": "9"
     }];
 
     fetchOpenCoursesByDept.mockResolvedValue(sampleReturnValue);
