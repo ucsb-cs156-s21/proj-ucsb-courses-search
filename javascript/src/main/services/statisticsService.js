@@ -31,4 +31,10 @@ const fetchTotalCoursesByDept = async(fields) => {
     return response.json();
 }
 
-export { fetchClassSize, fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses, fetchTotalCoursesByDept };
+const fetchAggregateStatistics = async(fields) => {
+    const url = `/api/public/statistics/aggregateStatistics?startQuarter=${encodeURIComponent(fields.startQuarter)}&endQuarter=${encodeURIComponent(fields.endQuarter)}`;
+    const response = await fetch(url);
+    return response.json();
+}
+
+export { fetchClassSize, fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses, fetchTotalCoursesByDept, fetchAggregateStatistics };
