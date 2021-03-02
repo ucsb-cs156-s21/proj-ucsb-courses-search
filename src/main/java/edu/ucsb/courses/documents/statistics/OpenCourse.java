@@ -18,19 +18,19 @@ public class OpenCourse {
     private String quarter;
     private String title;
     private String courseId;
-    private int numOpenSeats;
     private int totalEnroll;
     private int maxEnroll;
+    private int numOpenSeats;
 
     public OpenCourse(){}
 
-    public OpenCourse(String quarter, String title, String courseId, int numOpenSeats, int totalEnroll, int maxEnroll) {
+    public OpenCourse(String quarter, String title, String courseId, int totalEnroll, int maxEnroll, int numOpenSeats) {
         this.quarter = quarter;
         this.title = title;
         this.courseId = courseId;
-        this.numOpenSeats = numOpenSeats;
         this.totalEnroll = totalEnroll;
         this.maxEnroll = maxEnroll;
+        this.numOpenSeats = numOpenSeats;
     }
 
     public int getTotalEnroll() {
