@@ -259,8 +259,6 @@ public class StatisticsControllerTests {
         ocList.add(new OpenCourse(quarter, "AUT & FORML LANG", "CMPSC 138", 37, 40, 3));
         ocList.add(new OpenCourse(quarter, "PROBLEM SOLVING I", "CMPSC 16", 80, 100, 20));
 
-        AggregationResults<OpenCourse> fakeResults = new AggregationResults<>(ocList, fakeRawResults);
-
         when(courseRepo.findOpenCoursesByDepartment(any(String.class), any(String.class))).thenReturn(ocList);
 
         MvcResult response = mockMvc.perform(get(url).queryParam("quarter", quarter).queryParam("department", "CMPSC").contentType("application/json"))
