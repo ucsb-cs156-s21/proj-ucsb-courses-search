@@ -5,7 +5,7 @@ import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 const OpenCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
 
-    const [startQuarter, setStartQuarter] = useState("20211");
+    const [quarter, setQuarter] = useState("20211");
     const [department, setDepartment] = useState("CMPSC");
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +13,7 @@ const OpenCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
         event.preventDefault();
         onSubmit();
         setLoading(true);
-        fetchJSON({startQuarter, department}).then((courseJSON)=> {
+        fetchJSON({quarter: quarter, department}).then((courseJSON)=> {
             setCourseJSON(courseJSON);
             setLoading(false);
         });
@@ -23,7 +23,7 @@ const OpenCoursesForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {} }) => {
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="OpenCourses.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
-                <QuarterFormSelect handleSelect={setStartQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
+                <QuarterFormSelect handleSelect={setQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
             <Form.Group controlId="OpenCourses.Department">
                 <Form.Label>Department</Form.Label>

@@ -154,13 +154,11 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
 
 
      @Aggregation(pipeline= {
-             "{ \"$match\" : { \"quarter\" : ?0, \"deptCode\" : \"CMPSC\"}}",
+             "{ \"$match\" : { \"quarter\" : ?0, \"deptCode\" : ?1}}",
              "{ \"$unwind\" : { \"path\" : \"$classSections\", \"includeArrayIndex\" : \"index\", \"preserveNullAndEmptyArrays\" : false}}",
              " {\"$match\" : { \"index\" : 0}}",
              "{ \"$match\" : { \"classSections.enrolledTotal\" : { \"$ne\" : null}, \"classSections.maxEnroll\" : { \"$ne\" : 0}}}",
-
              "{\"$match\": { \"$expr\": { \"$lt\": [\"classSections.enrolled\", \"classSections.maxEnroll\"] } } }",
-
              "{ \"$group\" : { \"_id\" : { \"_id\" : \"$_id\", \"quarter\" : ?0, \"title\" : \"$title\", \"courseId\" : \"$courseId\"}, \"numOpenSeats\" : { \"$sum\" : \"$classSections.enrolledTotal\"}}}"
      })
      List<OpenCourse> findOpenCoursesByDepartment(String quarter, String department);

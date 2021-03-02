@@ -206,7 +206,6 @@ public class StatisticsController {
 
     @GetMapping(value = "/openCourses", produces = "application/json")
     public ResponseEntity<String> openCoursesByDept(@RequestParam(required = true) String quarter, @RequestParam(required = true) String department) throws JsonProcessingException{
-
         String body = mapper.writeValueAsString(courseRepository.findOpenCoursesByDepartment(quarter, department));
 
         return ResponseEntity.ok().body(body);
