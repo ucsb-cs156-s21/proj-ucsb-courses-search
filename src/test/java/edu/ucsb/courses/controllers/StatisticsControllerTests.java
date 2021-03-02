@@ -247,7 +247,6 @@ public class StatisticsControllerTests {
     public void test_openCourses() throws Exception{
         String url = "/api/public/statistics/openCourses";
 
-        org.bson.Document fakeRawResults = new org.bson.Document();
         List<OpenCourse> ocList = new ArrayList<>();
 
         // Test open courses for summer quarter of 2020, as the number of open courses was reasonable compared to other quarters
