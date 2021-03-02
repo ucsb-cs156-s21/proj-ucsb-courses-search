@@ -13,6 +13,7 @@ import edu.ucsb.courses.documents.Course;
 
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
+import edu.ucsb.courses.documents.statistics.OpenCourse;
 
 @Repository
 public interface ArchivedCourseRepository extends MongoRepository<Course, ObjectId> {
@@ -150,5 +151,18 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
        "{$sort:{_id:1}}"
     })
     List<QuarterOccupancy> findOccupancyByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
+
+
+     @Aggregation(pipeline= {
+             "{ \"$match\" : { \"quarter\" : ?0, \"deptCode\" : \"CMPSC\"}}",
+             "{ \"$unwind\" : { \"path\" : \"$classSections\", \"includeArrayIndex\" : \"index\", \"preserveNullAndEmptyArrays\" : false}}",
+             " {\"$match\" : { \"index\" : 0}}",
+             "{ \"$match\" : { \"classSections.enrolledTotal\" : { \"$ne\" : null}, \"classSections.maxEnroll\" : { \"$ne\" : 0}}}",
+
+             "{\"$match\": { \"$expr\": { \"$lt\": [\"classSections.enrolled\", \"classSections.maxEnroll\"] } } }",
+
+             "{ \"$group\" : { \"_id\" : { \"_id\" : \"$_id\", \"quarter\" : ?0, \"title\" : \"$title\", \"courseId\" : \"$courseId\"}, \"numOpenSeats\" : { \"$sum\" : \"$classSections.enrolledTotal\"}}}"
+     })
+     List<OpenCourse> findOpenCoursesByDepartment(String quarter, String department);
 }
 
