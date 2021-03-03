@@ -6,7 +6,7 @@ import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
 describe("BasicCourseTable tests", () => {
 
   test("renders without crashing", () => {
-    render(<BasicCourseTable classes={[]} />);
+    render(<BasicCourseTable classes={[]}/>);
   });
 
   function getBackgroundColor (getByText, text) {
