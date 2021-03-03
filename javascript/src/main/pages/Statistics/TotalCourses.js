@@ -4,7 +4,6 @@ import { Jumbotron } from "react-bootstrap";
 import { fetchTotalCoursesByDept } from "main/services/statisticsService";
 import TotalCoursesTable from "main/components/Statistics/TotalCoursesTable";
 import TotalCoursesForm from "main/components/Statistics/TotalCoursesForm";
-//import { fetchTotalCoursesByDept } from "../../services/statisticsService";
 
 
 const TotalCourses = () => {

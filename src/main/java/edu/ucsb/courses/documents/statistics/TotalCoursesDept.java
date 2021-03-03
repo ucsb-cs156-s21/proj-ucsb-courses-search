@@ -55,7 +55,7 @@ public class TotalCoursesDept {
 
     @Override
     public String toString(){
-        return "{" + " _id='" + _id + "'" + ", totalCourses='" + totalCourses + "}'";
+        return "{" + " _id='" + _id + "'" + ", totalCourses='" + totalCourses + "'}";
     }
 
     public static List<TotalCoursesDept> listFromJSON(String json) {

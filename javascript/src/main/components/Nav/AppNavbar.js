@@ -3,7 +3,6 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import AuthNav from "main/components/Nav/AuthNav";
-import ProfileNav from "main/components/Nav/ProfileNav";
 import ScheduleNav from "main/components/Nav/ScheduleNav";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -20,7 +19,9 @@ function AppNavbar() {
   const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
   
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar.Toggle />
+      <Navbar.Collapse>
       <LinkContainer to={""}>
         <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
       </LinkContainer>
@@ -52,18 +53,19 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/totalCourses">
-                Total Courses By Department
-            </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/totalCourses">
+            Total Courses By Department
+          </NavDropdown.Item>
         </NavDropdown>
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
         }
 
-        <ProfileNav />
+        
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />
+      </Navbar.Collapse>
       </Navbar.Collapse>
     </Navbar>
   );
