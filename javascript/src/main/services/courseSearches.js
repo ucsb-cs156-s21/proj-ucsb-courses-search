@@ -16,6 +16,9 @@ const fetchGeQtrJSON = async (_event, fields) => {
     const url = `/api/public/history/gesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&geCode=${fields.geCode}`;
     const courseResponse = await fetch(url);
     if (courseResponse.ok){
+        if(courseResponse.data ==''){
+            alert("No Data Found!");
+        }
         return courseResponse.json();
     }
     else{
