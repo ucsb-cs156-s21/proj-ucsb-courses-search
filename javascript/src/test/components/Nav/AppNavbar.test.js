@@ -24,16 +24,5 @@ describe("AppNavbar tests", () => {
     const brandElement = getByText(/UCSB Courses Search/);
     expect(brandElement).toBeInTheDocument();
   });
-  test("should have the correct links in the navbar", () => {
-    const history = createMemoryHistory();
-    const { getByText } = render(
-      <Router history={history}>
-        <AppNavbar />
-      </Router>
-    );
-
-
-    const userInfoLink = getByText(/Profile/);
-    expect(userInfoLink.href).toMatch("/profile");
-  });
+  
 });

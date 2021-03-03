@@ -2,8 +2,6 @@ package edu.ucsb.courses.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import edu.ucsb.courses.services.UCSBCurriculumService;
 @RequestMapping("/api/public/subjects")
 public class SubjectAreasController {
     private final Logger logger = LoggerFactory.getLogger(SubjectAreasController.class);
-    private ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     UCSBCurriculumService ucsbCurriculumService;

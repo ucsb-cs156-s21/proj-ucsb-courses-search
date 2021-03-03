@@ -42,7 +42,8 @@
       "!src/setupTests.js",
       "!src/main/components/Auth/*",
       "!src/index.js",
-      "!src/stories/**/*"
+      "!src/stories/**/*",
+      "!src/main/fixtures/**/*"
     ],
     "coverageThreshold": {
       "global": {

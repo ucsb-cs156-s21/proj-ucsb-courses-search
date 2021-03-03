@@ -3,7 +3,6 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import AuthNav from "main/components/Nav/AuthNav";
-import ProfileNav from "main/components/Nav/ProfileNav";
 import ScheduleNav from "main/components/Nav/ScheduleNav";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -54,11 +53,18 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics/classSize">
             Average Class Size by Department
           </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/totalCourses">
+            Total Courses By Department
+          </NavDropdown.Item>
         </NavDropdown>
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
         }
 
+<<<<<<< HEAD
+=======
+        
+>>>>>>> aa4aa47db766ee76417ba4bb01a63ff54c70752c
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />
