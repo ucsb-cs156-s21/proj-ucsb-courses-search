@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import { fetchTotalCoursesByDept } from "main/services/statisticsService";
 import TotalCoursesTable from "main/components/Statistics/TotalCoursesTable";
 import TotalCoursesForm from "main/components/Statistics/TotalCoursesForm";
@@ -20,8 +20,13 @@ const TotalCourses = () => {
 
     return (
         <Jumbotron>
-            <TotalCoursesForm setTotalCoursesJSON={setJsonTableData} fetchTotalCoursesByDept={fetchTotalCoursesByDept}/>
-            {tableVisibility && (data.length ? <TotalCoursesTable data={data} /> : "There are no results!")}
+            <Container className="text-left">
+                <h1>Total Courses by Department</h1>
+                <TotalCoursesForm setTotalCoursesJSON={setJsonTableData} fetchTotalCoursesByDept={fetchTotalCoursesByDept}/>
+            </Container>
+            <Container style={{ marginTop: "20px" }} className={"text-center"}>
+                {tableVisibility && (data.length ? <TotalCoursesTable data={data} /> : "There are no results!")}
+            </Container>
         </Jumbotron>
 
     );
