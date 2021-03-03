@@ -6,9 +6,10 @@ const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, rowIndex) => {
+      var i; 
       for (i in classes) {
 	  if (classes[i].classSections[0].section == row.section) { 
-	      if (classes[i].classSections.length() == 1){
+	      if (classes[i].classSections.length == 1){
 		  if(row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y")
 		  {
                       return {backgroundColor: '#FF0000'};
