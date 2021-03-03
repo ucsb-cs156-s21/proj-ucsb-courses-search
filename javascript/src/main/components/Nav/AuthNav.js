@@ -15,11 +15,11 @@ const AuthNav = () => {
     return <>
     <LinkContainer to={"/profile"}>
       <Nav.Link style={{marginRight: 15}}>{"Hello, " + name}</Nav.Link>
-<<<<<<< HEAD
+
     </LinkContainer>  
-=======
+
     </LinkContainer> 
->>>>>>> aa4aa47db766ee76417ba4bb01a63ff54c70752c
+
       <img
             src={picture}
             alt="Profile"

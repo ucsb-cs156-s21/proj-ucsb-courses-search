@@ -61,10 +61,6 @@ function AppNavbar() {
             (<ScheduleNav/>)
         }
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> aa4aa47db766ee76417ba4bb01a63ff54c70752c
       </Nav>
       <Navbar.Collapse className="justify-content-end">
         <AuthNav />
