@@ -17,9 +17,8 @@ const fetchGeQtrJSON = async (_event, fields) => {
     const courseResponse = await fetch(url);
     if (courseResponse.ok){
         if(courseResponse.json().total == 0){
-            alert("Empty Data Field!");
+            alert("Empty!");
         }
-        return courseResponse.json();
     }
     else{
         alert("HTTP-Error: "+ courseResponse.status);
