@@ -1,5 +1,6 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Button } from "react-bootstrap";
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
 const BasicCourseTable = ( {classes} ) => {
@@ -9,8 +10,8 @@ const BasicCourseTable = ( {classes} ) => {
     return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
-    const alignmnet = (row.section % 100 == 0)? 'left': 'right';
-    return alignmnet
+    const alignment = (row.section % 100 == 0)? 'left': 'right';
+    return alignment
   }
   const renderSectionTimes = (cell, row) => {
 
@@ -34,6 +35,26 @@ const BasicCourseTable = ( {classes} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  const renderAddButton = (cell, row, rowIndex) => {
+    if(sections[rowIndex + 1]){
+      if((sections[rowIndex + 1]).section%100 == 0 || row.section%100 != 0) {
+        return (
+          <Button variant="primary" data-testid={`add-button-${row.course.courseId}`} onClick={() => {
+            //return addToSchedule(row.course.courseId);
+          }}>Add</Button>
+        )
+      }
+    }
+    else if (!sections[rowIndex + 1]) {
+      return (
+        <Button variant="primary" data-testid={`add-button-${row.course.courseId}`} onClick={() => {
+          //return addToSchedule(row.course.courseId);
+        }}>Add</Button>
+      )
+    } else {
+      return ""
+    }
+  }
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
@@ -72,6 +93,11 @@ const BasicCourseTable = ( {classes} ) => {
       dataField: 'course.unitsFixed',
       text: 'Unit',
       align: (cell, row) => dataAlignment(cell, row)
+    },{
+      dataField: "add",
+      text: "Add",
+      isDummyField: true,
+      formatter: (cell, row, rowIndex) => renderAddButton(cell, row, rowIndex)
     }
   ];
     return (
