@@ -7,7 +7,7 @@ import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
-
+import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
 
 const Home = () => {
 
@@ -32,13 +32,33 @@ const Home = () => {
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }
     ]
+
+    //Check for closed, cancelled, full status
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+
+    const handleCancelledOnChange = () => {
+        setCancelledChecked(!cancelled);
+        console.log(cancelled);
+    };
+    const handleClosedOnChange = () => {
+        setClosedChecked(!closed);
+        console.log(closed);
+    };
+    const handleFullOnChange = () => {
+        setFullChecked(!full);
+        console.log(full);
+    };
+
     return (
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
-                <BasicCourseTable classes={courseJSON.classes} />
+                <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
