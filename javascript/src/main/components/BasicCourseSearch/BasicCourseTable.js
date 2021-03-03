@@ -6,7 +6,26 @@ const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, rowIndex) => {
-	if (row.section % 100 == 0)
+      for (i in classes) {
+	  if (classes[i].classSections[0].section == row.section) { 
+	      if (classes[i].classSections.length() == 1){
+		  if(row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y")
+		  {
+                      return {backgroundColor: '#FF0000'};
+		  }
+		  const numEnrolled = row.enrolledTotal;
+		  const maxEnrolled = row.maxEnroll;
+		  const space = maxEnrolled - numEnrolled;
+		  const spaceLimit = .2 * maxEnrolled;
+		  if (space < spaceLimit)
+		  {
+                      return {backgroundColor: '#FFBF00'};
+		  }
+	      }
+	  }
+      }
+
+      if (row.section % 100 == 0)
 	{
 		 return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   	}
