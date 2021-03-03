@@ -4,15 +4,16 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
 const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
-
+    const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
+    const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
   const rowStyle = (row, rowIndex) => {
       var i; 
       for (i in classes) {
 	  if (classes[i].classSections[0].section == row.section) { 
 	      if (classes[i].classSections.length == 1){
-		  if(row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y")
+		  if(classUnavailable(row))
 		  {
-                      return {backgroundColor: '#FF0000'};
+                      return COLOR_UNAVAILABLE;
 		  }
 		  const numEnrolled = row.enrolledTotal;
 		  const maxEnrolled = row.maxEnroll;
@@ -26,14 +27,13 @@ const BasicCourseTable = ( {classes} ) => {
 	  }
       }
 
-      if (row.section % 100 == 0)
-	{
+      if (row.section % 100 == 0){
 		 return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
-  	}
-	if(row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed === "Y")
-	{
-		return {backgroundColor: '#FF0000'};
-	}
+      }
+      else {
+	  if (classUnavailable(row)) {
+		return COLOR_UNAVAILABLE;
+	  }
         const numEnrolled = row.enrolledTotal;
 	const maxEnrolled = row.maxEnroll;
 	const space = maxEnrolled - numEnrolled;
@@ -42,7 +42,7 @@ const BasicCourseTable = ( {classes} ) => {
 	{
 		return {backgroundColor: '#FFBF00'};
 	}
-
+      }
 	return {backgroundColor: '#EDF3FE'};
   }
   const dataAlignment = (cell, row) => {
