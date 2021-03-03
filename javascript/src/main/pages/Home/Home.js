@@ -42,7 +42,7 @@ const Home = () => {
                         style={{color: "white"}}
                         headers={courseHeaders}
                         data={courseJSON.classes}
-                        filename = {"CourseTable.csv"}>
+                        filename="CourseTable.csv">
                         Download CSV
                     </CSVLink>
                 </Button>
