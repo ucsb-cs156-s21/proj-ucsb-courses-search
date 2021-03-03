@@ -41,9 +41,6 @@ function AppNavbar() {
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
         <NavDropdown title="Statistics">
-          <NavDropdown.Item as={Link} to="/statistics/aggregateStatistics">
-            Aggregate Statistics
-          </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
             Full Classes by Department
           </NavDropdown.Item>
