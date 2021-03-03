@@ -24,7 +24,7 @@ const Home = () => {
         "total": 0,
         "classes": []
     };
-    
+
     // courseId, title, sectionNumber, instructor, enroll code, units, total enrolled students, max enrolled
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
     const courseHeaders = [
@@ -40,15 +40,12 @@ const Home = () => {
 
     const handleCancelledOnChange = () => {
         setCancelledChecked(!cancelled);
-        console.log(cancelled);
     };
     const handleClosedOnChange = () => {
         setClosedChecked(!closed);
-        console.log(closed);
     };
     const handleFullOnChange = () => {
         setFullChecked(!full);
-        console.log(full);
     };
 
     return (
@@ -56,7 +53,15 @@ const Home = () => {
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
-                <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
+                <Button style={{margin: "1rem 0"}}>
+                    <CSVLink    
+                        style={{color: "white"}}
+                        headers={courseHeaders} 
+                        data={courseJSON.classes} 
+                        filename = {"CourseTable.csv"}>
+                        Download CSV
+                    </CSVLink>
+                </Button>
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
                 <JSONPrettyCard
