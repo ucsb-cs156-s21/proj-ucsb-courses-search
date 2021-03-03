@@ -6,9 +6,9 @@ const CourseFilters = ({cancelled, handleCancelledOnChange, closed, handleClosed
 
     return (
         <Form.Group controlId="BasicSearch.Hide">
-            <Form.Check inline type="checkbox" label="Cancelled" value={cancelled} onChange={handleCancelledOnChange} id={`inline-checkbox-1`}/>
-            <Form.Check inline type="checkbox"  label="Closed" value={closed} onChange={handleClosedOnChange} id={`inline-checkbox-2`}/>
-            <Form.Check inline type="checkbox" label="Full" value={full} onChange={handleFullOnChange} id={`inline-checkbox-3`}/>
+            <Form.Check inline type="checkbox" label="Cancelled" value={cancelled} onChange={handleCancelledOnChange} id={`inline-checkbox-1`} data-testid="inline-checkbox-1"/>
+            <Form.Check inline type="checkbox"  label="Closed" value={closed} onChange={handleClosedOnChange} id={`inline-checkbox-2`} data-testid="inline-checkbox-2"/>
+            <Form.Check inline type="checkbox" label="Full" value={full} onChange={handleFullOnChange} id={`inline-checkbox-3`} data-testid="inline-checkbox-3"/>
         </Form.Group>
     );
 };

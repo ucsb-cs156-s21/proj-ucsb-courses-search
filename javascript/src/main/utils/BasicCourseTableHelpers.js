@@ -26,6 +26,7 @@ export function reformatJSON(classes,checks) {
           }
         )
       }
+      //For section tests
       if(!course.classSections[0].section.endsWith("0")) {
         course.classSections.forEach(
           (section) => {
