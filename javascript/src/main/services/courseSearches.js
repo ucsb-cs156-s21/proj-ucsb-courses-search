@@ -15,11 +15,12 @@ const fetchBasicCourseHistoryJSON = async (_event, fields) => {
 const fetchGeQtrJSON = async (_event, fields) => {
     const url = `/api/public/history/gesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&geCode=${fields.geCode}`;
     const courseResponse = await fetch(url);
-    if (courseResponse.status==200){
+    if (courseResponse.status===200){
         return courseResponse.json();
     }
     else{
         alert("HTTP-Error: "+ courseResponse.status);
+        return -1;
     }
 };
   

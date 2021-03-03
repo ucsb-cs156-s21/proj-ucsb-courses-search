@@ -103,7 +103,52 @@ describe("courseSearches tests",  () => {
     expect(fetch).toHaveBeenCalledWith(`/api/public/history/gesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&geCode=${expectedFields.geCode}`)
     expect(result).toBe(sampleReturnValue);
   });
+
+  test("fetchGeQtrJSON bad response", async () => {
+    const sampleReturnValue = {
+      "sampleKey": "sampleValue"
+    };
+
+    fetch.mockResolvedValue({
+      status: 400,
+      json: () => {
+        return sampleReturnValue;
+      },
+    });
+
+    const expectedFields = {
+      startQuarter: "20211",
+      endQuarter: "20211",
+      geCode: "A1 "
+    };
+
+    const result = await fetchGeQtrJSON({},expectedFields);
+    expect(fetch).toHaveBeenCalledWith(`/api/public/history/gesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&geCode=${expectedFields.geCode}`)
+    expect(result).toBe(-1);
+  });
   
+  test("fetchGeQtrJSON empty json", async () => {
+    const sampleReturnValue = {
+    };
+
+    fetch.mockResolvedValue({
+      status: 400,
+      json: () => {
+        return sampleReturnValue;
+      },
+    });
+
+    const expectedFields = {
+      startQuarter: "20211",
+      endQuarter: "20211",
+      geCode: "A1 "
+    };
+
+    const result = await fetchGeQtrJSON({},expectedFields);
+    expect(fetch).toHaveBeenCalledWith(`/api/public/history/gesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&geCode=${expectedFields.geCode}`)
+    expect(result).toBe(-1);
+  });
+
   test("fetchInstructorHistoryNameQtrJSON", async () => {
     const sampleReturnValue = {
       "quarter": "20204"
