@@ -37,9 +37,9 @@ const Home = () => {
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
-                <Button>
+                <Button style={{margin: "1rem 0"}}>
                     <CSVLink
-                        style={{color: "white", margin: "1rem 0"}}
+                        style={{color: "white"}}
                         headers={courseHeaders}
                         data={courseJSON.classes}
                         filename = {"CourseTable.csv"}>
