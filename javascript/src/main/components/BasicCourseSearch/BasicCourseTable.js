@@ -6,38 +6,34 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
 
-  const rowStyle = (row, rowIndex) => {
-    return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
+  const rowStyle = (row, _rowIndex) => {
+    return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
-  const dataAlignment = (cell, row) => {
-    const alignment = (row.section % 100 == 0)? 'left': 'right';
-    return alignment
-  }
-  const renderSectionTimes = (cell, row) => {
 
+  const renderSectionTimes = (_cell, row) => {
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
   }
-  const renderSectionDays = (cell, row) => {
+  const renderSectionDays = (_cell, row) => {
 
     const days = (row.timeLocations.length > 0)? (row.timeLocations[0].days) : ("TBD");
     return days
   }
-  const renderCourseId = (cell, row) => {
-    const courseId = (row.section % 100 == 0)? row.course.courseId: "";
+  const renderCourseId = (_cell, row) => {
+    const courseId = (row.section % 100 === 0)? row.course.courseId: "";
     return (  courseId )
   }
-  const renderCourseTitle = (cell, row) => {
-    const courseTitle = (row.section % 100 == 0)? row.course.title: "";
+  const renderCourseTitle = (_cell, row) => {
+    const courseTitle = (row.section % 100 === 0)? row.course.title: "";
     return (  courseTitle )
   }
-  const renderInstructors = (cell, row) => {
+  const renderInstructors = (_cell, row) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
-  const renderAddButton = (cell, row, rowIndex) => {
+  const renderAddButton = (_cell, row, rowIndex) => {
     if(sections[rowIndex + 1]){
-      if((sections[rowIndex + 1]).section%100 == 0 || row.section%100 != 0) {
+      if((sections[rowIndex + 1]).section%100 === 0 || row.section%100 !== 0) {
         return (
           <Button variant="primary" data-testid={`add-button-${row.course.courseId}`} onClick={() => {
             //return addToSchedule(row.course.courseId);
@@ -67,32 +63,26 @@ const BasicCourseTable = ( {classes} ) => {
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
-      text: 'Section',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Section'
     },{
       dataField: "instructors",
       text: "Instructor",
       isDummyField: true,
-      formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
-      text: 'Enroll Code',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Enroll Code'
     },{
       dataField: 'days',
       text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionDays(cell, row)
     },{
       dataField: 'times',
       text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
-      text: 'Unit',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Unit'
     },{
       dataField: "add",
       text: "Add",
