@@ -97,7 +97,10 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
 
+        
+
     });
 
+    
 });
 

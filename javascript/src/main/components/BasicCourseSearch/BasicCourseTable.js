@@ -2,9 +2,9 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-const BasicCourseTable = ( {classes} ) => {
+const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const sections = reformatJSON(classes);
-
+  
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
@@ -34,15 +34,19 @@ const BasicCourseTable = ( {classes} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  
+  const renderQuarter = (_cell, row) => {
+    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
+    return (  quarter )
+  }
+  
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseId(cell, row)
     },{
       dataField: 'course.title',
       text: 'Title',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
@@ -51,7 +55,6 @@ const BasicCourseTable = ( {classes} ) => {
     },{
       dataField: "instructors",
       text: "Instructor",
-      isDummyField: true,
       formatter: (cell, row) => renderInstructors(cell, row),
       align: (cell, row) => dataAlignment(cell, row)
     },{
@@ -74,6 +77,18 @@ const BasicCourseTable = ( {classes} ) => {
       align: (cell, row) => dataAlignment(cell, row)
     }
   ];
+
+    if(displayQuarter){
+      columns.unshift(
+      {
+        dataField: 'course.quarter',
+        text: 'Quarter',
+        formatter: (cell, row) => renderQuarter(cell, row)
+      }
+      )
+    }
+
+
     return (
       <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
     );
