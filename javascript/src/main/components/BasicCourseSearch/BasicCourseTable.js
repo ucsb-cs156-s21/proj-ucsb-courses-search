@@ -41,14 +41,12 @@ const BasicCourseTable = ( {classes} ) => {
         )
       }
     }
-    else if (!sections[rowIndex + 1]) {
+    if (!sections[rowIndex + 1]) {
       return (
         <Button variant="primary" data-testid={`add-button-${row.course.courseId}`} onClick={() => {
           //return addToSchedule(row.course.courseId);
         }}>Add</Button>
       )
-    } else {
-      return ""
     }
   }
     const columns = [{
