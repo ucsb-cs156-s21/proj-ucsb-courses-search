@@ -1,35 +1,27 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 
-const AggregateStatisticsTable = ( {data} ) => {
-  
+const AgggregateStatisticsTable = ( {data} ) => {
+
   const columns = [{
-    dataField: 'quarter',
-    text: 'Quarter'
+    dataField: '_id',
+    text: 'Department'
   },{
-    dataField: 'courseId',
-    text: 'Course ID'
+    dataField: 'numCourses',
+    text: 'Number of Courses'
   },{
-    dataField: 'title',
-    text: 'Course Name'
-  },{
-    dataField: 'enrolled',
-    text: 'Enrolled'
+    dataField: 'courseOccupancy',
+    text: 'Course Occupancy'
   }, {
-    dataField: 'maxEnrolled',
-    text: 'Maximum Enrollment'
+    dataField: 'avgClassSize',
+    text: 'Average Class Size'
   }
 ];
 
-  const options = {
-    noDataText: 'There are no results!'
-  };
 
   return (
-    <div>
-      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} options={options}/>
-    </div>
+    <BootstrapTable keyField='_id' data={data} columns={columns} />
   );
 };
 
-export default AggregateStatisticsTable;
+export default AgggregateStatisticsTable;

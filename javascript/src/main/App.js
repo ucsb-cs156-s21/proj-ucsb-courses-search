@@ -13,6 +13,8 @@ import AggregateStatistics from "main/pages/Statistics/AggregateStatistics"
 import NumFullCoursesByDept from "main/pages/Statistics/NumFullCoursesByDept";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy"
 import ClassSize from "main/pages/Statistics/ClassSize";
+import TotalCourses from "main/pages/Statistics/TotalCourses";
+import AggregateStatistics from "main/pages/Statistics/AggregateStatistics";
 import Schedule from "main/pages/Schedule/Schedule";
 import EditSchedule from "main/pages/Schedule/EditSchedule";
 import NewSchedule from "main/pages/Schedule/NewSchedule";
@@ -52,6 +54,8 @@ function App() {
           <Route path="/statistics/aggregateStatistics" exact component={AggregateStatistics} />
           <Route path="/statistics/numFullCoursesByDept" exact component={NumFullCoursesByDept} />
           <Route path="/statistics/classSize" exact component={ClassSize} />
+          <Route path="/statistics/totalCourses" exact component={TotalCourses} />
+          <Route path="/statistics/aggregateStatistics" exact component={AggregateStatistics} />
           <Route path="/statistics/courseOccupancy" exact component={CourseOccupancy} />
           <Route path="/history/ge" exact component={Ge} />
           <Route path="/history/instructor" exact component={Instructor} />

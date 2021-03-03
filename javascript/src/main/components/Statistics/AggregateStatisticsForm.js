@@ -1,50 +1,38 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
+import { Form, Button, Spinner } from "react-bootstrap";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
+const AggregateStatisticsForm = ({ setAggregateStatisticsJSON, fetchAggregateStatistics, onSubmit = () => {} }) => {
 
-const AggregateStatisticsForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20204");
-    const [endQuarter, setEndQuarter] = useState("20212");
-    const [department, setDepartment] = useState("CMPSC");
-    const [level, setLevel] = useState("U");
+    const [endQuarter, setEndQuarter] = useState("20211");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON({startQuarter, endQuarter, department, level}).then((courseJSON)=> {
-            setCourseJSON(courseJSON);
+        onSubmit();
+        setLoading(true);
+        fetchAggregateStatistics({startQuarter, endQuarter})
+        .then((courseJSON)=> {
+            setAggregateStatisticsJSON(courseJSON);
+            setLoading(false);
         });
-    }; 
-
-    const handleLevelOnChange = (event) => {
-        setLevel(event.target.value);
     };
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="AggregateStatistics.StartQuarter">
+            <Form.Group controlId="CourseOccupancy.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setStartQuarter} initialQuarter={4} initialYear={2020} testId={"select-start"}/>
             </Form.Group>
-            <Form.Group controlId="AggregateStatistics.EndQuarter">
+            <Form.Group controlId="CourseOccupancy.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <QuarterFormSelect handleSelect={setEndQuarter} initialQuarter={1} initialYear={2021} testId={"select-end"}/>
             </Form.Group>
-            <Form.Group controlId="AggregateStatistics.Department">
-                <Form.Label>Department</Form.Label>
-                <DepartmentFormSelect handleSelect={setDepartment} value={department}/>
-            </Form.Group>
-            <Form.Group controlId="AggregateStatistics.CourseLevel">
-                <Form.Label>Course Level</Form.Label>
-                <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
-                    <option value="U">Undergraduate</option>
-                    <option value="G">Graduate</option>
-                </Form.Control>
-            </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className={"text-center"} disabled={loading}>
                 Submit
-        </Button>
+            </Button>
+            {loading && <Spinner size={"sm"} style={{ marginLeft: "5px" }} animation="border" />}
         </Form>
     );
 };

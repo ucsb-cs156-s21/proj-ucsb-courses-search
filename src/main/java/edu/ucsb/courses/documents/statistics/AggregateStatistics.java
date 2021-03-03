@@ -18,64 +18,74 @@ public class AggregateStatistics {
 
     private static Logger logger = LoggerFactory.getLogger(AggregateStatistics.class);
 
-    private String _id;
-    private String quarter;
-    private String title;
-    private String courseId;
-    private String enrolled;
-    private String maxEnrolled;
+    private String _id; // deptCode
+    private int maxEnroll; 
+    private int enrolledTotal; 
+    private int numCourses;
+    private double courseOccupancy;
+    private int avgClassSize;
+
 
     public AggregateStatistics() {
     }
 
-    public AggregateStatistics(String quarter, String title, String courseId, String enrolled, String maxEnrolled) {
-        this.quarter = quarter;
-        this.title = title;
-        this.courseId = courseId;
-        this.enrolled = enrolled;
-        this.maxEnrolled = maxEnrolled;
+    public AggregateStatistics(String _id, int maxEnroll, int enrolledTotal, int numCourses, double courseOccupancy, int avgClassSize) {
+        this._id = _id;
+        this.maxEnroll = maxEnroll;
+        this.enrolledTotal = enrolledTotal;
+        this.numCourses = numCourses;
+        this.courseOccupancy = courseOccupancy;
+        this.avgClassSize = avgClassSize;
     }
 
 
-    public String getQuarter() {
-        return this.quarter;
+    public String get_id() {
+        return this._id;
     }
 
-    public void setQuarter(String quarter) {
-        this.quarter = quarter;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public int getMaxEnroll() {
+        return this.maxEnroll;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMaxEnroll(int maxEnroll) {
+        this.maxEnroll = maxEnroll;
     }
 
-    public String getCourseId() {
-        return String.join(" ", this.courseId.split("[\\s\\p{Z}]+"));   // split/join function from Thursday, Dec. 3 Prof. Conrad Lecture
+    public int getEnrolledTotal() {
+        return this.enrolledTotal;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setEnrolledTotal(int enrolledTotal) {
+        this.enrolledTotal = enrolledTotal;
+    }
+
+    public int getNumCourses() {
+        return this.numCourses;
+    }
+
+    public void setNumCourses(int numCourses) {
+        this.numCourses = numCourses;
     }
 
 
-    public String getMaxEnrolled() {
-        return this.maxEnrolled;
+    public double getCourseOccupancy() {
+        return this.courseOccupancy;
     }
 
-    public void setMaxEnrolled(String maxEnrolled) {
-        this.maxEnrolled = maxEnrolled;
+    public void setCourseOccupancy(double courseOccupancy) {
+        this.courseOccupancy = courseOccupancy;
     }
 
-    public String getEnrolled() {
-        return this.enrolled;
+    public int getAvgClassSize() {
+        return this.avgClassSize;
     }
 
-    public void setEnrolled(String enrolled) {
-        this.enrolled = enrolled;
+    public void setAvgClassSize(int avgClassSize) {
+        this.avgClassSize = avgClassSize;
     }
 
 
@@ -89,25 +99,26 @@ public class AggregateStatistics {
         AggregateStatistics agStat = (AggregateStatistics) o;
 
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(quarter, agStat.getQuarter()).append(title, agStat.getTitle()).append(courseId, agStat.getCourseId()).append(enrolled, agStat.getEnrolled()).append(maxEnrolled, agStat.getMaxEnrolled());
+        builder.append(_id, agStat.get_id()).append(maxEnroll, agStat.getMaxEnroll()).append(enrolledTotal, agStat.getEnrolledTotal()).append(numCourses, agStat.getNumCourses()).append(courseOccupancy, agStat.getCourseOccupancy()).append(avgClassSize, agStat.getAvgClassSize());
         return builder.build();
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quarter, title, getCourseId(), enrolled, maxEnrolled);
+        return Objects.hash(_id, maxEnroll, enrolledTotal, numCourses, courseOccupancy, avgClassSize);
     }
 
 
     @Override
-    public String toString() {
+    public String toString() { 
         return "{" +
-            " quarter='" + quarter + "'" +
-            ", title='" + title + "'" +
-            ", courseId='" + getCourseId() + "'" +
-            ", enrolled='" + enrolled + "'" +
-            ", maxEnrolled='" + maxEnrolled + "'" +
+            " _id='" + _id + "'" +
+            ", maxEnroll='" + maxEnroll + "'" +
+            ", enrolledTotal='" + enrolledTotal + "'" +
+            ", numCourses='" + numCourses + "'" +
+            ", courseOccupancy='" + courseOccupancy + "'" +
+            ", avgClassSize='" + avgClassSize + "'" +
             "}";
     }
     

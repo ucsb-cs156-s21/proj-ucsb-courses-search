@@ -19,6 +19,7 @@ import java.util.Collections;
 
 import java.util.List;
 
+import edu.ucsb.courses.documents.statistics.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,6 @@ import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 
-import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 import com.mongodb.client.model.Accumulators;   
@@ -70,7 +70,6 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
-import edu.ucsb.courses.documents.statistics.AvgClassSize;
 
 @RestController
 @RequestMapping("/api/public/statistics")
@@ -188,36 +187,12 @@ public class StatisticsController {
     @GetMapping(value = "/aggregateStatistics", produces = "application/json")
     public ResponseEntity<String> AggregateStatistics( 
         @RequestParam(required=true) String startQuarter,
-        @RequestParam(required=true) String endQuarter,
-        @RequestParam(required=true) String department,
-        @RequestParam(required=true) String level)
+        @RequestParam(required=true) String endQuarter)
         throws JsonProcessingException {
-            MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter)
-                .and("deptCode").is(department).and("instructionType").is("LEC").and("objLevelCode").is(level));
-            UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-            MatchOperation sectionOrLect = null;     
 
-            if(level.equals("U")) {
-                sectionOrLect = match(Criteria.where("index").ne(0).and("classSections.enrolledTotal").ne(null));
-            }else {
-                sectionOrLect = match(Criteria.where("index").ne(-1).and("classSections.enrolledTotal").ne(null));
-            }
+        String body = mapper.writeValueAsString(courseRepository.findAggregateStatisticsByQuarterInterval(startQuarter, endQuarter));
 
-            GroupOperation groupOperation = group("_id", "$quarter", "title", "courseId").sum("$classSections.enrolledTotal").as("enrolled").sum("$classSections.maxEnroll").as("maxEnrolled");
-            ProjectionOperation project = project("_id","quarter", "title", "courseId", "enrolled", "maxEnrolled");
-            SortOperation sort = sort(Sort.by(Direction.ASC, "_id"));
-            SortOperation quarterSort = sort(Sort.by(Direction.ASC, "quarter"));
-
-            Aggregation aggregation = newAggregation(matchOperation, unwindOperation, sectionOrLect, groupOperation, project, sort, quarterSort);
-
-            AggregationResults<AggregateStatistics> result = mongoTemplate.aggregate(aggregation, "courses",
-                AggregateStatistics.class);
-            List<AggregateStatistics> agStat = result.getMappedResults();
-
-            logger.info("agStat={}", agStat);
-            String body = mapper.writeValueAsString(agStat);
-
-            return ResponseEntity.ok().body(body);
+        return ResponseEntity.ok().body(body);
     }
     
 }

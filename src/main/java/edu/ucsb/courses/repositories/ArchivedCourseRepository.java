@@ -13,6 +13,7 @@ import edu.ucsb.courses.documents.Course;
 
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
+import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 
 @Repository
 public interface ArchivedCourseRepository extends MongoRepository<Course, ObjectId> {
@@ -150,5 +151,25 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
        "{$sort:{_id:1}}"
     })
     List<QuarterOccupancy> findOccupancyByQuarterIntervalAndDepartment(String startQuarter, String endQuarter, String department);
+
+     /**
+     * Returns a list of {@link AggregateStatistics} from the requested
+     * quarter interval
+     * 
+     * @param startQuarter quarter formatted as YYYYQ string
+     * @param endQuarter quarter formatted as YYYYQ string
+     * @return a list of {@link AggregateStatistics}
+     */
+     @Aggregation(pipeline= {
+      "{$match:{'quarter':{'$gte':?0,'$lte':?1},'instructionType':'LEC'}}",
+      "{$group:{'_id':'$deptCode','quarter':{$first':'$quarter'},'courses':{'$sum':1},'courseSectionArray':{'$addToSet':'$classSections'}}}", 
+      "{$unwind:{'path':'$courseSectionArray','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}", 
+      "{$match:{'classSections.courseCancelled':{'$eq':null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}", 
+      "{$unwind:{'path':'$courseSectionArray','includeArrayIndex':'ind','preserveNullAndEmptyArrays':false}}", 
+      "{$group:{'_id':'$_id','numCourses':{'$first':'$courses'},'enrolledTotal':{'$sum':'$courseSectionArray.enrolledTotal'},'maxEnroll':{'$sum':'$courseSectionArray.maxEnroll'}}}", 
+      "{$match:{'maxEnroll':{'$gt':0}}}", 
+      "{$addFields:{'courseOccupancy':{'$divide':['$enrolledTotal','$maxEnroll']},'avgClassSize':{'$divide':['$enrolledTotal', '$numCourses']}}}"
+    })
+    List<AggregateStatistics> findAggregateStatisticsByQuarterInterval(String startQuarter, String endQuarter);
 }
 
