@@ -32,6 +32,7 @@ const Home = () => {
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }
     ]
+
     
     return (
         <Jumbotron>
