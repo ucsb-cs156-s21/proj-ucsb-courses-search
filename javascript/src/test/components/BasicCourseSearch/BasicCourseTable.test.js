@@ -12,7 +12,7 @@ describe("BasicCourseTable tests", () => {
   function getBackgroundColor (getByText, text) {
   	return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
   }
-  /*
+  
   // Testing Quarter column displays properly
   test("Checking that quarter column displays", () => {
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
@@ -22,10 +22,6 @@ describe("BasicCourseTable tests", () => {
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
   	expect(queryByText("20211")).toBe(null);
   });
-*/
-
-
-
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
