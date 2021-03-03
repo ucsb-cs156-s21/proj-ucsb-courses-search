@@ -7,7 +7,6 @@ export default {
 };
 
 
-
 const Template = (args) => <CourseFilters {...args} />;
 
 
