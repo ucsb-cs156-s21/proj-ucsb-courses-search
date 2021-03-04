@@ -5,6 +5,9 @@ import { fetchAggregateStatistics } from "main/services/statisticsService";
 import AggregateStatisticsTable from "main/components/Statistics/AggregateStatisticsTable";
 import AggregateStatisticsForm from "main/components/Statistics/AggregateStatisticsForm";
 
+const calcPercent = (num) => {
+    return (parseFloat(num) * 100).toFixed(0);
+};
 
 const AggregateStatistics = () => {
     const initialData = [];
@@ -12,6 +15,9 @@ const AggregateStatistics = () => {
     const [tableVisibility, setTableVisibility] = useState(false);
 
     const setJsonTableData = (json) => {
+        json.forEach((item) => {
+            item["courseOccupancy"] = calcPercent(item["courseOccupancy"]);
+        });
         setData(json);
         setTableVisibility(true);
     }
