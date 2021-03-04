@@ -161,15 +161,17 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
      * @return a list of {@link AggregateStatistics}
      */
      @Aggregation(pipeline= {
-      "{$match:{'quarter':{'$gte':?0,'$lte':?1},'instructionType':'LEC'}}",
-      "{$group:{'_id':'$deptCode','quarter':{$first':'$quarter'},'courses':{'$sum':1},'courseSectionArray':{'$addToSet':'$classSections'}}}", 
-      "{$unwind:{'path':'$courseSectionArray','includeArrayIndex':'index','preserveNullAndEmptyArrays':false}}", 
-      "{$match:{'classSections.courseCancelled':{'$eq':null},'$or':[{'index':{'$ne':0}},{'$and':[{'classSize':1},{'index':0}]}]}}", 
-      "{$unwind:{'path':'$courseSectionArray','includeArrayIndex':'ind','preserveNullAndEmptyArrays':false}}", 
-      "{$group:{'_id':'$_id','numCourses':{'$first':'$courses'},'enrolledTotal':{'$sum':'$courseSectionArray.enrolledTotal'},'maxEnroll':{'$sum':'$courseSectionArray.maxEnroll'}}}", 
-      "{$match:{'maxEnroll':{'$gt':0}}}", 
-      "{$addFields:{'courseOccupancy':{'$divide':['$enrolledTotal','$maxEnroll']},'avgClassSize':{'$divide':['$enrolledTotal', '$numCourses']}}}"
+         "{\"$match\": { \"quarter\" : { \"$gte\": ?0, $lte: ?1}, \"instructionType\": \"LEC\"}}",
+         "{\"$group\": { \"_id\": \"$deptCode\", \"quarter\": { \"$first\": \"$quarter\"}, \"courses\": { \"$sum\": 1}, \"courseSectionArray\": { \"$addToSet\": \"$classSections\" }}}",
+         "{\"$unwind\": { \"path\": \"$courseSectionArray\", \"includeArrayIndex\": \"index\", \"preserveNullAndEmptyArrays\": false}}",
+         "{\"$match\": { \"classSections.courseCancelled\": { \"$eq\": null}, \"$or\": [{\"index\": {\"$ne\": 0}},{ \"$and\": [{\"classSize\": 1},{ \"index\": 0}]}]}}",
+         "{\"$unwind\": { \"path\": \"$courseSectionArray\", \"includeArrayIndex\": \"ind\", \"preserveNullAndEmptyArrays\": false}}",
+         "{\"$group\": { \"_id\": \"$_id\", \"courses\": {\"$first\": \"$courses\"}, \"enrolledTotal\": { \"$sum\": \"$courseSectionArray.enrolledTotal\"}, \"maxEnroll\": {\"$sum\": \"$courseSectionArray.maxEnroll\"}}}",
+         "{\"$match\": { \"maxEnroll\": { \"$gt\": 0 }}}",
+         "{\"$addFields\": { \"courseOccupancy\": { \"$divide\": [ \"$enrolledTotal\", \"$maxEnroll\" ]}, \"avgClassSize\": { \"$divide\": [ \"$enrolledTotal\",\"$courses\"]}}}"
     })
     List<AggregateStatistics> findAggregateStatisticsByQuarterInterval(String startQuarter, String endQuarter);
+
+
 }
 
