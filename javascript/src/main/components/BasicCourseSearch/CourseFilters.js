@@ -3,7 +3,6 @@ import { Form } from "react-bootstrap";
 
 const CourseFilters = ({ cancelled, handleCancelledOnChange, closed, handleClosedOnChange, full, handleFullOnChange }) => {
 
-
     return (
         <Form.Group controlId="BasicSearch.Hide">
             <Form.Check type="checkbox" label="Cancelled" value={cancelled} onChange={handleCancelledOnChange} id="inline-checkbox-1"/>
