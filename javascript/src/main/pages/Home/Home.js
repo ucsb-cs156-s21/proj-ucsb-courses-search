@@ -8,7 +8,7 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
-
+ 
 const Home = () => {
 
     // every function that starts with "use" is a hook

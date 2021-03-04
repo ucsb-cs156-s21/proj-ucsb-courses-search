@@ -4,7 +4,8 @@ import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
 import {  fetchGeQtrJSON } from "main/services/courseSearches";
-
+import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
+ 
 const Ge = () => {
 
     // every function that starts with "use" is a hook
@@ -25,13 +26,29 @@ const Ge = () => {
     // const courseJSON = '{"course" : "cs156"}';
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
 
+    //Check for closed, cancelled, full status
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+
+    const handleCancelledOnChange = () => {
+        setCancelledChecked(!cancelled);
+    };
+    const handleClosedOnChange = () => {
+        setClosedChecked(!closed);
+    };
+    const handleFullOnChange = () => {
+        setFullChecked(!full);
+    };
+
     return (
         <Jumbotron>
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search GE Through Various Quarters</h5>
                 <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
-                <BasicCourseTable classes={courseJSON.classes} />
+                <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
             </div>
         </Jumbotron>
     );

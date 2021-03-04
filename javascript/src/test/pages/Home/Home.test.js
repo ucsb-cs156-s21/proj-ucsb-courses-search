@@ -39,6 +39,4 @@ describe("Home tests", () => {
     expect(checkbox3.checked).toEqual(true);
   });
 
-  
-
 });
