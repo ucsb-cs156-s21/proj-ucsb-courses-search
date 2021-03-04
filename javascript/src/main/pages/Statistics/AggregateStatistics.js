@@ -6,7 +6,7 @@ import AggregateStatisticsTable from "main/components/Statistics/AggregateStatis
 import AggregateStatisticsForm from "main/components/Statistics/AggregateStatisticsForm";
 
 const calcPercent = (num) => {
-    return (parseFloat(num) * 100).toFixed(0);
+    return (parseFloat(num) * 100).toFixed(0)+"%";
 };
 
 const AggregateStatistics = () => {
