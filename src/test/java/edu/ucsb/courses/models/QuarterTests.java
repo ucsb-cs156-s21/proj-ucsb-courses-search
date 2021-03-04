@@ -8,7 +8,7 @@ import static org.mockito.Mockito.doThrow;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TestQuarter {
+public class QuarterTests {
 
     @Test
     public void test_constructor_20194() {
