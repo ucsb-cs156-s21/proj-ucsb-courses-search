@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
 
@@ -121,17 +121,14 @@ describe("BasicCourseTable tests", () => {
   	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
 
-  test("add buttons tester for sections with add buttons", ()=> {
-    const addButton = getByTestId('add-button-07500');  
-    expect(addButton).toBeInTheDocument();
+  test("add buttons tester for sections with add buttons", ()=> {  
+    expect(getByTestId('add-button-07500')).toBeInTheDocument();
   });
   test("add buttons for lecture with sections", ()=> {
-    const addButton = getByTestId('add-button-07492');  
-    expect(addButton).not.toBeInTheDocument();
+    expect(getByTestId('add-button-07492')).not.toBeInTheDocument();
   });
   test("add buttons for class without sections", ()=> {
-    const addButton = getByTestId('add-button-08342');  
-    expect(addButton).toBeInTheDocument();
+    expect(getByTestId('add-button-08342')).toBeInTheDocument();
   });
   
 });
