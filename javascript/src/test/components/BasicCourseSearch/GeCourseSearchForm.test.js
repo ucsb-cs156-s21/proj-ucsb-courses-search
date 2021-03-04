@@ -101,13 +101,6 @@ describe("GeCourseSearchForm tests", () => {
         const { getByText, getByLabelText } = render(
             <GeCourseSearchForm setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
         );
-
-        const expectedFields = {
-            startQuarter: "20211",
-            endQuarter: "20211",
-            geCode: "A1 "
-        };
-
         const selectStartQuarter = getByLabelText("Start Quarter")
         userEvent.selectOptions(selectStartQuarter, "20211");
         const selectEndQuarter = getByLabelText("End Quarter")
