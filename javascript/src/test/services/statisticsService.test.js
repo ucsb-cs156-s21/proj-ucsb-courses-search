@@ -1,4 +1,10 @@
-import { fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses, fetchTotalCoursesByDept } from "main/services/statisticsService";
+import {
+    fetchDivisionOccupancy,
+    fetchCourseOccupancy,
+    fetchFullCourses,
+    fetchTotalCoursesByDept,
+    fetchOpenCoursesByDept
+} from "main/services/statisticsService";
 
 import fetch from "isomorphic-unfetch";
 jest.mock("isomorphic-unfetch");
@@ -101,6 +107,30 @@ describe("totalCoursesByDept tests",  () => {
         };
 
         const result = await fetchTotalCoursesByDept(expectedFields);
+        expect(result).toBe(sampleReturnValue);
+    });
+});
+
+describe("openCoursesByDept tests",  () => {
+    test("openCoursesByDept", async () => {
+
+        const sampleReturnValue = {
+            "sampleKey": "sampleValue"
+        };
+
+        fetch.mockResolvedValue({
+            status: 200,
+            json: () => {
+                return sampleReturnValue;
+            },
+        });
+
+        const expectedFields = {
+            quarter: "20204",
+            department: "CMPSC"
+        };
+
+        const result = await fetchOpenCoursesByDept(expectedFields);
         expect(result).toBe(sampleReturnValue);
     });
 });
