@@ -168,7 +168,8 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
          "{\"$unwind\": { \"path\": \"$courseSectionArray\", \"includeArrayIndex\": \"ind\", \"preserveNullAndEmptyArrays\": false}}",
          "{\"$group\": { \"_id\": \"$_id\", \"numCourses\": {\"$first\": \"$courses\"}, \"enrolledTotal\": { \"$sum\": \"$courseSectionArray.enrolledTotal\"}, \"maxEnroll\": {\"$sum\": \"$courseSectionArray.maxEnroll\"}}}",
          "{\"$match\": { \"maxEnroll\": { \"$gt\": 0 }}}",
-         "{\"$addFields\": { \"courseOccupancy\": { \"$divide\": [ \"$enrolledTotal\", \"$maxEnroll\" ]}, \"avgClassSize\": { \"$divide\": [ \"$enrolledTotal\",\"$numCourses\"]}}}"
+         "{\"$addFields\": { \"courseOccupancy\": { \"$divide\": [ \"$enrolledTotal\", \"$maxEnroll\" ]}, \"avgClassSize\": { \"$divide\": [ \"$enrolledTotal\",\"$numCourses\"]}}}",
+         "{\"$sort\": { \"_id\": 1 }}"
     })
     List<AggregateStatistics> findAggregateStatisticsByQuarterInterval(String startQuarter, String endQuarter);
 
