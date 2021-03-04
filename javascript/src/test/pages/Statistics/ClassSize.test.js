@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ClassSize from "main/pages/Statistics/ClassSize";
 import userEvent from "@testing-library/user-event";
-import { act } from 'react-dom/test-utils';
 
 import { fetchClassSize } from "main/services/statisticsService";
 jest.mock("main/services/statisticsService");
@@ -11,7 +10,13 @@ describe("ClassSize page tests", () => {
   test("renders without crashing", () => {
     render(<ClassSize />);
   });
-
+  
+  test("the header is there", () => {
+    const { getByText } =  render(<ClassSize />);
+    const header = getByText("Average Class Size By Department");
+    expect(header).toBeInTheDocument();
+  });
+  
   test("ClassSize table appears with data after pressing submit", async () => {
     const { findByText } = render(<ClassSize />);
     const sampleReturnValue = [{

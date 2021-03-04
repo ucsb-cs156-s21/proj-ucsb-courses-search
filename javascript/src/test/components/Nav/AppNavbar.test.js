@@ -2,9 +2,9 @@ import React from "react";
 import { render } from "@testing-library/react";
 import AppNavbar from "main/components/Nav/AppNavbar";
 import { useAuth0 } from "@auth0/auth0-react";
-jest.mock("@auth0/auth0-react");
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
+jest.mock("@auth0/auth0-react");
 
 describe("AppNavbar tests", () => {
   beforeEach(() => {
@@ -24,16 +24,5 @@ describe("AppNavbar tests", () => {
     const brandElement = getByText(/UCSB Courses Search/);
     expect(brandElement).toBeInTheDocument();
   });
-  test("should have the correct links in the navbar", () => {
-    const history = createMemoryHistory();
-    const { getByText } = render(
-      <Router history={history}>
-        <AppNavbar />
-      </Router>
-    );
-
-
-    const userInfoLink = getByText(/Profile/);
-    expect(userInfoLink.href).toMatch("/profile");
-  });
+  
 });

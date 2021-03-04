@@ -1,14 +1,23 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "main/App";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-jest.mock("@auth0/auth0-react");
 import useSWR from "swr";
+import { useToasts } from 'react-toast-notifications'
+import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
+
+jest.mock("@auth0/auth0-react");
 jest.mock("swr");
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("App tests", () => {
+
+  const addToast = jest.fn();
+
   beforeEach(() => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
@@ -17,11 +26,19 @@ describe("App tests", () => {
       loginWithRedirect: jest.fn(),
       getAccessTokenSilently: jest.fn(),
     });
-    useSWR.mockReturnValue({
-      data: {
-        role: "guest"
-      }
+    useSWR.mockImplementation( 
+      (key, _fetcher, _options) => {
+        if ( Array.isArray(key) && key[0] === "/api/myRole") {
+          return  { data: { role: "guest" } };
+        }
+        if (key==="/api/public/subjects") {
+            return  { data: allTheSubjects }
+        }
+        return { data: "Unexpected key in mocked useSWR"}
     });
+    useToasts.mockReturnValue({
+      addToast: addToast
+    })
   });
 
   test("renders without crashing", () => {
@@ -47,11 +64,17 @@ describe("App tests", () => {
 
     // Unfortunately, there is no way to verify that the admin route is available or not. As a result, this test verifies another side-effect of being an admin.
   test("renders admin route when user is admin", async () => {
-    useSWR.mockReturnValue({
-      data: {
-        role: "admin"
-      }
+    useSWR.mockImplementation( 
+      (key, _fetcher, _options) => {
+        if ( Array.isArray(key) && key[0] === "/api/myRole") {
+          return  { data: { role: "admin" } };
+        }
+        if (key==="/api/public/subjects") {
+            return  { data: allTheSubjects }
+        }
+        return { data: "Unexpected key in mocked useSWR"}
     });
+
     const history = createMemoryHistory();
     const { getByText } = render(
       <Router history={history}>

@@ -4,8 +4,8 @@ import AuthorizedRoute from "main/components/Nav/AuthorizedRoute";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-jest.mock("@auth0/auth0-react");
 import useSWR from "swr";
+jest.mock("@auth0/auth0-react");
 jest.mock("swr");
 
 describe("Authorized Route tests", () => {

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
-
-    const [startQuarter, setStartQuarter] = useState("20211");
-    const [endQuarter, setEndQuarter] = useState("20211");
+    const [startQuarter, setStartQuarter] = useState("20212");
+    const [endQuarter, setEndQuarter] = useState("20212");
     const [subjectArea, setSubjectArea] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
@@ -29,12 +28,21 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     };
 
     const handleCourseNumberOnChange = (event) => {
-        setCourseNumber(event.target.value);
-    }
-
-    const handleCourseSufOnChange = (event) => {
-        setCourseSuf(event.target.value);
-    }
+        const rawCourse = event.target.value;
+        if (rawCourse.match(/\d+/g) != null) {
+            const number = rawCourse.match(/\d+/g)[0];
+            setCourseNumber(number);
+        } else {
+            setCourseNumber("");
+        }
+        
+        if (rawCourse.match(/[a-zA-Z]+/g) != null) {
+            const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];
+            setCourseSuf(suffix);
+        } else {
+            setCourseSuf("");
+        }
+    };
 
     // Note: Not all possible courses were able to be added in the subject area list as many of
     // the subject areas from the database (as well as GOLD) provided no information, almost as if the classes never existed
@@ -44,6 +52,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="CourseNameSearch.StartQuarter">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                     <option value="20203">M20</option>
@@ -54,6 +63,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="CourseNameSearch.EndQuarter">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                     <option value="20203">M20</option>
@@ -160,10 +170,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="CourseNameSearch.CourseNumber">
                 <Form.Label>Course Number</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
-            </Form.Group>
-            <Form.Group controlId="CourseNameSearch.CourseSuf">
-                <Form.Label>Course Suffix (i.e. A, B, etc.)</Form.Label>
-                <Form.Control onChange={handleCourseSufOnChange} defaultValue={courseSuf} />
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit

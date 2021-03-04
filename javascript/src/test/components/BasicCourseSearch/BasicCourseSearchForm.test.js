@@ -1,13 +1,30 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import fetch from "isomorphic-unfetch";
-jest.mock("isomorphic-unfetch");
+import { useToasts } from 'react-toast-notifications'
+import useSWR from "swr";
+import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
+
 
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
-import JSONPretty from "react-json-pretty";
+jest.mock("swr");
+
+jest.mock("react-toast-notifications", () => ({
+    useToasts: jest.fn()
+}));
 
 describe("BasicCourseSearchForm tests", () => {
+
+    const addToast = jest.fn();
+    beforeEach(() => {
+        useSWR.mockReturnValue({
+            data: allTheSubjects,
+            error: undefined
+          });
+        useToasts.mockReturnValue({
+            addToast: addToast
+          })
+    });
 
     test("renders without crashing", () => {
         render(<BasicCourseSearchForm />);
@@ -20,11 +37,11 @@ describe("BasicCourseSearchForm tests", () => {
         expect(selectQuarter.value).toBe("20204");
     });
 
-    test("when I select a department, the state for department changes", () => {
+    test("when I select a subject, the state for subject changes", () => {
         const { getByLabelText } = render(<BasicCourseSearchForm />);
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
-        expect(selectDepartment.value).toBe("MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
+        expect(selectSubject.value).toBe("MATH");
     });
 
     test("when I select a level, the state for level changes", () => {
@@ -57,14 +74,14 @@ describe("BasicCourseSearchForm tests", () => {
 
         const expectedFields = {
             quarter: "20204",
-            department: "MATH",
+            subject: "MATH",
             level: "G"
         };
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
         const selectLevel = getByLabelText("Course Level")
         userEvent.selectOptions(selectLevel, "G");
 
@@ -105,14 +122,14 @@ describe("BasicCourseSearchForm tests", () => {
 
         const expectedFields = {
             quarter: "20204",
-            department: "MATH",
+            subject: "MATH",
             level: "G"
         };
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
         const selectLevel = getByLabelText("Course Level")
         userEvent.selectOptions(selectLevel, "G");
 
@@ -132,5 +149,15 @@ describe("BasicCourseSearchForm tests", () => {
         // const csvButton = getByText("Download CSV");
         // userEvent.click(csvButton);
     });
+
+    test("if the backend endpoint for subjects is down, we get a toast", async () => {
+        useSWR.mockReturnValue({
+            data: allTheSubjects,
+            error: new Error("mock Error")
+          });
+        render(<BasicCourseSearchForm />);
+        expect(addToast).toHaveBeenCalled();
+    });
+
 });
 

@@ -26,7 +26,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom-fourteen",
     "coverage": "react-scripts test --env=jsdom-fourteen --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,7 +41,9 @@
       "!src/serviceWorker.js",
       "!src/setupTests.js",
       "!src/main/components/Auth/*",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/stories/**/*",
+      "!src/main/fixtures/**/*"
     ],
     "coverageThreshold": {
       "global": {
@@ -67,6 +71,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.1.18",
+    "@storybook/addon-essentials": "^6.1.18",
+    "@storybook/addon-links": "^6.1.18",
+    "@storybook/node-logger": "^6.1.18",
+    "@storybook/preset-create-react-app": "^3.1.6",
+    "@storybook/react": "^6.1.18",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.5"

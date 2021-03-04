@@ -1,7 +1,6 @@
 import React from "react";
 import { render,  waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import fetch from "isomorphic-unfetch";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 jest.mock("isomorphic-unfetch");
 
@@ -79,6 +78,12 @@ test("when I click submit, I get back the information about a specified instruct
   expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
 
 });
+
+test("Instructor placeholder text correctly renders", async () => {
+    const { findByText } = render(<CourseSearchFormInstructor />);
+
+    await findByText("If there are multiple instructors with the same last name, do a search by last name first to determine how the instructor first name is abbreviated, e.g. WANG R K, WANG Y X, WANG Y F, etc. and then repeat the search.");
+  });
 
 });
 
