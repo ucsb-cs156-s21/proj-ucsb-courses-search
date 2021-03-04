@@ -166,9 +166,9 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
          "{\"$unwind\": { \"path\": \"$courseSectionArray\", \"includeArrayIndex\": \"index\", \"preserveNullAndEmptyArrays\": false}}",
          "{\"$match\": { \"classSections.courseCancelled\": { \"$eq\": null}, \"$or\": [{\"index\": {\"$ne\": 0}},{ \"$and\": [{\"classSize\": 1},{ \"index\": 0}]}]}}",
          "{\"$unwind\": { \"path\": \"$courseSectionArray\", \"includeArrayIndex\": \"ind\", \"preserveNullAndEmptyArrays\": false}}",
-         "{\"$group\": { \"_id\": \"$_id\", \"courses\": {\"$first\": \"$courses\"}, \"enrolledTotal\": { \"$sum\": \"$courseSectionArray.enrolledTotal\"}, \"maxEnroll\": {\"$sum\": \"$courseSectionArray.maxEnroll\"}}}",
+         "{\"$group\": { \"_id\": \"$_id\", \"numCourses\": {\"$first\": \"$courses\"}, \"enrolledTotal\": { \"$sum\": \"$courseSectionArray.enrolledTotal\"}, \"maxEnroll\": {\"$sum\": \"$courseSectionArray.maxEnroll\"}}}",
          "{\"$match\": { \"maxEnroll\": { \"$gt\": 0 }}}",
-         "{\"$addFields\": { \"courseOccupancy\": { \"$divide\": [ \"$enrolledTotal\", \"$maxEnroll\" ]}, \"avgClassSize\": { \"$divide\": [ \"$enrolledTotal\",\"$courses\"]}}}"
+         "{\"$addFields\": { \"courseOccupancy\": { \"$divide\": [ \"$enrolledTotal\", \"$maxEnroll\" ]}, \"avgClassSize\": { \"$divide\": [ \"$enrolledTotal\",\"$numCourses\"]}}}"
     })
     List<AggregateStatistics> findAggregateStatisticsByQuarterInterval(String startQuarter, String endQuarter);
 
