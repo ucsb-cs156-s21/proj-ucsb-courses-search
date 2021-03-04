@@ -183,12 +183,12 @@ public class QuarterTests {
     }
 
     @Test
-    public void test_getYY_badLastDigit() throws Exception {
+    public void test_getYY_badLastDigit() {
         Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.getYY(20195);});
     }
 
     @Test
-    public void test_getYYYY() throws Exception {
+    public void test_getYYYY() {
         assertEquals("2019", Quarter.getYYYY(20194));
     }
 
