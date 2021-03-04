@@ -6,17 +6,9 @@ export default {
   component: CourseFilters
 };
 
-
 const Template = (args) => <CourseFilters {...args} />;
-
 
 export const AllUnchecked = Template.bind({});
 AllUnchecked.args = {
-    cancelled:false,
-    handleCancelledOnChange: ()=>{},
-    closed:false,
-    handleClosedOnChange: ()=>{},
-    full:false,
-    handleFullOnChange: ()=>{}
 };
 

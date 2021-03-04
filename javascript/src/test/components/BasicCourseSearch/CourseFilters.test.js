@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from "@testing-library/react";
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
 
-
 describe("CourseFilters tests", () => {
 
     const cancelled = false;
