@@ -1,10 +1,8 @@
 package edu.ucsb.courses.models;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.doThrow;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
@@ -49,9 +47,24 @@ public class QuarterTests {
 
     @Test
     public void test_constructor_bad_input() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter q = new Quarter("foo");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter q = new Quarter("foo");
+        });
     }
 
+    @Test
+    public void test_constructor_bad_input_wrong_digits() throws Exception {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter q = new Quarter("2020");
+        });
+    }
+
+    @Test
+    public void test_setValue_bad_input() throws Exception {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter q = new Quarter(5);
+        });
+    }
 
     @Test
     public void test_constructor_S20() throws Exception {
@@ -60,14 +73,12 @@ public class QuarterTests {
         assertEquals("S20", q.toString());
     }
 
-    
     @Test
     public void test_constructor_M20() throws Exception {
         Quarter q = new Quarter("M20");
         assertEquals(20203, q.getValue());
         assertEquals("M20", q.toString());
     }
-
 
     @Test
     public void test_constructor_F01() throws Exception {
@@ -111,7 +122,6 @@ public class QuarterTests {
         assertEquals("F20", q.toString());
     }
 
-
     @Test
     public void test_decrement_F19() throws Exception {
         Quarter q = new Quarter("F19");
@@ -140,7 +150,6 @@ public class QuarterTests {
         assertEquals("S20", q.toString());
     }
 
-
     // TEST STATIC METHODS
 
     @Test
@@ -150,12 +159,16 @@ public class QuarterTests {
 
     @Test
     public void test_yyyyqToInt__badLastDigit() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.yyyyqToInt("20195");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.yyyyqToInt("20195");
+        });
     }
 
     @Test
     public void test_yyyyqToInt__notAnInteger() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.yyyyqToInt("foo");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.yyyyqToInt("foo");
+        });
     }
 
     @Test
@@ -165,37 +178,54 @@ public class QuarterTests {
 
     @Test
     public void test_yyyyqToQyy__badLastDigit() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.yyyyqToQyy(20195);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.yyyyqToQyy(20195);
+        });
     }
-    
+
     @Test
     public void test_getQ() throws Exception {
-        assertEquals("F", Quarter.getQ(20194));
+        Quarter q = new Quarter("W20");
+        assertEquals("W", q.getQ());
+    }
+
+    @Test
+    public void test_getYYYYQ() throws Exception {
+        Quarter q = new Quarter("W20");
+        assertEquals("20201", q.getYYYYQ());
     }
 
     @Test
     public void test_getQ_badLastDigit() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.getQ(20195);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.getQ(20195);
+        });
     }
 
     @Test
     public void test_getYY() throws Exception {
-        assertEquals("19", Quarter.getYY(20194));
+        Quarter q = new Quarter("W20");
+        assertEquals("20", q.getYY());
     }
 
     @Test
     public void test_getYY_badLastDigit() {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.getYY(20195);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.getYY(20195);
+        });
     }
 
     @Test
     public void test_getYYYY() {
-        assertEquals("2019", Quarter.getYYYY(20194));
+        Quarter q = new Quarter("W20");
+        assertEquals("2020", q.getYYYY());
     }
 
     @Test
     public void test_getYYYY_badLastDigit() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.getYYYY(20195);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.getYYYY(20195);
+        });
     }
 
     @Test
@@ -235,22 +265,30 @@ public class QuarterTests {
 
     @Test
     public void test_qyyToQyyyy_badQuarter() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.qyyToQyyyy("X20");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.qyyToQyyyy("X20");
+        });
     }
 
     @Test
     public void test_qyyToQyyyy_wrongLength1() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.qyyToQyyyy("F");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.qyyToQyyyy("F");
+        });
     }
 
     @Test
     public void test_qyyToQyyyy_wrongLength5() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.qyyToQyyyy("F2019");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.qyyToQyyyy("F2019");
+        });
     }
 
     @Test
     public void test_qyyToQyyyy__badChar() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, ()-> {Quarter.qyyToQyyyy("F2X");});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Quarter.qyyToQyyyy("F2X");
+        });
     }
 
     @Test
@@ -259,7 +297,7 @@ public class QuarterTests {
         expected.add(new Quarter("S20"));
         expected.add(new Quarter("W20"));
         expected.add(new Quarter("F19"));
-        assertEquals(expected, Quarter.quarterList("S20","F19"));
+        assertEquals(expected, Quarter.quarterList("S20", "F19"));
     }
 
     @Test
@@ -268,8 +306,47 @@ public class QuarterTests {
         expected.add(new Quarter("F19"));
         expected.add(new Quarter("W20"));
         expected.add(new Quarter("S20"));
-       
-        assertEquals(expected, Quarter.quarterList("F19","S20"));
+
+        assertEquals(expected, Quarter.quarterList("F19", "S20"));
+    }
+
+    @Test
+    public void testQuarter_notEqualNull() {
+        Quarter q = new Quarter("W20");
+        assertNotEquals(q, null);
+    }
+
+    @Test
+    public void testQuarter_notEqualDifferentClass() {
+        Quarter q = new Quarter("W20");
+        assertNotEquals(q, new Object());
+    }
+
+    @Test
+    public void testQuarter_equalsSelf() {
+        Quarter q = new Quarter("W20");
+        assertEquals(q, q);
+    }
+
+    @Test
+    public void testQuarter_equalsCopy() {
+        Quarter q1 = new Quarter("W20");
+        Quarter q2 = new Quarter("W20");
+        assertEquals(q1, q2);
+    }
+
+    @Test
+    public void testQuarter_notequalsCopy() {
+        Quarter q1 = new Quarter("F20");
+        Quarter q2 = new Quarter("W20");
+        assertNotEquals(q1, q2);
+    }
+
+    @Test
+    public void test_hashCode() {
+        Quarter q1 = new Quarter("W20");
+        Quarter q2 = new Quarter("W20");
+        assertEquals(q1.hashCode(), q2.hashCode());
     }
 
 }
