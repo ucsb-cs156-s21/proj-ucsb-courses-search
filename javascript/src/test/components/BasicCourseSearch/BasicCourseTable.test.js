@@ -133,7 +133,10 @@ describe("BasicCourseTable tests", () => {
         expect(true).toBeTruthy();
     }
   });
-  
+  test("add buttons tester for sections with add buttons", ()=> {  
+    const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+    expect(getByTestId('add-button-07492')).toBeInTheDocument();
+  });
 });
 
 
