@@ -5,16 +5,19 @@ const AgggregateStatisticsTable = ( {data} ) => {
 
   const columns = [{
     dataField: '_id',
-    text: 'Department'
+    text: 'Department',
+    sort: true
   },{
     dataField: 'numCourses',
-    text: 'Number of Courses'
+    text: 'Number of Courses',
+    sort: true
   },{
     dataField: 'courseOccupancy',
     text: 'Course Occupancy'
   }, {
     dataField: 'avgClassSize',
-    text: 'Average Class Size'
+    text: 'Average Class Size',
+    sort: true
   }
 ];
 
