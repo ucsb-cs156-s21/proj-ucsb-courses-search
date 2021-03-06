@@ -4,46 +4,54 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
 const BasicCourseTable = ( {classes} ) => {
   const sections = reformatJSON(classes);
-    const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
-    const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
-  const rowStyle = (row, rowIndex) => {
-      var i; 
-      for (i in classes) {
-	  if (classes[i].classSections[0].section == row.section) { 
-	      if (classes[i].classSections.length == 1){
-		  if(classUnavailable(row))
-		  {
-                      return COLOR_UNAVAILABLE;
-		  }
-		  const numEnrolled = row.enrolledTotal;
-		  const maxEnrolled = row.maxEnroll;
-		  const space = maxEnrolled - numEnrolled;
-		  const spaceLimit = .2 * maxEnrolled;
-		  if (space < spaceLimit)
-		  {
-                      return {backgroundColor: '#FFBF00'};
-		  }
-	      }
-	  }
-      }
+  const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
+  const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
+  const COLOR_DARKBLUE = {backgroundColor: '#CEDEFA'};
+  const COLOR_LIGHTBLUE = {backgroundColor: '#EDF3FE'};
+  const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
+  const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (.2 * row.maxEnroll));
 
-      if (row.section % 100 == 0){
-		 return  (row.section % 100 == 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
+
+
+  const rowStyle = (row, rowIndex) => {
+    if (row.section % 100 == 0)
+    {
+      //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
+      //the color to we do something.
+      var i; 
+      for (i in classes) 
+      {
+        if (classes[i].classSections[0].section == row.section) 
+        { 
+            if (classes[i].classSections.length == 1)
+            {
+              //This code should only execute when dealing with stand alone lectures.
+              if(classUnavailable(row))
+              {
+                //return COLOR_UNAVAILABLE;
+              }
+              if (closeToFull(row))
+              {
+                //return COLOR_CLOSEFULL;
+              }
+            }
+        }
       }
-      else {
-	  if (classUnavailable(row)) {
-		return COLOR_UNAVAILABLE;
-	  }
-        const numEnrolled = row.enrolledTotal;
-	const maxEnrolled = row.maxEnroll;
-	const space = maxEnrolled - numEnrolled;
-	const spaceLimit = .2 * maxEnrolled;
-	if (space < spaceLimit)
-	{
-		return {backgroundColor: '#FFBF00'};
-	}
+      //If it is not a stand alone lecture that is unvailable or full and is just a class set it to dark blue.
+      return COLOR_DARKBLUE;
+    }
+    else 
+    {
+      //This code should only execute when dealing with sections.
+      if (classUnavailable(row)) {
+        return COLOR_UNAVAILABLE;
       }
-	return {backgroundColor: '#EDF3FE'};
+      if (closeToFull(row))
+      {
+        return COLOR_CLOSEFULL;
+      }
+      return COLOR_LIGHTBLUE;
+    }
   }
   const dataAlignment = (cell, row) => {
     const alignmnet = (row.section % 100 == 0)? 'left': 'right';
