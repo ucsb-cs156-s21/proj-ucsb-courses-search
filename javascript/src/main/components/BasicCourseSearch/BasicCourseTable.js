@@ -22,7 +22,7 @@ const BasicCourseTable = ( {classes} ) => {
       var i; 
       for (i in classes) 
       {
-        if (classes[i].classSections[0].section == row.section) 
+        if (classes[i].classSections[0].enrollCode == row.enrollCode && classes[i].classSections[0].section == row.section) 
         { 
             if (classes[i].classSections.length == 1)
             {
