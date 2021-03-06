@@ -1,5 +1,4 @@
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
-import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
 import * as helperFixtures from "main/fixtures/Courses/BasicCourseTableHelpersFixtures"
 
 describe("BasicCourseTableHelpers tests", () => {
