@@ -86,7 +86,7 @@ const BasicCourseCSV = ({ classes }) => {
         props => (
           <div>
             <ExportCSVButton {...props.csvProps}>Export CSV!!</ExportCSVButton>
-            <hr />
+
             <BootstrapTable { ...props.baseProps } />
           </div>
           

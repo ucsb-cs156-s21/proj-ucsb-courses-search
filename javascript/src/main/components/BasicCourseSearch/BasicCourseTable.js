@@ -1,10 +1,11 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
+import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
 
-const BasicCourseTable = ( {classes} ) => {
+const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const sections = reformatJSON(classes);
-
+  
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
@@ -31,42 +32,79 @@ const BasicCourseTable = ( {classes} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  
+  const renderQuarter = (_cell, row) => {
+    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
+    return (  quarter )
+  }
+  
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
-      isDummyField: true,
-      formatter: (cell, row) => renderCourseId(cell, row)
+      formatter: (cell, row) => renderCourseId(cell, row),
+      csvFormatter: (cell, row) => renderCourseId(cell, row)
     },{
       dataField: 'course.title',
       text: 'Title',
-      isDummyField: true,
-      formatter: (cell, row) => renderCourseTitle(cell, row)
+      formatter: (cell, row) => renderCourseTitle(cell, row),
+      csvFormatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
       text: 'Section'
     },{
       dataField: "instructors",
       text: "Instructor",
-      isDummyField: true,
-      formatter: (cell, row) => renderInstructors(cell, row)
+      formatter: (cell, row) => renderInstructors(cell, row),
+      csvFormatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
       text: 'Enroll Code'
     },{
       dataField: 'days',
       text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row)
+      formatter: (cell, row) => renderSectionDays(cell, row),
+      csvFormatter: (cell, row) => renderSectionDays(cell, row)
     },{
       dataField: 'times',
       text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row)
+      formatter: (cell, row) => renderSectionTimes(cell, row),
+      csvFormatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
       text: 'Unit'
     }
   ];
+
+    if(displayQuarter){
+      columns.unshift(
+      {
+        dataField: 'course.quarter',
+        text: 'Quarter',
+        formatter: (cell, row) => renderQuarter(cell, row),
+        csvFormatter: (cell, row) => renderQuarter(cell, row)
+      }
+      )
+    }
+
+    const { ExportCSVButton } = CSVExport;
     return (
-      <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
+      <ToolkitProvider
+        keyField="enrollCode"
+        data={sections}
+        columns={columns}
+        exportCSV
+      >
+        {
+          props => (
+            <div>
+              <ExportCSVButton {...props.csvProps}>Export CSV!!</ExportCSVButton>
+              
+              <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
+            </div>
+            
+          )
+        }
+      </ToolkitProvider>
     );
 };
 export default BasicCourseTable;
