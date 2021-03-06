@@ -86,13 +86,13 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("check that sections unit appears", () => {
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("4")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+  	expect(queryAllByText("4")).not.toBe(null);
   });
 
   test("check that instructors appear as TBD when there are none", () => {
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
-  	expect(queryByText("TBD")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
+  	expect(queryAllByText("TBD")).not.toBe(null);
   });
 
   test("check that sections days appear", () => {
@@ -107,7 +107,7 @@ describe("BasicCourseTable tests", () => {
 
   test("check that sections times and days appear as TBD when they don't exist", () => {
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnlyTimeDaysTBD} />);
-    expect( queryAllByText("TBD").length).toBe(2);
+    expect( queryAllByText("TBD").length).toBe(5);
   });
 
   // Testing styling

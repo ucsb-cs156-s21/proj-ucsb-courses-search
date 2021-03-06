@@ -1,52 +1,73 @@
-export function reformatJSON(classes,checks) {
-  const sections = [];
-  var [cancelled,closed,full] = [false,false,false];
-  if(checks!==undefined) {
-    [cancelled,closed,full] = checks;
-  }
-  classes.forEach(
-    (course) => {
-      if( course.classSections[0].section.endsWith("0") && 
-      (((!cancelled) || (cancelled&&course.classSections[0].courseCancelled===null)) &&
-      ((!closed) || (closed&&course.classSections[0].classClosed===null)) &&
-      ((!full) || (full&&course.classSections[0].maxEnroll>=course.classSections[0].enrolledTotal)))) {
-        course.classSections.forEach(
-          (section) => {
-            if(((!cancelled) || (cancelled&&section.courseCancelled===null)) &&
-            ((!closed) || (closed&&section.classClosed===null)) &&
-            ((!full) || (full&&section.maxEnroll>=section.enrolledTotal))){
-              section.course =
-              {
-              courseId: course.courseId,
-              title: course.title,
-              unitsFixed: course.unitsFixed
-              };
-              sections.push(section);
-            } 
-          }
-        )
+const shouldShowSection = (section, filters) => {
+  return ((!filters.cancelled) || (filters.cancelled && section.courseCancelled === null)) &&
+    ((!filters.closed) || (filters.closed && section.classClosed === null)) &&
+    ((!filters.full) || (filters.full && section.maxEnroll >= section.enrolledTotal))
+};
+
+const addCourseInfoToSection = (section, course) => {
+  section.course = {
+    courseId: course.courseId,
+    title: course.title,
+    unitsFixed: course.unitsFixed
+  };
+};
+
+const extractLectures = (course) => {
+  const lectures = {};
+  course.classSections.forEach(section => {
+    if (section.section.endsWith("0")) {
+      lectures[section.section] = section;
+      lectures[section.section].discussionSections = [];
+    } else {
+      const sectionNumber = section.section;
+      const lectureNumber = sectionNumber.slice(0, -2) + "00";
+      //Only for tests; this never happens in real life
+      if(!(lectureNumber in lectures)) {
+        lectures[lectureNumber]={
+          discussionSections : [],
+          timeLocations: [],
+          instructors: [],
+        };
+        
       }
-      //For section tests
-      if(!course.classSections[0].section.endsWith("0")) {
-        course.classSections.forEach(
-          (section) => {
-            if(((!cancelled) || (cancelled&&section.courseCancelled===null)) &&
-            ((!closed) || (closed&&section.classClosed===null)) &&
-            ((!full) || (full&&section.maxEnroll>=section.enrolledTotal))){
-              section.course =
-              {
-              courseId: course.courseId,
-              title: course.title,
-              unitsFixed: course.unitsFixed
-              };
-              sections.push(section);
-            } 
-          }
-        )
-      }
-      
+      lectures[lectureNumber].discussionSections.push(section);
     }
-  );
-  return sections
+  })
+  return lectures;
+}
+
+
+export function reformatJSON(classes, checks) {
+  let filters = {
+    cancelled: false,
+    closed: false,
+    full: false
+  }
+  if (checks !== undefined) {
+    filters.cancelled = checks[0];
+    filters.closed = checks[1];
+    filters.full = checks[2];
+  }
+  
+  const sections = [];
+
+  classes.forEach(course => {
+    const lectures = extractLectures(course);
+    // console.log("lectures=", lectures);
+    Object.keys(lectures).forEach(  (key) => {
+      const lecture = lectures[key];
+      if (shouldShowSection(lecture, filters)) {
+        addCourseInfoToSection(lecture, course);
+        sections.push(lecture);
+        lecture.discussionSections.forEach(section => {
+          if (shouldShowSection(section, filters)) {
+            addCourseInfoToSection(section, course);
+            sections.push(section);
+          }
+        });
+      }
+    });
+  });
+  return sections;
 }
 
