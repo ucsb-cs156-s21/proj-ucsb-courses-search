@@ -26,15 +26,15 @@ const BasicCourseTable = ( {classes} ) => {
         { 
             if (classes[i].classSections.length == 1)
             {
-              return COLOR_DEBUG;
+              //return COLOR_DEBUG;
               //This code should only execute when dealing with stand alone lectures.
               if(classUnavailable(row))
               {
-                //return COLOR_UNAVAILABLE;
+                return COLOR_UNAVAILABLE;
               }
               if (closeToFull(row))
               {
-                //return COLOR_CLOSEFULL;
+                return COLOR_CLOSEFULL;
               }
             }
         }
