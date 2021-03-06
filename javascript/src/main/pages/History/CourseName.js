@@ -21,7 +21,7 @@ const CourseName = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search By Course Name Through Various Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
-                <BasicCourseTable classes={courseJSON.classes} />
+                <BasicCourseTable classes={courseJSON.classes} displayQuarter/>
             </div>
         </Jumbotron>
     ); 

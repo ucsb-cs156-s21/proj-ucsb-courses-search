@@ -101,9 +101,8 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         // assert that ourSpy was called with the right value
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
-        
     });
-
+      
     test("when I click submit, the previous data fields are cleared and I get back the information about a specified course name between certain quarters", async () => {
         // Search with suffix (130a)
         const sampleReturnValue = {
@@ -166,5 +165,6 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), cs138Fields);
     });
+
 });
 
