@@ -26,23 +26,30 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
 
     test("when I select a subject area, the state for subject area changes", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectSubjectArea = getByLabelText("Subject Area")
-        userEvent.selectOptions(selectSubjectArea, "MATH    ");
-        expect(selectSubjectArea.value).toBe("MATH    ");
-    });
-    
-    test("when I select a course number area, the state for course number changes", () => {
-        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseNumber = getByLabelText("Course Number")
-        userEvent.type(selectCourseNumber, "130");
-        expect(selectCourseNumber.value).toBe("130");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "MATH    ");
+        expect(SelectSubject.value).toBe("MATH    ");
     });
 
-    test("when I select a course suffix, the state for subject area changes", () => {
+    test("when I select a course number without suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseSuffix = getByLabelText("Course Suffix (i.e. A, B, etc.)")
-        userEvent.type(selectCourseSuffix, "A");
-        expect(selectCourseSuffix.value).toBe("A");
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "16");
+        expect(selectCourseNumber.value).toBe("16");
+    });
+
+    test("when I select a course number with suffix, the state for course number changes,", () => {
+        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "130A");
+        expect(selectCourseNumber.value).toBe("130A");
+    });
+
+    test("when I select a course number without number, the state for course number changes,", () => {
+        const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "A");
+        expect(selectCourseNumber.value).toBe("A");
     });
 
     test("when I click submit, I get back the information about a specified course name between certain quarters", async () => {
@@ -71,19 +78,17 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
             endQuarter: "20204",
             subjectArea: "CMPSC   ",
             courseNumber: "130",
-            courseSuf: "A "
+            courseSuf: "A"
         };
 
         const selectStartQuarter = getByLabelText("Start Quarter")
         userEvent.selectOptions(selectStartQuarter, "20204");
         const selectEndQuarter = getByLabelText("End Quarter")
         userEvent.selectOptions(selectEndQuarter, "20204");
-        const selectSubjectArea = getByLabelText("Subject Area")
-        userEvent.selectOptions(selectSubjectArea, "CMPSC   ");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "CMPSC   ");
         const selectCourseNumber = getByLabelText("Course Number")
-        userEvent.type(selectCourseNumber, "130");
-        const selectCourseSuffix = getByLabelText("Course Suffix (i.e. A, B, etc.)")
-        userEvent.type(selectCourseSuffix, "A ");
+        userEvent.type(selectCourseNumber, "130A  ");
 
         const submitButton = getByText("Submit");
         userEvent.click(submitButton);
@@ -96,11 +101,70 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         // assert that ourSpy was called with the right value
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
+    });
+      
+    test("when I click submit, the previous data fields are cleared and I get back the information about a specified course name between certain quarters", async () => {
+        // Search with suffix (130a)
+        const sampleReturnValue = {
+            "quarter": "20204"
+        };
 
-        
+        // Create spy functions (aka jest function, magic function)
+        // The function doesn't have any implementation unless
+        // we specify one.  But it does keep track of whether 
+        // it was called, how many times it was called,
+        // and what it was passed.
 
+        const setCourseJSONSpy = jest.fn();
+        const fetchJSONSpy = jest.fn();
+
+        fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+        const { getByText, getByLabelText } = render(
+            <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
+        );
+
+        const selectStartQuarter = getByLabelText("Start Quarter")
+        userEvent.selectOptions(selectStartQuarter, "20204");
+        const selectEndQuarter = getByLabelText("End Quarter")
+        userEvent.selectOptions(selectEndQuarter, "20204");
+        const SelectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(SelectSubject, "CMPSC   ");
+        const selectCourseNumber = getByLabelText("Course Number")
+        userEvent.type(selectCourseNumber, "130A  ");
+
+        const submitButton = getByText("Submit");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
+
+        // Search without suffix (138) to ensure that it clears the previous value
+        const cs138Fields = {
+            startQuarter: "20204",
+            endQuarter: "20204",
+            subjectArea: "CMPSC   ",
+            courseNumber: "138",
+            courseSuf: ""
+        };
+
+        // Clear previous selection before entering new
+        userEvent.clear(selectCourseNumber);
+        userEvent.type(selectCourseNumber, "138  ");
+
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(2));
+        await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(2));
+
+        // assert that ourSpy was called with the right value
+        expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
+        expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), cs138Fields);
     });
 
-    
 });
 

@@ -8,10 +8,7 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
-  const dataAlignment = (_cell, row) => {
-    const alignmnet = (row.section % 100 === 0)? 'left': 'right';
-    return alignmnet
-  }
+  
   const renderSectionTimes = (_cell, row) => {
 
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
@@ -50,31 +47,25 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
-      text: 'Section',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Section'
     },{
       dataField: "instructors",
       text: "Instructor",
-      formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
-      text: 'Enroll Code',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Enroll Code'
     },{
       dataField: 'days',
       text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionDays(cell, row)
     },{
       dataField: 'times',
       text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
-      text: 'Unit',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Unit'
     }
   ];
 
