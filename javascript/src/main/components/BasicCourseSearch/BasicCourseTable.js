@@ -2,6 +2,7 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+import { Button } from "react-bootstrap";
 
 const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const sections = reformatJSON(classes);
@@ -86,7 +87,20 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
       )
     }
 
-    const { ExportCSVButton } = CSVExport;
+    const ExportCSVButton = (props) => {
+      const handleClick = () => {
+        props.onExport();
+      };
+      return (
+        <div>
+          <Button onClick={ handleClick }>
+            Export CSV
+          </Button>
+        </div>
+      );
+    };
+
+
     return (
       <ToolkitProvider
         keyField="enrollCode"
@@ -97,7 +111,7 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
         {
           props => (
             <div>
-              <ExportCSVButton {...props.csvProps}>Export CSV!!</ExportCSVButton>
+              <ExportCSVButton {...props.csvProps}/>
               
               <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
             </div>
