@@ -94,7 +94,7 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
       return (
         <div>
           <Button onClick={ handleClick }>
-            Export CSV
+            Download as CSV
           </Button>
         </div>
       );
