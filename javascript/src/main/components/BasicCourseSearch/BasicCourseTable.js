@@ -8,6 +8,7 @@ const BasicCourseTable = ( {classes} ) => {
   const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
   const COLOR_DARKBLUE = {backgroundColor: '#CEDEFA'};
   const COLOR_LIGHTBLUE = {backgroundColor: '#EDF3FE'};
+  const COLOR_DEBUG = {backgroundColor: '#00FF00'};
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (.2 * row.maxEnroll));
 
@@ -25,6 +26,7 @@ const BasicCourseTable = ( {classes} ) => {
         { 
             if (classes[i].classSections.length == 1)
             {
+              return COLOR_DEBUG;
               //This code should only execute when dealing with stand alone lectures.
               if(classUnavailable(row))
               {
