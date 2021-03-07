@@ -12,7 +12,19 @@ const BasicCourseTable = ( {classes} ) => {
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (.2 * row.maxEnroll));
 
-
+    //This code creates the legend that describes what each color means
+    <ColorLegend x={0} y={0}
+		 title = "Color Legend"
+		 centerTitle
+		 orientation = "horizontal"
+		 gutter={20}
+		 style={{border: {stroke: "black"}, title: {fontSize: 20} }}
+		 data={[
+		     {name: "Class Unavailable", symbol {fill: COLOR_UNAVAILABLE, type: "square" }},
+		     {name: "Class Almost Full", symbol {fill: COLOR_CLOSEFULL, type: "square" }},
+		     {name: "Class Available", symbol {fill: COLOR_LIGHTBLUE, type: "square" }}
+		 ]}
+		 /> 
 
   const rowStyle = (row, rowIndex) => {
     if (row.section % 100 == 0)
