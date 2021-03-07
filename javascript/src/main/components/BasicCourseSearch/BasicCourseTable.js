@@ -2,7 +2,7 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-const BasicCourseTable = ( {classes,checks} ) => {
+const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
 
   const sections = reformatJSON(classes,checks);
 
@@ -32,15 +32,19 @@ const BasicCourseTable = ( {classes,checks} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  
+  const renderQuarter = (_cell, row) => {
+    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
+    return (  quarter )
+  }
+  
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseId(cell, row)
     },{
       dataField: 'course.title',
       text: 'Title',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
@@ -48,7 +52,6 @@ const BasicCourseTable = ( {classes,checks} ) => {
     },{
       dataField: "instructors",
       text: "Instructor",
-      isDummyField: true,
       formatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
@@ -66,6 +69,18 @@ const BasicCourseTable = ( {classes,checks} ) => {
       text: 'Unit'
     }
   ];
+
+    if(displayQuarter){
+      columns.unshift(
+      {
+        dataField: 'course.quarter',
+        text: 'Quarter',
+        formatter: (cell, row) => renderQuarter(cell, row)
+      }
+      )
+    }
+
+
     return (
       <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
     );

@@ -4,6 +4,7 @@ const shouldShowSection = (section, filters) => {
     ((!filters.full) || (filters.full && section.maxEnroll >= section.enrolledTotal))
 };
 
+
 const addCourseInfoToSection = (section, course) => {
   section.course = {
     courseId: course.courseId,
@@ -35,7 +36,6 @@ const extractLectures = (course) => {
   })
   return lectures;
 }
-
 
 export function reformatJSON(classes, checks) {
   let filters = {

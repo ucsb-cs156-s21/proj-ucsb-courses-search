@@ -34,8 +34,3 @@ describe("BasicCourseTableHelpers tests", () => {
   });
 
 });
-
-
-    
-
-
