@@ -13,7 +13,9 @@ const AgggregateStatisticsTable = ( {data} ) => {
     sort: true
   },{
     dataField: 'courseOccupancy',
-    text: 'Course Occupancy'
+    text: 'Course Occupancy',
+    sort: true,
+    formatter: (cell) => cell + "%"
   }, {
     dataField: 'avgClassSize',
     text: 'Average Class Size',
