@@ -1,7 +1,7 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
-import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { Button } from "react-bootstrap";
 
 const BasicCourseTable = ( {classes, displayQuarter, allowExport} ) => {
@@ -119,7 +119,6 @@ const BasicCourseTable = ( {classes, displayQuarter, allowExport} ) => {
           props => (
             <div>
               <ExportCSVButton {...props.csvProps}/>
-              
               <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
             </div>
             
