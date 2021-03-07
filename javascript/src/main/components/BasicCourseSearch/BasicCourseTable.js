@@ -31,6 +31,10 @@ const BasicCourseTable = ( {classes} ) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  const renderQuarter = (_cell, row) => {
+    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
+    return (  quarter )
+  }
   const renderAddButton = (_cell, row, rowIndex) => {
     if (!sections[rowIndex + 1]) {
       return (
