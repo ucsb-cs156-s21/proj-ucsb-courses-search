@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from '@testing-library/react';
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
-import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
+import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
+import userEvent from "@testing-library/user-event";
 
 describe("BasicCourseTable tests", () => {
 
@@ -124,6 +125,8 @@ describe("BasicCourseTable tests", () => {
   test("add buttons tester for sections with add buttons", ()=> {  
     const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
     expect(getByTestId('add-button-07500')).toBeInTheDocument();
+    const addButton = getByTestId('add-button-07500');
+    userEvent.click(addButton);
   });
   test("add buttons for lecture with sections", ()=> {
     const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
@@ -137,6 +140,15 @@ describe("BasicCourseTable tests", () => {
     const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
     expect(getByTestId('add-button-07492')).toBeInTheDocument();
   });
+  test("add buttons tester for sections with add buttons", ()=> {  
+    const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(getByTestId('add-button-07600')).toBeInTheDocument();
+  });
+  test("add buttons tester for sections with add buttons", ()=> {  
+    const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(getByTestId('add-button-07508')).toBeInTheDocument();
+  });
+
 });
 
 
