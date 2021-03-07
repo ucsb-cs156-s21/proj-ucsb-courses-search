@@ -38,6 +38,7 @@ const Home = () => {
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
+
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
                 <BasicCourseTable classes={courseJSON.classes} />
@@ -45,6 +46,19 @@ const Home = () => {
                     expression={"courseJSON"}
                     value={courseJSON}
                 />
+
+                <table cellpadding="5px">
+                <tr>
+                    <th>Full/Closed</th>
+                    <th>Available</th>
+                    <th>Empty</th>
+                </tr>
+                <tr>
+                    <td style="background-color:rgb(255, 99, 71);"></td>
+                    <td style="background-color:rgb(0, 99, 71);"></td>
+                    <td style="background-color:rgb(0, 0, 71);"></td>
+                </tr>
+                </table>
             </div>
         </Jumbotron>
     );
