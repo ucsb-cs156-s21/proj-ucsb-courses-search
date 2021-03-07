@@ -7,6 +7,7 @@ const shouldShowSection = (section, filters) => {
 
 const addCourseInfoToSection = (section, course) => {
   section.course = {
+    quarter : course.quarter,
     courseId: course.courseId,
     title: course.title,
     unitsFixed: course.unitsFixed

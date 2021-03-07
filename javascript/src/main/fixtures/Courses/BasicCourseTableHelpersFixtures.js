@@ -6,123 +6,123 @@ export const classesInput = [
         "unitsFixed": 4,
         "classSections": [
             {
-            "enrollCode": "07492",
-            "section": "0100",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 100,
-            "maxEnroll": 125,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": " T R   ",
-                "beginTime": "09:30",
-                "endTime": "10:45"
-                }
-            ],
-            "instructors": [
-                {
-                "instructor": "KHARITONOVA Y",
-                "functionCode": "Teaching and in charge"
-                }
-            ]
+                "enrollCode": "07492",
+                "section": "0100",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 100,
+                "maxEnroll": 125,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": " T R   ",
+                        "beginTime": "09:30",
+                        "endTime": "10:45"
+                    }
+                ],
+                "instructors": [
+                    {
+                        "instructor": "KHARITONOVA Y",
+                        "functionCode": "Teaching and in charge"
+                    }
+                ]
             },
             {
-            "enrollCode": "07500",
-            "section": "0101",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "09:00",
-                "endTime": "09:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07500",
+                "section": "0101",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "09:00",
+                        "endTime": "09:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07518",
-            "section": "0102",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "10:00",
-                "endTime": "10:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07518",
+                "section": "0102",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "10:00",
+                        "endTime": "10:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07526",
-            "section": "0103",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "11:00",
-                "endTime": "11:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07526",
+                "section": "0103",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "11:00",
+                        "endTime": "11:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07534",
-            "section": "0104",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "12:00",
-                "endTime": "12:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07534",
+                "section": "0104",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "12:00",
+                        "endTime": "12:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "63404",
-            "section": "0105",
-            "classClosed": "Y",
-            "courseCancelled": null,
-            "enrolledTotal": null,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "13:00",
-                "endTime": "13:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "63404",
+                "section": "0105",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": null,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "13:00",
+                        "endTime": "13:50"
+                    }
+                ],
+                "instructors": []
             }
         ]
     }
@@ -136,123 +136,123 @@ export const classesInputLectureClosed = [
         "unitsFixed": 4,
         "classSections": [
             {
-            "enrollCode": "07492",
-            "section": "0100",
-            "classClosed": "Y",
-            "courseCancelled": null,
-            "enrolledTotal": 100,
-            "maxEnroll": 125,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": " T R   ",
-                "beginTime": "09:30",
-                "endTime": "10:45"
-                }
-            ],
-            "instructors": [
-                {
-                "instructor": "KHARITONOVA Y",
-                "functionCode": "Teaching and in charge"
-                }
-            ]
+                "enrollCode": "07492",
+                "section": "0100",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": 100,
+                "maxEnroll": 125,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": " T R   ",
+                        "beginTime": "09:30",
+                        "endTime": "10:45"
+                    }
+                ],
+                "instructors": [
+                    {
+                        "instructor": "KHARITONOVA Y",
+                        "functionCode": "Teaching and in charge"
+                    }
+                ]
             },
             {
-            "enrollCode": "07500",
-            "section": "0101",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "09:00",
-                "endTime": "09:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07500",
+                "section": "0101",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "09:00",
+                        "endTime": "09:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07518",
-            "section": "0102",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "10:00",
-                "endTime": "10:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07518",
+                "section": "0102",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "10:00",
+                        "endTime": "10:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07526",
-            "section": "0103",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "11:00",
-                "endTime": "11:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07526",
+                "section": "0103",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "11:00",
+                        "endTime": "11:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07534",
-            "section": "0104",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "12:00",
-                "endTime": "12:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07534",
+                "section": "0104",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "12:00",
+                        "endTime": "12:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "63404",
-            "section": "0105",
-            "classClosed": "Y",
-            "courseCancelled": null,
-            "enrolledTotal": null,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "13:00",
-                "endTime": "13:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "63404",
+                "section": "0105",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": null,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "13:00",
+                        "endTime": "13:50"
+                    }
+                ],
+                "instructors": []
             }
         ]
     }
@@ -266,649 +266,660 @@ export const classesInputLectureCancelled = [
         "unitsFixed": 4,
         "classSections": [
             {
-            
-            "enrollCode": "07492",
-            "section": "0100",
-            "classClosed": null,
-            "courseCancelled": "C         ",
-            "enrolledTotal": 100,
-            "maxEnroll": 125,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": " T R   ",
-                "beginTime": "09:30",
-                "endTime": "10:45"
-                }
-            ],
-            "instructors": [
-                {
-                "instructor": "KHARITONOVA Y",
-                "functionCode": "Teaching and in charge"
-                }
-            ]
+
+                "enrollCode": "07492",
+                "section": "0100",
+                "classClosed": null,
+                "courseCancelled": "C         ",
+                "enrolledTotal": 100,
+                "maxEnroll": 125,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": " T R   ",
+                        "beginTime": "09:30",
+                        "endTime": "10:45"
+                    }
+                ],
+                "instructors": [
+                    {
+                        "instructor": "KHARITONOVA Y",
+                        "functionCode": "Teaching and in charge"
+                    }
+                ]
             },
             {
-            "enrollCode": "07500",
-            "section": "0101",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "09:00",
-                "endTime": "09:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07500",
+                "section": "0101",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "09:00",
+                        "endTime": "09:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07518",
-            "section": "0102",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "10:00",
-                "endTime": "10:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07518",
+                "section": "0102",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "10:00",
+                        "endTime": "10:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07526",
-            "section": "0103",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "11:00",
-                "endTime": "11:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07526",
+                "section": "0103",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "11:00",
+                        "endTime": "11:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "07534",
-            "section": "0104",
-            "classClosed": null,
-            "courseCancelled": null,
-            "enrolledTotal": 25,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "12:00",
-                "endTime": "12:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "07534",
+                "section": "0104",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "12:00",
+                        "endTime": "12:50"
+                    }
+                ],
+                "instructors": []
             },
             {
-            "enrollCode": "63404",
-            "section": "0105",
-            "classClosed": "Y",
-            "courseCancelled": null,
-            "enrolledTotal": null,
-            "maxEnroll": 25,
-            "timeLocations": [
-                {
-                "room": "LINE",
-                "building": "ON",
-                "roomCapacity": 999,
-                "days": "  W    ",
-                "beginTime": "13:00",
-                "endTime": "13:50"
-                }
-            ],
-            "instructors": []
+                "enrollCode": "63404",
+                "section": "0105",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": null,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "13:00",
+                        "endTime": "13:50"
+                    }
+                ],
+                "instructors": []
             }
         ]
     }
 ];
 
 export const classesInputLectureFull = [
-{
-    "quarter": "20211",
-    "courseId": "CMPSC     8  ",
-    "title": "INTRO TO COMP SCI",
-    "unitsFixed": 4,
-    "classSections": [
     {
-        "enrollCode": "07492",
-        "section": "0100",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 126,
-        "maxEnroll": 125,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": " T R   ",
-            "beginTime": "09:30",
-            "endTime": "10:45"
-        }
-        ],
-        "instructors": [
-        {
-            "instructor": "KHARITONOVA Y",
-            "functionCode": "Teaching and in charge"
-        }
+        "quarter": "20211",
+        "courseId": "CMPSC     8  ",
+        "title": "INTRO TO COMP SCI",
+        "unitsFixed": 4,
+        "classSections": [
+            {
+                "enrollCode": "07492",
+                "section": "0100",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 126,
+                "maxEnroll": 125,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": " T R   ",
+                        "beginTime": "09:30",
+                        "endTime": "10:45"
+                    }
+                ],
+                "instructors": [
+                    {
+                        "instructor": "KHARITONOVA Y",
+                        "functionCode": "Teaching and in charge"
+                    }
+                ]
+            },
+            {
+                "enrollCode": "07500",
+                "section": "0101",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "09:00",
+                        "endTime": "09:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07518",
+                "section": "0102",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "10:00",
+                        "endTime": "10:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07526",
+                "section": "0103",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "11:00",
+                        "endTime": "11:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07534",
+                "section": "0104",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "12:00",
+                        "endTime": "12:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "63404",
+                "section": "0105",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": null,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "13:00",
+                        "endTime": "13:50"
+                    }
+                ],
+                "instructors": []
+            }
         ]
-    },
-    {
-        "enrollCode": "07500",
-        "section": "0101",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "09:00",
-            "endTime": "09:50"
-        }
-        ],
-        "instructors": []
-    },
-    {
-        "enrollCode": "07518",
-        "section": "0102",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "10:00",
-            "endTime": "10:50"
-        }
-        ],
-        "instructors": []
-    },
-    {
-        "enrollCode": "07526",
-        "section": "0103",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "11:00",
-            "endTime": "11:50"
-        }
-        ],
-        "instructors": []
-    },
-    {
-        "enrollCode": "07534",
-        "section": "0104",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "12:00",
-            "endTime": "12:50"
-        }
-        ],
-        "instructors": []
-    },
-    {
-        "enrollCode": "63404",
-        "section": "0105",
-        "classClosed": "Y",
-        "courseCancelled": null,
-        "enrolledTotal": null,
-        "maxEnroll": 25,
-        "timeLocations": [
-        {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "13:00",
-            "endTime": "13:50"
-        }
-        ],
-        "instructors": []
     }
-    ]
-}
 ];
 
 export const classesInputSectionCancelledClosedFull = [
-{
-    "quarter": "20211",
-    "courseId": "CMPSC     8  ",
-    "title": "INTRO TO COMP SCI",
-    "unitsFixed": 4,
-    "classSections": [
-        {
-        "enrollCode": "07492",
-        "section": "0100",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 100,
-        "maxEnroll": 125,
-        "timeLocations": [
+    {
+        "quarter": "20211",
+        "courseId": "CMPSC     8  ",
+        "title": "INTRO TO COMP SCI",
+        "unitsFixed": 4,
+        "classSections": [
             {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": " T R   ",
-            "beginTime": "09:30",
-            "endTime": "10:45"
-            }
-        ],
-        "instructors": [
+                "enrollCode": "07492",
+                "section": "0100",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 100,
+                "maxEnroll": 125,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": " T R   ",
+                        "beginTime": "09:30",
+                        "endTime": "10:45"
+                    }
+                ],
+                "instructors": [
+                    {
+                        "instructor": "KHARITONOVA Y",
+                        "functionCode": "Teaching and in charge"
+                    }
+                ]
+            },
             {
-            "instructor": "KHARITONOVA Y",
-            "functionCode": "Teaching and in charge"
+                "enrollCode": "07500",
+                "section": "0101",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "09:00",
+                        "endTime": "09:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07518",
+                "section": "0102",
+                "classClosed": null,
+                "courseCancelled": "C         ",
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "10:00",
+                        "endTime": "10:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07526",
+                "section": "0103",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 26,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "11:00",
+                        "endTime": "11:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "07534",
+                "section": "0104",
+                "classClosed": null,
+                "courseCancelled": null,
+                "enrolledTotal": 25,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "12:00",
+                        "endTime": "12:50"
+                    }
+                ],
+                "instructors": []
+            },
+            {
+                "enrollCode": "63404",
+                "section": "0105",
+                "classClosed": "Y",
+                "courseCancelled": null,
+                "enrolledTotal": null,
+                "maxEnroll": 25,
+                "timeLocations": [
+                    {
+                        "room": "LINE",
+                        "building": "ON",
+                        "roomCapacity": 999,
+                        "days": "  W    ",
+                        "beginTime": "13:00",
+                        "endTime": "13:50"
+                    }
+                ],
+                "instructors": []
             }
         ]
-        },
-        {
-        "enrollCode": "07500",
-        "section": "0101",
-        "classClosed": "Y",
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-            {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "09:00",
-            "endTime": "09:50"
-            }
-        ],
-        "instructors": []
-        },
-        {
-        "enrollCode": "07518",
-        "section": "0102",
-        "classClosed": null,
-        "courseCancelled": "C         ",
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-            {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "10:00",
-            "endTime": "10:50"
-            }
-        ],
-        "instructors": []
-        },
-        {
-        "enrollCode": "07526",
-        "section": "0103",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 26,
-        "maxEnroll": 25,
-        "timeLocations": [
-            {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "11:00",
-            "endTime": "11:50"
-            }
-        ],
-        "instructors": []
-        },
-        {
-        "enrollCode": "07534",
-        "section": "0104",
-        "classClosed": null,
-        "courseCancelled": null,
-        "enrolledTotal": 25,
-        "maxEnroll": 25,
-        "timeLocations": [
-            {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "12:00",
-            "endTime": "12:50"
-            }
-        ],
-        "instructors": []
-        },
-        {
-        "enrollCode": "63404",
-        "section": "0105",
-        "classClosed": "Y",
-        "courseCancelled": null,
-        "enrolledTotal": null,
-        "maxEnroll": 25,
-        "timeLocations": [
-            {
-            "room": "LINE",
-            "building": "ON",
-            "roomCapacity": 999,
-            "days": "  W    ",
-            "beginTime": "13:00",
-            "endTime": "13:50"
-            }
-        ],
-        "instructors": []
-        }
-    ]
-}];
+    }];
 
-export const sectionsOutput = [                                         
-{
+export const sectionsOutput = [
+    {
         "discussionSections": [
-        {
-            "classClosed": null,
-            "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+            {
+                "classClosed": null,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "07500",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0101",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "09:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "09:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "09:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "09:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-                {
+            {
                 "classClosed": null,
-                "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "07518",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0102",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "10:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "10:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "10:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "10:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-                {
+            {
                 "classClosed": null,
-                "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "07526",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0103",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "11:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "11:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "11:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "11:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-                {
+            {
                 "classClosed": null,
-                "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "07534",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0104",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "12:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "12:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "12:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "12:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-                {
+            {
                 "classClosed": "Y",
-                "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "63404",
                 "enrolledTotal": null,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0105",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "13:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "13:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "13:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "13:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-            ],                     
-        "enrollCode": '07492',                  
-        "section": '0100',                      
-        "classClosed": null,                    
-        "courseCancelled": null,                           
-        "enrolledTotal": 100,                   
-        "maxEnroll": 125,                       
-        "timeLocations": [ {
+        ],
+        "enrollCode": '07492',
+        "section": '0100',
+        "classClosed": null,
+        "courseCancelled": null,
+        "enrolledTotal": 100,
+        "maxEnroll": 125,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": " T R   ",
             "beginTime": "09:30",
             "endTime": "10:45"
-        } ],          
-        "instructors": [ {
+        }],
+        "instructors": [{
             "instructor": "KHARITONOVA Y",
             "functionCode": "Teaching and in charge"
-        } ],            
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                      
-    {                                       
-        "enrollCode": '07500',                  
-        "section": '0101',                      
-        "classClosed": null,                    
-        "courseCancelled": null,                             
-        "enrolledTotal": 25,                    
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        }],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '07500',
+        "section": '0101',
+        "classClosed": null,
+        "courseCancelled": null,
+        "enrolledTotal": 25,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "09:00",
             "endTime": "09:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                      
-    {                                       
-        "enrollCode": '07518',                  
-        "section": '0102',                      
-        "classClosed": null,                    
-        "courseCancelled": null,      
-        "enrolledTotal": 25,                    
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '07518',
+        "section": '0102',
+        "classClosed": null,
+        "courseCancelled": null,
+        "enrolledTotal": 25,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "10:00",
             "endTime": "10:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                      
-    {                                       
-        "enrollCode": '07526',                  
-        "section": '0103',                      
-        "classClosed": null,                    
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '07526',
+        "section": '0103',
+        "classClosed": null,
         "courseCancelled": null,
-        "enrolledTotal": 25,                    
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        "enrolledTotal": 25,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "11:00",
             "endTime": "11:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                      
-    {                                       
-        "enrollCode": '07534',                  
-        "section": '0104',                      
-        "classClosed": null,                    
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '07534',
+        "section": '0104',
+        "classClosed": null,
         "courseCancelled": null,
-        "enrolledTotal": 25,                    
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        "enrolledTotal": 25,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "12:00",
             "endTime": "12:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                      
-    {                                       
-        "enrollCode": '63404',                  
-        "section": '0105',                      
-        "classClosed": 'Y',                     
-        "courseCancelled": null,                              
-        "enrolledTotal": null,                  
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '63404',
+        "section": '0105',
+        "classClosed": 'Y',
+        "courseCancelled": null,
+        "enrolledTotal": null,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "13:00",
             "endTime": "13:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    }                                       
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    }
 ];
 
-export const sectionsOutputCancelledClosedFull = [                                         
+export const sectionsOutputCancelledClosedFull = [
     {
         "discussionSections": [
             {
@@ -916,18 +927,18 @@ export const sectionsOutputCancelledClosedFull = [
                 "courseCancelled": null,
                 "enrollCode": "07500",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0101",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "09:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "09:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "09:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "09:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
             {
@@ -935,18 +946,18 @@ export const sectionsOutputCancelledClosedFull = [
                 "courseCancelled": "C         ",
                 "enrollCode": "07518",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0102",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "10:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "10:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "10:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "10:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
             {
@@ -954,42 +965,43 @@ export const sectionsOutputCancelledClosedFull = [
                 "courseCancelled": null,
                 "enrollCode": "07526",
                 "enrolledTotal": 26,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0103",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "11:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "11:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "11:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "11:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
             {
                 "classClosed": null,
-                "course":   {
-                "courseId": "CMPSC     8  ",
-                "title": "INTRO TO COMP SCI",
-                "unitsFixed": 4,
+                "course": {
+                    "quarter": "20211",
+                    "courseId": "CMPSC     8  ",
+                    "title": "INTRO TO COMP SCI",
+                    "unitsFixed": 4,
                 },
                 "courseCancelled": null,
                 "enrollCode": "07534",
                 "enrolledTotal": 25,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0104",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "12:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "12:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "12:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "12:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
             {
@@ -997,66 +1009,68 @@ export const sectionsOutputCancelledClosedFull = [
                 "courseCancelled": null,
                 "enrollCode": "63404",
                 "enrolledTotal": null,
-                "instructors":   [],
+                "instructors": [],
                 "maxEnroll": 25,
                 "section": "0105",
-                "timeLocations":   [
+                "timeLocations": [
                     {
-                    "beginTime": "13:00",
-                    "building": "ON",
-                    "days": "  W    ",
-                    "endTime": "13:50",
-                    "room": "LINE",
-                    "roomCapacity": 999,
-                },
+                        "beginTime": "13:00",
+                        "building": "ON",
+                        "days": "  W    ",
+                        "endTime": "13:50",
+                        "room": "LINE",
+                        "roomCapacity": 999,
+                    },
                 ],
             },
-            ],                                       
-        "enrollCode": '07492',                  
-        "section": '0100',                      
-        "classClosed": null,                    
-        "courseCancelled": null,                           
-        "enrolledTotal": 100,                   
-        "maxEnroll": 125,                       
-        "timeLocations": [ {
+        ],
+        "enrollCode": '07492',
+        "section": '0100',
+        "classClosed": null,
+        "courseCancelled": null,
+        "enrolledTotal": 100,
+        "maxEnroll": 125,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": " T R   ",
             "beginTime": "09:30",
             "endTime": "10:45"
-        } ],          
-        "instructors": [ {
+        }],
+        "instructors": [{
             "instructor": "KHARITONOVA Y",
             "functionCode": "Teaching and in charge"
-        } ],            
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    },                                                     
-    {                                       
-        "enrollCode": '07534',                  
-        "section": '0104',                      
-        "classClosed": null,                    
+        }],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    },
+    {
+        "enrollCode": '07534',
+        "section": '0104',
+        "classClosed": null,
         "courseCancelled": null,
-        "enrolledTotal": 25,                    
-        "maxEnroll": 25,                        
-        "timeLocations": [ {
+        "enrolledTotal": 25,
+        "maxEnroll": 25,
+        "timeLocations": [{
             "room": "LINE",
             "building": "ON",
             "roomCapacity": 999,
             "days": "  W    ",
             "beginTime": "12:00",
             "endTime": "12:50"
-        } ],          
-        "instructors": [],                      
-        "course": {                             
-            "courseId": 'CMPSC     8  ',          
-            "title": 'INTRO TO COMP SCI',         
-            "unitsFixed": 4                       
-        }                                     
-    }                                                        
-];          
+        }],
+        "instructors": [],
+        "course": {
+            "quarter": "20211",
+            "courseId": 'CMPSC     8  ',
+            "title": 'INTRO TO COMP SCI',
+            "unitsFixed": 4
+        }
+    }
+];
 
