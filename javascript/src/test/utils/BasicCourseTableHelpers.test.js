@@ -165,7 +165,8 @@ const sectionsOutput = [
       }
     ],            
     "course": {                             
-      "courseId": 'CMPSC     8  ',          
+      "courseId": 'CMPSC     8  ',       
+      "quarter" : '20211',
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
@@ -189,7 +190,8 @@ const sectionsOutput = [
     ],          
     "instructors": [],                      
     "course": {                             
-      "courseId": 'CMPSC     8  ',          
+      "courseId": 'CMPSC     8  ',     
+      "quarter" : '20211',     
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
@@ -214,6 +216,7 @@ const sectionsOutput = [
     "instructors": [],                      
     "course": {                             
       "courseId": 'CMPSC     8  ',          
+      "quarter" : '20211',
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
@@ -237,7 +240,8 @@ const sectionsOutput = [
     ],          
     "instructors": [],                      
     "course": {                             
-      "courseId": 'CMPSC     8  ',          
+      "courseId": 'CMPSC     8  ',      
+      "quarter" : '20211',    
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
@@ -261,7 +265,8 @@ const sectionsOutput = [
     ],          
     "instructors": [],                      
     "course": {                             
-      "courseId": 'CMPSC     8  ',          
+      "courseId": 'CMPSC     8  ',       
+      "quarter" : '20211',   
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
@@ -285,7 +290,8 @@ const sectionsOutput = [
     ],          
     "instructors": [],                      
     "course": {                             
-      "courseId": 'CMPSC     8  ',          
+      "courseId": 'CMPSC     8  ',      
+      "quarter" : '20211',    
       "title": 'INTRO TO COMP SCI',         
       "unitsFixed": 4                       
     }                                     
