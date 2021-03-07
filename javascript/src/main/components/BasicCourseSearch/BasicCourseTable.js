@@ -4,7 +4,7 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
 import { Button } from "react-bootstrap";
 
-const BasicCourseTable = ( {classes, displayQuarter} ) => {
+const BasicCourseTable = ( {classes, displayQuarter, allowExport} ) => {
   const sections = reformatJSON(classes);
   
   const rowStyle = (row, _rowIndex) => {
@@ -86,18 +86,25 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
       }
       )
     }
+    
 
     const ExportCSVButton = (props) => {
-      const handleClick = () => {
+      const handleClick = (event) => {
         props.onExport();
       };
-      return (
-        <div>
-          <Button onClick={ handleClick }>
-            Download as CSV
-          </Button>
-        </div>
-      );
+      if (allowExport) {
+        return (
+          <div>
+            <Button onClick={ handleClick }>
+              Download as CSV
+            </Button>
+          </div>
+        );
+      } else {
+        return (
+          <div></div>
+        )
+      }
     };
 
 
