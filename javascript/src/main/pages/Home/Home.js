@@ -41,24 +41,25 @@ const Home = () => {
 
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
+                
+                <table cellpadding="5px">
+                <tr>
+                    <th>Full/Closed</th>
+                    <th>Almost Full</th>
+                    <th>Empty</th>
+                </tr>
+                <tr>
+                    <td style={{backgroundColor: "red"}}></td>
+                    <td style={{backgroundColor: "orange"}}></td>
+                    <td style={{backgroundColor: "lightblue"}}></td>
+                </tr>
+                </table>
+                
                 <BasicCourseTable classes={courseJSON.classes} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
                 />
-
-                <table cellpadding="5px">
-                <tr>
-                    <th>Full/Closed</th>
-                    <th>Available</th>
-                    <th>Empty</th>
-                </tr>
-                <tr>
-                    <td style="background-color:rgb(255, 99, 71);"></td>
-                    <td style="background-color:rgb(0, 99, 71);"></td>
-                    <td style="background-color:rgb(0, 0, 71);"></td>
-                </tr>
-                </table>
             </div>
         </Jumbotron>
     );
