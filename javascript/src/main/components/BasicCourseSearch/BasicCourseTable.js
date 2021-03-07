@@ -11,7 +11,6 @@ const BasicCourseTable = ( {classes} ) => {
   }
 
   const renderSectionTimes = (_cell, row) => {
-    
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
   }
@@ -33,7 +32,14 @@ const BasicCourseTable = ( {classes} ) => {
     return (  instructor )
   }
   const renderAddButton = (_cell, row, rowIndex) => {
-    if(sections[rowIndex + 1]){
+    if (!sections[rowIndex + 1]) {
+      return (
+        <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
+          //return addToSchedule(row.course.courseId);
+        }}>Add</Button>
+      )
+    }
+    else {
       if((sections[rowIndex + 1]).section%100 === 0 || row.section%100 !== 0) {
         return (
           <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
@@ -41,13 +47,6 @@ const BasicCourseTable = ( {classes} ) => {
           }}>Add</Button>
         )
       }
-    }
-    if (!sections[rowIndex + 1]) {
-      return (
-        <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-          //return addToSchedule(row.course.courseId);
-        }}>Add</Button>
-      )
     }
   }
     const columns = [{
