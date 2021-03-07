@@ -23,17 +23,17 @@ describe("Home tests", () => {
   test("Test for checkbox Cancelled,Closed,Full", () => {
     const { getByTestId } =  render(<Home/>);
 
-    const checkbox1 = getByTestId(`inline-checkbox-1`);
+    const checkbox1 = getByTestId("inline-checkbox-cancelled");
     expect(checkbox1.checked).toEqual(false);
     fireEvent.click(checkbox1);
     expect(checkbox1.checked).toEqual(true);
 
-    const checkbox2 = getByTestId(`inline-checkbox-2`);
+    const checkbox2 = getByTestId("inline-checkbox-closed");
     expect(checkbox2.checked).toEqual(false);
     fireEvent.click(checkbox2);
     expect(checkbox2.checked).toEqual(true);
 
-    const checkbox3 = getByTestId(`inline-checkbox-3`);
+    const checkbox3 = getByTestId("inline-checkbox-full");
     expect(checkbox3.checked).toEqual(false);
     fireEvent.click(checkbox3);
     expect(checkbox3.checked).toEqual(true);
