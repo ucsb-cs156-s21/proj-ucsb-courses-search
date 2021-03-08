@@ -247,14 +247,12 @@ public class StatisticsControllerTests {
     public void test_aggregateStatistics() throws Exception {
         String url = "/api/public/statistics/aggregateStatistics";
 
-        org.bson.Document fakeRawResults = new org.bson.Document();
         List<AggregateStatistics> asList = new ArrayList<AggregateStatistics>();
         asList.add(new AggregateStatistics("CMPSC", 40, 40, 50, 0.80, 45));
-        AggregationResults<AggregateStatistics> fakeResults = new AggregationResults<>(asList, fakeRawResults);
 
-        when(mongoTemplate.aggregate(any(Aggregation.class), eq("courses"), any(Class.class))).thenReturn(fakeResults);
+        when(courseRepo.findAggregateStatisticsByQuarterInterval(any(String.class), any(String.class))).thenReturn(asList);
 
-        MvcResult response = mockMvc.perform(get(url).queryParam("quarter", "20211").contentType("application/json"))
+        MvcResult response = mockMvc.perform(get(url).queryParam("startQuarter", "20203").queryParam("endQuarter","20203").contentType("application/json"))
                                 .andExpect(status().isOk()).andReturn();
         String responseString = response.getResponse().getContentAsString();
         List<AggregateStatistics> resultFromPage = AggregateStatistics.listFromJSON(responseString);
