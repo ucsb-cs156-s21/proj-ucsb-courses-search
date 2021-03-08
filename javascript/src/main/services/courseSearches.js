@@ -27,6 +27,7 @@ const fetchCourseHistoryNameQtrJSON = async (_event, fields) => {
 const fetchInstructorHistoryNameQtrJSON = async (_event, fields) => {
     const url = `/api/public/history/instructorsearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&instructorText=${fields.instructorText}`;
     const courseResponse = await fetch(url);
+    return courseResponse.json();
 };
 
 export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON , fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON ,fetchInstructorHistoryNameQtrJSON};
