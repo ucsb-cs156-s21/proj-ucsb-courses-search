@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Nav } from "react-bootstrap";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import { LinkContainer } from "react-router-bootstrap";
 
 
 
@@ -17,9 +16,6 @@ const AuthNav = () => {
       <Nav.Link style={{marginRight: 15}}>{"Hello, " + name}</Nav.Link>
 
     </LinkContainer>  
-
-    </LinkContainer> 
-
       <img
             src={picture}
             alt="Profile"

@@ -31,6 +31,7 @@ function AppNavbar() {
             <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
+            <NavDropdown.Item href="/history/searchDayTime">Search by Day and Time</NavDropdown.Item>
         </NavDropdown>
         { isAdmin &&
           (<LinkContainer to={"/admin"}>
