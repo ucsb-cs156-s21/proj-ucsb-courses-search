@@ -7,8 +7,13 @@ import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
+
 import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 
+
+
+import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
+ 
 
 const Home = () => {
 
@@ -33,6 +38,22 @@ const Home = () => {
         { label: "title", key: "title" },
         { label: "units", key: "unitsFixed" }
     ]
+
+    //Check for closed, cancelled, full status
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+
+    const handleCancelledOnChange = () => {
+        setCancelledChecked(!cancelled);
+    };
+    const handleClosedOnChange = () => {
+        setClosedChecked(!closed);
+    };
+    const handleFullOnChange = () => {
+        setFullChecked(!full);
+    };
+
     return (
         <Jumbotron>
             <div className="text-left">
@@ -49,10 +70,10 @@ const Home = () => {
                         Download CSV
                     </CSVLink>
                 </Button>
-      
-                <TableLegend legend />
 
-                <BasicCourseTable classes={courseJSON.classes} />
+                <TableLegend legend />
+                <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
