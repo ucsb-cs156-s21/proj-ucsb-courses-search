@@ -2,9 +2,10 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-const BasicCourseTable = ( {classes, displayQuarter} ) => {
-  const sections = reformatJSON(classes);
-  
+const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
+
+  const sections = reformatJSON(classes,checks);
+
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
