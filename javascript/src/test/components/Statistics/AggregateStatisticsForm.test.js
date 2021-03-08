@@ -51,17 +51,18 @@ describe("AggregateStatisticsForm tests", () => {
         // it was called, how many times it was called,
         // and what it was passed.
 
-        const setAggregateStatisticsJSON = jest.fn();
+        const setAggregateStatisticsJson = jest.fn();
         const fetchJSONSpy = jest.fn();
 
         fetchJSONSpy.mockResolvedValue(sampleReturnValue);
 
         const { getByText, _getByTestId } = render(
-            <AggregateStatisticsForm setAggregateStatisticsJSON={setAggregateStatisticsJSON} fetchAggregateStatistics={fetchJSONSpy} />
+            <AggregateStatisticsForm setAggregateStatisticsJSON={setAggregateStatisticsJson} fetchAggregateStatistics={fetchJSONSpy} />
         );
 
         const expectedFields = {
-            quarter: "20211",
+            startQuarter: "20204",
+            endQuarter: "20211"
         };
 
         const submitButton = getByText("Submit");
@@ -69,11 +70,11 @@ describe("AggregateStatisticsForm tests", () => {
 
         // we need to be careful not to assert this expectation
         // until all of the async promises are resolved
-        await waitFor(() => expect(setAggregateStatisticsJSON).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(setAggregateStatisticsJson).toHaveBeenCalledTimes(1));
         await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(1));
 
         // assert that ourSpy was called with the right value
-        expect(setAggregateStatisticsJSON).toHaveBeenCalledWith(sampleReturnValue);
+        expect(setAggregateStatisticsJson).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields);
 
     });
