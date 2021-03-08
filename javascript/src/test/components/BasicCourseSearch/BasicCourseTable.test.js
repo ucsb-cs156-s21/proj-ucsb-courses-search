@@ -133,7 +133,7 @@ describe("BasicCourseTable tests", () => {
 
   // CSV Testing
   test("CSV Button appears when allowExport passed", () => {
-  	const {getByText} = render(<BasicCourseTable allowExport = { true } classes = {courseFixtures.classesLectureAndSections} />);
+  	const {getByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = getByText("Download as CSV");
     expect( csvButton != null );
     global.URL.createObjectURL = jest.fn();
@@ -141,7 +141,7 @@ describe("BasicCourseTable tests", () => {
     // Need to Add mock for download
   });
   test("CSV Button does not appear when allowExport = { false }", () => {
-  	const {getByText} = render(<BasicCourseTable allowExport = { true } classes = {courseFixtures.classesLectureAndSections} />);
+  	const {getByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = getByText("Download as CSV");
     expect( csvButton == null );
   });
