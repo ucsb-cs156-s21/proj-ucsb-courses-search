@@ -10,20 +10,20 @@ describe("History Course Name Course Search page tests", () => {
   test("Test for checkbox Cancelled,Closed,Full", () => {
     const { getByTestId } =  render(<CourseName/>);
 
-    const checkbox1 = getByTestId("inline-checkbox-cancelled");
-    expect(checkbox1.checked).toEqual(false);
-    fireEvent.click(checkbox1);
-    expect(checkbox1.checked).toEqual(true);
+    const checkboxCancelled = getByTestId("inline-checkbox-cancelled");
+    expect(checkboxCancelled.checked).toEqual(false);
+    fireEvent.click(checkboxCancelled);
+    expect(checkboxCancelled.checked).toEqual(true);
 
-    const checkbox2 = getByTestId("inline-checkbox-closed");
-    expect(checkbox2.checked).toEqual(false);
-    fireEvent.click(checkbox2);
-    expect(checkbox2.checked).toEqual(true);
+    const checkboxClosed = getByTestId("inline-checkbox-closed");
+    expect(checkboxClosed.checked).toEqual(false);
+    fireEvent.click(checkboxClosed);
+    expect(checkboxClosed.checked).toEqual(true);
 
-    const checkbox3 = getByTestId("inline-checkbox-full");
-    expect(checkbox3.checked).toEqual(false);
-    fireEvent.click(checkbox3);
-    expect(checkbox3.checked).toEqual(true);
+    const checkboxFull = getByTestId("inline-checkbox-full");
+    expect(checkboxFull.checked).toEqual(false);
+    fireEvent.click(checkboxFull);
+    expect(checkboxFull.checked).toEqual(true);
   });
   
 });
