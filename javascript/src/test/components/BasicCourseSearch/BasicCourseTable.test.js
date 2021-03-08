@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
+import userEvent from "@testing-library/user-event";
 
 describe("BasicCourseTable tests", () => {
 
@@ -129,8 +130,19 @@ describe("BasicCourseTable tests", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
   	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
-  
+
+  // CSV Testing
+  test("CSV Button appears when allowExport passed", () => {
+  	const {getByText} = render(<BasicCourseTable allowExport = { true } classes = {courseFixtures.classesLectureAndSections} />);
+    const csvButton = getByText("Download as CSV");
+    expect( csvButton != null );
+    global.URL.createObjectURL = jest.fn();
+    userEvent.click(csvButton);
+    // Need to Add mock for download
+  });
+  test("CSV Button does not appear when allowExport = { false }", () => {
+  	const {getByText} = render(<BasicCourseTable allowExport = { true } classes = {courseFixtures.classesLectureAndSections} />);
+    const csvButton = getByText("Download as CSV");
+    expect( csvButton == null );
+  });
 });
-
-
-
