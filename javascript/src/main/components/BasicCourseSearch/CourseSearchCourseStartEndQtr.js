@@ -11,7 +11,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
-            if(courseJSON.total == 0){
+            if(courseJSON.total === 0){
                 alert("Empty!");
             }
             setCourseJSON(courseJSON);
