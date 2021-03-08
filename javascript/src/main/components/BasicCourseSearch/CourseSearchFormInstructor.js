@@ -51,8 +51,9 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Form.Group controlId="InstructorSearch.Instructor">
                 <Form.Label>Instructor</Form.Label>
-                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText}>   
+                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText} placeholder="Instructor Last Name">
                 </Form.Control>
+                <Form.Text style={{ textAlign: "left"}} muted>If there are multiple instructors with the same last name, do a search by last name first to determine how the instructor first name is abbreviated, e.g. WANG R K, WANG Y X, WANG Y F, etc. and then repeat the search.</Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
