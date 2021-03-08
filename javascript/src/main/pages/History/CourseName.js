@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr";
-import BasicCourseCSV from "main/components/BasicCourseSearch/BasicCourseCSV";
 import { fetchCourseHistoryNameQtrJSON } from "main/services/courseSearches";
 
 const CourseName = () => {
@@ -25,7 +24,6 @@ const CourseName = () => {
                 <h5>Search By Course Name Through Various Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} displayQuarter allowExport={true}/>
-
             </div>
         </Jumbotron>
     ); 
