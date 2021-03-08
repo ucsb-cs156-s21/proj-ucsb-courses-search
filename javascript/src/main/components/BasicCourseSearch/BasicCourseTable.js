@@ -2,8 +2,11 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-const BasicCourseTable = ( {classes, displayQuarter} ) => {
-  const sections = reformatJSON(classes);
+
+
+const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
+
+  const sections = reformatJSON(classes,checks);
 
   const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
   const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
@@ -52,7 +55,6 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
       }
       return COLOR_LIGHTBLUE;
     }
-  }
 
   
   const renderSectionTimes = (_cell, row) => {
