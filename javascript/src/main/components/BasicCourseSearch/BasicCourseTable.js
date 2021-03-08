@@ -1,9 +1,12 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
+import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
+
 const BasicCourseTable = ( {classes} ) => {
+  const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes);
 
   const rowStyle = (row, _rowIndex) => {
@@ -36,20 +39,22 @@ const BasicCourseTable = ( {classes} ) => {
     return (  quarter )
   }
   const renderAddButton = (_cell, row, rowIndex) => {
-    if (!sections[rowIndex + 1]) {
-      return (
-        <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-          //return addToSchedule(row.course.courseId);
-        }}>Add</Button>
-      )
-    }
-    else {
-      if((sections[rowIndex + 1]).section%100 === 0 || row.section%100 !== 0) {
+    if( isAuthenticated ){
+      if (!sections[rowIndex + 1]) {
         return (
           <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
             //return addToSchedule(row.course.courseId);
           }}>Add</Button>
         )
+      }
+      else {
+        if((sections[rowIndex + 1]).section%100 === 0 || row.section%100 !== 0) {
+          return (
+            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
+              //return addToSchedule(row.course.courseId);
+            }}>Add</Button>
+          )
+        }
       }
     }
   }
@@ -92,6 +97,7 @@ const BasicCourseTable = ( {classes} ) => {
       formatter: (cell, row, rowIndex) => renderAddButton(cell, row, rowIndex)
     }
   ];
+
     return (
       <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
     );

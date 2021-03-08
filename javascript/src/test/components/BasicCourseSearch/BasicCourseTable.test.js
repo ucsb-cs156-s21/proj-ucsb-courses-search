@@ -129,12 +129,8 @@ describe("BasicCourseTable tests", () => {
     userEvent.click(addButton);
   });
   test("add buttons for lecture with sections", ()=> {
-    const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-    try {
-        expect(getByTestId('add-button-07492')).not.toBeVisible();
-    } catch (error) {
-        expect(true).toBeTruthy();
-    }
+    const {queryByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(queryByTestId('add-button-07492')).not.toBeInTheDocument();
   });
   test("add buttons tester for sections with add buttons", ()=> {  
     const {getByTestId} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
