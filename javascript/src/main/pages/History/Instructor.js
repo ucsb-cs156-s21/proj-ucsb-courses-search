@@ -6,7 +6,6 @@ import CourseSearchFormInstructor from "main/components/BasicCourseSearch/Course
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
 
 const Instructor = () => {
-
     const initialCourseJSON = {
         "pageNumber": 1,
         "pageSize": 1,
