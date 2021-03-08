@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-//import fetch from "isomorphic-unfetch";
 
 const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
-
-
-
-    const [startQuarter, setStartQuarter] = useState("20204");
-    const [endQuarter, setEndQuarter] = useState("20204");
+    const [startQuarter, setStartQuarter] = useState("20212");
+    const [endQuarter, setEndQuarter] = useState("20212");
     const [instructorText, setInstructor]=useState("");
-    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,6 +30,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="InstructorSearch.StartController">
                 <Form.Label>Start Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                     <option value="20203">M20</option>
@@ -45,6 +41,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
             <Form.Group controlId="Instructor.EndController">
                 <Form.Label>End Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
+                    <option value="20212">S21</option>
                     <option value="20211">W21</option>
                     <option value="20204">F20</option>
                     <option value="20203">M20</option>
@@ -54,8 +51,9 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <Form.Group controlId="InstructorSearch.Instructor">
                 <Form.Label>Instructor</Form.Label>
-                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText}>   
+                <Form.Control type="text" onChange={handleInstructorOnChange} value={instructorText} placeholder="Instructor Last Name">
                 </Form.Control>
+                <Form.Text style={{ textAlign: "left"}} muted>If there are multiple instructors with the same last name, do a search by last name first to determine how the instructor first name is abbreviated, e.g. WANG R K, WANG Y X, WANG Y F, etc. and then repeat the search.</Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Submit

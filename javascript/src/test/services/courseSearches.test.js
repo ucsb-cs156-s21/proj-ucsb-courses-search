@@ -1,10 +1,4 @@
-import React from "react";
-import { render, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import Home from "main/pages/Home/Home";
-
 import { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON, fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON, fetchInstructorHistoryNameQtrJSON} from "main/services/courseSearches";
-
 import fetch from "isomorphic-unfetch";
 jest.mock("isomorphic-unfetch");
 

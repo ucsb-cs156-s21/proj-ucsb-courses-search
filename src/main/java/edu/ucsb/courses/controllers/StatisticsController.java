@@ -19,6 +19,10 @@ import java.util.Collections;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import edu.ucsb.courses.documents.statistics.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +51,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-import edu.ucsb.courses.documents.statistics.FullCourse;
-
-import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
-
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 
-import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
 import com.mongodb.client.model.Accumulators;   
@@ -68,7 +67,6 @@ import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
-import edu.ucsb.courses.documents.statistics.AvgClassSize;
 
 @RestController
 @RequestMapping("/api/public/statistics")
@@ -179,6 +177,36 @@ public class StatisticsController {
             throws JsonProcessingException {
 
         String body = mapper.writeValueAsString(courseRepository.findOccupancyByQuarterIntervalAndDepartment(startQuarter, endQuarter, department));
+
+        return ResponseEntity.ok().body(body);
+    }
+
+    @GetMapping(value = "/totalCourses", produces = "application/json")
+    public ResponseEntity<String> totalCourses(@RequestParam(required = true) String quarter) throws JsonProcessingException{
+        MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
+        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+
+        MatchOperation onlyLectures = match(Criteria.where("index").is(0));
+        MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
+
+        GroupOperation groupOperation = group("$deptCode").count().as("totalCourses");
+
+        SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
+
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation, deptSort);
+
+        AggregationResults<TotalCoursesDept> result = mongoTemplate.aggregate(aggregation, "courses",
+                TotalCoursesDept.class);
+        List<TotalCoursesDept> qo = result.getMappedResults();
+
+        String body = mapper.writeValueAsString(qo);
+
+        return ResponseEntity.ok().body(body);
+    }
+
+    @GetMapping(value = "/openCourses", produces = "application/json")
+    public ResponseEntity<String> openCoursesByDept(@RequestParam(required = true) String quarter, @RequestParam(required = true) String department) throws JsonProcessingException{
+        String body = mapper.writeValueAsString(courseRepository.findOpenCoursesByDepartment(quarter, department));
 
         return ResponseEntity.ok().body(body);
     }

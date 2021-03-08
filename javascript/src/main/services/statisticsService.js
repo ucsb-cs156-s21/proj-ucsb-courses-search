@@ -25,4 +25,16 @@ const fetchCourseOccupancy = async(fields) => {
     return response.json();
 }
 
-export { fetchClassSize, fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses };
+const fetchTotalCoursesByDept = async(fields) => {
+    const url = `/api/public/statistics/totalCourses?quarter=${encodeURIComponent(fields.quarter)}`;
+    const response = await fetch(url);
+    return response.json();
+}
+
+const fetchOpenCoursesByDept = async(fields) => {
+    const url = `/api/public/statistics/openCourses?quarter=${encodeURIComponent(fields.quarter)}&department=${encodeURIComponent(fields.department)}`;
+    const response = await fetch(url);
+    return response.json();
+}
+
+export { fetchClassSize, fetchDivisionOccupancy, fetchCourseOccupancy, fetchFullCourses, fetchTotalCoursesByDept, fetchOpenCoursesByDept };

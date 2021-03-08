@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
-import DepartmentFormSelect from "main/components/Statistics/DepartmentFormSelect";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
 const ClassSizeForm = ({ setClassSizeJSON, fetchClassSize, onSubmit = () => {} }) => {

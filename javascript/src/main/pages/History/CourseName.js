@@ -1,11 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router-dom";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchCourseHistoryNameQtrJSON } from "main/services/courseSearches";
 import TableLegend from "main/components/BasicCourseSearch/TableLegend";
 
@@ -26,8 +23,9 @@ const CourseName = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search By Course Name Through Various Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
-		<TableLegend legend />
-                <BasicCourseTable classes={courseJSON.classes} />
+	            	<TableLegend legend />
+                <BasicCourseTable classes={courseJSON.classes} displayQuarter/>
+
             </div>
         </Jumbotron>
     ); 

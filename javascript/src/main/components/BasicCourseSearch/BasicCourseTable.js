@@ -2,8 +2,9 @@ import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-const BasicCourseTable = ( {classes} ) => {
+const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const sections = reformatJSON(classes);
+
   const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
   const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
   const COLOR_DARKBLUE = {backgroundColor: '#CEDEFA'};
@@ -53,72 +54,79 @@ const BasicCourseTable = ( {classes} ) => {
       return COLOR_LIGHTBLUE;
     }
   }
-  const dataAlignment = (cell, row) => {
-    const alignmnet = (row.section % 100 == 0)? 'left': 'right';
-    return alignmnet
-  }
-  const renderSectionTimes = (cell, row) => {
+
+  
+  const renderSectionTimes = (_cell, row) => {
 
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
   }
-  const renderSectionDays = (cell, row) => {
+  const renderSectionDays = (_cell, row) => {
 
     const days = (row.timeLocations.length > 0)? (row.timeLocations[0].days) : ("TBD");
     return days
   }
-  const renderCourseId = (cell, row) => {
-    const courseId = (row.section % 100 == 0)? row.course.courseId: "";
+  const renderCourseId = (_cell, row) => {
+    const courseId = (row.section % 100 === 0)? row.course.courseId: "";
     return (  courseId )
   }
-  const renderCourseTitle = (cell, row) => {
-    const courseTitle = (row.section % 100 == 0)? row.course.title: "";
+  const renderCourseTitle = (_cell, row) => {
+    const courseTitle = (row.section % 100 === 0)? row.course.title: "";
     return (  courseTitle )
   }
-  const renderInstructors = (cell, row) => {
+  const renderInstructors = (_cell, row) => {
     const instructor = (row.instructors.length > 0)? row.instructors[0].instructor: "TBD";
     return (  instructor )
   }
+  
+  const renderQuarter = (_cell, row) => {
+    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
+    return (  quarter )
+  }
+  
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseId(cell, row)
     },{
       dataField: 'course.title',
       text: 'Title',
-      isDummyField: true,
       formatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
-      text: 'Section',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Section'
     },{
       dataField: "instructors",
       text: "Instructor",
-      isDummyField: true,
-      formatter: (cell, row) => renderInstructors(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
-      text: 'Enroll Code',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Enroll Code'
     },{
       dataField: 'days',
       text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionDays(cell, row)
     },{
       dataField: 'times',
       text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row),
-      align: (cell, row) => dataAlignment(cell, row)
+      formatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
-      text: 'Unit',
-      align: (cell, row) => dataAlignment(cell, row)
+      text: 'Unit'
     }
   ];
+
+    if(displayQuarter){
+      columns.unshift(
+      {
+        dataField: 'course.quarter',
+        text: 'Quarter',
+        formatter: (cell, row) => renderQuarter(cell, row)
+      }
+      )
+    }
+
+
     return (
       <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
     );

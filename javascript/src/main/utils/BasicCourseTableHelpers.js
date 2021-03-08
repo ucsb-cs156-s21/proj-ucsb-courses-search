@@ -1,4 +1,3 @@
-import React from "react";
 
 export function reformatJSON(classes) {
   const sections = [];
@@ -8,6 +7,7 @@ export function reformatJSON(classes) {
         (section) => {
           section.course =
           {
+          quarter: course.quarter,
           courseId: course.courseId,
           title: course.title,
           unitsFixed: course.unitsFixed

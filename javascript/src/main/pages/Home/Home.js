@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Redirect } from "react-router-dom";
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
@@ -27,7 +25,7 @@ const Home = () => {
         "total": 0,
         "classes": []
     };
-    
+
     // courseId, title, sectionNumber, instructor, enroll code, units, total enrolled students, max enrolled
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
     const courseHeaders = [
@@ -41,9 +39,19 @@ const Home = () => {
                 <h5>Welcome to the UCSB Courses Search App!</h5>
 
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
-                <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
 
-		<TableLegend legend />
+                <Button style={{margin: "1rem 0"}}>
+                    <CSVLink    
+                        style={{color: "white"}}
+                        headers={courseHeaders} 
+                        data={courseJSON.classes} 
+                        filename = {"CourseTable.csv"}>
+                        Download CSV
+                    </CSVLink>
+                </Button>
+      
+                <TableLegend legend />
+
                 <BasicCourseTable classes={courseJSON.classes} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
