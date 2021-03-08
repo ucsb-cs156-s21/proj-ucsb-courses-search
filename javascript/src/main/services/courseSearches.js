@@ -27,7 +27,15 @@ const fetchCourseHistoryNameQtrJSON = async (_event, fields) => {
 const fetchInstructorHistoryNameQtrJSON = async (_event, fields) => {
     const url = `/api/public/history/instructorsearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&instructorText=${fields.instructorText}`;
     const courseResponse = await fetch(url);
-    return courseResponse.json();
+
+    if (courseResponse.status===200) {
+        return courseResponse.json();
+    }
+    else
+    {
+        alert("HTTP-ERROR: "+ courseResponse.status);
+        return -1;
+    }
 };
 
 export { fetchBasicCourseJSON, fetchBasicCourseHistoryJSON , fetchCourseHistoryNameQtrJSON, fetchGeQtrJSON ,fetchInstructorHistoryNameQtrJSON};
