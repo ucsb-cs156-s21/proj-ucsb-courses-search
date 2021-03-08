@@ -9,21 +9,20 @@ const BasicCourseTable = ( {classes, displayQuarter} ) => {
   const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
   const COLOR_DARKBLUE = {backgroundColor: '#CEDEFA'};
   const COLOR_LIGHTBLUE = {backgroundColor: '#EDF3FE'};
-  const COLOR_DEBUG = {backgroundColor: '#00FF00'};
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (.2 * row.maxEnroll));
 
-  const rowStyle = (row, rowIndex) => {
-    if (row.section % 100 == 0)
+  const rowStyle = (row) => {
+    if (row.section % 100 === 0)
     {
       //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
       //the color to we do something.
       var i; 
       for (i in classes) 
       {
-        if (classes[i].classSections[0].enrollCode == row.enrollCode && classes[i].classSections[0].section == row.section) 
+        if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) 
         { 
-            if (classes[i].classSections.length == 1)
+            if (classes[i].classSections.length === 1)
             {
               //return COLOR_DEBUG;
               //This code should only execute when dealing with stand alone lectures.
