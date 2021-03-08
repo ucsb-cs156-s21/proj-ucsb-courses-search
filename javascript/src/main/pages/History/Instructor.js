@@ -22,7 +22,7 @@ const Instructor = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
-                <BasicCourseTable classes={courseJSON.classes} />
+                <BasicCourseTable classes={courseJSON.classes} displayQuarter/>
                 
             </div>
         </Jumbotron>
