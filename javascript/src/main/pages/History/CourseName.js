@@ -7,6 +7,8 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import CourseSearchCourseStartEndQtr from "main/components/BasicCourseSearch/CourseSearchCourseStartEndQtr";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchCourseHistoryNameQtrJSON } from "main/services/courseSearches";
+import TableLegend from "main/components/BasicCourseSearch/TableLegend";
+
 
 const CourseName = () => {
     const initialCourseJSON = {
@@ -24,6 +26,7 @@ const CourseName = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search By Course Name Through Various Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
+		<TableLegend legend />
                 <BasicCourseTable classes={courseJSON.classes} />
             </div>
         </Jumbotron>

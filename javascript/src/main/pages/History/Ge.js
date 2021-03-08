@@ -7,6 +7,7 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchGeQtrJSON } from "main/services/courseSearches";
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 
 const Ge = () => {
 
@@ -34,6 +35,7 @@ const Ge = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search GE Through Various Quarters</h5>
                 <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
+		<TableLegend legend />
                 <BasicCourseTable classes={courseJSON.classes} />
             </div>
         </Jumbotron>

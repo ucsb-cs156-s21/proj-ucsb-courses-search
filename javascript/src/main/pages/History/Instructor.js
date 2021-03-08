@@ -10,6 +10,8 @@ import CourseSearchFormInstructor from "main/components/BasicCourseSearch/Course
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
+
 
 const Instructor = () => {
 
@@ -28,6 +30,7 @@ const Instructor = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
+		<TableLegend legend />
                 <BasicCourseTable classes={courseJSON.classes} />
                 
             </div>

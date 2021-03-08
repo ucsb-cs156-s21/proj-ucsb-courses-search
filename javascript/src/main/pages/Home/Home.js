@@ -9,6 +9,7 @@ import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 
 
 const Home = () => {
@@ -41,20 +42,8 @@ const Home = () => {
 
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
                 <Button><CSVLink style={{color: "white"}} headers={courseHeaders} data={courseJSON.classes} filename = {"CourseTable.csv"}>Download CSV</CSVLink></Button>
-                
-                <table cellpadding="5px">
-                <tr>
-                    <th>Full/Closed</th>
-                    <th>Almost Full</th>
-                    <th>Empty</th>
-                </tr>
-                <tr>
-                    <td style={{backgroundColor: "red"}}></td>
-                    <td style={{backgroundColor: "orange"}}></td>
-                    <td style={{backgroundColor: "lightblue"}}></td>
-                </tr>
-                </table>
-                
+
+		<TableLegend legend />
                 <BasicCourseTable classes={courseJSON.classes} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
