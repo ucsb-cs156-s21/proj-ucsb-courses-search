@@ -89,7 +89,7 @@ const BasicCourseTable = ( {classes, displayQuarter, allowExport} ) => {
     
 
     const ExportCSVButton = (props) => {
-      const handleClick = (event) => {
+      const handleClick = () => {
         props.onExport();
       };
       if (allowExport) {
