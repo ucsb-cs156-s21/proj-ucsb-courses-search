@@ -204,5 +204,28 @@ public class StatisticsController {
 
         return ResponseEntity.ok().body(body);
     }
+
+    @GetMapping(value = "/totalCourses", produces = "application/json")
+    public ResponseEntity<String> totalCourses(@RequestParam(required = true) String quarter) throws JsonProcessingException{
+        MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
+        UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+
+        MatchOperation onlyLectures = match(Criteria.where("index").is(0));
+        MatchOperation onlyValidLecs = match(Criteria.where("classSections.enrolledTotal").ne(null).and("classSections.maxEnroll").ne(0));
+
+        GroupOperation groupOperation = group("$deptCode").count().as("totalCourses");
+
+        SortOperation deptSort = sort(Sort.by(Direction.ASC, "_id"));
+
+        Aggregation aggregation = newAggregation(matchOperation, unwindOperation, onlyLectures, onlyValidLecs, groupOperation, deptSort);
+
+        AggregationResults<TotalCoursesDept> result = mongoTemplate.aggregate(aggregation, "courses",
+                TotalCoursesDept.class);
+        List<TotalCoursesDept> qo = result.getMappedResults();
+
+        String body = mapper.writeValueAsString(qo);
+
+        return ResponseEntity.ok().body(body);
+    }
     
 }
