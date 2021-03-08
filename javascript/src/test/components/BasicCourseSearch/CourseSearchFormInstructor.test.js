@@ -113,8 +113,7 @@ test("when I click submit when JSON is empty test", async () => {
   const selectEndQuarter = getByLabelText("End Quarter")
   userEvent.selectOptions(selectEndQuarter, "20211");
   const selectInstructor = getByLabelText("Instructor");
-  userEvent.selectOptions(selectInstructor, "Conrad ");
-
+  userEvent.type(selectInstructor, "Conrad");
   const submitButton = getByText("Submit");
   userEvent.click(submitButton);
 
