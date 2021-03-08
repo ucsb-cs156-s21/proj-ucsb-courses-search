@@ -55,7 +55,7 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
       }
       return COLOR_LIGHTBLUE;
     }
-
+  }
   
   const renderSectionTimes = (_cell, row) => {
 
