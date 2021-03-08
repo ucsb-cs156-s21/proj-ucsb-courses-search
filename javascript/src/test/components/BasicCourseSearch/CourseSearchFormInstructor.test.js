@@ -87,7 +87,7 @@ test("Instructor placeholder text correctly renders", async () => {
 
 });
 
-test("when I click submit WHEN JSON IS EMPTY, the right stuff happens", async () => {
+test("when I click submit when JSON is empty test", async () => {
 
   const sampleReturnValue = {
       "sampleKey": "sampleValue",
@@ -112,7 +112,7 @@ test("when I click submit WHEN JSON IS EMPTY, the right stuff happens", async ()
   userEvent.selectOptions(selectStartQuarter, "20211");
   const selectEndQuarter = getByLabelText("End Quarter")
   userEvent.selectOptions(selectEndQuarter, "20211");
-  const selectInstructor = getByLabelText("Instructor name")
+  const selectInstructor = getByLabelText("Instructor");
   userEvent.selectOptions(selectInstructor, "Conrad ");
 
   const submitButton = getByText("Submit");
