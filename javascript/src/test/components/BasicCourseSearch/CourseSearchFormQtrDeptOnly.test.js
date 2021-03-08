@@ -71,5 +71,42 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
     });
 
+    test("when I click submit with an EMPTY JSON file, setCourseJSON is not called", async () => {
+
+        const sampleReturnValue = {
+            "sampleKey": "sampleValue",
+            "total": 0
+        };
+
+        // Create spy functions (aka jest function, magic function)
+        // The function doesn't have any implementation unless
+        // we specify one.  But it does keep track of whether 
+        // it was called, how many times it was called,
+        // and what it was passed.
+
+        const setCourseJSONSpy = jest.fn();
+        const fetchJSONSpy = jest.fn();
+
+        fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+        const { getByText, getByLabelText } = render(
+            <CourseSearchFormQtrDeptOnly setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
+        );
+
+        const selectQuarter = getByLabelText("Quarter")
+        userEvent.selectOptions(selectQuarter, "20204");
+        const selectDepartment = getByLabelText("Department")
+        userEvent.selectOptions(selectDepartment, "MATH");
+    
+
+        const submitButton = getByText("Submit");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(0));
+
+    });
+
 });
 

@@ -8,6 +8,9 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { quarter, department }).then((courseJSON) => {
+            if(courseJSON.total == 0){
+                alert("Empty!");
+            }
             setCourseJSON(courseJSON);
         });
     };

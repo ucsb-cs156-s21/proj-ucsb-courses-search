@@ -9,6 +9,9 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, instructorText}).then((courseJSON) => {
+            if(courseJSON.total == 0){
+                alert("Empty!");
+            }
             setCourseJSON(courseJSON);
         });
     };
