@@ -4,8 +4,9 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { Button } from "react-bootstrap";
 
-const BasicCourseTable = ( {classes, displayQuarter, allowExport} ) => {
-  const sections = reformatJSON(classes);
+
+const BasicCourseTable = ( {classes, displayQuarter, checks, allowExport} ) => {
+  const sections = reformatJSON(classes, checks);
   
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
