@@ -332,7 +332,7 @@ export const classesSectionOnly =
           ]
         }
       ]
-    }
+    },
     {
       "quarter": "20234",
       "courseId": "CMPSC     17823  ",
@@ -364,7 +364,7 @@ export const classesSectionOnly =
           ]
         }
       ]
-    }
+    },
     {
       "quarter": "20214",
       "courseId": "CMPSC     16  ",
