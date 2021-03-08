@@ -98,11 +98,6 @@ describe("AggregateStatisticsForm tests", () => {
             <AggregateStatisticsForm setAggregateStatisticsJSON={setAggregateStatisticsJson} fetchAggregateStatistics={fetchJSONSpy} />
         );
 
-        const expectedFields = {
-            startQuarter: "20134",
-            endQuarter: "20201"
-        };
-
         const selectStartYear = getByTestId("select-start-year")
         userEvent.selectOptions(selectStartYear, "2013");
 
