@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
 
+const checkDates = (startQ, endQ) => {
+    var s = parseInt(startQ.slice(0,4));
+    var e = parseInt(endQ.slice(0,4));
+    
+    return (e - s < 4);
+}
+
 const AggregateStatisticsForm = ({ setAggregateStatisticsJSON, fetchAggregateStatistics, onSubmit = () => {} }) => {
 
     const [startQuarter, setStartQuarter] = useState("20204");
@@ -11,12 +18,17 @@ const AggregateStatisticsForm = ({ setAggregateStatisticsJSON, fetchAggregateSta
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit();
-        setLoading(true);
-        fetchAggregateStatistics({startQuarter, endQuarter})
-        .then((courseJSON)=> {
-            setAggregateStatisticsJSON(courseJSON);
+        if (checkDates(startQuarter, endQuarter)){
+            setLoading(true);
+            fetchAggregateStatistics({startQuarter, endQuarter})
+            .then((courseJSON)=> {
+                setAggregateStatisticsJSON(courseJSON);
+                setLoading(false);
+            });
+        } else {
+            setAggregateStatisticsJSON("");
             setLoading(false);
-        });
+        }
     };
 
     return (

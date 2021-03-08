@@ -15,11 +15,17 @@ const AggregateStatistics = () => {
     const [tableVisibility, setTableVisibility] = useState(false);
 
     const setJsonTableData = (json) => {
-        json.forEach((item) => {
-            item["courseOccupancy"] = calcPercent(item["courseOccupancy"]);
-        });
-        setData(json);
-        setTableVisibility(true);
+        if (json !== ""){
+            json.forEach((item) => {
+                item["courseOccupancy"] = calcPercent(item["courseOccupancy"]);
+            });
+            setData(json);
+            setTableVisibility(true);
+        } else{    // date range exceeded 3 years
+            setData("");
+            setTableVisibility(true);
+        }
+
     }
 
 
@@ -31,7 +37,7 @@ const AggregateStatistics = () => {
                 <AggregateStatisticsForm setAggregateStatisticsJSON={setJsonTableData} fetchAggregateStatistics={fetchAggregateStatistics}/>
             </Container>
             <Container style={{ marginTop: "20px" }} className={"text-center"}>
-                {tableVisibility && (data.length ? <AggregateStatisticsTable data={data} /> : "There are no results!")}
+                {tableVisibility && ((data.length || (data !== "")) ? <AggregateStatisticsTable data={data} /> : "There are no results! Try using a date range of 3 years or less.")}
             </Container>
         </Jumbotron>
 

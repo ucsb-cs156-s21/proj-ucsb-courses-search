@@ -8,36 +8,43 @@ import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchWithToken } from "main/utils/fetch";
 
-
 function AppNavbar() {
   const { getAccessTokenSilently: getToken } = useAuth0();
-  const { data: roleInfo } = useSWR(
-    ["/api/myRole", getToken],
-    fetchWithToken
-  );
+  const { data: roleInfo } = useSWR(["/api/myRole", getToken], fetchWithToken);
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
   const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
-  
+
   return (
     <Navbar expand="lg" bg="dark" variant="dark">
       <Navbar.Toggle />
       <Navbar.Collapse>
-      <LinkContainer to={""}>
-        <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
-      </LinkContainer>
-      <Nav>
-        <NavDropdown title="Course History">
-            <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
-            <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
+        <LinkContainer to={""}>
+          <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
+        </LinkContainer>
+        <Nav>
+          <NavDropdown title="Course History">
+            <NavDropdown.Item href="/history/basic">
+              Basic Search
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/history/courseName">
+              Search By Course Name
+            </NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
-            <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
-        </NavDropdown>
-        { isAdmin &&
-          (<LinkContainer to={"/admin"}>
-            <Nav.Link>Admin</Nav.Link>
-          </LinkContainer>)
-        }
-        <LinkContainer to={"/about"}>
+            <NavDropdown.Item href="/history/instructor">
+              Search By Instructor
+            </NavDropdown.Item>
+          </NavDropdown>
+          {isAdmin && (
+            <NavDropdown title="Admin">
+              <NavDropdown.Item as={Link} to={"/admin/panel"}>
+                Admin Panel
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to={"/admin/settings"}>
+                Admin Settings
+              </NavDropdown.Item>
+            </NavDropdown>
+          )}
+          <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
         <NavDropdown title="Statistics">
@@ -55,6 +62,9 @@ function AppNavbar() {
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/totalCourses">
             Total Courses By Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/numOpenCoursesByDept">
+              Open Courses by Department
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/aggregateStatistics">
             Aggregate Statistics

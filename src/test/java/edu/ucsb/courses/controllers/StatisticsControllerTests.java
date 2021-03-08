@@ -32,6 +32,7 @@ import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 import edu.ucsb.courses.documents.statistics.TotalCoursesDept;
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
+import edu.ucsb.courses.documents.statistics.OpenCourse;
 
 // @Import(SecurityConfig.class) applies the security rules 
 // so that /api/public/** endpoints don't require authentication.
@@ -258,6 +259,31 @@ public class StatisticsControllerTests {
         List<AggregateStatistics> resultFromPage = AggregateStatistics.listFromJSON(responseString);
 
         assertEquals(asList, resultFromPage);
+    }
+    
+    @Test
+    public void test_openCourses() throws Exception{
+        String url = "/api/public/statistics/openCourses";
+
+        List<OpenCourse> ocList = new ArrayList<>();
+
+        // Test open courses for summer quarter of 2020, as the number of open courses was reasonable compared to other quarters
+        String quarter = "20203";
+
+        ocList.add(new OpenCourse(quarter, "COMPUTER ARCHITECT", "CMPSC 154", 16, 40, 24));
+        ocList.add(new OpenCourse(quarter, "PROBLEM SOLVING II", "CMPSC 24", 30, 70, 40));
+        ocList.add(new OpenCourse(quarter, "MACHINE LEARNING", "CMPSC 165B", 39, 40, 1));
+        ocList.add(new OpenCourse(quarter, "AUT & FORML LANG", "CMPSC 138", 37, 40, 3));
+        ocList.add(new OpenCourse(quarter, "PROBLEM SOLVING I", "CMPSC 16", 80, 100, 20));
+
+        when(courseRepo.findOpenCoursesByDepartment(any(String.class), any(String.class))).thenReturn(ocList);
+
+        MvcResult response = mockMvc.perform(get(url).queryParam("quarter", quarter).queryParam("department", "CMPSC").contentType("application/json"))
+                .andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<OpenCourse> resultFromPage = OpenCourse.listFromJSON(responseString);
+
+        assertEquals(ocList, resultFromPage);
     }
 
 }

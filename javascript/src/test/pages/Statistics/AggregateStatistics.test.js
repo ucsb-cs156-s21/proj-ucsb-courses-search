@@ -36,13 +36,13 @@ describe("AggregateStatistics page tests", () => {
 
   test("AggregateStatistics no results is displayed for empty results", async () => {
     const { findByText } = render(<AggregateStatistics />);
-    const sampleReturnValue = [];
+    const sampleReturnValue = "";
 
     fetchAggregateStatistics.mockResolvedValue(sampleReturnValue);
 
     const submitButton = await findByText("Submit");
     userEvent.click(submitButton);
 
-    await findByText("There are no results!");
+    await findByText("There are no results! Try using a date range of 3 years or less.");
   });
 });

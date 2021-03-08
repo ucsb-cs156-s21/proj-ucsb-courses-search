@@ -19,6 +19,9 @@ import java.util.Collections;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import edu.ucsb.courses.documents.statistics.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,6 +194,13 @@ public class StatisticsController {
         throws JsonProcessingException {
 
         String body = mapper.writeValueAsString(courseRepository.findAggregateStatisticsByQuarterInterval(startQuarter, endQuarter));
+
+        return ResponseEntity.ok().body(body);
+    }
+
+    @GetMapping(value = "/openCourses", produces = "application/json")
+    public ResponseEntity<String> openCoursesByDept(@RequestParam(required = true) String quarter, @RequestParam(required = true) String department) throws JsonProcessingException{
+        String body = mapper.writeValueAsString(courseRepository.findOpenCoursesByDepartment(quarter, department));
 
         return ResponseEntity.ok().body(body);
     }

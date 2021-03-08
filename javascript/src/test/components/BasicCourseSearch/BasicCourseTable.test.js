@@ -12,7 +12,16 @@ describe("BasicCourseTable tests", () => {
   function getBackgroundColor (getByText, text) {
   	return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
   }
-
+  
+  // Testing Quarter column displays properly
+  test("Checking that quarter column displays", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
+  	expect(queryByText("20211")).not.toBe(null);
+  });
+  test("Checking that quarter column does not display when not passed in true", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
+  	expect(queryByText("20211")).toBe(null);
+  });
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
@@ -120,18 +129,7 @@ describe("BasicCourseTable tests", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
   	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
-
-  test("check that lectures are aligned to the left", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-  	expect( getByText("0100").style.textAlign).toBe("left");
-  });
-
-  test("check that sections are aligned to the right", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-  	expect( getByText("0101").style.textAlign).toBe("right");
-  });
-
-
+  
 });
 
 

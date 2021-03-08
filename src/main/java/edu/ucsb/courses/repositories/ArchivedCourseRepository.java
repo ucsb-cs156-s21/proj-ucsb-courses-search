@@ -14,6 +14,7 @@ import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
+import edu.ucsb.courses.documents.statistics.OpenCourse;
 
 @Repository
 public interface ArchivedCourseRepository extends MongoRepository<Course, ObjectId> {
@@ -174,5 +175,24 @@ public interface ArchivedCourseRepository extends MongoRepository<Course, Object
     List<AggregateStatistics> findAggregateStatisticsByQuarterInterval(String startQuarter, String endQuarter);
 
 
+
+    /**
+     * Returns a list of {@link OpenCourse} from the requested quarter and department
+     *
+     * @param quarter Quarter to analyze
+     * @param department Department to analyze
+     * @return List of {@link OpenCourse}
+     */
+     @Aggregation(pipeline= {
+         "{ \"$match\" : { \"quarter\" : ?0, \"deptCode\" : ?1}}",
+         "{ \"$unwind\" : { \"path\" : \"$classSections\", \"includeArrayIndex\" : \"index\", \"preserveNullAndEmptyArrays\" : false}}",
+         "{\"$match\" : { \"index\" : 0}}",
+         "{ \"$match\" : { \"classSections.enrolledTotal\" : { \"$ne\" : null}, \"classSections.maxEnroll\" : { \"$ne\" : 0}}}",
+         "{\"$match\": { \"$expr\": { \"$lt\": [\"classSections.enrolled\", \"classSections.maxEnroll\"] } } }",
+         "{ \"$group\" : { \"_id\" : { \"_id\" : \"$_id\", \"quarter\" : ?0, \"title\" : \"$title\", \"courseId\" : \"$courseId\"}, \"totalEnroll\" : { \"$sum\" : \"$classSections.enrolledTotal\"}, \"maxEnroll\" : { \"$sum\" : \"$classSections.maxEnroll\"}}}",
+         "{ \"$addFields\": { \"numOpenSeats\": { \"$subtract\": [\"$maxEnroll\", \"$totalEnroll\"]}}}",
+         "{ \"$match\" : { \"numOpenSeats\" : { \"$gt\" : 0}}}"
+     })
+     List<OpenCourse> findOpenCoursesByDepartment(String quarter, String department);
 }
 

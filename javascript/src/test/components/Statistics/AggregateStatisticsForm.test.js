@@ -39,7 +39,7 @@ describe("AggregateStatisticsForm tests", () => {
         expect(selectQuarter.value).toBe("2019");
     });
 
-    test("when I click submit, the right stuff happens", async () => {
+    test("when I click submit with a good date range, the right stuff happens", async () => {
 
         const sampleReturnValue = {
             "sampleKey": "sampleValue"
@@ -76,6 +76,49 @@ describe("AggregateStatisticsForm tests", () => {
         // assert that ourSpy was called with the right value
         expect(setAggregateStatisticsJson).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expectedFields);
+
+    });
+
+    test("when I click submit with a bad date range, the right stuff happens", async () => {
+
+        const sampleReturnValue = "";
+
+        // Create spy functions (aka jest function, magic function)
+        // The function doesn't have any implementation unless
+        // we specify one.  But it does keep track of whether 
+        // it was called, how many times it was called,
+        // and what it was passed.
+
+        const setAggregateStatisticsJson = jest.fn();
+        const fetchJSONSpy = jest.fn();
+
+        fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+        const { getByText, getByTestId } = render(
+            <AggregateStatisticsForm setAggregateStatisticsJSON={setAggregateStatisticsJson} fetchAggregateStatistics={fetchJSONSpy} />
+        );
+
+        const expectedFields = {
+            startQuarter: "20134",
+            endQuarter: "20201"
+        };
+
+        const selectStartYear = getByTestId("select-start-year")
+        userEvent.selectOptions(selectStartYear, "2013");
+
+        const selectEndYear = getByTestId("select-end-year")
+        userEvent.selectOptions(selectEndYear, "2020");
+
+        const submitButton = getByText("Submit");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setAggregateStatisticsJson).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(fetchJSONSpy).toHaveBeenCalledTimes(0));
+
+        // assert that ourSpy was called with the right value
+        expect(setAggregateStatisticsJson).toHaveBeenCalledWith(sampleReturnValue);
 
     });
 
