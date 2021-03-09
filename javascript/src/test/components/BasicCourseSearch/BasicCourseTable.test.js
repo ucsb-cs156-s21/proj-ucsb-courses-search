@@ -12,7 +12,7 @@ describe("BasicCourseTable tests", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-    render(<BasicCourseTable classes={[]} />);
+    render(<BasicCourseTable classes={[]}/>);
   });
 
   function getBackgroundColor (getByText, text) {
@@ -21,7 +21,16 @@ describe("BasicCourseTable tests", () => {
     });
   	return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
   }
-
+  
+  // Testing Quarter column displays properly
+  test("Checking that quarter column displays", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
+  	expect(queryByText("20211")).not.toBe(null);
+  });
+  test("Checking that quarter column does not display when not passed in true", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
+  	expect(queryByText("20211")).toBe(null);
+  });
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
     useAuth0.mockReturnValue({
@@ -140,16 +149,16 @@ describe("BasicCourseTable tests", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("4")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+  	expect(queryAllByText("4")).not.toBe(null);
   });
 
   test("check that instructors appear as TBD when there are none", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
-  	expect(queryByText("TBD")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
+  	expect(queryAllByText("TBD")).not.toBe(null);
   });
 
   test("check that sections days appear", () => {
@@ -173,7 +182,7 @@ describe("BasicCourseTable tests", () => {
       isAuthenticated: true,
     });
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnlyTimeDaysTBD} />);
-    expect( queryAllByText("TBD").length).toBe(2);
+    expect( queryAllByText("TBD").length).toBe(5);
   });
 
   // Testing styling
