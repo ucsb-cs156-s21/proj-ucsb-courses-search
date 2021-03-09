@@ -6,13 +6,22 @@ import * as courseFixtures from "main/fixtures/Courses/courseFixtures"
 describe("BasicCourseTable tests", () => {
 
   test("renders without crashing", () => {
-    render(<BasicCourseTable classes={[]} />);
+    render(<BasicCourseTable classes={[]}/>);
   });
 
   function getBackgroundColor (getByText, text) {
   	return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
   }
-
+  
+  // Testing Quarter column displays properly
+  test("Checking that quarter column displays", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
+  	expect(queryByText("20211")).not.toBe(null);
+  });
+  test("Checking that quarter column does not display when not passed in true", () => {
+  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
+  	expect(queryByText("20211")).toBe(null);
+  });
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
@@ -86,13 +95,13 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("check that sections unit appears", () => {
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("4")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+  	expect(queryAllByText("4")).not.toBe(null);
   });
 
   test("check that instructors appear as TBD when there are none", () => {
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
-  	expect(queryByText("TBD")).not.toBe(null);
+  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
+  	expect(queryAllByText("TBD")).not.toBe(null);
   });
 
   test("check that sections days appear", () => {
@@ -107,7 +116,7 @@ describe("BasicCourseTable tests", () => {
 
   test("check that sections times and days appear as TBD when they don't exist", () => {
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnlyTimeDaysTBD} />);
-    expect( queryAllByText("TBD").length).toBe(2);
+    expect( queryAllByText("TBD").length).toBe(5);
   });
 
   // Testing styling
