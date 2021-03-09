@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Toast } from "react-bootstrap";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [geCode, setGeCode] = useState("A1 ");
+    const[show,setShow]= useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             if(courseJSON.total === 0){
-                alert("Empty!");
+                setShow(true)
             }
             setCourseJSON(courseJSON);
         });
@@ -67,6 +68,13 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
+            <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+                <Toast.Header>
+                    <strong className="mr-auto">Bootstrap Toast</strong>
+                    <small>11 mins ago</small>
+                </Toast.Header>
+                <Toast.Body>This is simple Bootstrap Toast Example</Toast.Body>
+            </Toast>
         </Form>
     );
 };
