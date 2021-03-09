@@ -2,7 +2,7 @@ import React from "react";
 import { render } from '@testing-library/react';
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
-
+import userEvent from "@testing-library/user-event";
 import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 
@@ -259,7 +259,24 @@ describe("BasicCourseTable tests", () => {
     expect(queryByTestId('add-button-07500')).toBeNull();
   });
   
+  // CSV Testing
+  test("CSV Button appears when allowExport passed", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+  	const {queryByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
+    const csvButton = queryByText("Download as CSV");
+    global.URL.createObjectURL = jest.fn();
+    userEvent.click(csvButton);
+    expect(csvButton).not.toBe(null);
+  });
+
+  test("CSV Button does not appear when allowExport = { false }", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryByText} = render(<BasicCourseTable allowExport = { false } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
+    const csvButton = queryByText("Download as CSV");
+    expect(csvButton).toBe(null);
+  });
 });
-
-
-
