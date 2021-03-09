@@ -261,6 +261,9 @@ describe("BasicCourseTable tests", () => {
   
   // CSV Testing
   test("CSV Button appears when allowExport passed", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
   	const {queryByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = queryByText("Download as CSV");
     global.URL.createObjectURL = jest.fn();
@@ -269,7 +272,10 @@ describe("BasicCourseTable tests", () => {
   });
 
   test("CSV Button does not appear when allowExport = { false }", () => {
-  	const {queryByText} = render(<BasicCourseTable allowExport = { false } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryByText} = render(<BasicCourseTable allowExport = { false } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = queryByText("Download as CSV");
     expect(csvButton).toBe(null);
   });

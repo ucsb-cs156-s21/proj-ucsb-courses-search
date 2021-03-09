@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
-const BasicCourseTable = ( {classes,checks, displayQuarter, allowExport} ) => {
+const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes,checks);
 
