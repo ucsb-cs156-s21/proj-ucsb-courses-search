@@ -24,10 +24,16 @@ describe("BasicCourseTable tests", () => {
   
   // Testing Quarter column displays properly
   test("Checking that quarter column displays", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
   	expect(queryByText("20211")).not.toBe(null);
   });
   test("Checking that quarter column does not display when not passed in true", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
   	expect(queryByText("20211")).toBe(null);
   });
