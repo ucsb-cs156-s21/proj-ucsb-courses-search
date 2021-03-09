@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { Jumbotron } from "react-bootstrap";
-import PersonalScheduleTable from "main/components/Schedule/PersonalScheduleTable";
+import ScheduleTable from "main/components/Schedule/ScheduleTable";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
@@ -42,12 +42,10 @@ const PersonalSchedule = () => {
     }
   );
 
-  var singleSchedule = [];
-  singleSchedule.push(schedule);
-  console.log("schedule=", singleSchedule);
+  console.log("schedule=", schedule);
   return (
     <Jumbotron>
-      {schedule && (<PersonalScheduleTable data={singleSchedule} deleteSchedule={deleteSchedule}/>)}
+      {schedule && (<ScheduleTable data={[schedule]} deleteSchedule={deleteSchedule}/>)}
     </Jumbotron>
 
     // course tables go here
