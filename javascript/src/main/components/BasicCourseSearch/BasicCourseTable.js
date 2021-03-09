@@ -3,12 +3,13 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
+import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
-
-const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
+const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes,checks);
 
+  
   const rowStyle = (row, _rowIndex) => {
     return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
   }
@@ -63,29 +64,34 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
     const columns = [{
       dataField: 'course.courseId',
       text: 'Course Number',
-      formatter: (cell, row) => renderCourseId(cell, row)
+      formatter: (cell, row) => renderCourseId(cell, row),
+      csvFormatter: (cell, row) => renderCourseId(cell, row)
     },{
       dataField: 'course.title',
       text: 'Title',
-      formatter: (cell, row) => renderCourseTitle(cell, row)
+      formatter: (cell, row) => renderCourseTitle(cell, row),
+      csvFormatter: (cell, row) => renderCourseTitle(cell, row)
     },{
       dataField: 'section',
       text: 'Section'
     },{
       dataField: "instructors",
       text: "Instructor",
-      formatter: (cell, row) => renderInstructors(cell, row)
+      formatter: (cell, row) => renderInstructors(cell, row),
+      csvFormatter: (cell, row) => renderInstructors(cell, row)
     },{
       dataField: 'enrollCode',
       text: 'Enroll Code'
     },{
       dataField: 'days',
       text: 'Days',
-      formatter: (cell, row) => renderSectionDays(cell, row)
+      formatter: (cell, row) => renderSectionDays(cell, row),
+      csvFormatter: (cell, row) => renderSectionDays(cell, row)
     },{
       dataField: 'times',
       text: 'Time',
-      formatter: (cell, row) => renderSectionTimes(cell, row)
+      formatter: (cell, row) => renderSectionTimes(cell, row),
+      csvFormatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
       text: 'Unit'
@@ -102,13 +108,53 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
       {
         dataField: 'course.quarter',
         text: 'Quarter',
-        formatter: (cell, row) => renderQuarter(cell, row)
+        formatter: (cell, row) => renderQuarter(cell, row),
+        csvFormatter: (cell, row) => renderQuarter(cell, row)
       }
       )
     }
+    
+
+    const ExportCSVButton = (props) => {
+      const handleClick = () => {
+        props.onExport();
+      };
+      if (allowExport) {
+        return (
+          <div>
+            <Button onClick={ handleClick }>
+              Download as CSV
+            </Button>
+          </div>
+        );
+      } else {
+        return (
+          <div></div>
+        )
+      }
+    };
 
     return (
-      <BootstrapTable keyField='enrollCode' data={sections} columns={columns} rowStyle={rowStyle}/>
+      <ToolkitProvider
+        keyField="enrollCode"
+        data={sections}
+        columns={columns}
+        exportCSV={ {
+          fileName: 'CourseTable.csv',
+          blobType: 'csv/text;charset=utf-8'
+        } }
+      >
+        {
+          props => (
+            <div>
+              <ExportCSVButton {...props.csvProps}/>
+              <hr/>
+              <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
+            </div>
+            
+          )
+        }
+      </ToolkitProvider>
     );
 };
 export default BasicCourseTable;
