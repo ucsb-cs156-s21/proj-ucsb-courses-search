@@ -32,11 +32,16 @@ function AppNavbar() {
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
         </NavDropdown>
-        { isAdmin &&
-          (<LinkContainer to={"/admin"}>
-            <Nav.Link>Admin</Nav.Link>
-          </LinkContainer>)
-        }
+          {isAdmin && (
+              <NavDropdown title="Admin">
+                  <NavDropdown.Item as={Link} to={"/admin/panel"}>
+                      Admin Panel
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to={"/admin/settings"}>
+                      Admin Settings
+                  </NavDropdown.Item>
+              </NavDropdown>
+          )}
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
@@ -57,7 +62,7 @@ function AppNavbar() {
             Full Classes Summary
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/totalCourses">
-            Total Courses By Department
+            Total Courses by Department
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/statistics/numOpenCoursesByDept">
             Open Courses by Department
