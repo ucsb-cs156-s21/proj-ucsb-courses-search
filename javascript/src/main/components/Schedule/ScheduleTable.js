@@ -31,7 +31,8 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
     dataField: 'name',
     text: 'Name',
     align: "left",
-    headerAlign: "left"
+    headerAlign: "left",
+    formatter: (cell, row) => <a href={"/schedule/" + row.id}> {cell} </a>
   },
   {
     dataField: 'description',
