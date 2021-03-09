@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 
-
 const BasicCourseTable = ( {classes} ) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes);
@@ -38,7 +37,7 @@ const BasicCourseTable = ( {classes} ) => {
     const quarter = (row.section % 100 === 0)? row.course.quarter: "";
     return (  quarter )
   }
-  const renderAddButton = (_cell, row, rowIndex) => {
+  const RenderAddButton = (_cell, row, rowIndex) => {
     if( isAuthenticated ){
       if (!sections[rowIndex + 1]) {
         return (
@@ -94,7 +93,7 @@ const BasicCourseTable = ( {classes} ) => {
       dataField: "add",
       text: "Add",
       isDummyField: true,
-      formatter: (cell, row, rowIndex) => renderAddButton(cell, row, rowIndex)
+      formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex)
     }
   ];
 
