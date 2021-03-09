@@ -114,12 +114,16 @@ const BasicCourseTable = ( {classes, displayQuarter, checks, allowExport} ) => {
         keyField="enrollCode"
         data={sections}
         columns={columns}
-        exportCSV
+        exportCSV={ {
+          fileName: 'CourseTable.csv',
+          blobType: 'csv/text;charset=utf-8'
+        } }
       >
         {
           props => (
             <div>
               <ExportCSVButton {...props.csvProps}/>
+              <hr/>
               <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
             </div>
             
