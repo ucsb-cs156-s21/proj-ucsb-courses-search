@@ -3,8 +3,21 @@ import { render,  waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 jest.mock("isomorphic-unfetch");
+import { useToasts } from 'react-toast-notifications'
+
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("CourseSearchFormInstructor tests", () => {
+
+  const addToast = jest.fn();
+  beforeEach(() => {
+      useToasts.mockReturnValue({
+          addToast: addToast
+        })
+  });
+
   test("renders without crashing", () => {
     render(<CourseSearchFormInstructor/>);
   });

@@ -3,8 +3,20 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
 jest.mock("isomorphic-unfetch");
+import { useToasts } from 'react-toast-notifications'
+
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("CourseSearchFormQtrDeptOnly tests", () => {
+
+    const addToast = jest.fn();
+    beforeEach(() => {
+        useToasts.mockReturnValue({
+            addToast: addToast
+          })
+    });
 
     test("renders without crashing", () => {
         render(<CourseSearchFormQtrDeptOnly />);

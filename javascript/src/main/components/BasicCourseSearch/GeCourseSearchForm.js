@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { Form, Button, Toast } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [geCode, setGeCode] = useState("A1 ");
-    const[show,setShow]= useState(false)
+    const { addToast } = useToasts()
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             if(courseJSON.total === 0){
-                setShow(true);
+                addToast("There are no courses that match the requested criteria.", { appearance: "error" });
             }
             setCourseJSON(courseJSON);
         });
@@ -68,12 +69,6 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
-            <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
-                <Toast.Header>
-                    <strong className="mr-auto">Error!</strong>
-                </Toast.Header>
-                <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
-            </Toast>
         </Form>
     );
 };

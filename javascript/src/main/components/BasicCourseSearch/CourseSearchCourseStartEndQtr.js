@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button, Toast } from "react-bootstrap";
+import { Form, Button} from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
@@ -7,13 +8,13 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [subjectArea, setSubjectArea] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
-    const[show,setShow]= useState(false)
+    const { addToast } = useToasts()
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
             if(courseJSON.total === 0){
-                setShow(true);
+                addToast("There are no courses that match the requested criteria.", { appearance: "error" });
             }
             setCourseJSON(courseJSON);
         });
@@ -178,12 +179,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
-            <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
-                <Toast.Header>
-                    <strong className="mr-auto">Error!</strong>
-                </Toast.Header>
-                <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
-            </Toast>
         </Form>
     );
 };
