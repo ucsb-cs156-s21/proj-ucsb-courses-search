@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import QuarterFormSelect from "main/components/Statistics/QuarterFormSelect";
-import { fromFormat, toFormat } from "main/components/Statistics/QuarterFormSelect";
 import userEvent from "@testing-library/user-event";
 
 describe("QuarterFormSelect tests", () => {

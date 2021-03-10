@@ -1,4 +1,3 @@
-import React from "react";
 import { fromFormat, toFormat, yyyyqToQyy } from "main/utils/quarterUtilities";
 
 describe("QuarterFormSelect conversion tests", () => {

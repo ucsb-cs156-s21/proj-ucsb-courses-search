@@ -39,8 +39,6 @@ const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
   const renderQuarter = (_cell, row) => {
     const quarter = yyyyqToQyy(row.course.quarter);
     return (row.section % 100 === 0)? quarter: "";
-    //const quarter = (row.section % 100 === 0)? row.course.quarter: "";
-    //return (  quarter )
   }
 
   const RenderAddButton = (_cell, row, rowIndex) => {
