@@ -11,7 +11,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, instructorText}).then((courseJSON) => {
             if(courseJSON.total === 0){
-                setShow(true)
+                setShow(true);
             }
             setCourseJSON(courseJSON);
         });
@@ -64,7 +64,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
             </Button>
             <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
                 <Toast.Header>
-                    <strong className="mr-auto">Bootstrap Toast</strong>
+                    <strong className="mr-auto">Error!</strong>
                 </Toast.Header>
                 <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
             </Toast>

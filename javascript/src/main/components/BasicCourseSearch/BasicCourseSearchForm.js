@@ -13,6 +13,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [level, setLevel] = useState("U");
     const { addToast } = useToasts();
     const [errorNotified, setErrorNotified] = useState(false);
+    const[show,setShow]= useState(false)
 
     const { data: subjects, error: errorGettingSubjects } = useSWR(
         "/api/public/subjects",
@@ -37,7 +38,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
         event.preventDefault();
         fetchJSON(event, { quarter, subject, level }).then((courseJSON) => {
             if(courseJSON.total === 0){
-                alert("Empty!");
+                setShow(true);
             }
             setCourseJSON(courseJSON);
         });
@@ -74,6 +75,12 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
+            <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
+                <Toast.Header>
+                    <strong className="mr-auto">Error!</strong>
+                </Toast.Header>
+                <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
+            </Toast>
         </Form>
     );
 };

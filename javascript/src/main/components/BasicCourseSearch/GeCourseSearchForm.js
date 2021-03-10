@@ -11,7 +11,7 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
             if(courseJSON.total === 0){
-                setShow(true)
+                setShow(true);
             }
             setCourseJSON(courseJSON);
         });
@@ -68,12 +68,11 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
-            <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+            <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
                 <Toast.Header>
-                    <strong className="mr-auto">Bootstrap Toast</strong>
-                    <small>11 mins ago</small>
+                    <strong className="mr-auto">Error!</strong>
                 </Toast.Header>
-                <Toast.Body>This is simple Bootstrap Toast Example</Toast.Body>
+                <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
             </Toast>
         </Form>
     );
