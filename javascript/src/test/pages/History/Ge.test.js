@@ -1,8 +1,21 @@
 import React from "react";
 import { render,fireEvent } from "@testing-library/react";
 import Ge from "main/pages/History/Ge";
+import { useToasts } from 'react-toast-notifications'
+
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("History Ge Course Search page tests", () => {
+
+  const addToast = jest.fn();
+  beforeEach(() => {
+      useToasts.mockReturnValue({
+          addToast: addToast
+        })
+  });
+  
   test("renders without crashing", () => {
     render(<Ge/>);
   });
