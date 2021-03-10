@@ -2,9 +2,8 @@ import React from "react";
 import { render,  waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
-jest.mock("isomorphic-unfetch");
 import { useToasts } from 'react-toast-notifications'
-
+jest.mock("isomorphic-unfetch");
 jest.mock("react-toast-notifications", () => ({
   useToasts: jest.fn()
 }));
