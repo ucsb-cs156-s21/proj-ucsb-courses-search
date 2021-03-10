@@ -24,8 +24,8 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
     {
       //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
       //the color to we do something.
-      var i; 
-      for (i in classes) 
+ 
+      for (var i in classes) 
       {
         if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) 
         { 
@@ -43,7 +43,7 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
             }
         }
       }
-      //If it is not a stand alone lecture that is unvailable or full and is just a class set it to dark blue.
+      //If it is not a stand alone lecture that is unavailable or full and is just a class set it to dark blue.
       return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
     }
     else 
