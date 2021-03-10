@@ -28,7 +28,7 @@ temp_credentials.txt
 *.swp
 
 # No MacOS .DS_Store files
-.DS_Store
+**/.DS_Store
 
 
 HELP.md
