@@ -19,7 +19,7 @@ const SearchTime = () => {
         <Jumbotron>
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
-                <h5>Search Instructor Through Various Quarters</h5>
+                <h5>Search Courses Based on Desired Times</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} />
                 
