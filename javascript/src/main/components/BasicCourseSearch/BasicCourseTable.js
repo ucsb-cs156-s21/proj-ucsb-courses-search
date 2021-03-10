@@ -95,12 +95,14 @@ const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
       csvFormatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
-      text: 'Unit'
+      text: 'Unit',
+      csvExport: false
     },{
       dataField: "add",
       text: "Add",
       isDummyField: true,
-      formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex)
+      formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex),
+      csvExport: false
     }
   ];
 
