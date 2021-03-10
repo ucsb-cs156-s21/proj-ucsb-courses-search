@@ -39,7 +39,7 @@ const Instructor = () => {
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
-                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} displayQuarter/>
             </div>
         </Jumbotron>
     );
