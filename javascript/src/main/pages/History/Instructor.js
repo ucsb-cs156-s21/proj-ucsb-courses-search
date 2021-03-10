@@ -4,8 +4,7 @@ import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
-import { CSVLink } from "react-csv";
-import { Button } from "react-bootstrap";
+import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
 
 const Instructor = () => {
 
@@ -19,11 +18,19 @@ const Instructor = () => {
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
 
 
-    const courseHeaders = [
-        { label: "courseId", key: "courseId" },
-        { label: "title", key: "title" },
-        { label: "units", key: "unitsFixed" }
-    ]
+    const [cancelled, setCancelledChecked] = useState(false);
+    const [closed, setClosedChecked] = useState(false);
+    const [full, setFullChecked] = useState(false); 
+
+    const handleCancelledOnChange = () => {
+        setCancelledChecked(!cancelled);
+    };
+    const handleClosedOnChange = () => {
+        setClosedChecked(!closed);
+    };
+    const handleFullOnChange = () => {
+        setFullChecked(!full);
+    };
 
     return (
         <Jumbotron>
@@ -32,17 +39,9 @@ const Instructor = () => {
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
 
-                <Button style={{margin: "1rem 0"}}>
-                    <CSVLink    
-                        style={{color: "white"}}
-                        headers={courseHeaders} 
-                        data={courseJSON.classes} 
-                        filename = {"CourseTable.csv"}>
-                        Download CSV
-                    </CSVLink>
-                </Button>
+                <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
                 
-                <BasicCourseTable classes={courseJSON.classes} />
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} displayQuarter allowExport={true}/>
                 
             </div>
         </Jumbotron>
