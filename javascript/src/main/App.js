@@ -14,9 +14,11 @@ import NumOpenCoursesByDept from "main/pages/Statistics/NumOpenCoursesByDept";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy";
 import ClassSize from "main/pages/Statistics/ClassSize";
 import TotalCourses from "main/pages/Statistics/TotalCourses";
+import AggregateStatistics from "main/pages/Statistics/AggregateStatistics";
 import Schedule from "main/pages/Schedule/Schedule";
 import EditSchedule from "main/pages/Schedule/EditSchedule";
 import NewSchedule from "main/pages/Schedule/NewSchedule";
+import PersonalSchedule from "main/pages/Schedule/PersonalSchedule";
 import CourseOccupancy from "main/pages/Statistics/CourseOccupancy";
 import Home from "main/pages/Home/Home";
 import Basic from "main/pages/History/Basic";
@@ -59,6 +61,7 @@ function App() {
             component={NumOpenCoursesByDept}
           />
           <Route path="/statistics/classSize" exact component={ClassSize} />
+          <Route path="/statistics/aggregateStatistics" exact component={AggregateStatistics} />
           <Route
             path="/statistics/totalCourses"
             exact
@@ -105,6 +108,11 @@ function App() {
             component={EditSchedule}
             exact
             authorizedRoles={["admin", "member"]}
+          />
+          <AuthorizedRoute path="/schedule/:scheduleId"
+           component={PersonalSchedule}
+           exact
+           authorizedRoles={["admin", "member"]}
           />
         </Switch>
       </Container>
