@@ -14,8 +14,8 @@ const TableLegend = () => {
                 <tr>
                     <th>Full/Closed</th>
                     <th>Almost Full</th>
+                    <th>Available Lecture</th>
                     <th>Available Section</th>
-                    <th>Available Standalone Class or Class With Sections</th>
                 </tr>
                 <tr>
                     <td style={COLOR_UNAVAILABLE}></td>
