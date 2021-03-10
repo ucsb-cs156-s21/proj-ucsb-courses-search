@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
+import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
 const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
@@ -36,8 +37,8 @@ const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
     return (  instructor )
   }
   const renderQuarter = (_cell, row) => {
-    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
-    return (  quarter )
+    const quarter = yyyyqToQyy(row.course.quarter);
+    return (row.section % 100 === 0)? quarter: "";
   }
 
   const RenderAddButton = (_cell, row, rowIndex) => {

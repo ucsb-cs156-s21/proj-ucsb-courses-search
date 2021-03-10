@@ -28,14 +28,14 @@ describe("BasicCourseTable tests", () => {
       isAuthenticated: true,
     });
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
-  	expect(queryByText("20211")).not.toBe(null);
+  	expect(queryByText("W21")).not.toBe(null);
   });
   test("Checking that quarter column does not display when not passed in true", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
   	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
-  	expect(queryByText("20211")).toBe(null);
+  	expect(queryByText("W21")).toBe(null);
   });
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
