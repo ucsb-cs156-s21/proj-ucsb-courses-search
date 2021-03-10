@@ -48,6 +48,55 @@ export const classesLectureAndSections =
             }
           ],
           "instructors": []
+        },{
+          "enrollCode": "07508",
+          "section": "0102",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": "  W    ",
+              "beginTime": "09:00",
+              "endTime": "09:50"
+            }
+          ],
+          "instructors": []
+        }
+      ]
+    },{
+      "quarter": "20211",
+      "courseId": "CMPSC     16  ",
+      "title": "IGNORE",
+      "unitsFixed": 4,
+      "classSections": [
+        {
+          "enrollCode": "07600",
+          "section": "0200",
+          "classClosed": null,
+          "courseCancelled": null,
+          "enrolledTotal": 25,
+          "maxEnroll": 25,
+          "timeLocations": [
+            {
+              "room": "LINE",
+              "building": "ON",
+              "roomCapacity": 999,
+              "days": " T R   ",
+              "beginTime": "09:30",
+              "endTime": "10:45"
+            }
+          ],
+          "instructors": [
+            {
+              "instructor": "KHARITONOVA Y",
+              "functionCode": "Teaching and in charge"
+            }
+          ]
         }
       ]
     }
