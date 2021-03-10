@@ -18,10 +18,10 @@ const TableLegend = () => {
                     <th>Available Standalone Class or Class With Sections</th>
                 </tr>
                 <tr>
-                    <td style={{COLOR_UNAVAILABLE}}></td>
-                    <td style={{COLOR_CLOSEFULL}}></td>
-                    <td style={{COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS}}></td>
-                    <td style={{COLOR_AVAILABLESECTION}}></td>
+                    <td style={COLOR_UNAVAILABLE}></td>
+                    <td style={COLOR_CLOSEFULL}></td>
+                    <td style={COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS}></td>
+                    <td style={COLOR_AVAILABLESECTION}></td>
                 </tr>
                 </table>
 	    </div>
