@@ -2,9 +2,21 @@ import React from "react";
 import { render,  waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
+import { useToasts } from 'react-toast-notifications'
 jest.mock("isomorphic-unfetch");
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("CourseSearchFormInstructor tests", () => {
+
+  const addToast = jest.fn();
+  beforeEach(() => {
+      useToasts.mockReturnValue({
+          addToast: addToast
+        })
+  });
+
   test("renders without crashing", () => {
     render(<CourseSearchFormInstructor/>);
   });
@@ -76,6 +88,46 @@ test("when I click submit, I get back the information about a specified instruct
   // assert that ourSpy was called with the right value
   expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
   expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
+
+});
+
+test("when I click submit with an EMPTY JSON, setcourseJSON is not called", async () => {
+
+  const sampleReturnValue = {
+      "sampleKey": "sampleValue",
+      "total":0
+  };
+
+  // Create spy functions (aka jest function, magic function)
+  // The function doesn't have any implementation unless
+  // we specify one.  But it does keep track of whether 
+  // it was called, how many times it was called,
+  // and what it was passed.
+
+  const setCourseJSONSpy = jest.fn();
+  const fetchJSONSpy = jest.fn();
+
+  fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+  const { getByText, getByLabelText } = render(
+      <CourseSearchFormInstructor setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
+  );
+
+
+  const selectStartQuarter = getByLabelText("Start Quarter")
+  userEvent.selectOptions(selectStartQuarter, "20204");
+  const selectEndQuarter = getByLabelText("End Quarter")
+  userEvent.selectOptions(selectEndQuarter, "20204");
+  const selectInstructor= getByLabelText("Instructor")
+  userEvent.type(selectInstructor, "KHARITONOVA");
+
+
+  const submitButton = getByText("Submit");
+  userEvent.click(submitButton);
+
+  // we need to be careful not to assert this expectation
+  // until all of the async promises are resolved
+  await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(1));
 
 });
 
