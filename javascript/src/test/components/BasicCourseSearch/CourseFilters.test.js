@@ -13,5 +13,5 @@ describe("CourseFilters tests", () => {
     test("renders without crashing", () => {
         render(<CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange} />);
     });
-    
 });
+

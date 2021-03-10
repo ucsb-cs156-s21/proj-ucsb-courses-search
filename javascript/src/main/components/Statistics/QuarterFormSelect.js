@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Col } from "react-bootstrap";
+import { fromFormat } from 'main/utils/quarterUtilities';
+import { toFormat } from 'main/utils/quarterUtilities';
 // hard coded depts from mongodb
 // can be dynamically fetched!
 
@@ -12,13 +14,7 @@ const quarters = [
 
 const range = [...Array(13).keys()].map((key) => key + 2009);
 
-const toFormat = (quarter, year) => {
-    return year.toString() + (parseInt(quarter)).toString();
-}
 
-const fromFormat = (format) => {
-    return `${quarters[parseInt(format.charAt(4)) - 1]} ${format.substring(0, 4)}`;
-}
 
 const QuarterFormSelect = ({ handleSelect, initialQuarter = "", initialYear = "", testId}) => {
 

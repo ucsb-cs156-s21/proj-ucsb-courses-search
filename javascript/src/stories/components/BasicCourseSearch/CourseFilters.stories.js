@@ -15,3 +15,4 @@ const Template = (args) => <CourseFilters {...args} />;
 
 export const AllUnchecked = Template.bind({});
 AllUnchecked.args = {};
+

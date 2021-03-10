@@ -2,9 +2,21 @@ import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
+import { useToasts } from 'react-toast-notifications'
 jest.mock("isomorphic-unfetch");
+jest.mock("react-toast-notifications", () => ({
+  useToasts: jest.fn()
+}));
 
 describe("GeCourseSearchForm tests", () => {
+
+    const addToast = jest.fn();
+    beforeEach(() => {
+        useToasts.mockReturnValue({
+            addToast: addToast
+          })
+    });
+
 
     test("renders without crashing", () => {
         render(<GeCourseSearchForm />);
@@ -77,6 +89,45 @@ describe("GeCourseSearchForm tests", () => {
         // assert that ourSpy was called with the right value
         expect(setCourseJSONSpy).toHaveBeenCalledWith(sampleReturnValue);
         expect(fetchJSONSpy).toHaveBeenCalledWith(expect.any(Object), expectedFields);
+
+    });
+
+    test("when I click submit on an EMPTY JSON, setCourseJSON is not called", async () => {
+
+        const sampleReturnValue = {
+            "sampleKey": "sampleValue",
+            "total":0
+        };
+
+        // Create spy functions (aka jest function, magic function)
+        // The function doesn't have any implementation unless
+        // we specify one.  But it does keep track of whether 
+        // it was called, how many times it was called,
+        // and what it was passed.
+
+        const setCourseJSONSpy = jest.fn();
+        const fetchJSONSpy = jest.fn();
+
+        fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+        const { getByText, getByLabelText } = render(
+            <GeCourseSearchForm setCourseJSON={setCourseJSONSpy} fetchJSON={fetchJSONSpy} />
+        );
+
+
+        const selectStartQuarter = getByLabelText("Start Quarter")
+        userEvent.selectOptions(selectStartQuarter, "20211");
+        const selectEndQuarter = getByLabelText("End Quarter")
+        userEvent.selectOptions(selectEndQuarter, "20211");
+        const selectGeCode = getByLabelText("GE Code")
+        userEvent.selectOptions(selectGeCode, "A1 ");
+
+        const submitButton = getByText("Submit");
+        userEvent.click(submitButton);
+
+        // we need to be careful not to assert this expectation
+        // until all of the async promises are resolved
+        await waitFor(() => expect(setCourseJSONSpy).toHaveBeenCalledTimes(0));
 
     });
 

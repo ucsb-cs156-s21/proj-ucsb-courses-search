@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
     const [geCode, setGeCode] = useState("A1 ");
+    const { addToast } = useToasts()
 
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, {startQuarter, endQuarter, geCode}).then((courseJSON) => {
+            if(courseJSON.total === 0){
+                addToast("There are no courses that match the requested criteria.", { appearance: "error" });
+            }
             setCourseJSON(courseJSON);
         });
     };
