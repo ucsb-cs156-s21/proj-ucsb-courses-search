@@ -7,7 +7,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 
 describe("BasicCourseTable tests", () => {
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
 
+  })
   test("renders without crashing", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
@@ -236,14 +241,6 @@ describe("BasicCourseTable tests", () => {
     });
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
   	expect( getBackgroundColor(getByText, "0100") ).toBe("#CEDEFA");
-  });
-
-  test("check that sections have a light blue background color", () => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
-    });
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-  	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
 
   test("add buttons tester for sections", ()=> {  
