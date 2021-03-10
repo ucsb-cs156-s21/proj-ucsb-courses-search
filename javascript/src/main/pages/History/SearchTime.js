@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
-import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
+import CourseSearchFormDayTime from "main/components/BasicCourseSearch/CourseSearchFormDayTime";
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
 
 const SearchTime = () => {
@@ -20,7 +20,7 @@ const SearchTime = () => {
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search Courses Based on Desired Times</h5>
-                <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
+                <CourseSearchFormDayTime setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
                 <BasicCourseTable classes={courseJSON.classes} />
                 
             </div>
