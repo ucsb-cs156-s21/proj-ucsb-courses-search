@@ -4,8 +4,14 @@ import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import CourseSearchFormInstructor from "main/components/BasicCourseSearch/CourseSearchFormInstructor";
 import {  fetchInstructorHistoryNameQtrJSON } from "main/services/courseSearches";
+
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
+
+
+
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
  
+
 const Instructor = () => {
 
     const initialCourseJSON = {
@@ -38,8 +44,13 @@ const Instructor = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search Instructor Through Various Quarters</h5>
                 <CourseSearchFormInstructor setCourseJSON={setCourseJSON} fetchJSON={fetchInstructorHistoryNameQtrJSON} />
+
+		            <TableLegend legend />
+
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
+
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} displayQuarter allowExport={true}/>
+
 
             </div>
         </Jumbotron>

@@ -7,8 +7,14 @@ import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
+
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
+
+
+
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
  
+
 const Home = () => {
 
     // every function that starts with "use" is a hook
@@ -52,7 +58,9 @@ const Home = () => {
         <Jumbotron>
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
+
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
+
                 <Button style={{margin: "1rem 0"}}>
                     <CSVLink    
                         style={{color: "white"}}
@@ -62,6 +70,8 @@ const Home = () => {
                         Download CSV
                     </CSVLink>
                 </Button>
+
+                <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
                 <JSONPrettyCard
