@@ -32,13 +32,4 @@ describe("QuarterFormSelect tests", () => {
   });
 });
 
-describe("QuarterFormSelect conversion tests", () => {
-  test("fromFormat correctly converts", () => {
-    expect(fromFormat("20211")).toBe("WINTER 2021");
-  });
-
-  test("toFormat correctly converts", () => {
-    expect(toFormat("1", "2021")).toBe("20211");
-  });
-});
 
