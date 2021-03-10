@@ -17,7 +17,7 @@ const JSONPrettyCard = (props) => {
             variant="link"
             eventKey="0"
           >
-            Click here to {activeKey === "0" ? "show" : "hide"} the{" "}
+            Click here to {activeKey === "0" ? "hide" : "show" } the{" "}
             {props.expression} response
           </Accordion.Toggle>
           <Accordion.Collapse
