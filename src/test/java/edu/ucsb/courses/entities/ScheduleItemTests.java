@@ -3,73 +3,52 @@ package edu.ucsb.courses.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
+import net.codebox.javabeantester.JavaBeanTester;
 
 public class ScheduleItemTests {
   @Test
   public void testScheduleItem_toString() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492", "4L", 4L);
-    assertEquals("{id=123 courseId='CS       130A ', enrollCode='07492', scheduleId='4'}", si.toString());
+    ScheduleItem si = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
+    String expected = "{ id='123', lectureCode='07492', discussionCode='07493', appUser='AppUser[ id=0, email=null, firstName=null, lastName=null ]', schedule='Schedule[ id=null, name=null, description=null, quarter=null, userId=null ]'}";
+    assertEquals( expected, si.toString());
   }
 
   @Test
-  public void testScheduleItem_getAndSetId() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-    si.setId(4L);
-    assertEquals(4L, si.getId());
+  public void testGettersAndSetters() throws Exception {
+    // See: https://github.com/codebox/javabean-tester
+    JavaBeanTester.test(ScheduleItem.class);
   }
-
-  @Test
-  public void testScheduleItem_getAndSetQuarter() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      si.setEnrollCode("07493");
-      assertEquals("07493", si.getEnrollCode());
-  }
-
-  @Test
-  public void testScheduleItem_getAndSetCourseId() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      si.setCourseId("CS130A");
-      assertEquals("CS130A", si.getCourseId());
-  }
-
-    @Test
-    public void testScheduleItem_getAndSetScheduleId() {
-        ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-        si.setScheduleId(4L);
-        assertEquals(4L, si.getScheduleId());
-    }
-
     
   @Test
-  public void testScheduleItem_notEqualNull() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
+  public void testScheduleItem_notEqualNull() throws Exception {
+    ScheduleItem si = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
     assertNotEquals(si, null);
   }
 
   @Test
-  public void testScheduleItem_notEqualDifferentClass() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
+  public void testScheduleItem_notEqualDifferentClass() throws Exception {
+    ScheduleItem si = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
     assertNotEquals(si, new Object());
   }
 
   @Test
-  public void testScheduleItem_equalsSelf() {
-      ScheduleItem si = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
+  public void testScheduleItem_equalsSelf() throws Exception{
+    ScheduleItem si = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
     assertEquals(si, si);
   }
 
   @Test
-  public void testScheduleItem_equalsCopy() {
-      ScheduleItem si1 = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      ScheduleItem si2 = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      assertEquals(si1, si2);
+  public void testScheduleItem_equalsCopy()throws Exception{
+    ScheduleItem si1 = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
+    ScheduleItem si2 = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
+    assertEquals(si1, si2);
   }
     
     
   @Test
-  public void test_hashCode() {
-      ScheduleItem si1 = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      ScheduleItem si2 = new ScheduleItem(123L, "CS       130A ", "07492","", 4L);
-      assertEquals(si1.hashCode(), si2.hashCode());
+  public void test_hashCode() throws Exception{
+    ScheduleItem si1 = new ScheduleItem(1L, "07492", "07493", new AppUser(), new Schedule());
+    ScheduleItem si2 = new ScheduleItem(1L, "07492", "07493", new AppUser(), new Schedule());
+    assertEquals(si1.hashCode(), si2.hashCode());
   }
 }
