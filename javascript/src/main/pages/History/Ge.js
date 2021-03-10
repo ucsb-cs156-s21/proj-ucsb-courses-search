@@ -48,7 +48,7 @@ const Ge = () => {
                 <h5>Search GE Through Various Quarters</h5>
                 <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
-                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} allowExport = {true} />
             </div>
         </Jumbotron>
     );

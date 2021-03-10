@@ -30,6 +30,7 @@ import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 import edu.ucsb.courses.documents.statistics.QuarterDept;
 import edu.ucsb.courses.documents.statistics.QuarterOccupancy;
 import edu.ucsb.courses.documents.statistics.TotalCoursesDept;
+import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 import edu.ucsb.courses.documents.statistics.OpenCourse;
 
@@ -243,6 +244,23 @@ public class StatisticsControllerTests {
         assertEquals(tdList, resultFromPage);
     }
 
+    @Test
+    public void test_aggregateStatistics() throws Exception {
+        String url = "/api/public/statistics/aggregateStatistics";
+
+        List<AggregateStatistics> asList = new ArrayList<AggregateStatistics>();
+        asList.add(new AggregateStatistics("CMPSC", 40, 40, 50, 0.80, 45));
+
+        when(courseRepo.findAggregateStatisticsByQuarterInterval(any(String.class), any(String.class))).thenReturn(asList);
+
+        MvcResult response = mockMvc.perform(get(url).queryParam("startQuarter", "20203").queryParam("endQuarter","20203").contentType("application/json"))
+                                .andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<AggregateStatistics> resultFromPage = AggregateStatistics.listFromJSON(responseString);
+
+        assertEquals(asList, resultFromPage);
+    }
+    
     @Test
     public void test_openCourses() throws Exception{
         String url = "/api/public/statistics/openCourses";

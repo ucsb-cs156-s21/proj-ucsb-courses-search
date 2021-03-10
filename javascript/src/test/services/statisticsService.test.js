@@ -3,7 +3,8 @@ import {
     fetchCourseOccupancy,
     fetchFullCourses,
     fetchTotalCoursesByDept,
-    fetchOpenCoursesByDept
+    fetchOpenCoursesByDept,
+    fetchAggregateStatistics
 } from "main/services/statisticsService";
 
 import fetch from "isomorphic-unfetch";
@@ -111,6 +112,28 @@ describe("totalCoursesByDept tests",  () => {
     });
 });
 
+describe("aggregateStatistics tests",  () => {
+  test("aggregateStatistics", async () => {
+
+      const sampleReturnValue = {
+          "sampleKey": "sampleValue"
+      };
+
+      fetch.mockResolvedValue({
+          status: 200,
+          json: () => {
+              return sampleReturnValue;
+          },
+      });
+
+      const expectedFields = {
+          quarter: "20204",
+      };
+
+      const result = await fetchAggregateStatistics(expectedFields);
+      expect(result).toBe(sampleReturnValue);
+  });
+});
 describe("openCoursesByDept tests",  () => {
     test("openCoursesByDept", async () => {
 
