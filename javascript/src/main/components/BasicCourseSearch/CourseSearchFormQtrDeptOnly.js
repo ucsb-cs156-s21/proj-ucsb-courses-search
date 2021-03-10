@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Toast } from "react-bootstrap";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const [quarter, setQuarter] = useState("20212");
     const [department, setDepartment] = useState("CMPSC");
-
+    const[show,setShow]= useState(false)
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { quarter, department }).then((courseJSON) => {
             if(courseJSON.total === 0){
-                alert("Empty!");
+                setShow(true)
             }
             setCourseJSON(courseJSON);
         });
@@ -43,6 +44,12 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
+            <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
+                <Toast.Header>
+                    <strong className="mr-auto">Bootstrap Toast</strong>
+                </Toast.Header>
+                <Toast.Body>There are no courses that match the requested criteria.</Toast.Body>
+            </Toast>
         </Form>
     );
 };
