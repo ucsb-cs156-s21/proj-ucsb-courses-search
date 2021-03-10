@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
+import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
 
@@ -81,8 +82,8 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
     return (  instructor )
   }
   const renderQuarter = (_cell, row) => {
-    const quarter = (row.section % 100 === 0)? row.course.quarter: "";
-    return (  quarter )
+    const quarter = yyyyqToQyy(row.course.quarter);
+    return (row.section % 100 === 0)? quarter: "";
   }
 
   const RenderAddButton = (_cell, row, rowIndex) => {
@@ -139,12 +140,14 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
       csvFormatter: (cell, row) => renderSectionTimes(cell, row)
     },{
       dataField: 'course.unitsFixed',
-      text: 'Unit'
+      text: 'Unit',
+      csvExport: false
     },{
       dataField: "add",
       text: "Add",
       isDummyField: true,
-      formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex)
+      formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex),
+      csvExport: false
     }
   ];
 

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button} from "react-bootstrap";
+import { useToasts } from "react-toast-notifications";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const [quarter, setQuarter] = useState("20212");
     const [department, setDepartment] = useState("CMPSC");
-
+    const { addToast } = useToasts()
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { quarter, department }).then((courseJSON) => {
+            if(courseJSON.total === 0){
+                addToast("There are no courses that match the requested criteria.", { appearance: "error" });
+            }
             setCourseJSON(courseJSON);
         });
     };

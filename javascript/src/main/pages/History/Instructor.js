@@ -48,7 +48,9 @@ const Instructor = () => {
 		            <TableLegend legend />
 
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
-                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
+
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} displayQuarter allowExport={true}/>
+
 
             </div>
         </Jumbotron>

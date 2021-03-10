@@ -51,6 +51,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+import edu.ucsb.courses.documents.statistics.FullCourse;
+
+import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
+
+import edu.ucsb.courses.documents.statistics.AggregateStatistics;
+
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 
@@ -181,6 +187,24 @@ public class StatisticsController {
         return ResponseEntity.ok().body(body);
     }
 
+    @GetMapping(value = "/aggregateStatistics", produces = "application/json")
+    public ResponseEntity<String> AggregateStatistics( 
+        @RequestParam(required=true) String startQuarter,
+        @RequestParam(required=true) String endQuarter)
+        throws JsonProcessingException {
+
+        String body = mapper.writeValueAsString(courseRepository.findAggregateStatisticsByQuarterInterval(startQuarter, endQuarter));
+
+        return ResponseEntity.ok().body(body);
+    }
+
+    @GetMapping(value = "/openCourses", produces = "application/json")
+    public ResponseEntity<String> openCoursesByDept(@RequestParam(required = true) String quarter, @RequestParam(required = true) String department) throws JsonProcessingException{
+        String body = mapper.writeValueAsString(courseRepository.findOpenCoursesByDepartment(quarter, department));
+
+        return ResponseEntity.ok().body(body);
+    }
+
     @GetMapping(value = "/totalCourses", produces = "application/json")
     public ResponseEntity<String> totalCourses(@RequestParam(required = true) String quarter) throws JsonProcessingException{
         MatchOperation matchOperation = match(Criteria.where("quarter").is(quarter));
@@ -200,13 +224,6 @@ public class StatisticsController {
         List<TotalCoursesDept> qo = result.getMappedResults();
 
         String body = mapper.writeValueAsString(qo);
-
-        return ResponseEntity.ok().body(body);
-    }
-
-    @GetMapping(value = "/openCourses", produces = "application/json")
-    public ResponseEntity<String> openCoursesByDept(@RequestParam(required = true) String quarter, @RequestParam(required = true) String department) throws JsonProcessingException{
-        String body = mapper.writeValueAsString(courseRepository.findOpenCoursesByDepartment(quarter, department));
 
         return ResponseEntity.ok().body(body);
     }
