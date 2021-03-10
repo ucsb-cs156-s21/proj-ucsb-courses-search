@@ -10,10 +10,11 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
 
   const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
   const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
-  const COLOR_DARKBLUE = {backgroundColor: '#CEDEFA'};
-  const COLOR_LIGHTBLUE = {backgroundColor: '#EDF3FE'};
+  const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
+  const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
-  const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (.2 * row.maxEnroll));
+  const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (CLOSEFULL_THRESHOLD * row.maxEnroll));
 
   const rowStyle = (row) => {
     if (row.section % 100 === 0)
@@ -27,9 +28,8 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
         { 
             if (classes[i].classSections.length === 1)
             {
-              //return COLOR_DEBUG;
               //This code should only execute when dealing with stand alone lectures.
-              if(classUnavailable(row))
+              if (classUnavailable(row))
               {
                 return COLOR_UNAVAILABLE;
               }
@@ -41,19 +41,20 @@ const BasicCourseTable = ( {classes,checks, displayQuarter} ) => {
         }
       }
       //If it is not a stand alone lecture that is unvailable or full and is just a class set it to dark blue.
-      return COLOR_DARKBLUE;
+      return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
     }
     else 
     {
       //This code should only execute when dealing with sections.
-      if (classUnavailable(row)) {
+      if (classUnavailable(row)) 
+      {
         return COLOR_UNAVAILABLE;
       }
       if (closeToFull(row))
       {
         return COLOR_CLOSEFULL;
       }
-      return COLOR_LIGHTBLUE;
+      return COLOR_AVAILABLESECTION;
     }
   }
   
