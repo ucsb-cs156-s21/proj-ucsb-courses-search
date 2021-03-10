@@ -1,7 +1,7 @@
 const shouldShowSection = (section, filters) => {
   return ((!filters.cancelled) || (filters.cancelled && section.courseCancelled === null)) &&
     ((!filters.closed) || (filters.closed && section.classClosed === null)) &&
-    ((!filters.full) || (filters.full && section.maxEnroll >= section.enrolledTotal))
+    ((!filters.full) || (filters.full && section.maxEnroll > section.enrolledTotal))
 };
 
 

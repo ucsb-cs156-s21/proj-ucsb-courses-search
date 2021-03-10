@@ -8,7 +8,7 @@ describe("BasicCourseTableHelpers tests", () => {
     const testOutput = reformatJSON(helperFixtures.classesInput,checks);
     expect(testOutput).toStrictEqual(helperFixtures.sectionsOutput);
   });
-
+ 
   const checks2 = [false,true,false];
   test("reformatJSON properly reformats the json while closed set to true and the lecture should be hided", () => {
     const testOutput = reformatJSON(helperFixtures.classesInputLectureClosed,checks2);
