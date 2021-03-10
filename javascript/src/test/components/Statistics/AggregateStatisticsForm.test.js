@@ -39,7 +39,7 @@ describe("AggregateStatisticsForm tests", () => {
         expect(selectQuarter.value).toBe("2019");
     });
 
-    test("when I click submit with a good date range, the right stuff happens", async () => {
+    test("when I click submit with a good date range, the table with aggregate statistics data is displayed", async () => {
 
         const sampleReturnValue = {
             "sampleKey": "sampleValue"
@@ -79,7 +79,7 @@ describe("AggregateStatisticsForm tests", () => {
 
     });
 
-    test("when I click submit with a bad date range, the right stuff happens", async () => {
+    test("when I click submit with a bad date range, no table is displayed", async () => {
 
         const sampleReturnValue = "";
 
