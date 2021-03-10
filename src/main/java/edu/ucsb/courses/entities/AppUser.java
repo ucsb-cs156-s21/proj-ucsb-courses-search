@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import java.util.Objects;
 
 @Entity
 public class AppUser {
@@ -68,6 +69,10 @@ public class AppUser {
     return String.format("AppUser[ id=%d, email=%s, firstName=%s, lastName=%s ]", id, email,
         firstName, lastName);
   }
+  @Override
+    public int hashCode() {
+        return Objects.hash(id, email, firstName, lastName);
+    }
 
   @Override
   public boolean equals(Object o) {

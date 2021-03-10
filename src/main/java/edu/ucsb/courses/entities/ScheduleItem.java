@@ -22,27 +22,28 @@ public class  ScheduleItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String courseId;
-    @Column(nullable = false)
-    private String enrollCode;
-    @Column(nullable = false)
-    private String userId;
-    @Column(nullable = false)
-    private Long scheduleId;
+    private String lectureCode;
+    @Column(nullable = true)
+    private String discussionCode;
+
+    @ManyToOne
+    @JoinColumn( name = "app_user_id")
+    private AppUser appUser;
+    @ManyToOne
+    @JoinColumn( name = "schedule_id")
+    private Schedule schedule;
 
 
-    public ScheduleItem(Long id, String courseId, String enrollCode, String userId, Long schedule_id) {
+    public ScheduleItem(Long id, String lectureCode, String discussionCode, AppUser appUser, Schedule schedule) {
         
         this.id = id;
-        this.enrollCode = enrollCode;
-        this.courseId = courseId;
-        this.userId = userId;
-        this.scheduleId = schedule_id;
+        this.lectureCode = lectureCode;
+        this.discussionCode = discussionCode;
+        this.appUser = appUser;
+        this.schedule = schedule;
     }
 
     public ScheduleItem(){
-        this.id = 0L;
-        this.courseId = "null";
     }
 
 
@@ -54,36 +55,36 @@ public class  ScheduleItem {
       this.id = id;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public AppUser getAppUser() {
+        return this.appUser;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
-    public String getCourseId() {
-        return this.courseId;
+    public String getLectureCode() {
+        return this.lectureCode;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setLectureCode(String lectureCode) {
+        this.lectureCode = lectureCode;
     }
 
-    public String getEnrollCode() {
-        return this.enrollCode;
+    public String getDiscussionCode() {
+        return this.discussionCode;
     }
 
-    public void setEnrollCode(String enrollCode) {
-        this.enrollCode = enrollCode;
+    public void setDiscussionCode(String discussionCode) {
+        this.discussionCode = discussionCode;
     }
 
-    public Long getScheduleId() {
-        return this.scheduleId;
+    public Schedule getSchedule() {
+        return this.schedule;
     }
 
-    public void setScheduleId(Long scheduleId) {
-        this.scheduleId = scheduleId;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
 
@@ -96,19 +97,21 @@ public class  ScheduleItem {
         }
         ScheduleItem c = (ScheduleItem) o;
         EqualsBuilder builder = new EqualsBuilder();
-        builder.append(courseId, c.getCourseId()).append(enrollCode, c.getEnrollCode()).append(scheduleId, c.getScheduleId()).append(userId,c.getUserId());
+        builder.append(id, c.getId()).append(lectureCode, c.getLectureCode()).append(discussionCode, c.getDiscussionCode()).append(appUser,c.getAppUser()).append(schedule, c.getSchedule());
         return builder.build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(courseId, enrollCode, scheduleId);
+        return Objects.hash(id, lectureCode, discussionCode, appUser, schedule);
     }
 
     @Override
     public String toString() {
-        return "{id="+ getId() +" courseId='" + getCourseId() + "'" + ", enrollCode='" + getEnrollCode()
-                + "'" + ", scheduleId='" + getScheduleId() + "'}";
+        return "{" + " id='"+ getId() + "'" + ", lectureCode='" + getLectureCode()
+                + "'" + ", discussionCode='" + getDiscussionCode()
+                + "'" + ", appUser='" + getAppUser()
+                + "'" + ", schedule='" + getSchedule() + "'}";
     }
 
 }
