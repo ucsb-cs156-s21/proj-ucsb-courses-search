@@ -226,7 +226,8 @@ describe("BasicCourseTable tests", () => {
 
   test("check available standalone lectures have a dark blue", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "67490") ).toBe("#CEDEFA");
+    expect( getBackgroundColor(getByText, "67490") ).toBe("#CEDEFA");
+  });
 
   // Testing styling
   test("check that lectures have a blue background color", () => {

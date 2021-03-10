@@ -58,7 +58,7 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
       }
       return COLOR_AVAILABLESECTION;
     }
-
+  }
   const renderSectionTimes = (_cell, row) => {
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
