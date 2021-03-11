@@ -6,15 +6,60 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
-const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
+
+  const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes,checks);
 
-  
-  const rowStyle = (row, _rowIndex) => {
-    return  (row.section % 100 === 0)? {backgroundColor: '#CEDEFA'}: {backgroundColor: '#EDF3FE'};
-  }
+  const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
+  const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
+  const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
+  const CLOSEFULL_THRESHOLD=0.2;
+  const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
+  const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (CLOSEFULL_THRESHOLD * row.maxEnroll));
 
+  const rowStyle = (row) => {
+    if (row.section % 100 === 0)
+    {
+      //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
+      //the color to we do something.
+ 
+      for (var i in classes) 
+      {
+        if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) 
+        { 
+            if (classes[i].classSections.length === 1)
+            {
+              //This code should only execute when dealing with stand alone lectures.
+              if (classUnavailable(row))
+              {
+                return COLOR_UNAVAILABLE;
+              }
+              if (closeToFull(row))
+              {
+                return COLOR_CLOSEFULL;
+              }
+            }
+        }
+      }
+      //If it is not a stand alone lecture that is unavailable or full and is just a class set it to dark blue.
+      return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
+    }
+    else 
+    {
+      //This code should only execute when dealing with sections.
+      if (classUnavailable(row)) 
+      {
+        return COLOR_UNAVAILABLE;
+      }
+      if (closeToFull(row))
+      {
+        return COLOR_CLOSEFULL;
+      }
+      return COLOR_AVAILABLESECTION;
+    }
+  }
   const renderSectionTimes = (_cell, row) => {
     const times = (row.timeLocations.length > 0)? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times

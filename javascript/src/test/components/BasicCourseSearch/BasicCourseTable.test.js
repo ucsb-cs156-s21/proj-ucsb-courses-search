@@ -7,7 +7,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 jest.mock("@auth0/auth0-react");
 
 describe("BasicCourseTable tests", () => {
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
 
+  })
   test("renders without crashing", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
@@ -191,6 +196,44 @@ describe("BasicCourseTable tests", () => {
     expect( queryAllByText("TBD").length).toBe(5);
   });
 
+  // Testing styling for classes w/more than one section
+  test("check that full sections have a red background", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "07500") ).toBe("#FF0000");
+  });
+
+  test("check that almost full sections have a orange background", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "07501") ).toBe("#FFBF00");
+  });
+
+  test("check available sections have a light blue", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "07502") ).toBe("#EDF3FE");
+  });
+
+  test("check that class associated with sections is dark blue", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "07492") ).toBe("#CEDEFA");
+  });
+  
+
+
+  test("check that full standalone lectures have a red background", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "06492") ).toBe("#FF0000");
+  });
+
+  test("check that almost full standalone lectures have a orange background", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+  	expect( getBackgroundColor(getByText, "67493") ).toBe("#FFBF00");
+  });
+
+  test("check available standalone lectures have a dark blue", () => {
+  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "67490") ).toBe("#CEDEFA");
+  });
+
   // Testing styling
   test("check that lectures have a blue background color", () => {
     useAuth0.mockReturnValue({
@@ -198,14 +241,6 @@ describe("BasicCourseTable tests", () => {
     });
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
   	expect( getBackgroundColor(getByText, "0100") ).toBe("#CEDEFA");
-  });
-
-  test("check that sections have a light blue background color", () => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
-    });
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-  	expect( getBackgroundColor(getByText, "0101") ).toBe("#EDF3FE");
   });
 
   test("add buttons tester for sections", ()=> {  

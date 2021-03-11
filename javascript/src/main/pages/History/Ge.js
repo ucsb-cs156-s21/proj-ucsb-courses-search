@@ -4,8 +4,13 @@ import { Jumbotron } from "react-bootstrap";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import GeCourseSearchForm from "main/components/BasicCourseSearch/GeCourseSearchForm";
 import {  fetchGeQtrJSON } from "main/services/courseSearches";
+
+import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
+
+
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
  
+
 const Ge = () => {
 
     // every function that starts with "use" is a hook
@@ -47,8 +52,13 @@ const Ge = () => {
                 <h2>Search Archived Course Data from MongoDB</h2>
                 <h5>Search GE Through Various Quarters</h5>
                 <GeCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchGeQtrJSON} />
+
+		            <TableLegend legend />
+
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
+
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} allowExport = {true} />
+
             </div>
         </Jumbotron>
     );
