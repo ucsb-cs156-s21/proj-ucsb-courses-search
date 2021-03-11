@@ -593,7 +593,7 @@ export const classesInputSectionCancelledClosedFull = [
                 "section": "0103",
                 "classClosed": null,
                 "courseCancelled": null,
-                "enrolledTotal": 26,
+                "enrolledTotal": 25,
                 "maxEnroll": 25,
                 "timeLocations": [
                     {
@@ -612,7 +612,7 @@ export const classesInputSectionCancelledClosedFull = [
                 "section": "0104",
                 "classClosed": null,
                 "courseCancelled": null,
-                "enrolledTotal": 25,
+                "enrolledTotal": 24,
                 "maxEnroll": 25,
                 "timeLocations": [
                     {
@@ -646,7 +646,8 @@ export const classesInputSectionCancelledClosedFull = [
                 "instructors": []
             }
         ]
-    }];
+    }
+];
 
 export const sectionsOutput = [
     {
@@ -964,7 +965,7 @@ export const sectionsOutputCancelledClosedFull = [
                 "classClosed": null,
                 "courseCancelled": null,
                 "enrollCode": "07526",
-                "enrolledTotal": 26,
+                "enrolledTotal": 25,
                 "instructors": [],
                 "maxEnroll": 25,
                 "section": "0103",
@@ -989,7 +990,7 @@ export const sectionsOutputCancelledClosedFull = [
                 },
                 "courseCancelled": null,
                 "enrollCode": "07534",
-                "enrolledTotal": 25,
+                "enrolledTotal": 24,
                 "instructors": [],
                 "maxEnroll": 25,
                 "section": "0104",
@@ -1054,7 +1055,7 @@ export const sectionsOutputCancelledClosedFull = [
         "section": '0104',
         "classClosed": null,
         "courseCancelled": null,
-        "enrolledTotal": 25,
+        "enrolledTotal": 24,
         "maxEnroll": 25,
         "timeLocations": [{
             "room": "LINE",
