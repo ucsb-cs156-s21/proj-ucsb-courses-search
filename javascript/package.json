@@ -29,7 +29,7 @@
     "coverage": "react-scripts test --env=jsdom-fourteen --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -o docs-build"
   },
   "eslintConfig": {
     "extends": "react-app"

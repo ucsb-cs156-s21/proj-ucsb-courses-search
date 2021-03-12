@@ -10,6 +10,7 @@ package-lock.json
 # Don't check in a built storybook
 
 javascript/storybook-static
+javascript/docs-build
 
 # No emacs backup files
 
