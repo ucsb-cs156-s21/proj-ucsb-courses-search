@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchWithToken } from "main/utils/fetch";
 import { Row, Container, Col, Badge } from "react-bootstrap";
+import RoleBadge from "main/components/Profile/RoleBadge";
 
 import ReactJson from "react-json-view";
 const Profile = () => {
@@ -26,10 +27,7 @@ const Profile = () => {
         <Col md>
           <h2>{name}</h2>
           <p className="lead text-muted">{email}</p>
-          { roleInfo ?
-            <Badge variant="info">{roleInfo.role}</Badge>:
-            <span>Loading role...</span>
-          }
+          <RoleBadge roleInfo={roleInfo} />
         </Col>
       </Row>
       <Row className="text-left">
