@@ -2,7 +2,7 @@ import React from "react";
 import useSWR from "swr";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetchWithToken } from "main/utils/fetch";
-import { Row, Container, Col, Badge } from "react-bootstrap";
+import { Row, Container, Col} from "react-bootstrap";
 import RoleBadge from "main/components/Profile/RoleBadge";
 
 import ReactJson from "react-json-view";
