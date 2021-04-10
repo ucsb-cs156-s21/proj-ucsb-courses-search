@@ -19,17 +19,23 @@ export const noRole = Template.bind({});
 
 export const admin = Template.bind({});
 admin.args = {
-    role: "admin"
+    roleInfo: {
+        role: "admin"
+    }
 };
 
 export const user = Template.bind({});
 user.args = {
-    role: "user"
+    roleInfo: {
+        role: "user"
+    }
 };
 
 export const student = Template.bind({});
 student.args = {
-    role: "student"
+    roleInfo: {
+        role: "student"
+    }
 };
 
 
