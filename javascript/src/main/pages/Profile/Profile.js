@@ -27,7 +27,7 @@ const Profile = () => {
         <Col md>
           <h2>{name}</h2>
           <p className="lead text-muted">{email}</p>
-          <RoleBadge role={roleInfo} />
+          <RoleBadge roleInfo={roleInfo} />
         </Col>
       </Row>
       <Row className="text-left">

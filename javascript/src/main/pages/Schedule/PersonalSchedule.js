@@ -18,7 +18,6 @@ const PersonalSchedule = () => {
   const { scheduleId } = useParams();
   const { data: schedule } = useSWR([`/api/member/schedule/get/${scheduleId}`, getToken], fetchWithToken);
   const { mutate: mutateSchedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
-  console.log("schedule=", schedule);
 
   useEffect(() => {
     mutateSchedules();
@@ -28,7 +27,6 @@ const PersonalSchedule = () => {
     getToken,
     (response) => {
       if (response.error) {
-        console.log("error message: ", response.error);
         addToast(response.error, { appearance: 'error' });
       }
       else {
@@ -37,12 +35,10 @@ const PersonalSchedule = () => {
       }
     },
     (err) => {
-      console.log("error message: ", err);
       addToast("Error deleting schedule", { appearance: 'error' });
     }
   );
 
-  console.log("schedule=", schedule);
   return (
     <Jumbotron>
       {schedule && (<ScheduleTable data={[schedule]} deleteSchedule={deleteSchedule}/>)}

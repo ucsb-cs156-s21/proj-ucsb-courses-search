@@ -18,7 +18,6 @@ const Schedule = () => {
   const { getAccessTokenSilently: getToken} = useAuth0();
   const { data: schedules, mutate: mutateSchedules } = useSWR(["/api/member/schedule/getSchedules", getToken], fetchWithToken);
   const history = useHistory();
-  console.log("schedules=",schedules);
 
   useEffect(() => {
     mutateSchedules();
@@ -28,7 +27,6 @@ const Schedule = () => {
     getToken,
     (response) => {
       if (response.error) {
-        console.log("error message: ", response.error);
         addToast(response.error, { appearance: 'error' });
       }
       else {
@@ -37,7 +35,6 @@ const Schedule = () => {
       }
     },
     (err) => {
-      console.log("error message: ", err);
       addToast("Error deleting schedule", { appearance: 'error' });
     }
   );
