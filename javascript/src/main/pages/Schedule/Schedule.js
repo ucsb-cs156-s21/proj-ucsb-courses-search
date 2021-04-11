@@ -34,7 +34,7 @@ const Schedule = () => {
         addToast("Schedule deleted", { appearance: 'success' });
       }
     },
-    (err) => {
+    (_err) => {
       addToast("Error deleting schedule", { appearance: 'error' });
     }
   );
