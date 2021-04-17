@@ -16,8 +16,13 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().mvcMatchers("/api/public/**").permitAll().mvcMatchers("/api/**")
-        .authenticated().anyRequest().permitAll();
+    http.authorizeRequests()
+    .mvcMatchers("/**").permitAll()
+    .mvcMatchers("/api/public/**").permitAll()
+    .mvcMatchers("/swagger-ui/**").permitAll()
+    .mvcMatchers("/api/docs").permitAll()
+    .mvcMatchers("/api/**")
+    .authenticated().anyRequest().permitAll();
   }
 
   @Override
