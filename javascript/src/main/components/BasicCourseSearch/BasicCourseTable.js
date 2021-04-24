@@ -197,7 +197,7 @@ import ToolkitProvider from 'react-bootstrap-table2-toolkit';
             <div>
               <ExportCSVButton {...props.csvProps}/>
               <hr/>
-              <BootstrapTable rowStyle = {rowStyle} { ...props.baseProps } />
+              <BootstrapTable keyField="enrollCode" rowStyle = {rowStyle} { ...props.baseProps } />
             </div>
             
           )
