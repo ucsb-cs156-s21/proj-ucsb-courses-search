@@ -1,0 +1,40 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import AppNavbar from "main/components/Nav/AppNavbar";
+import { BrowserRouter } from "react-router-dom";
+import { createMemoryHistory } from "history";
+
+
+<Meta title="components/Nav/AppNavbar" component={AppNavbar} />
+
+# AppNavbar
+
+The `AppNavbar` appears at the top of every page of the app. 
+
+export const Template = (args) => {
+  return (
+    <BrowserRouter>
+      <AppNavbar {...args} />
+    </BrowserRouter>
+  )
+}
+
+<Canvas>
+  <Story name="Example" args={{ label: 'Example' }}>
+    {Template.bind({})}
+   </Story>
+</Canvas>
+
+Note that the `AppNavbar` component must
+appear in the context of a `Router` component such as 
+`BrowserRouter` or there will be errors such as this one:
+
+```
+Error: Invariant failed: You should not use <withRouter(LinkContainer) /> outside a <Router>
+```
+
+For example:
+```
+<BrowserRouter>
+  <AppNavbar />
+</BrowserRouter>
+```
