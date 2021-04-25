@@ -27,7 +27,7 @@ const DivisionOccupancyTable = ( {data} ) => {
 
   return (
     <div>
-      <BootstrapTable id="table" keyField='_id' striped hover condensed data={data} columns={columns} options={options}/>
+      <BootstrapTable id="table" keyField='index' striped hover condensed data={data} columns={columns} options={options}/>
     </div>
   );
 };

@@ -10,7 +10,6 @@ const ClassSizeForm = ({ setClassSizeJSON, fetchClassSize, onSubmit = () => {} }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
         onSubmit();
         setLoading(true);
         fetchClassSize({startQuarter, endQuarter})

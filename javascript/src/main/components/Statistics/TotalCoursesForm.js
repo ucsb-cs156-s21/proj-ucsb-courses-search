@@ -9,7 +9,6 @@ const TotalCoursesForm = ({ setTotalCoursesJSON, fetchTotalCoursesByDept, onSubm
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("submit pressed");
         onSubmit();
         setLoading(true);
         fetchTotalCoursesByDept({quarter: quarter})
@@ -17,7 +16,6 @@ const TotalCoursesForm = ({ setTotalCoursesJSON, fetchTotalCoursesByDept, onSubm
             setTotalCoursesJSON(courseJSON);
             setLoading(false);
         });
-        console.log(quarter);
     };
 
     return (

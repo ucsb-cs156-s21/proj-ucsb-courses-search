@@ -9,7 +9,6 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
   const renderEditButton = (id) => {
     return (
       <Button data-testid={`edit-button-${id}`} onClick={() => { 
-        console.log("Updating:", id);
         history.push(`/schedule/update/${id}`) ;
       }}>Edit</Button>
     )
@@ -18,7 +17,6 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
   const renderDeleteButton = (id) => {
     return (
       <Button variant="danger" data-testid={`delete-button-${id}`} onClick={() => {
-        console.log("id=",id);
         return deleteSchedule(id);
       }}>Delete</Button>
     )
