@@ -14,12 +14,10 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("AddSchedForm Handle Submit");
         if (createSchedule) {
             createSchedule(schedule);
         }
         else{
-            console.log("Update schedule=",schedule);
             updateSchedule(schedule, schedule.id);
         }
     };

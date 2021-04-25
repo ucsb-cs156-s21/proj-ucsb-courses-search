@@ -13,7 +13,6 @@ const buildCreateSchedule = (getToken, onSuccess, onError) => {
       });
       onSuccess(response);
     } catch (err) {
-      console.log("err=",err);
       onError(err);
     }
   };
@@ -42,7 +41,6 @@ const buildUpdateSchedule = (getToken, onSuccess, onError) => {
 const buildDeleteSchedule = (getToken, onSuccess, onError) => {
   const func = async (id) => {
   const url = "/api/member/schedule/delete/" + id;
-  console.log("delete schedule url =",url);
     try {
       const response = await fetchWithToken(url, getToken, {
         method: "DELETE",

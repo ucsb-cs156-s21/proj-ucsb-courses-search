@@ -20,7 +20,6 @@ describe("JSONPrettyCard render tests", () => {
     const collapseContainer = getByTestId(
       `JSONPrettyPanel-${mockExpression}-collapse`
     );
-    console.log(collapseContainer.className);
     expect(collapseContainer.className).toEqual(
       expect.not.stringContaining("show")
     );
