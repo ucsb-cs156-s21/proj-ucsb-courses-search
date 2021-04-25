@@ -38,7 +38,7 @@ const fromNumericYYYYQ = (yyyyqInt) => {
         throw new Error("param should be a number");
     }
     const yyyyqStr = yyyyqInt.toString();
-    if (yyyyqStr.length != 5) {
+    if (yyyyqStr.length !== 5) {
         throw new Error("param should be five digits");
     }
     const qStr = yyyyqStr.substring(4, 5);
@@ -49,10 +49,10 @@ const fromNumericYYYYQ = (yyyyqInt) => {
 }
 
 const toNumericYYYYQ = (yyyyqStr) => {
-    if (typeof (yyyyqStr) != 'string') {
+    if (typeof (yyyyqStr) !== 'string') {
         throw new Error("param should be a string");
     }
-    if (yyyyqStr.length != 5) {
+    if (yyyyqStr.length !== 5) {
         throw new Error("param should be five digits");
     }
     const qStr = yyyyqStr.substring(4, 5);
@@ -63,7 +63,7 @@ const toNumericYYYYQ = (yyyyqStr) => {
 }
 
 const nextQuarter = (yyyyqInt) => {
-    const yyyyqStr = fromNumericYYYYQ(yyyyqInt); // just for type/format checking
+    const _yyyyqStr = fromNumericYYYYQ(yyyyqInt); // just for type/format checking
     const qInt = yyyyqInt % 10;
     const yyyyInt = Math.floor(yyyyqInt / 10);
     if (qInt < 4) {
@@ -77,8 +77,12 @@ const quarterRange = (beginYYYYQStr, endYYYYQStr) => {
     let quarterList = [];
     const beginYYYYQInt = toNumericYYYYQ(beginYYYYQStr);
     const endYYYYQInt = toNumericYYYYQ(endYYYYQStr);
-    for (let yyyyq = beginYYYYQInt; yyyyq <= endYYYYQInt; yyyyq = nextQuarter(yyyyq)) {
-        quarterList.push(fromNumericYYYYQ(yyyyq));
+    for (let yyyyqInt = beginYYYYQInt; yyyyqInt <= endYYYYQInt; yyyyqInt = nextQuarter(yyyyqInt)) {
+        const yyyyqStr = fromNumericYYYYQ(yyyyqInt);
+        quarterList.push({
+            yyyyq : yyyyqStr,
+            qyy: yyyyqToQyy(yyyyqStr)
+        });
     }
     return quarterList;
 }

@@ -70,16 +70,22 @@ describe("QuarterFormSelect conversion tests", () => {
   test("quarterRange correctly computes ranges", () => {
     expect(
       quarterRange("20211", "20222"))
-      .toStrictEqual(["20211", "20212", "20213", "20214", "20221", "20222"]
-      );
+      .toStrictEqual([
+        {yyyyq: "20211", qyy: "W21"}, 
+        {yyyyq: "20212", qyy: "S21"},
+        {yyyyq: "20213", qyy: "M21"},
+        {yyyyq: "20214", qyy: "F21"},
+        {yyyyq: "20221", qyy: "W22"}, 
+        {yyyyq: "20222", qyy: "S22"}, 
+      ]);
+
     expect(
       quarterRange("20211", "20211"))
-      .toStrictEqual(["20211"]
-      );
-    expect(
-      quarterRange("20212", "20211"))
-      .toStrictEqual([]
-      );
+      .toStrictEqual([
+        {yyyyq: "20211", qyy: "W21"}, 
+      ]);
+ 
+      expect(quarterRange("20221", "20212")).toStrictEqual([]);
   });
 
 });

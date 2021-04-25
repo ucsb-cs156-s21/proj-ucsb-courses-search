@@ -69,6 +69,11 @@ export function reformatJSON(classes, checks) {
       }
     });
   });
+
+  sections.forEach(section => {
+    section.uniqueKey = `${section.course.quarter}-${section.enrollCode}`;   
+  });
+
   return sections;
 }
 
