@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import { compareValues } from "main/utils/sortHelper"
 
 const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
 
