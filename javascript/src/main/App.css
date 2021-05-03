@@ -64,7 +64,24 @@ footer {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 100px;
+  height: auto;
   width: 100%;
   overflow: hidden;
+}
+
+.navbar-custom {
+  min-height: 120px;
+}
+
+img.brand {
+  width: 80px;
+  height: 80px;
+}
+
+p.brand {
+  text-align: center;
+}
+
+.footer-custom {
+  font-size: 70%;
 }
