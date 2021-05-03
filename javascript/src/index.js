@@ -4,8 +4,10 @@ import App from "main/App";
 import Auth0ProviderWithHistory from "main/components/Auth/Auth0ProviderWithHistory";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
+
 import { ToastProvider } from 'react-toast-notifications'
 
 ReactDOM.render(

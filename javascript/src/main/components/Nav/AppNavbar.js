@@ -19,11 +19,14 @@ function AppNavbar() {
   const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
 
   return (
-    <Navbar expand="lg" bg="dark" variant="dark">
+    <Navbar className="navbar-custom" expand="lg" bg="dark" variant="dark">
       <Navbar.Toggle />
       <Navbar.Collapse>
       <LinkContainer to={""}>
-        <Navbar.Brand data-testid="brand">UCSB Courses Search</Navbar.Brand>
+        <Navbar.Brand data-testid="brand">
+          <p className="brand"><img className="brand" src={'proj-ucsb-courses-search-240x240.png'}  alt="UCSB Courses Search icon"  /></p>
+          <p className="brand">UCSB <br />Courses Search</p>
+          </Navbar.Brand>
       </LinkContainer>
       <Nav>
         <NavDropdown title="Course History">
