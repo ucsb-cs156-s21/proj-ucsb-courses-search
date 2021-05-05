@@ -161,7 +161,7 @@
 					<execution>
 						<phase>deploy</phase>
 						<configuration>
-							<target combine.children="append">
+							<target >
 								<mkdir dir="${project.basedir}/javascript/build" />
 								<copy todir="${project.build.directory}/classes/public">
 									<fileset dir="${project.basedir}/javascript/build" />
