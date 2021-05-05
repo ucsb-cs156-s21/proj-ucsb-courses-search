@@ -159,7 +159,7 @@
 				<version>3.0.0</version>
 				<executions>
 					<execution>
-						<phase>deploy</phase>
+						<phase>process-resources</phase>
 						<configuration>
 							<target >
 								<mkdir dir="${project.basedir}/javascript/build" />
@@ -330,6 +330,7 @@
 						</configuration>
 						<executions>
 							<execution>
+								<phase>generate-resources</phase>
 								<id>install node and npm</id>
 								<goals>
 									<goal>install-node-and-npm</goal>
