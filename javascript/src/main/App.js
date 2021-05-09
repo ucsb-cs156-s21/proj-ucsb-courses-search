@@ -11,6 +11,7 @@ import About from "main/pages/About/About";
 import Statistics from "main/pages/Statistics/Statistics";
 import NumFullCoursesByDept from "main/pages/Statistics/NumFullCoursesByDept";
 import NumOpenCoursesByDept from "main/pages/Statistics/NumOpenCoursesByDept";
+import DepartmentClassesGraph from "./pages/DataVisualization/DepartmentClassesGraph";
 import DivisionOccupancy from "main/pages/Statistics/DivisionOccupancy";
 import ClassSize from "main/pages/Statistics/ClassSize";
 import TotalCourses from "main/pages/Statistics/TotalCourses";
@@ -66,6 +67,11 @@ function App() {
             path="/statistics/totalCourses"
             exact
             component={TotalCourses}
+          />
+          <Route
+            path={"/datavisualization/departmentClassesGraph"}
+            exact
+            component={DepartmentClassesGraph}
           />
           <Route
             path="/statistics/courseOccupancy"

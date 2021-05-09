@@ -71,6 +71,12 @@ function AppNavbar() {
             Aggregate Statistics
           </NavDropdown.Item>
         </NavDropdown>
+        <NavDropdown title={"Data Visualization"}>
+            <NavDropdown.Item as={Link} to="/datavisualization/departmentClassesGraph">
+                Department Classes Graph
+            </NavDropdown.Item>
+        </NavDropdown>
+
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
         }
