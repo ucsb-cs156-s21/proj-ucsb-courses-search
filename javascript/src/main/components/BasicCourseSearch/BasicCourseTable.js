@@ -5,14 +5,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
+import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
 
 
   const BasicCourseTable = ( {classes, checks, displayQuarter, allowExport} ) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes,checks);
 
-  const COLOR_UNAVAILABLE = {backgroundColor: '#FF0000'};
-  const COLOR_CLOSEFULL = {backgroundColor: '#FFBF00'};
+  const COLOR_UNAVAILABLE = availabilityColors.UNAVAILABLE;
+  const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
   const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
   const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
   const CLOSEFULL_THRESHOLD=0.2;
