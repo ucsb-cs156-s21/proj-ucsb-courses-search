@@ -35,7 +35,7 @@ function AppNavbar() {
         
         <NavDropdown title="Search">
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
-            <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
+            <NavDropdown.Item href="/history/courseNumber">Search By Course Number</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
         </NavDropdown>
