@@ -24,30 +24,22 @@ function AppNavbar() {
       <Navbar.Collapse>
       <LinkContainer to={""}>
         <Navbar.Brand data-testid="brand">
-          <p className="brand"><img className="brand" src={'proj-ucsb-courses-search-240x240.png'}  alt="UCSB Courses Search icon"  /></p>
+          <p className="brand"><img className="brand" src={'/proj-ucsb-courses-search-240x240.png'}  alt="UCSB Courses Search icon"  /></p>
           <p className="brand">UCSB <br />Courses Search</p>
           </Navbar.Brand>
       </LinkContainer>
       <Nav>
-        <NavDropdown title="Course History">
+        <LinkContainer to={"/about"}>
+            <Nav.Link>About</Nav.Link>
+        </LinkContainer>
+        
+        <NavDropdown title="Search">
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/courseNumber">Search By Course Number</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
         </NavDropdown>
-          {isAdmin && (
-              <NavDropdown title="Admin">
-                  <NavDropdown.Item as={Link} to={"/admin/panel"}>
-                      Admin Panel
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to={"/admin/settings"}>
-                      Admin Settings
-                  </NavDropdown.Item>
-              </NavDropdown>
-          )}
-        <LinkContainer to={"/about"}>
-            <Nav.Link>About</Nav.Link>
-        </LinkContainer>
+
         <NavDropdown title="Statistics">
           <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
             Full Classes by Department
@@ -71,9 +63,21 @@ function AppNavbar() {
             Aggregate Statistics
           </NavDropdown.Item>
         </NavDropdown>
+
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
         }
+          {isAdmin && (
+              <NavDropdown title="Admin">
+                  <NavDropdown.Item as={Link} to={"/admin/panel"}>
+                      Admin Panel
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to={"/admin/settings"}>
+                      Admin Settings
+                  </NavDropdown.Item>
+              </NavDropdown>
+          )}
+          
 
         
       </Nav>

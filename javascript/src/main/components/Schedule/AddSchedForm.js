@@ -51,12 +51,12 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
             </Form.Group>
 
             <Form.Group controlId="formSchedDes">
-                <Form.Label>description</Form.Label>
+                <Form.Label>Description</Form.Label>
                 <Form.Control type="text" placeholder="Enter Schedule Description" value={schedule.description} onChange={handleDescriptionOnChange} data-testid="schedule-description" />
             </Form.Group>
 
             <Form.Group controlId="formQuarter">
-                <Form.Label>Choose Schedule quarter</Form.Label>
+                <Form.Label>Quarter</Form.Label>
                 <Form.Control type="text" placeholder="Enter Schedule Quarter" value={schedule.quarter} onChange={handleQuarterOnChange} data-testid="schedule-quarter" />
             </Form.Group>
 
