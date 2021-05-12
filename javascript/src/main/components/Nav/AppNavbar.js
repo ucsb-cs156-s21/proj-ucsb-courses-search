@@ -29,25 +29,17 @@ function AppNavbar() {
           </Navbar.Brand>
       </LinkContainer>
       <Nav>
-        <NavDropdown title="Course History">
+        <LinkContainer to={"/about"}>
+            <Nav.Link>About</Nav.Link>
+        </LinkContainer>
+        
+        <NavDropdown title="Search">
             <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/courseName">Search By Course Name</NavDropdown.Item>
             <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
             <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
         </NavDropdown>
-          {isAdmin && (
-              <NavDropdown title="Admin">
-                  <NavDropdown.Item as={Link} to={"/admin/panel"}>
-                      Admin Panel
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to={"/admin/settings"}>
-                      Admin Settings
-                  </NavDropdown.Item>
-              </NavDropdown>
-          )}
-        <LinkContainer to={"/about"}>
-            <Nav.Link>About</Nav.Link>
-        </LinkContainer>
+
         <NavDropdown title="Statistics">
           <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
             Full Classes by Department
@@ -71,9 +63,21 @@ function AppNavbar() {
             Aggregate Statistics
           </NavDropdown.Item>
         </NavDropdown>
+
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)
         }
+          {isAdmin && (
+              <NavDropdown title="Admin">
+                  <NavDropdown.Item as={Link} to={"/admin/panel"}>
+                      Admin Panel
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to={"/admin/settings"}>
+                      Admin Settings
+                  </NavDropdown.Item>
+              </NavDropdown>
+          )}
+          
 
         
       </Nav>
