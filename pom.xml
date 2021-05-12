@@ -159,9 +159,9 @@
 				<version>3.0.0</version>
 				<executions>
 					<execution>
-						<phase>generate-resources</phase>
+						<phase>process-resources</phase>
 						<configuration>
-							<target combine.children="append">
+							<target >
 								<mkdir dir="${project.basedir}/javascript/build" />
 								<copy todir="${project.build.directory}/classes/public">
 									<fileset dir="${project.basedir}/javascript/build" />
@@ -330,6 +330,7 @@
 						</configuration>
 						<executions>
 							<execution>
+								<phase>generate-resources</phase>
 								<id>install node and npm</id>
 								<goals>
 									<goal>install-node-and-npm</goal>
