@@ -14,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Auth0ProviderWithHistory>
-        <ToastProvider>
+        <ToastProvider autoDismiss={true} autoDismissTimeout={5000}>
           <App />
         </ToastProvider>
       </Auth0ProviderWithHistory>
