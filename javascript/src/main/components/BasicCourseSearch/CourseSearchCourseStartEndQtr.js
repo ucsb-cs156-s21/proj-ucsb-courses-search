@@ -173,7 +173,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                 </Form.Control>
             </Form.Group>
             <Form.Group controlId="CourseNameSearch.CourseNumber">
-                <Form.Label>Course Number</Form.Label>
+                <Form.Label>Course Number (Try searching 16 or 130A)</Form.Label>
                 <Form.Control onChange={handleCourseNumberOnChange} defaultValue={courseNumber} />
             </Form.Group>
             <Button variant="primary" type="submit">
