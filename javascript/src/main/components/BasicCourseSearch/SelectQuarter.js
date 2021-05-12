@@ -5,7 +5,9 @@ const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
 
     const handleQuarterOnChange = (event) => {
         setQuarter(event.target.value);
+
     };
+
 
     return (
         <Form.Group controlId={controlId}>

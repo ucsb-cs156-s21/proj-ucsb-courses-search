@@ -3,9 +3,14 @@ import { Form, Button} from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
-    const [quarter, setQuarter] = useState("20212");
-    const [department, setDepartment] = useState("CMPSC");
+    const localSearchQuarter = localStorage.getItem("BasicSearch.Quarter");
+    const localSearchDept = localStorage.getItem("BasicSearch.Department");
+
+    const [quarter, setQuarter] = useState(localSearchQuarter || "20212");
+    const [department, setDepartment] = useState(localSearchDept || "CMPSC");
     const { addToast } = useToasts()
+
+    
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,10 +23,12 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     };
 
     const handleQuarterOnChange = (event) => {
+        localStorage.setItem("BasicSearch.Quarter", event.target.value);
         setQuarter(event.target.value);
     };
 
     const handleDepartmentOnChange = (event) => {
+        localStorage.setItem("BasicSearch.Department", event.target.value);
         setDepartment(event.target.value);
     };
 
@@ -35,6 +42,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20204">F20</option>
                 </Form.Control>
             </Form.Group>
+
             <Form.Group controlId="BasicSearch.Department">
                 <Form.Label>Department</Form.Label>
                 <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
