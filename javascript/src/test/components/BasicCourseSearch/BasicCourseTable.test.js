@@ -199,12 +199,12 @@ describe("BasicCourseTable tests", () => {
   // Testing styling for classes w/more than one section
   test("check that full sections have a red background", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07500") ).toBe("#FF0000");
+  	expect( getBackgroundColor(getByText, "07500") ).toBe("#FF8080");
   });
 
   test("check that almost full sections have a orange background", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07501") ).toBe("#FFBF00");
+  	expect( getBackgroundColor(getByText, "07501") ).toBe("#FFD761");
   });
 
   test("check available sections have a light blue", () => {
@@ -221,12 +221,12 @@ describe("BasicCourseTable tests", () => {
 
   test("check that full standalone lectures have a red background", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "06492") ).toBe("#FF0000");
+  	expect( getBackgroundColor(getByText, "06492") ).toBe("#FF8080");
   });
 
   test("check that almost full standalone lectures have a orange background", () => {
   	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "67493") ).toBe("#FFBF00");
+  	expect( getBackgroundColor(getByText, "67493") ).toBe("#FFD761");
   });
 
   test("check available standalone lectures have a dark blue", () => {
