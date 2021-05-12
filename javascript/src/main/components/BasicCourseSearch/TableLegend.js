@@ -1,5 +1,4 @@
 import React from "react";
-//import { Jumbotron } from "react-bootstrap";
 
 const COLOR_UNAVAILABLE = { backgroundColor: '#FF0000' };
 const COLOR_CLOSEFULL = { backgroundColor: '#FFBF00' };
