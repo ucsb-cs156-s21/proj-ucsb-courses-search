@@ -69,6 +69,15 @@ export function reformatJSON(classes, checks) {
       }
     });
   });
+
+  sections.forEach(section => {
+    section.uniqueKey = `${section.course.quarter}-${section.enrollCode}`;   
+  });
+
   return sections;
 }
 
+export const availabilityColors = {
+  UNAVAILABLE : { backgroundColor: '#FF8080' },
+  CLOSEFULL : { backgroundColor: '#FFD761' },
+ };

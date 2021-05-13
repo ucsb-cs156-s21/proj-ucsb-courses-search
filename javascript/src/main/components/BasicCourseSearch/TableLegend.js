@@ -1,7 +1,8 @@
 import React from "react";
+import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
 
-const COLOR_UNAVAILABLE = { backgroundColor: '#FF0000' };
-const COLOR_CLOSEFULL = { backgroundColor: '#FFBF00' };
+const COLOR_UNAVAILABLE =  availabilityColors.UNAVAILABLE;
+const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
 const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = { backgroundColor: '#CEDEFA' };
 const COLOR_AVAILABLESECTION = { backgroundColor: '#EDF3FE' };
 
