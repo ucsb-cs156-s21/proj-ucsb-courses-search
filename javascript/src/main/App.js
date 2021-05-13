@@ -48,7 +48,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/history/basic" exact component={Basic} />
-          <Route path="/history/courseName" exact component={CourseName} />
+          <Route path="/history/courseNumber" exact component={CourseName} />
           <Route path="/statistics" exact component={Statistics} />
           <Route
             path="/statistics/numFullCoursesByDept"

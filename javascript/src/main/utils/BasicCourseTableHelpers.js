@@ -77,3 +77,7 @@ export function reformatJSON(classes, checks) {
   return sections;
 }
 
+export const availabilityColors = {
+  UNAVAILABLE : { backgroundColor: '#FF8080' },
+  CLOSEFULL : { backgroundColor: '#FFD761' },
+ };

@@ -20,7 +20,7 @@ const Basic = () => {
     return (
         <Jumbotron>
             <div className="text-left">
-                <h5>Search Archived Course Data</h5>
+                <h2>Search Archived Course Data</h2>
                 <p>Data on this page is accurate for past quarters, but may be 
                     incomplete or out of date for current and future quarters.
                     Course information is not immediately updated.</p>
