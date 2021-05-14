@@ -8,9 +8,12 @@ import { fetchSubjectAreas } from "main/services/subjectAreaService";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const firstDepartment = allTheSubjects[0].subjectCode;
-    const [quarter, setQuarter] = useState("20212");
-    const [subject, setSubject] = useState(firstDepartment);
-    const [level, setLevel] = useState("U");
+    const localStorageQuarter = localStorage.getItem("BasicSearch.Quarter");
+    const localStorageSubject = localStorage.getItem("BasicSearch.Subject");
+    const localStorageLevel = localStorage.getItem("BasicSearch.Level");
+    const [quarter, setQuarter] = useState(localStorageQuarter || "20212");
+    const [subject, setSubject] = useState(localStorageSubject || firstDepartment);
+    const [level, setLevel] = useState(localStorageLevel || "U");
     const { addToast } = useToasts();
     const [errorNotified, setErrorNotified] = useState(false);
 
@@ -44,12 +47,20 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     };
 
     const handleQuarterOnChange = (event) => {
-        setQuarter(event.target.value);
+        localStorage.setItem("BasicSearch.Quarter", event.target.value);
+        setQuarter(event.target.value);  
     };
 
     const handleLevelOnChange = (event) => {
+        localStorage.setItem("BasicSearch.Level",event.target.value);
         setLevel(event.target.value);
+
     };
+    
+    const handleSubjectOnChange = (subject) => {
+        localStorage.setItem("BasicSearch.Subject",subject);
+        setSubject(subject);
+    }
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -61,7 +72,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
                     <option value="20204">F20</option>
                 </Form.Control>
             </Form.Group>
-            <SelectSubject subjects={subjects} subject={subject} setSubject={setSubject} />
+            <SelectSubject subjects={subjects} subject={subject} setSubject={handleSubjectOnChange} />
             <Form.Group controlId="BasicSearch.CourseLevel">
                 <Form.Label>Course Level</Form.Label>
                 <Form.Control as="select" onChange={handleLevelOnChange} value={level}>
