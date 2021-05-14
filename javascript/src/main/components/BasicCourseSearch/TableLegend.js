@@ -1,14 +1,14 @@
 import React from "react";
-import { Jumbotron } from "react-bootstrap";
+import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
 
-const COLOR_UNAVAILABLE = { backgroundColor: '#FF0000' };
-const COLOR_CLOSEFULL = { backgroundColor: '#FFBF00' };
+const COLOR_UNAVAILABLE =  availabilityColors.UNAVAILABLE;
+const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
 const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = { backgroundColor: '#CEDEFA' };
 const COLOR_AVAILABLESECTION = { backgroundColor: '#EDF3FE' };
 
 const TableLegend = () => {
     return (
-        <Jumbotron>
+        <>
             <div className="text-left">
                 <table cellPadding="5px">
                     <thead>
@@ -29,7 +29,7 @@ const TableLegend = () => {
                     </tbody>
                 </table>
             </div>
-        </Jumbotron>
+        </>
     );
 };
 
