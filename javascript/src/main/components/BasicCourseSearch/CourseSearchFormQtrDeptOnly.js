@@ -3,8 +3,8 @@ import { Form, Button} from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
-    const localSearchQuarter = localStorage.getItem("BasicSearch.Quarter");
-    const localSearchDept = localStorage.getItem("BasicSearch.Department");
+    const localSearchQuarter = localStorage.getItem("BasicSearchQtrDept.Quarter");
+    const localSearchDept = localStorage.getItem("BasicSearchQtrDept.Department");
 
     const [quarter, setQuarter] = useState(localSearchQuarter || "20212");
     const [department, setDepartment] = useState(localSearchDept || "CMPSC");
@@ -23,18 +23,18 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     };
 
     const handleQuarterOnChange = (event) => {
-        localStorage.setItem("BasicSearch.Quarter", event.target.value);
+        localStorage.setItem("BasicSearchQtrDept.Quarter", event.target.value);
         setQuarter(event.target.value);
     };
 
     const handleDepartmentOnChange = (event) => {
-        localStorage.setItem("BasicSearch.Department", event.target.value);
+        localStorage.setItem("BasicSearchQtrDept.Department", event.target.value);
         setDepartment(event.target.value);
     };
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="BasicSearch.Quarter">
+            <Form.Group controlId="BasicSearchQtrDept.Quarter">
                 <Form.Label>Quarter</Form.Label>
                 <Form.Control as="select" onChange={handleQuarterOnChange} value={quarter}  >
                     <option value="20212">S21</option>
@@ -43,7 +43,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
                 </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="BasicSearch.Department">
+            <Form.Group controlId="BasicSearchQtrDept.Department">
                 <Form.Label>Department</Form.Label>
                 <Form.Control as="select" onChange={handleDepartmentOnChange} value={department}>
                     <option>CMPSC</option>
