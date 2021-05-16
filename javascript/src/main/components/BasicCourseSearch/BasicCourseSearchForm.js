@@ -9,9 +9,9 @@ import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-	const quarters = quarterRange("20081", "20211");
+	const quarters = quarterRange("20084", "20214");
 	const firstDepartment = allTheSubjects[0].subjectCode;
-	const [quarter, setQuarter] = useState("20212");
+	const [quarter, setQuarter] = useState(quarters[0].yyyyq);
 	const [subject, setSubject] = useState(firstDepartment);
 	const [level, setLevel] = useState("U");
 	const { addToast } = useToasts();
@@ -45,10 +45,6 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 		});
 	};
 
-	const handleQuarterOnChange = (event) => {
-		setQuarter(event.target.value);
-	};
-
 	const handleLevelOnChange = (event) => {
 		setLevel(event.target.value);
 	};
@@ -58,7 +54,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 			<SelectQuarter
 				quarters={quarters}
 				quarter={quarter}
-				setQuarter={handleQuarterOnChange}
+				setQuarter={setQuarter}
 				controlId={"BasicSearch.Quarter"}
 				label={"Quarter"}
 			/>
