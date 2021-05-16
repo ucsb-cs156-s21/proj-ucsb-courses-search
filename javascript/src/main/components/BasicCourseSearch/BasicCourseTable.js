@@ -182,6 +182,14 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       text: 'YYYYQ'
     }
   );
+
+  if (sections===[] || sections===null) {
+    return (
+      <div data-testid="no-course-data">
+      </div>
+    )
+  }
+  
   return (
     <ToolkitProvider
       keyField="uniqueKey"
