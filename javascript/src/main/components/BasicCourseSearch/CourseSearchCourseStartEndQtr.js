@@ -23,14 +23,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
         });
     };
 
-    const handleStartQuarterOnChange = (event) => {
-        setStartQuarter(event.target.value);
-    };
-
-    const handleEndQuarterOnChange = (event) => {
-        setEndQuarter(event.target.value);
-    };
-
     const handleSubjectAreaOnChange = (event) => {
         setSubjectArea(event.target.value);
     };

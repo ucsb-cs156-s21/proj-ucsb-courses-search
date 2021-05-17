@@ -21,14 +21,6 @@ const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
         });
     };
 
-    const handleStartQuarterOnChange = (event) => {
-        setStartQuarter(event.target.value);
-    };
-
-    const handleEndQuarterOnChange = (event) => {
-        setEndQuarter(event.target.value);
-    };
-
     const handleGeCodeOnChange = (event) => {
         setGeCode(event.target.value);
     };
