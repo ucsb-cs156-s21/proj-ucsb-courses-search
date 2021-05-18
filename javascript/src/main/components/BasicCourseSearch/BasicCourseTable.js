@@ -6,6 +6,9 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
+import useSWR from "swr";
+import { fetchWithToken } from "main/utils/fetch";
+
 
 
 const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
@@ -100,6 +103,18 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     }
   }
 
+  
+  const { getAccessTokenSilently: getToken } = useAuth0();
+  const { data: roleInfo } = useSWR(
+    ["/api/myRole", getToken],
+    fetchWithToken
+  );
+  const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
+  const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
+  const isLogedIn = isAdmin || isMember
+
+ 
+
   const columns = [{
     dataField: 'course.courseId',
     text: 'Course Number',
@@ -140,7 +155,8 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     text: "Add",
     isDummyField: true,
     formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex),
-    csvExport: false
+    csvExport: false,
+    hidden: !(isLogedIn) 
   }
   ];
 
