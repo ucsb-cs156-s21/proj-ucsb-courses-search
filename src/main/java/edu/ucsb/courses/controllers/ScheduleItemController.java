@@ -60,7 +60,7 @@ public class ScheduleItemController {
         
         Optional<Schedule> sched = scheduleRepository.findById(scheduleId);
         if (sched.isEmpty()) {
-            return new ResponseEntity<>("Schedule does not exist", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
 
         ScheduleItem newSchedItem = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
@@ -68,28 +68,26 @@ public class ScheduleItemController {
         return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
-    // Stub
-    // @DeleteMapping(value = "/delete", produces = "application/json")
-    // public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
-    //                                                  @RequestParam Long scheduleId,
-    //                                                  @RequestParam String lectureCode,
-    //                                                  @RequestParam String discussionCode){
-    //     if(!authControllerAdvice.getIsMember(authorization)){
-    //         return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
-    //     }
-    //     AppUser appUser = authControllerAdvice.getUser(authorization);
-    //     Optional<ScheduleItem> s1 = scheduleItemRepository.findById(id);
-    //     if(s1.isPresent()){
-    //         if(s1.get().getAppUser().equals(appUser)) {
-    //             scheduleItemRepository.deleteById(id);
-    //             return ResponseEntity.ok().build();
-    //         }
-    //         else{
-    //             return ResponseEntity.badRequest().build();
-    //         }
-    //     }
-    //     return ResponseEntity.notFound().build();
-    // }
+    @DeleteMapping(value = "/delete", produces = "application/json")
+    public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
+                                                     @RequestParam Long id){
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
+        AppUser appUser = authControllerAdvice.getUser(authorization);
+
+        Optional<ScheduleItem> s1 = scheduleItemRepository.findById(id);
+        if(s1.isPresent()){
+            if(s1.get().getAppUser().equals(appUser)) {
+                scheduleItemRepository.deleteById(id);
+                return ResponseEntity.ok().build();
+            }
+            else{
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     // @GetMapping(value = "/getByScheduleId", produces = "application/json")
     // public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization, @RequestParam String id,
