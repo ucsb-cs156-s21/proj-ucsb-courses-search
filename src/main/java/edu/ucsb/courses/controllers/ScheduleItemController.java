@@ -63,15 +63,17 @@ public class ScheduleItemController {
             return new ResponseEntity<>("Schedule does not exist", HttpStatus.BAD_REQUEST);
         }
 
-        ScheduleItem newSched = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
-        ScheduleItem savedSched = scheduleItemRepository.save(newSched);
+        ScheduleItem newSchedItem = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
+        ScheduleItem savedSched = scheduleItemRepository.save(newSchedItem);
         return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
-    //Stub
+    // Stub
     // @DeleteMapping(value = "/delete", produces = "application/json")
     // public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
-    //                                                  @RequestParam Schedule id){
+    //                                                  @RequestParam Long scheduleId,
+    //                                                  @RequestParam String lectureCode,
+    //                                                  @RequestParam String discussionCode){
     //     if(!authControllerAdvice.getIsMember(authorization)){
     //         return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
     //     }
