@@ -5,9 +5,12 @@ import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
+    const localSearchQuarter = localStorage.getItem("BasicSearchQtrDept.Quarter");
+    const localSearchDept = localStorage.getItem("BasicSearchQtrDept.Department");
+
 	const quarters = quarterRange("20084", "20213");
-	const [quarter, setQuarter] = useState(quarters[0].yyyyq);
-	const [department, setDepartment] = useState("CMPSC");
+	const [quarter, setQuarter] = useState(localSearchQuarter || quarters[0].yyyyq);
+	const [department, setDepartment] = useState(localSearchDept || "CMPSC");
 	const { addToast } = useToasts();
 
 	const handleSubmit = (event) => {
@@ -23,15 +26,21 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
 	};
 
 	const handleDepartmentOnChange = (event) => {
+        localStorage.setItem("BasicSearchQtrDept.Department", event.target.value);
 		setDepartment(event.target.value);
 	};
+    
+    const handleQuarterOnChange = (quarter) => {
+        localStorage.setItem("BasicSearchQtrDept.Quarter", quarter);
+        setQuarter(quarter);
+    };
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			<SelectQuarter
 				quarters={quarters}
 				quarter={quarter}
-				setQuarter={setQuarter}
+				setQuarter={handleQuarterOnChange}
 				controlId={"BasicSearch.Quarter"}
 				label={"Quarter"}
 			/>
