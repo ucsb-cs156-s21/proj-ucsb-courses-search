@@ -5,7 +5,7 @@ import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
-    const quarters = quarterRange("20084", "20214");
+    const quarters = quarterRange("20084", "20213");
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [subjectArea, setSubjectArea] = useState("CMPSC   ");
