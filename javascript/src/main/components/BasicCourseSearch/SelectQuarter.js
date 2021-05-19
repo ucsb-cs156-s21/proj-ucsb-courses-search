@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState }  from "react";
 import { Form } from "react-bootstrap";
 
 const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
