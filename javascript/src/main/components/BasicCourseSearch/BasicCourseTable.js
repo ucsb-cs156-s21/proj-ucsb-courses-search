@@ -54,14 +54,16 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     }
   }
   const renderSectionTimes = (_cell, row) => {
-    const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
-    const startHours = parseInt(row.timeLocations[0].beginTime.substring(0, 2));
-    const endHours = parseInt(row.timeLocations[0].endTime.substring(0, 2));
-    const startDisplayHours = (startHours % 12);
-    const endDisplayHours = (endHours % 12);
-    const timeTypeStart = (startHours > 12) ? ("PM") : ("AM");
-    const timeTypeEnd = (endHours > 12) ? ("PM") : ("AM");
-    return ((row.timeLocations.length > 0) ? (toString(startDisplayHours) + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + toString(endDisplayHours) + row.timeLocations[0].endTime.substring(2) + timeTypeEnd) : ("TBD"))
+    if (row.timeLocations.length > 0) {
+      const startHours = parseInt(row.timeLocations[0].beginTime.substring(0, 2));
+      const endHours = parseInt(row.timeLocations[0].endTime.substring(0, 2));
+      const startDisplayHours = (startHours % 12);
+      const endDisplayHours = (endHours % 12);
+      const timeTypeStart = (startHours > 12) ? ("PM") : ("AM");
+      const timeTypeEnd = (endHours > 12) ? ("PM") : ("AM");
+      return ((toString(startDisplayHours) + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + toString(endDisplayHours) + row.timeLocations[0].endTime.substring(2) + timeTypeEnd))
+    }
+    return ("TBD")
   }
   const renderSectionDays = (_cell, row) => {
 
