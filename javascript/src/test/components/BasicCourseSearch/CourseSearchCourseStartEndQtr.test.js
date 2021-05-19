@@ -44,21 +44,21 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
 
     test("when I select a course number without suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "16");
         expect(selectCourseNumber.value).toBe("16");
     });
 
     test("when I select a course number with suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "130A");
         expect(selectCourseNumber.value).toBe("130A");
     });
 
     test("when I select a course number without number, the state for course number changes,", () => {
         const { getByLabelText } = render(<CourseSearchCourseStartEndQtr />);
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "A");
         expect(selectCourseNumber.value).toBe("A");
     });
@@ -98,7 +98,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         userEvent.selectOptions(selectEndQuarter, "20204");
         const SelectSubject = getByLabelText("Subject Area")
         userEvent.selectOptions(SelectSubject, "CMPSC   ");
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "130A  ");
 
         const submitButton = getByText("Submit");
@@ -142,7 +142,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         userEvent.selectOptions(selectEndQuarter, "20204");
         const SelectSubject = getByLabelText("Subject Area")
         userEvent.selectOptions(SelectSubject, "CMPSC   ");
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "130A  ");
 
         const submitButton = getByText("Submit");
@@ -180,7 +180,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         userEvent.selectOptions(selectEndQuarter, "20204");
         const SelectSubject = getByLabelText("Subject Area")
         userEvent.selectOptions(SelectSubject, "CMPSC   ");
-        const selectCourseNumber = getByLabelText("Course Number")
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "130A  ");
 
         const submitButton = getByText("Submit");
