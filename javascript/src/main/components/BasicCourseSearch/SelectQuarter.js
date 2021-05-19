@@ -6,13 +6,10 @@ const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
     const localSearchQuarter = localStorage.getItem(controlId);
     const [quarter, setQuarterState] = useState(localSearchQuarter || "20212");
 
-    useEffect(() => {
-        localStorage.setItem(controlId, quarters);
-      }, [quarters]);
 
     const handleQuarterOnChange = (event) => {
-        // _quarter = quarter;
         localStorage.setItem(controlId, event.target.value);
+        setQuarterState(event.target.value);
         setQuarter(event.target.value);
     };
 
@@ -20,7 +17,7 @@ const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
     return (
         <Form.Group controlId={controlId}>
             <Form.Label>{label}</Form.Label>
-            <Form.Control as="select" onChange={handleQuarterOnChange} >
+            <Form.Control as="select" value={quarter} onChange={handleQuarterOnChange} >
                 {quarters.map(function (object, i) {
                     return <option key={controlId + '-' + i} value={object.yyyyq}>{object.qyy}</option>;
                 })}
