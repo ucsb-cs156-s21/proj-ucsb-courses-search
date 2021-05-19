@@ -70,6 +70,7 @@ footer {
 }
 
 .navbar-custom {
+  z-index: 1;
   position: sticky;
   min-height: 120px;
   top:0;
