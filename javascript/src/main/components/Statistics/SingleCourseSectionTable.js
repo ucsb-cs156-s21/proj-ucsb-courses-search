@@ -29,12 +29,14 @@ const alternate = (_cell, _row, rowIndex, _colIndex) => {
 const SingleCourseSectionTable = ( {data} ) => {
 
   const columns = [{
-    dataField: 'professorName',
+    dataField: 'instructors',
     text: 'Professor Name',
     style: alternate,
     sort: true,
     headerStyle: headerStyleColor,
-    footerStyle: footerStyleColor
+    footerStyle: footerStyleColor,
+    formatter: (cell, row) => renderInstructors(cell, row),
+    csvFormatter: (cell, row) => renderInstructors(cell, row)
   },{
     dataField: 'timesTaught',
     text: 'Times Taught',
@@ -42,15 +44,21 @@ const SingleCourseSectionTable = ( {data} ) => {
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor
+    formatter: (cell, row) => renderInstructors(cell, row),
+    csvFormatter: (cell, row) => renderInstructors(cell, row)
   }
 ];
 
-//   return (
-//     <Container>
-//       <Badge variant="primary" style={{fontSize:"35px", height:"50px", width:"100%"}}>Number of courses with open seats: {data.length}</Badge>
-//       <BootstrapTable keyField='index' data={data} columns={columns} />
-//     </Container>
-//   );
+const renderInstructors = (_cell, row) => {
+  const instructor = (row.instructors.length > 0) ? row.instructors[0].instructor : "TBD";
+  return (instructor)
+}
+
+  return (
+    <Container>
+      <BootstrapTable keyField='index' data={data} columns={columns} />
+    </Container>
+  );
 };
 
 export default SingleCourseSectionTable;
