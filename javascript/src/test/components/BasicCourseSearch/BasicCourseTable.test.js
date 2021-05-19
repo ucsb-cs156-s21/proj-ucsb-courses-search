@@ -8,14 +8,6 @@ import useSWR from "swr";
 jest.mock("@auth0/auth0-react");
 jest.mock("swr");
 
-// describe("BasicCourseTable tests", () => {
-//   beforeEach(() => {
-//     useAuth0.mockReturnValue({
-//       isAuthenticated: true,
-//     });
-
-//   })
-
   describe("BasicCourseTable tests", () => {
     beforeEach(() => {
       useAuth0.mockReturnValue({
