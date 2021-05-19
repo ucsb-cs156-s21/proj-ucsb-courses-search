@@ -56,7 +56,8 @@ html {
 }
 
 body {
-  padding-top: 300px;
+  --nav-height: 120px;
+  padding-top: --nav-height;
   margin: 0 0 100px;
   /* bottom = footer height */
 }
