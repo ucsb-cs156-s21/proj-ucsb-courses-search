@@ -57,6 +57,8 @@ import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 
+// import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
+
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
 
@@ -228,4 +230,25 @@ public class StatisticsController {
         return ResponseEntity.ok().body(body);
     }
     
+
+    private static String makeFormattedCourseName (
+        String department  ,
+        String courseNumber ,
+        String courseSuf    ) {
+
+        return
+              String.format( "%-8s", department                ) // 'CMPSC   '
+            + String.format( "%3s" , courseNumber               ) // '  8'
+            + String.format( "%-2s", courseSuf.toUpperCase()    ) // 'A '
+        ;
+    }
+    
+    @GetMapping(value = "/singleCourseSearch", produces = "application/json")
+    public ResponseEntity<String> singleCourseSearch(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, 
+    @RequestParam(required = true) String department, @RequestParam(required = true) String courseNumber,@RequestParam(required = true) String courseSuf)
+            throws JsonProcessingException {
+        String body = mapper.writeValueAsString(courseRepository.findByQuarterIntervalAndCourseName(startQuarter, endQuarter, makeFormattedCourseName(department, courseNumber, courseSuf)));
+
+        return ResponseEntity.ok().body(body);
+    }
 }
