@@ -4,15 +4,35 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
 import userEvent from "@testing-library/user-event";
 import { useAuth0 } from "@auth0/auth0-react";
+import useSWR from "swr";
 jest.mock("@auth0/auth0-react");
+jest.mock("swr");
 
-describe("BasicCourseTable tests", () => {
-  beforeEach(() => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
+// describe("BasicCourseTable tests", () => {
+//   beforeEach(() => {
+//     useAuth0.mockReturnValue({
+//       isAuthenticated: true,
+//     });
+
+//   })
+
+  describe("BasicCourseTable tests", () => {
+    beforeEach(() => {
+      useAuth0.mockReturnValue({
+        user: {
+          name: "test user",
+          email: "test@test.com",
+          picture: "https://picsum.photos/200",
+        },
+      });
+      useSWR.mockReturnValue({
+        data: {
+          role : "Admin"
+        }
+      })
     });
 
-  })
+
   test("renders without crashing", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
