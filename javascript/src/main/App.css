@@ -56,13 +56,12 @@ html {
 }
 
 body {
-  --nav-height: 120px;
-  padding-top: var(--nav-height);
   margin: 0 0 100px;
   /* bottom = footer height */
 }
 
 footer {
+  position: fixed;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -72,8 +71,8 @@ footer {
 }
 
 .navbar-custom {
+  position: sticky;
   min-height: 120px;
-  position: fixed;
   top:0;
   width: 100%;
 }
