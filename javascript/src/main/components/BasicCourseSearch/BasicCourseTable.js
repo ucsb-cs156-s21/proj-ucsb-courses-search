@@ -27,7 +27,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       //the color to we do something.
 
       for (var i in classes) {
-        if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
+        if (classes[i].classSections.length > 0 && classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
           if (classes[i].classSections.length === 1) {
             //This code should only execute when dealing with stand alone lectures.
             if (classUnavailable(row)) {

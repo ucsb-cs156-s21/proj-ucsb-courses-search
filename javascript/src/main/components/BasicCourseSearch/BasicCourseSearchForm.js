@@ -9,7 +9,7 @@ import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-	const quarters = quarterRange("20084", "20213");
+	const quarters = quarterRange("20084", "20214");
 	const firstDepartment = allTheSubjects[0].subjectCode;
 	const [quarter, setQuarter] = useState(quarters[0].yyyyq);
 	const [subject, setSubject] = useState(firstDepartment);
