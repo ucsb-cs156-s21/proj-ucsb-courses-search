@@ -71,6 +71,7 @@ footer {
 
 .navbar-custom {
   min-height: 120px;
+  position: fixed;
 }
 
 img.brand {
