@@ -7,7 +7,7 @@ import fetch from "isomorphic-unfetch";
 };
 
 const fetchBasicCourseHistoryJSON = async (_event, fields) => {
-    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.subject}`;
+    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.department}`;
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };
