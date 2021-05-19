@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
+const SelectQuarter = ({ quarters, quarter, setQuarter, controlId, label}) => {
 
     const handleQuarterOnChange = (event) => {
         setQuarter(event.target.value);
@@ -10,7 +10,7 @@ const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
     return (
         <Form.Group controlId={controlId}>
             <Form.Label>{label}</Form.Label>
-            <Form.Control as="select" onChange={handleQuarterOnChange} >
+            <Form.Control as="select" value={quarter} onChange={handleQuarterOnChange} >
                 {quarters.map(function (object, i) {
                     return <option key={controlId + '-' + i} value={object.yyyyq}>{object.qyy}</option>;
                 })}
