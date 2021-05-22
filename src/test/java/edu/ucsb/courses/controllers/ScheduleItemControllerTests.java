@@ -59,38 +59,21 @@ public class ScheduleItemControllerTests {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-//     @Test
-//     public void test_newScheduleItemSuccess() throws Exception {
-
-//     }
-
-//     @Test
-//     public void test_newScheduleItemFailureNoSchedule() throws Exception {
-
-//     }
-
-    //wrong
     @Test
     public void test_getScheduleItemSuccess() throws Exception {
-
-        // String expectedResult = "{id=123, lectureCode='07492', discussionCode='07493', schedule='Schedule[ id = null, name = null, description = null, quarter = null, userId = null]' }";
         String urlTemplate = "/api/member/scheduleItems/get?id=%s";
         String url = String.format(urlTemplate, "1");
 
-        AppUser appUser = new AppUser();
-        appUser.setId(123456L);
+        AppUser user = new AppUser();
+        user.setId(123456L);
 
-        // when(authController.getIsMember(any(String.class))).thenReturn(true);
-        // when(authController.getUser(any(String.class))).thenReturn(appUser);
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user, new Schedule());
 
-        ScheduleItem scheduleItem = new ScheduleItem(123L, "07492", "07493", appUser, new Schedule());
-        scheduleItemRepository.save(scheduleItem);
-        // Optional<ScheduleItem> opt = Optional.of(scheduleItem);
+        when(authController.getIsMember(any(String.class))).thenReturn(true);
+        when(authController.getUser(any(String.class))).thenReturn(user);
+        when(scheduleItemRepository.findById(1L)).thenReturn(Optional.of(scheduleItem));
 
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
+        MvcResult response = mockMvc.perform(get(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
@@ -108,16 +91,11 @@ public class ScheduleItemControllerTests {
 
         AppUser user = new AppUser();
         user.setId(123456L);
-        String userId = String.valueOf(user.getId());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
 
-        Optional<ScheduleItem> opt = Optional.empty();
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
+        MvcResult response = mockMvc.perform(get(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
@@ -133,18 +111,17 @@ public class ScheduleItemControllerTests {
 
         AppUser user = new AppUser();
         user.setId(123456L);
-        String userId = String.valueOf(user.getId());
+
+        AppUser user2 = new AppUser();
+        user.setId(654321L);
+
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user2, new Schedule());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
+        when(scheduleItemRepository.findById(1L)).thenReturn(Optional.of(scheduleItem));
 
-        ScheduleItem scheduleItem = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
-
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
+        MvcResult response = mockMvc.perform(get(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
@@ -152,27 +129,16 @@ public class ScheduleItemControllerTests {
         assertEquals(expectedResult, responseString);
 
     }
-    //wrong
+
     @Test
     public void test_getScheduleFailureNotMember() throws Exception {
-        String expectedResult = "";
+        String expectedResult = "Unauthorized Request";
         String urlTemplate = "/api/member/scheduleItems/get?id=%s";
         String url = String.format(urlTemplate, "1");
 
-        AppUser user = new AppUser();
-        user.setId(123456L);
-        String userId = String.valueOf(user.getId());
         when(authController.getIsMember(any(String.class))).thenReturn(false);
-        when(authController.getUser(any(String.class))).thenReturn(user);
 
-        ScheduleItem scheduleItem = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
-
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
-
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isUnauthorized())
+        MvcResult response = mockMvc.perform(get(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,1L)).andExpect(status().isUnauthorized())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
@@ -180,33 +146,34 @@ public class ScheduleItemControllerTests {
         assertEquals(expectedResult, responseString);
 
     }
-    //wrong
+    
     @Test
     public void test_addScheduleItemSuccess() throws Exception {
-        String expectedResult = "{id=123 courseId='CS       130A ', lectureCode='07492', discussionCode='07493', schedule='Schedule[ id = null, name = null, description = null, quarter = null, userId = null]' }";
-        String urlTemplate = "/api/member/scheduleItems/new?scheduleId=%s&enrollCode=%s&courseId=%s";
-        String url = String.format(urlTemplate, "123", "07492", "07493","CS       130A");
+        String urlTemplate = "/api/member/scheduleItems/new?discussionCode=%s&lectureCode=%s&scheduleId=%s";
+        String url = String.format(urlTemplate, "07493", "07492", "1");
+
+        Schedule schedule = new Schedule(123L, "CS 156", "Adv App Programming", "Fall 2020", "123456");
         AppUser user = new AppUser();
         user.setId(123456L);
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user, schedule);
 
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
-
-        ScheduleItem schedule = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
+        when(scheduleRepository.findById(1L)).thenReturn(Optional.of(schedule));
 
         when(scheduleItemRepository.save(any(ScheduleItem.class)))
-                .thenReturn(schedule);
+                .thenReturn(scheduleItem);
 
 
-        MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isOk())
+        MvcResult response = mockMvc.perform(post(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isOk())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
         ScheduleItem returnVal = objectMapper.readValue(responseString, ScheduleItem.class);
 
-        assertEquals(returnVal, schedule);
+        assertEquals(returnVal, scheduleItem);
     }
-    //wrong
+    
     @Test
     public void test_addScheduleItemFailureNoAuth() throws Exception {
         String urlTemplate = "/api/member/scheduleItems/new?discussionCode=%s&lectureCode=%s&scheduleId=%s";
@@ -214,35 +181,26 @@ public class ScheduleItemControllerTests {
 
         AppUser user = new AppUser();
 
-        // when(scheduleItemRepository.save(any(ScheduleItem.class)))
-        //         .thenReturn(schedule);
         when(authController.getIsMember(any(String.class))).thenReturn(false);
         when(authController.getUser(any(String.class))).thenReturn(user);
 
-        MvcResult response = mockMvc.perform(post(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isUnauthorized())
+        MvcResult response = mockMvc.perform(post(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isUnauthorized())
                 .andReturn();
     }
-    //wrong
+
     @Test
-    public void test_deleteScheduleItemSuccess() throws Exception {
+    public void test_addScheduleItemFailureNotFound() throws Exception {
         String expectedResult = "";
-        String urlTemplate = "/api/member/scheduleItems/delete?id=%s";
-        String url = String.format(urlTemplate, "1");
+        String urlTemplate = "/api/member/scheduleItems/new?discussionCode=%s&lectureCode=%s&scheduleId=%s";
+        String url = String.format(urlTemplate, "1", "1", "2");
 
         AppUser user = new AppUser();
         user.setId(123456L);
-        String userId = String.valueOf(user.getId());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
 
-        DecodedJWT jwt = JWT.decode(userToken.substring(7));
-        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", new AppUser(), new Schedule());
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
-
-        MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
+        MvcResult response = mockMvc.perform(post(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isNotFound())
                 .andReturn();
 
         String responseString = response.getResponse().getContentAsString();
@@ -251,48 +209,57 @@ public class ScheduleItemControllerTests {
     }
 
     @Test
-    public void test_removeScheduleFailureNoAuth() throws Exception {
-        String expectedResult = "";
+    public void test_deleteScheduleItemSuccess() throws Exception {
         String urlTemplate = "/api/member/scheduleItems/delete?id=%s";
         String url = String.format(urlTemplate, "1");
 
         AppUser user = new AppUser();
         user.setId(123456L);
-        String userId = String.valueOf(user.getId());
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user, new Schedule());
+
+        when(authController.getIsMember(any(String.class))).thenReturn(true);
+        when(authController.getUser(any(String.class))).thenReturn(user);
+        when(scheduleItemRepository.findById(1L)).thenReturn(Optional.of(scheduleItem));
+        
+        MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @Test
+    public void test_removeScheduleFailureNoAuth() throws Exception {
+        String urlTemplate = "/api/member/scheduleItems/delete?id=%s";
+        String url = String.format(urlTemplate, "1");
+
+        AppUser user = new AppUser();
+        user.setId(123456L);
+
         when(authController.getIsMember(any(String.class))).thenReturn(false);
         when(authController.getUser(any(String.class))).thenReturn(user);
-
-        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", new AppUser(), new Schedule());
-
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
 
         MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isUnauthorized())
                 .andReturn();
     }
-    //wrong
+
     @Test
     public void test_removeScheduleFailureWrongUser() throws Exception {
-        String expectedResult = "";
+        Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "NOT YOURS");
+        AppUser user1 = new AppUser();
+        user1.setId(654321L);
+
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user1, s1);
+
+        AppUser user2 = new AppUser();
+        user2.setId(123456L);
+
         String urlTemplate = "/api/member/scheduleItems/delete?id=%s";
         String url = String.format(urlTemplate, "1");
-
-        AppUser user = new AppUser();
-        user.setId(123456L);
+        
         when(authController.getIsMember(any(String.class))).thenReturn(true);
-        when(authController.getUser(any(String.class))).thenReturn(user);
-
-        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", new AppUser(), new Schedule());
-
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
+        when(authController.getUser(any(String.class))).thenReturn(user2);
+        when(scheduleItemRepository.findById(1L)).thenReturn(Optional.of(scheduleItem));
 
         MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
-                .andReturn();
+               .andReturn();
     }
 
     @Test
@@ -304,13 +271,9 @@ public class ScheduleItemControllerTests {
         AppUser user = new AppUser();
         user.setId(123456L);
         String userId = String.valueOf(user.getId());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
-
-        Optional<ScheduleItem> opt = Optional.empty();
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
 
         MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isNotFound())
                 .andReturn();
@@ -319,377 +282,3 @@ public class ScheduleItemControllerTests {
 
         assertEquals(expectedResult, responseString);
     }
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccess() throws Exception {
-    //     String expectedResult = "{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}!{courseId= 'CS 156', title= 'Adv App Programming', days= 'MW', beginTime= '8', endTime= '9'}";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     Schedule s = new Schedule(1L, "Blah","blah","W20",userId);
-
-    //     Optional<Schedule> parent = Optional.of(s);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     TimeLocation tL = new TimeLocation();
-    //     tL.setDays("MW");
-    //     tL.setBeginTime("8");
-    //     tL.setEndTime("9");
-    //     List<TimeLocation> tLs = new ArrayList<>();
-    //     tLs.add(tL);
-
-    //     Section sec = new Section();
-    //     sec.setEnrollCode("a");
-    //     sec.setTimeLocations(tLs);
-    //     Section sec1 = new Section();
-    //     sec1.setEnrollCode("b");
-    //     sec1.setTimeLocations(tLs);
-    //     List<Section> secs = new ArrayList<>();
-    //     secs.add(sec);
-    //     secs.add(sec1);
-
-
-
-    //     Course c = new Course();
-    //     c.setQuarter("W20");
-    //     c.setCourseId("CS 156");
-    //     c.setTitle("Adv App Programming");
-    //     c.setClassSections(secs);
-    //     Optional<Course> oC = Optional.of(c);
-
-
-    //     when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
-    //     when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
-
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
-    //             .andReturn();
-
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(responseString, expectedResult);
-    // }
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccessNoItems() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     Schedule s = new Schedule(1L, "Blah","blah","W20",userId);
-
-    //     Optional<Schedule> parent = Optional.of(s);
-
-    //     when(scheduleRepository.findById(any(Long.class)))
-    //             .thenReturn(parent);
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isNoContent())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccessNoSchedule() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-
-    //     Optional<Schedule> parent = Optional.empty();
-
-    //     when(scheduleRepository.findById(any(Long.class)))
-    //             .thenReturn(parent);
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isBadRequest())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccessNoCourse() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     Schedule s = new Schedule(1L, "Blah","blah","W20","");
-
-    //     Optional<Schedule> parent = Optional.of(s);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     Optional<Course> oC = Optional.empty();
-
-
-    //     when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
-    //     when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
-
-    //     when(scheduleRepository.findById(any(Long.class)))
-    //             .thenReturn(parent);
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isNoContent())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccessNoAuth() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     Schedule s = new Schedule(1L, "Blah","blah","W20","");
-
-    //     Optional<Schedule> parent = Optional.of(s);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     TimeLocation tL = new TimeLocation();
-    //     tL.setDays("MW");
-    //     tL.setBeginTime("8");
-    //     tL.setEndTime("9");
-    //     List<TimeLocation> tLs = new ArrayList<>();
-    //     tLs.add(tL);
-
-    //     Section sec = new Section();
-    //     sec.setEnrollCode("a");
-    //     sec.setTimeLocations(tLs);
-    //     List<Section> secs = new ArrayList<>();
-    //     secs.add(sec);
-
-    //     Course c = new Course();
-    //     c.setQuarter("W20");
-    //     c.setCourseId("CS 156");
-    //     c.setTitle("Adv App Programming");
-    //     c.setClassSections(secs);
-    //     Optional<Course> oC = Optional.of(c);
-
-
-    //     when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
-    //     when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
-
-    //     when(scheduleRepository.findById(any(Long.class)))
-    //             .thenReturn(parent);
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isBadRequest())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-    // @Test
-    // public void test_getScheduleItemsByScheduleIdSuccessNotMember() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/getByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     when(authController.getIsMember(any(String.class))).thenReturn(false);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     Schedule s = new Schedule(1L, "Blah","blah","W20","");
-
-    //     Optional<Schedule> parent = Optional.of(s);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     TimeLocation tL = new TimeLocation();
-    //     tL.setDays("MW");
-    //     tL.setBeginTime("8");
-    //     tL.setEndTime("9");
-    //     List<TimeLocation> tLs = new ArrayList<>();
-    //     tLs.add(tL);
-
-    //     Section sec = new Section();
-    //     sec.setEnrollCode("a");
-    //     sec.setTimeLocations(tLs);
-    //     List<Section> secs = new ArrayList<>();
-    //     secs.add(sec);
-
-    //     Course c = new Course();
-    //     c.setQuarter("W20");
-    //     c.setCourseId("CS 156");
-    //     c.setTitle("Adv App Programming");
-    //     c.setClassSections(secs);
-    //     Optional<Course> oC = Optional.of(c);
-
-
-    //     when(scheduleRepository.findById(any(Long.class))).thenReturn(parent);
-    //     when(courseRepo.findOneByQuarterAndCourseId(any(String.class),any(String.class))).thenReturn(oC);
-
-    //     when(scheduleRepository.findById(any(Long.class)))
-    //             .thenReturn(parent);
-
-    //     MvcResult response = mockMvc.perform(get(url).contentType("application/json").header(HttpHeaders.AUTHORIZATION, userToken)).andExpect(status().isUnauthorized())
-    //             .andReturn();
-    // }
-
-    // @Test
-    // public void test_deleteScheduleItemByScheduleIdSuccess() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/deleteByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isOk())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-    // @Test
-    // public void test_deleteScheduleItemByScheduleIdNoAuth() throws Exception {
-    //     String expectedResult = "";
-    //     String urlTemplate = "/api/member/scheduleItems/deleteByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(true);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-
-
-    //     MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
-    //             .andReturn();
-
-    //     String responseString = response.getResponse().getContentAsString();
-
-    //     assertEquals(expectedResult, responseString);
-    // }
-
-    // @Test
-    // public void test_deleteScheduleItemByScheduleIdNotMember() throws Exception {
-    //     String urlTemplate = "/api/member/scheduleItems/deleteByScheduleId?scheduleId=%s";
-    //     String url = String.format(urlTemplate, "1");
-
-    //     AppUser user = new AppUser();
-    //     user.setId(123456L);
-    //     String userId = String.valueOf(user.getId());
-    //     when(authController.getIsMember(any(String.class))).thenReturn(false);
-    //     when(authController.getUser(any(String.class))).thenReturn(user);
-
-    //     ScheduleItem s1 = new ScheduleItem(1L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     ScheduleItem s2 = new ScheduleItem(2L,"CS 156", "07492", "07493", new AppUser(), new Schedule());
-    //     List<ScheduleItem> scheduleItem = new ArrayList<>();
-    //     scheduleItem.add(s1);
-    //     scheduleItem.add(s2);
-
-    //     when(scheduleItemRepository.findByScheduleId(any(Schedule.class)))
-    //             .thenReturn(scheduleItem);
-
-    //     MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isUnauthorized())
-    //             .andReturn();
-    // }
-}
