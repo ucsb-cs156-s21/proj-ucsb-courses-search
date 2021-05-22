@@ -282,3 +282,5 @@ public class ScheduleItemControllerTests {
 
         assertEquals(expectedResult, responseString);
     }
+
+}
