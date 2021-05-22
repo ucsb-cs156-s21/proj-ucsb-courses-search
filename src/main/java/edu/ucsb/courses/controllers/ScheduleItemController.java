@@ -60,7 +60,7 @@ public class ScheduleItemController {
         
         Optional<Schedule> sched = scheduleRepository.findById(scheduleId);
         if (sched.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         ScheduleItem newSchedItem = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
