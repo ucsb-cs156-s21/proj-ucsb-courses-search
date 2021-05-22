@@ -60,52 +60,52 @@ public class ScheduleItemController {
         
         Optional<Schedule> sched = scheduleRepository.findById(scheduleId);
         if (sched.isEmpty()) {
-            return new ResponseEntity<>("Schedule does not exist", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
 
-        ScheduleItem newSched = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
-        ScheduleItem savedSched = scheduleItemRepository.save(newSched);
+        ScheduleItem newSchedItem = new ScheduleItem(null, lectureCode, discussionCode, appUser, sched.get());
+        ScheduleItem savedSched = scheduleItemRepository.save(newSchedItem);
         return ResponseEntity.ok().body(mapper.writeValueAsString(savedSched));
     }
 
-    //Stub
-    // @DeleteMapping(value = "/delete", produces = "application/json")
-    // public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
-    //                                                  @RequestParam Schedule id){
-    //     if(!authControllerAdvice.getIsMember(authorization)){
-    //         return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
-    //     }
-    //     AppUser appUser = authControllerAdvice.getUser(authorization);
-    //     Optional<ScheduleItem> s1 = scheduleItemRepository.findById(id);
-    //     if(s1.isPresent()){
-    //         if(s1.get().getAppUser().equals(appUser)) {
-    //             scheduleItemRepository.deleteById(id);
-    //             return ResponseEntity.ok().build();
-    //         }
-    //         else{
-    //             return ResponseEntity.badRequest().build();
-    //         }
-    //     }
-    //     return ResponseEntity.notFound().build();
-    // }
+    @DeleteMapping(value = "/delete", produces = "application/json")
+    public ResponseEntity<String> removeScheduleItem(@RequestHeader("Authorization") String authorization,
+                                                     @RequestParam Long id){
+        if(!authControllerAdvice.getIsMember(authorization)){
+            return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
+        }
+        AppUser appUser = authControllerAdvice.getUser(authorization);
+
+        Optional<ScheduleItem> s1 = scheduleItemRepository.findById(id);
+        if(s1.isPresent()){
+            if(s1.get().getAppUser().equals(appUser)) {
+                scheduleItemRepository.deleteById(id);
+                return ResponseEntity.ok().build();
+            }
+            else{
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     // @GetMapping(value = "/getByScheduleId", produces = "application/json")
-    // public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization, @RequestParam String id,
-    //                                                            @RequestParam Schedule schedule) throws JsonProcessingException {
+    // public ResponseEntity<String> getScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization, 
+    //                                                            //@RequestParam Long id,
+    //                                                            @RequestParam Long scheduleId) throws JsonProcessingException {
     //     if(!authControllerAdvice.getIsMember(authorization)){
     //         return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
     //     }
     //     AppUser appUser = authControllerAdvice.getUser(authorization);
-    //     Long castId = Long.parseLong(id);
-    //     List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(schedule.getId());
-    //     Optional<Schedule> sched = scheduleRepository.findById(castId);
+    //     List<ScheduleItem> savedSched = scheduleItemRepository.findByScheduleId(scheduleId);
+    //     Optional<Schedule> sched = scheduleRepository.findById(scheduleId);
     //     if (sched.isEmpty()){
     //         return ResponseEntity.badRequest().build();
     //     }
     //     String res = "";
     //     for (ScheduleItem item: savedSched){
     //         if (item.getAppUser().equals(appUser)) {
-    //             Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), item.getCourseId());
+    //             Optional<Course> course = archivedCourseRepository.findOneByQuarterAndCourseId(sched.get().getQuarter(), String.valueOf(item.getId()));
     //             if (course.isEmpty()){
     //                 return ResponseEntity.noContent().build();
     //             }
@@ -147,12 +147,12 @@ public class ScheduleItemController {
 
     // @DeleteMapping(value = "/deleteByScheduleId", produces = "application/json")
     // public ResponseEntity<String> removeScheduleItemsByScheduleId(@RequestHeader("Authorization") String authorization,
-    //                                                               @RequestParam Schedule schedule){
+    //                                                               @RequestParam Long scheduleId){
     //     AppUser appUser = authControllerAdvice.getUser(authorization);
     //     if(!authControllerAdvice.getIsMember(authorization)){
     //         return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
     //     }
-    //     List<ScheduleItem> savedSched= scheduleItemRepository.findByScheduleId(schedule.getId());
+    //     List<ScheduleItem> savedSched = scheduleItemRepository.findByScheduleId(scheduleId);
     //     boolean verified = true;
     //     for (ScheduleItem item: savedSched){
     //         if (!item.getAppUser().equals(appUser)){
@@ -161,7 +161,7 @@ public class ScheduleItemController {
     //         }
     //     }
     //     if (verified) {
-    //         scheduleItemRepository.deleteByScheduleId(schedule.getId());
+    //         scheduleItemRepository.deleteByScheduleId(scheduleId);
     //         return ResponseEntity.ok().build();
     //     }
     //     return ResponseEntity.badRequest().build();
