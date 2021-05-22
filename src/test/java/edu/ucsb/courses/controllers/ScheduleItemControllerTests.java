@@ -59,17 +59,6 @@ public class ScheduleItemControllerTests {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-//     @Test
-//     public void test_newScheduleItemSuccess() throws Exception {
-
-//     }
-
-//     @Test
-//     public void test_newScheduleItemFailureNoSchedule() throws Exception {
-
-//     }
-
-    //wrong
     @Test
     public void test_getScheduleItemSuccess() throws Exception {
         String urlTemplate = "/api/member/scheduleItems/get?id=%s";
@@ -122,16 +111,15 @@ public class ScheduleItemControllerTests {
 
         AppUser user = new AppUser();
         user.setId(123456L);
-        String userId = String.valueOf(user.getId());
+
+        AppUser user2 = new AppUser();
+        user.setId(654321L);
+
+        ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user2, new Schedule());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
-
-        ScheduleItem scheduleItem = new ScheduleItem(123L, "07492", "07493", new AppUser(), new Schedule());
-
-        Optional<ScheduleItem> opt = Optional.of(scheduleItem);
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
+        when(scheduleItemRepository.findById(1L)).thenReturn(Optional.of(scheduleItem));
 
         MvcResult response = mockMvc.perform(get(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isBadRequest())
                 .andReturn();
@@ -201,6 +189,28 @@ public class ScheduleItemControllerTests {
     }
 
     @Test
+    public void test_addScheduleItemFailureNotFound() throws Exception {
+        String expectedResult = "";
+        String urlTemplate = "/api/member/scheduleItems/new?discussionCode=%s&lectureCode=%s&scheduleId=%s";
+        String url = String.format(urlTemplate, "1", "1", "2");
+
+        AppUser user = new AppUser();
+        user.setId(123456L);
+        // Schedule schedule = new Schedule(123L, "CS 156", "Adv App Programming", "Fall 2020", "123456");
+
+        when(authController.getIsMember(any(String.class))).thenReturn(true);
+        when(authController.getUser(any(String.class))).thenReturn(user);
+        // when(scheduleRepository.findById(1L)).thenReturn(Optional.of(schedule));
+
+        MvcResult response = mockMvc.perform(post(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isNotFound())
+                .andReturn();
+
+        String responseString = response.getResponse().getContentAsString();
+
+        assertEquals(expectedResult, responseString);
+    }
+
+    @Test
     public void test_deleteScheduleItemSuccess() throws Exception {
         String urlTemplate = "/api/member/scheduleItems/delete?id=%s";
         String url = String.format(urlTemplate, "1");
@@ -251,7 +261,6 @@ public class ScheduleItemControllerTests {
         user1.setId(654321L);
 
         ScheduleItem scheduleItem = new ScheduleItem(1L, "07492", "07493", user1, s1);
-        scheduleItemRepository.save(scheduleItem);
 
         AppUser user2 = new AppUser();
         user2.setId(123456L);
@@ -276,13 +285,9 @@ public class ScheduleItemControllerTests {
         AppUser user = new AppUser();
         user.setId(123456L);
         String userId = String.valueOf(user.getId());
+
         when(authController.getIsMember(any(String.class))).thenReturn(true);
         when(authController.getUser(any(String.class))).thenReturn(user);
-
-        Optional<ScheduleItem> opt = Optional.empty();
-
-        // when(scheduleItemRepository.findById(any(Schedule.class)))
-        //         .thenReturn(opt);
 
         MvcResult response = mockMvc.perform(delete(url).with(csrf()).contentType("application/json").header(HttpHeaders.AUTHORIZATION,userToken)).andExpect(status().isNotFound())
                 .andReturn();
