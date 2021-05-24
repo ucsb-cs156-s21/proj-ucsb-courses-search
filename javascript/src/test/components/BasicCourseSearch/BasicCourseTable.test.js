@@ -23,7 +23,7 @@ jest.mock("swr");
         }
       })
     });
-  })
+  
   test("for empty list, we get an empty div with  data-testid='no-course-data' ", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
