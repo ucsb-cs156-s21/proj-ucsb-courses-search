@@ -69,12 +69,6 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       if(endDisplayHours < 10) {
         resultEnd = "0" + endDisplayHours.toString();
       }
-      // if(startDisplayHours === 0) {
-      //   resultStart = "12";
-      // }
-      // if(endDisplayHours === 0) {
-      //   resultEnd = "12";
-      // }
       return (resultStart + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + resultEnd + row.timeLocations[0].endTime.substring(2) + timeTypeEnd)
     }
     return ("TBD")
