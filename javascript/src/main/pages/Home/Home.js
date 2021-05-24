@@ -5,8 +5,6 @@ import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourse
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
-// import { CSVLink } from "react-csv";
-// import { Button } from "react-bootstrap";
 
 import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 
@@ -60,16 +58,6 @@ const Home = () => {
                 <h5>Welcome to the UCSB Courses Search App!</h5>
 
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
-
-                {/* <Button style={{margin: "1rem 0"}}>
-                    <CSVLink    
-                        style={{color: "white"}}
-                        headers={courseHeaders} 
-                        data={courseJSON.classes} 
-                        filename = {"CourseTable.csv"}>
-                        Download CSV
-                    </CSVLink>
-                </Button>  */}
 
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>

@@ -4,8 +4,6 @@ import { Jumbotron } from "react-bootstrap";
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
-// import { Button } from "react-bootstrap";
-// import { CSVLink } from "react-csv";
 import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
@@ -56,16 +54,6 @@ const Basic = () => {
                     incomplete or out of date for current and future quarters.
                     Course information is not immediately updated.</p>
                 <CourseSearchFormQtrDeptOnly setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseHistoryJSON} />
-
-                {/* <Button style={{margin: "1rem 0"}}>
-                    <CSVLink    
-                        style={{color: "white"}}
-                        headers={courseHeaders} 
-                        data={courseJSON.classes} 
-                        filename = {"CourseTable.csv"}>
-                        Download CSV
-                    </CSVLink>
-                </Button>  */}
 
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
