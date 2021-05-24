@@ -13,11 +13,12 @@ describe("BasicCourseTable tests", () => {
     });
 
   })
-  test("renders without crashing", () => {
+  test("for empty list, we get an empty div with  data-testid='no-course-data' ", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-    render(<BasicCourseTable classes={[]}/>);
+    const {getByTestId} = render(<BasicCourseTable classes={[]}/>);
+    expect(getByTestId("no-course-data")).not.toBe(null);
   });
 
   function getBackgroundColor (getByText, text) {

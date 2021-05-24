@@ -202,6 +202,14 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       text: 'YYYYQ'
     }
   );
+
+  if ((sections.length === 0) || (sections===null)) {
+    return (
+      <div data-testid="no-course-data">
+      </div>
+    )
+  }
+  
   return (
     <ToolkitProvider
       keyField="uniqueKey"
