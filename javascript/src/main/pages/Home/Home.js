@@ -5,8 +5,8 @@ import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourse
 import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import { fetchBasicCourseJSON } from "main/services/courseSearches";
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
-import { CSVLink } from "react-csv";
-import { Button } from "react-bootstrap";
+// import { CSVLink } from "react-csv";
+// import { Button } from "react-bootstrap";
 
 import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 
@@ -42,7 +42,7 @@ const Home = () => {
     //Check for closed, cancelled, full status
     const [cancelled, setCancelledChecked] = useState(false);
     const [closed, setClosedChecked] = useState(false);
-    const [full, setFullChecked] = useState(false); 
+    const [full, setFullChecked] = useState(false);
 
     const handleCancelledOnChange = () => {
         setCancelledChecked(!cancelled);
@@ -61,7 +61,7 @@ const Home = () => {
 
                 <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
 
-                <Button style={{margin: "1rem 0"}}>
+                {/* <Button style={{margin: "1rem 0"}}>
                     <CSVLink    
                         style={{color: "white"}}
                         headers={courseHeaders} 
@@ -69,11 +69,11 @@ const Home = () => {
                         filename = {"CourseTable.csv"}>
                         Download CSV
                     </CSVLink>
-                </Button>
+                </Button>  */}
 
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
-                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
+                <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} allowExport = {true} />
                 <JSONPrettyCard
                     expression={"courseJSON"}
                     value={courseJSON}
