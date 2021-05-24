@@ -15,7 +15,9 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const COLOR_UNAVAILABLE = availabilityColors.UNAVAILABLE;
   const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
   const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
-  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE', fontStyle: 'italic'};
+  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080', fontStyle: 'italic' };
+  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761', fontStyle: 'italic' };
   const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
 
@@ -45,10 +47,10 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return COLOR_UNAVAILABLE;
+        return COLOR_UNAVAILABLESECTION;
       }
       if (closeToFull(row)) {
-        return COLOR_CLOSEFULL;
+        return COLOR_CLOSEFULLSECTION;
       }
       return COLOR_AVAILABLESECTION;
     }
