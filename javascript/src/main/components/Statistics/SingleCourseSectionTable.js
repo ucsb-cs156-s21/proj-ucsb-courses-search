@@ -29,28 +29,29 @@ const alternate = (_cell, _row, rowIndex, _colIndex) => {
 const SingleCourseSectionTable = ( {data} ) => {
 
   const columns = [{
-    dataField: 'instructors',
+    dataField: 'professor',
     text: 'Professor Name',
     style: alternate,
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor,
-    formatter: (cell, row) => renderInstructors(cell, row),
-    csvFormatter: (cell, row) => renderInstructors(cell, row)
+    //formatter: (cell, row) => renderInstructors(cell, row),
+    //csvFormatter: (cell, row) => renderInstructors(cell, row)
   },{
-    dataField: 'timesTaught',
+    dataField: 'professorCount',
     text: 'Times Taught',
     style: alternate,
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor
-    formatter: (cell, row) => renderInstructors(cell, row),
-    csvFormatter: (cell, row) => renderInstructors(cell, row)
+    // formatter: (cell, row) => renderInstructors(cell, row),
+    // csvFormatter: (cell, row) => renderInstructors(cell, row)
   }
 ];
 
 const renderInstructors = (_cell, row) => {
-  const instructor = (row.instructors.length > 0) ? row.instructors[0].instructor : "TBD";
+  console.log(row);
+  const instructor = (row.classSections[0].instructors[0].instructor);
   return (instructor)
 }
 
