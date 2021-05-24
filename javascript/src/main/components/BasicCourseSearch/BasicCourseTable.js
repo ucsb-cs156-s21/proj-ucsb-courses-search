@@ -62,12 +62,12 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     return (capacity)
   }
   const renderSectionTimes = (_cell, row) => {
-    const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
+    const times = ( (row.timeLocations.length > 0) && (row.timeLocations[0].days !== null) ) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
   }
   const renderSectionDays = (_cell, row) => {
 
-    const days = (row.timeLocations.length > 0) ? (row.timeLocations[0].days) : ("TBD");
+    const days = ( (row.timeLocations.length > 0) && (row.timeLocations[0].days !== null) ) ? (row.timeLocations[0].days) : ("TBD");
     return days
   }
   const renderCourseId = (_cell, row) => {
