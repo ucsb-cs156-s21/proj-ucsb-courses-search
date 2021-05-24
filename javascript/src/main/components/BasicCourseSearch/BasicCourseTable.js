@@ -53,6 +53,14 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       return COLOR_AVAILABLESECTION;
     }
   }
+  const renderCourseEnrolled = (_cell, row) => {
+    const enrolled = row.enrolledTotal;
+    return (enrolled)
+  }
+  const renderCourseCapacity = (_cell, row) => {
+    const capacity = row.maxEnroll;
+    return (capacity)
+  }
   const renderSectionTimes = (_cell, row) => {
     const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     return times
@@ -131,6 +139,16 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     text: 'Time',
     formatter: (cell, row) => renderSectionTimes(cell, row),
     csvFormatter: (cell, row) => renderSectionTimes(cell, row)
+  }, {
+    dataField: 'enrolledTotal',
+    text: 'Enrolled',
+    formatter: (cell, row) => renderCourseEnrolled(cell, row),
+    csvFormatter: (cell, row) => renderCourseEnrolled(cell, row)
+  }, {
+    dataField: 'maxEnroll',
+    text: 'Course Capacity',
+    formatter: (cell, row) => renderCourseCapacity(cell, row),
+    csvFormatter: (cell, row) => renderCourseCapacity(cell, row)
   }, {
     dataField: 'course.unitsFixed',
     text: 'Unit',
