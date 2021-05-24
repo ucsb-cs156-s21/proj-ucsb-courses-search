@@ -57,7 +57,7 @@ import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 
-// import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
+import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
 
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
@@ -247,8 +247,32 @@ public class StatisticsController {
     public ResponseEntity<String> singleCourseSearch(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, 
     @RequestParam(required = true) String department, @RequestParam(required = true) String courseNumber,@RequestParam(required = true) String courseSuf)
             throws JsonProcessingException {
-        String body = mapper.writeValueAsString(courseRepository.findByQuarterIntervalAndCourseName(startQuarter, endQuarter, makeFormattedCourseName(department, courseNumber, courseSuf)));
 
+        
+        String body = mapper.writeValueAsString(
+            courseRepository.findByQuarterIntervalAndCourseName(
+                startQuarter, 
+                endQuarter, 
+                makeFormattedCourseName(department, courseNumber, courseSuf)));
+
+        // MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
+        // UnwindOperation unwindOperation = unwind("$classSections", "index", false);
+        // MatchOperation onlyClasses = match(Criteria.where("instructors").is(courseName));
+        
+        // String courseName = makeFormattedCourseName(department, courseNumber, courseSuf);
+
+        // MatchOperation onlyLectures = match(Criteria.where("index").is(0));
+        // MatchOperation onlyProfessor = match(Criteria.where("classSections.instructors[0].instructor").is("$professor"));
+        // GroupOperation groupOperation = group("professor").count().as("professorCount");
+
+        // Aggregation aggregation = newAggregation(matchOperation, unwindOperation, groupOperation);
+
+        // AggregationResults<SingleCourseSearch> result = mongoTemplate.aggregate(aggregation, "professor",
+        //         SingleCourseSearch.class);
+        // List<SingleCourseSearch> qo = result.getMappedResults();
+
+        // String body = mapper.writeValueAsString(qo);
+        
         return ResponseEntity.ok().body(body);
     }
 }
