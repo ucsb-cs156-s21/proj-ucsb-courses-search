@@ -112,7 +112,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const isAdmin = roleInfo && roleInfo.role.toLowerCase() === "admin";
   const isMember = roleInfo && roleInfo.role.toLowerCase() === "member";
   const isGuest = roleInfo && roleInfo.role.toLowerCase() === "guest";
-  const isLoggedIn = isAdmin || isMember || isGuest
+  const isLoggedIn = isAdmin || isMember || isGuest;
 
  
 
