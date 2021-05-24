@@ -115,6 +115,22 @@ describe("BasicCourseTable tests", () => {
     expect( queryAllByText("TBD").length).toBe(2);
   });
 
+  test("check that lectures enrollment appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
+  });
+
+  test("check that lectures capacity appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
+  });
+
   // Testing Sections
   test("check that sections course number does not appear", () => {
     useAuth0.mockReturnValue({
@@ -188,12 +204,28 @@ describe("BasicCourseTable tests", () => {
     expect( queryByText("09:00 - 09:50")).not.toBe(null);
   });
 
-  test("check that sections times and days appear as TBD when they don't exist", () => {
+ test("check that sections times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnlyTimeDaysTBD} />);
     expect( queryAllByText("TBD").length).toBe(5);
+  }); 
+
+  test("check that sections enrolled appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
+  });
+
+  test("check that sections course capacity appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
   });
 
   // Testing styling for classes w/more than one section
