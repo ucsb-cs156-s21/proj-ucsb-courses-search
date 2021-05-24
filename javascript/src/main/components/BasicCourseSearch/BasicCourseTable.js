@@ -57,8 +57,8 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     if (row.timeLocations.length > 0) {
       const startHours = (row.timeLocations[0].beginTime.substring(0, 1) !== "0") ? parseInt(row.timeLocations[0].beginTime.substring(0, 2)) : parseInt(row.timeLocations[0].beginTime.substring(1, 2));
       const endHours = (row.timeLocations[0].endTime.substring(0, 1) !== "0") ? parseInt(row.timeLocations[0].endTime.substring(0, 2)) : parseInt(row.timeLocations[0].endTime.substring(1, 2));
-      const startDisplayHours = (startHours % 12);
-      const endDisplayHours = (endHours % 12);
+      const startDisplayHours = (startHours === 12) ? (startHours) : (startHours % 12);
+      const endDisplayHours = (endHours === 12) ? (endHours) : (endHours % 12);
       const timeTypeStart = (startHours > 11) ? ("PM") : ("AM");
       const timeTypeEnd = (endHours > 11) ? ("PM") : ("AM");
       var resultStart = startDisplayHours.toString();
@@ -69,12 +69,12 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       if(endDisplayHours < 10) {
         resultEnd = "0" + endDisplayHours.toString();
       }
-      if(startDisplayHours === 0) {
-        resultStart = "12";
-      }
-      if(endDisplayHours === 0) {
-        resultEnd = "12";
-      }
+      // if(startDisplayHours === 0) {
+      //   resultStart = "12";
+      // }
+      // if(endDisplayHours === 0) {
+      //   resultEnd = "12";
+      // }
       return (resultStart + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + resultEnd + row.timeLocations[0].endTime.substring(2) + timeTypeEnd)
     }
     return ("TBD")

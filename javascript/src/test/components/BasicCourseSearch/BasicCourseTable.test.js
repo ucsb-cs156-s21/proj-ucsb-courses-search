@@ -107,21 +107,21 @@ describe("BasicCourseTable tests", () => {
     expect( queryByText("09:30AM - 10:45AM")).not.toBe(null);
   });
 
-  test("check that lecture times appear in 12 hour format for begin time", () => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
-    });
-    const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
-    expect( queryByText("12:30PM - 1:45PM")).not.toBe(null);
-  });
+  // test("check that lecture times appear in 12 hour format for begin time", () => {
+  //   useAuth0.mockReturnValue({
+  //     isAuthenticated: true,
+  //   });
+  //   const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+  //   expect( queryByText("12:30PM - 1:45PM")).not.toBe(null);
+  // });
 
-  test("check that lecture times appear in 12 hour format for end time", () => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
-    });
-    const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
-    expect( queryByText("11:00AM - 12:15PM")).not.toBe(null);
-  });
+  // test("check that lecture times appear in 12 hour format for end time", () => {
+  //   useAuth0.mockReturnValue({
+  //     isAuthenticated: true,
+  //   });
+  //   const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+  //   expect( queryByText("11:00AM - 12:15PM")).not.toBe(null);
+  // });
 
   test("check that lectures times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
