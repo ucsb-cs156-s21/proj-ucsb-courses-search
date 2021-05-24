@@ -14,10 +14,13 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
 
   const COLOR_UNAVAILABLE = availabilityColors.UNAVAILABLE;
   const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
-  const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = { backgroundColor: '#CEDEFA' };
-  const COLOR_AVAILABLESECTION = { backgroundColor: '#EDF3FE' };
-  const CLOSEFULL_THRESHOLD = 0.2;
-  const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed === "Y");
+
+  const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE', fontStyle: 'italic'};
+  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080', fontStyle: 'italic' };
+  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761', fontStyle: 'italic' };
+  const CLOSEFULL_THRESHOLD=0.2;
+  const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (CLOSEFULL_THRESHOLD * row.maxEnroll));
 
@@ -27,7 +30,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       //the color to we do something.
 
       for (var i in classes) {
-        if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
+        if (classes[i].classSections.length > 0 && classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
           if (classes[i].classSections.length === 1) {
             //This code should only execute when dealing with stand alone lectures.
             if (classUnavailable(row)) {
@@ -45,13 +48,21 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return COLOR_UNAVAILABLE;
+        return COLOR_UNAVAILABLESECTION;
       }
       if (closeToFull(row)) {
-        return COLOR_CLOSEFULL;
+        return COLOR_CLOSEFULLSECTION;
       }
       return COLOR_AVAILABLESECTION;
     }
+  }
+  const renderCourseEnrolled = (_cell, row) => {
+    const enrolled = row.enrolledTotal;
+    return (enrolled)
+  }
+  const renderCourseCapacity = (_cell, row) => {
+    const capacity = row.maxEnroll;
+    return (capacity)
   }
   const renderSectionTimes = (_cell, row) => {
     if (row.timeLocations.length > 0) {
@@ -148,6 +159,16 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     formatter: (cell, row) => renderSectionTimes(cell, row),
     csvFormatter: (cell, row) => renderSectionTimes(cell, row)
   }, {
+    dataField: 'enrolledTotal',
+    text: 'Enrolled',
+    formatter: (cell, row) => renderCourseEnrolled(cell, row),
+    csvFormatter: (cell, row) => renderCourseEnrolled(cell, row)
+  }, {
+    dataField: 'maxEnroll',
+    text: 'Course Capacity',
+    formatter: (cell, row) => renderCourseCapacity(cell, row),
+    csvFormatter: (cell, row) => renderCourseCapacity(cell, row)
+  }, {
     dataField: 'course.unitsFixed',
     text: 'Unit',
     csvExport: false
@@ -198,6 +219,14 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       text: 'YYYYQ'
     }
   );
+
+  if ((sections.length === 0) || (sections===null)) {
+    return (
+      <div data-testid="no-course-data">
+      </div>
+    )
+  }
+  
   return (
     <ToolkitProvider
       keyField="uniqueKey"
