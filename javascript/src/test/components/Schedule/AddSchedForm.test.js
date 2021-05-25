@@ -24,7 +24,7 @@ describe('AddSchedForm tests', () => {
   });
 
   test('when I choose a quarter, the state for quarter changes', () => {
-    const { getByTestId, getByLabelText } = render(<AddSchedForm />);
+    const { getByLabelText } = render(<AddSchedForm />);
     const schedQuarter = getByLabelText('Quarter');
     userEvent.selectOptions(schedQuarter, '20211');
     expect(schedQuarter.value).toBe('20211');

@@ -54,7 +54,7 @@ const ScheduleTable = ({ data, deleteSchedule }) => {
     {
       dataField: 'quarter',
       text: 'Quarter',
-      formatter: (cell, row) => <p> {yyyyqToQyy(cell)}</p>,
+      formatter: (cell, _row) => <p> {yyyyqToQyy(cell)}</p>,
     },
     {
       text: 'Edit',
