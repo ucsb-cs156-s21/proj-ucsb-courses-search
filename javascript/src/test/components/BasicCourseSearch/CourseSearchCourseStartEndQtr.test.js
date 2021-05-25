@@ -87,7 +87,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         const expectedFields = {
             startQuarter: "20204",
             endQuarter: "20204",
-            subjectArea: "CMPSC",
+            subject: "CMPSC",
             courseNumber: "130",
             courseSuf: "A"
         };
@@ -195,7 +195,7 @@ describe("CourseSearchCourseStartEndQtr tests", () => {
         const cs138Fields = {
             startQuarter: "20204",
             endQuarter: "20204",
-            subjectArea: "CMPSC",
+            subject: "CMPSC",
             courseNumber: "138",
             courseSuf: ""
         };

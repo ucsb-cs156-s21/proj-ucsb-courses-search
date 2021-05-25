@@ -59,7 +59,7 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
         const expectedFields = {
             quarter: "20204",
-            department: "MATH"
+            subject: "MATH"
         };
 
         const selectQuarter = getByLabelText("Quarter")
