@@ -14,16 +14,15 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
     const { addToast } = useToasts()
-    const subject = allTheSubjects[0].subjectCode;
 
-    // const { data: subjects, error: errorGettingSubjects } = useSWR(
-	// 	"/api/public/subjects",
-	// 	fetchSubjectAreas,
-	// 	{
-	// 		initialData: allTheSubjects,
-	// 		revalidateOnMount: true,
-	// 	}
-	// );
+    const { data: subjects, error: errorGettingSubjects } = useSWR(
+		"/api/public/subjects",
+		fetchSubjectAreas,
+		{
+			initialData: allTheSubjects,
+			revalidateOnMount: true,
+		}
+	);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -92,8 +91,8 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
                 </Form.Control>
             </Form.Group>
             <SelectSubject
-				subjects={allTheSubjects}
-				subject={subject}
+				subjects={subjects}
+				subject={subjectArea}
 				setSubject={handleSubjectAreaOnChange}
 			/>
             <Form.Group controlId="CourseNameSearch.CourseNumber">
