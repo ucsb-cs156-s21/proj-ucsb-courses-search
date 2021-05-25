@@ -10,7 +10,7 @@ import useSWR from "swr";
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [startQuarter, setStartQuarter] = useState("20212");
     const [endQuarter, setEndQuarter] = useState("20212");
-    const [subjectArea, setSubjectArea] = useState("CMPSC   ");
+    const [subject, setSubject] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
     const { addToast } = useToasts()
@@ -26,7 +26,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchJSON(event, { startQuarter, endQuarter, subjectArea, courseNumber, courseSuf}).then((courseJSON) => {
+        fetchJSON(event, { startQuarter, endQuarter, subject, courseNumber, courseSuf}).then((courseJSON) => {
             if(courseJSON.total === 0){
                 addToast("There are no courses that match the requested criteria.", { appearance: "error" });
             }
@@ -42,8 +42,8 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
         setEndQuarter(event.target.value);
     };
 
-    const handleSubjectAreaOnChange = (subject) => {
-        setSubjectArea(subject);
+    const handleSubjectOnChange = (subject) => {
+        setSubject(subject);
     };
 
     const handleCourseNumberOnChange = (event) => {
@@ -92,8 +92,8 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             </Form.Group>
             <SelectSubject
 				subjects={subjects}
-				subject={subjectArea}
-				setSubject={handleSubjectAreaOnChange}
+				subject={subject}
+				setSubject={handleSubjectOnChange}
 			/>
             <Form.Group controlId="CourseNameSearch.CourseNumber">
                 <Form.Label>Course Number (Try searching '16' or '130A')</Form.Label>
