@@ -25,7 +25,7 @@ describe('AddSchedForm tests', () => {
 
   test('when I choose a quarter, the state for quarter changes', () => {
     const { getByTestId, getByLabelText } = render(<AddSchedForm />);
-    const schedQuarter = getByLabelText('PersonalScheduleQuarter');
+    const schedQuarter = getByLabelText('Quarter');
     userEvent.selectOptions(schedQuarter, '20211');
     expect(schedQuarter.value).toBe('20211');
   });
@@ -68,7 +68,7 @@ describe('AddSchedForm tests', () => {
     userEvent.type(schedName, 'MySchedule');
     const schedDescription = getByTestId('schedule-description');
     userEvent.type(schedDescription, 'Classes');
-    const schedQuarter = getByLabelText('PersonalScheduleQuarter');
+    const schedQuarter = getByLabelText('Quarter');
     userEvent.selectOptions(schedQuarter, '20211');
 
     const submitButton = getByTestId('schedule-submit');

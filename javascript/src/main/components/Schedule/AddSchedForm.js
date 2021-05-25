@@ -80,7 +80,7 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
         quarter={quarter}
         setQuarter={handleQuarterOnChange}
         controlId={'PersonalSchedule.Quarter'}
-        label={'PersonalScheduleQuarter'}
+        label={'PQuarter'}
       />
 
       <Button variant="primary" type="submit" data-testid="schedule-submit">
