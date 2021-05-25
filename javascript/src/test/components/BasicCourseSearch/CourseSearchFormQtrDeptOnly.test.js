@@ -64,8 +64,8 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
     
 
         const submitButton = getByText("Submit");
@@ -106,8 +106,8 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
     
 
         const submitButton = getByText("Submit");
