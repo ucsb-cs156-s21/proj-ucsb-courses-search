@@ -16,8 +16,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.HashMap;
 
 import java.util.List;
 
@@ -259,26 +259,24 @@ public class StatisticsController {
             makeFormattedCourseName(department, courseNumber, courseSuf)
         );
         
-        Dictionary<String, Integer> professorInfo = new Hashtable<>();
+        Map<String, String> professorInfo = new HashMap<>();
 
         for(int i = 0; i < courseResults.size(); i++){
-            if(courseResults.get(i).getTitle() == makeFormattedCourseName(department, courseNumber, courseSuf)){
-                //Existing Professor
-                if(professorInfo.get(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor()) != null){
-                    String instructor = courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor();
-                    professorInfo.put(instructor, professorInfo.get(instructor) + 1);
-                
+            String instructor = courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor();
+            if(professorInfo.get(instructor) != null){
+                int temp = Integer.parseInt(professorInfo.get(instructor));
+                professorInfo.put(instructor, Integer.toString(temp + 1));
+            
 
-                //New Professor
-                }else{
-                    professorInfo.put(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor(), 1);
-                }   
-            }
+            //New Professor
+            }else{
+                professorInfo.put(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor(), "1");
+            }   
         }
 
-        System.out.println(professorInfo);
         String body = mapper.writeValueAsString(professorInfo);
         
+        System.out.println(body);
         return ResponseEntity.ok().body(body);
     }
 }

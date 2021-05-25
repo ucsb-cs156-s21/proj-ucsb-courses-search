@@ -11,15 +11,12 @@ const SingleCourseSearch = () => {
     const [tableData, setTableData] = useState([]);
 
     const setJsonTableData = (json) => {
-        console.log(json);
-        let newArray = json.map((item, index) => ({index, ...item}));
-        for (var i = 0; i < newArray.length; i++) {
-            newArray[i].index++;
-        }
-        newArray.forEach((item) => {
-            item["quarter"] = fromFormat(item["quarter"]);
-        });
-        setTableData(newArray);
+        const keys = Object.keys(json);
+        keys.forEach(function (item, index) {
+            var temp = {"professor":item, "professorCount":json[item]}
+            tableData[index] = temp;
+        })
+
         setTableVisibility(true);
     }
 

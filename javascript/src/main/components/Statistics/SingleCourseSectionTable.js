@@ -27,7 +27,6 @@ const alternate = (_cell, _row, rowIndex, _colIndex) => {
 };
 
 const SingleCourseSectionTable = ( {data} ) => {
-
   const columns = [{
     dataField: 'professor',
     text: 'Professor Name',
@@ -35,8 +34,6 @@ const SingleCourseSectionTable = ( {data} ) => {
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor,
-    //formatter: (cell, row) => renderInstructors(cell, row),
-    //csvFormatter: (cell, row) => renderInstructors(cell, row)
   },{
     dataField: 'professorCount',
     text: 'Times Taught',
@@ -44,16 +41,8 @@ const SingleCourseSectionTable = ( {data} ) => {
     sort: true,
     headerStyle: headerStyleColor,
     footerStyle: footerStyleColor
-    // formatter: (cell, row) => renderInstructors(cell, row),
-    // csvFormatter: (cell, row) => renderInstructors(cell, row)
   }
 ];
-
-const renderInstructors = (_cell, row) => {
-  console.log(row);
-  const instructor = (row.classSections[0].instructors[0].instructor);
-  return (instructor)
-}
 
   return (
     <Container>
