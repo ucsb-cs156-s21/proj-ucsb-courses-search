@@ -15,7 +15,9 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
   const quarters = quarterRange('20084', '20214');
   const localQuarter = localStorage.getItem('PersonalSchedule.Quarter');
   const [quarter, setQuarter] = useState(
-    existingSchedule.quarter || localQuarter || quarters[0].yyyyq
+    (existingSchedule ? existingSchedule.quarter : null) ||
+      localQuarter ||
+      quarters[0].yyyyq
   );
 
   const handleSubmit = (event) => {
@@ -77,8 +79,8 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
         quarters={quarters}
         quarter={quarter}
         setQuarter={handleQuarterOnChange}
-        controlId={'BasicSearch.Quarter'}
-        label={'Quarter'}
+        controlId={'PersonalSchedule.Quarter'}
+        label={'PersonalScheduleQuarter'}
       />
 
       <Button variant="primary" type="submit" data-testid="schedule-submit">
