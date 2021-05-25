@@ -11,6 +11,7 @@ const SingleCourseSearch = () => {
     const [tableData, setTableData] = useState([]);
 
     const setJsonTableData = (json) => {
+        console.log(json);
         let newArray = json.map((item, index) => ({index, ...item}));
         for (var i = 0; i < newArray.length; i++) {
             newArray[i].index++;

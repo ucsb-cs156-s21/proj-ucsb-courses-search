@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import java.util.List;
 
@@ -61,6 +63,8 @@ import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
 
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.Instructor;
 
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
@@ -242,36 +246,38 @@ public class StatisticsController {
             + String.format( "%-2s", courseSuf.toUpperCase()    ) // 'A '
         ;
     }
-    
+
     @GetMapping(value = "/singleCourseSearch", produces = "application/json")
     public ResponseEntity<String> singleCourseSearch(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, 
     @RequestParam(required = true) String department, @RequestParam(required = true) String courseNumber,@RequestParam(required = true) String courseSuf)
             throws JsonProcessingException {
 
         
-        String body = mapper.writeValueAsString(
-            courseRepository.findByQuarterIntervalAndCourseName(
-                startQuarter, 
-                endQuarter, 
-                makeFormattedCourseName(department, courseNumber, courseSuf)));
-
-        // MatchOperation matchOperation = match(Criteria.where("quarter").gte(startQuarter).lte(endQuarter));
-        // UnwindOperation unwindOperation = unwind("$classSections", "index", false);
-        // MatchOperation onlyClasses = match(Criteria.where("instructors").is(courseName));
+        List<Course> courseResults = courseRepository.findByQuarterIntervalAndCourseName (
+            startQuarter    ,
+            endQuarter      ,
+            makeFormattedCourseName(department, courseNumber, courseSuf)
+        );
         
-        // String courseName = makeFormattedCourseName(department, courseNumber, courseSuf);
+        Dictionary<String, Integer> professorInfo = new Hashtable<>();
 
-        // MatchOperation onlyLectures = match(Criteria.where("index").is(0));
-        // MatchOperation onlyProfessor = match(Criteria.where("classSections.instructors[0].instructor").is("$professor"));
-        // GroupOperation groupOperation = group("professor").count().as("professorCount");
+        for(int i = 0; i < courseResults.size(); i++){
+            if(courseResults.get(i).getTitle() == makeFormattedCourseName(department, courseNumber, courseSuf)){
+                //Existing Professor
+                if(professorInfo.get(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor()) != null){
+                    String instructor = courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor();
+                    professorInfo.put(instructor, professorInfo.get(instructor) + 1);
+                
 
-        // Aggregation aggregation = newAggregation(matchOperation, unwindOperation, groupOperation);
+                //New Professor
+                }else{
+                    professorInfo.put(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor(), 1);
+                }   
+            }
+        }
 
-        // AggregationResults<SingleCourseSearch> result = mongoTemplate.aggregate(aggregation, "professor",
-        //         SingleCourseSearch.class);
-        // List<SingleCourseSearch> qo = result.getMappedResults();
-
-        // String body = mapper.writeValueAsString(qo);
+        System.out.println(professorInfo);
+        String body = mapper.writeValueAsString(professorInfo);
         
         return ResponseEntity.ok().body(body);
     }
