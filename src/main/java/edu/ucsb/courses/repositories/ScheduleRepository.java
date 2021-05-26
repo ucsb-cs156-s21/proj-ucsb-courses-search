@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface ScheduleRepository extends CrudRepository<Schedule, Long> {
     List<Schedule> findAll();
     List<Schedule> findByUserId(String userId);
+    Optional<Schedule> findById(String id);
 }
