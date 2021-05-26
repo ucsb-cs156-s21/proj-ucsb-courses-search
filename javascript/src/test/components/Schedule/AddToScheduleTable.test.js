@@ -34,23 +34,21 @@ describe("AddToScheduleForm tests", () => {
     await findByText("second");
   });
 
-  // test("renders with add to button ", () => {
+  test("renders with add to button ", () => {
     
-    
+    const { getByTestId } = render(
+    <Router history={createMemoryHistory()}>
+        <AddToScheduleTable
+            data={schedulesList}
+        />
+    </Router>
+      );
 
-  //   const { getByTestId } = render(
-  //   <Router history={createMemoryHistory()}>
-  //       <AddToScheduleTable
-  //           data={schedulesList}
-  //       />
-  //   </Router>
-  //     );
+    const addToButton = getByTestId('add-to-button-1');  
+    expect(addToButton).toBeInTheDocument();
+    userEvent.click(addToButton);
 
-  //   const addToButton = getByTestId('add-to-button-1');  
-  //   expect(addToButton).toBeInTheDocument();
-  //   userEvent.click(addToButton);
-
-  // });
+  });
 
 
 });

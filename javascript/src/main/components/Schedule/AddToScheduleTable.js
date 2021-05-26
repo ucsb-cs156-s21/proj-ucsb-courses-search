@@ -7,9 +7,9 @@ const AddToScheduleTable = ({ data }) => {
 
   const history = useHistory();
 
-  const renderAddToButton = () => {
+  const renderAddToButton = (id) => {
      return (
-       <Button data-testid={`add-to-button-$`} onClick={() => {
+       <Button data-testid={`add-to-button-${id}`} onClick={() => {
          
        }}>Add To</Button>
      )
@@ -55,7 +55,7 @@ const AddToScheduleTable = ({ data }) => {
      text: "Add To",
      isDummyField: true,
      dataField: "add to",
-     formatter: (_cell, row) => renderAddToButton()
+     formatter: (_cell, row) => renderAddToButton(row.id)
   }
   // {
   //    text: "Edit",
