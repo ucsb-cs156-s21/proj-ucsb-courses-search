@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Container, Row } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import SelectSubject from "./SelectSubject";
 import useSWR from "swr";
 import { useToasts } from "react-toast-notifications";
@@ -7,8 +7,6 @@ import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
-
-import Col from 'react-bootstrap/Col'
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 	const quarters = quarterRange("20084", "20214");
