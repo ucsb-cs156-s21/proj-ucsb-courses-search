@@ -48,8 +48,15 @@ describe("SingleCourseSectionForm tests", () => {
     test("when I select a course number without suffix, the state for course number changes,", () => {
         const { getByLabelText } = render(<SingleCourseSectionForm />);
         const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
-        userEvent.type(selectCourseNumber, "16");
-        expect(selectCourseNumber.value).toBe("16");
+        userEvent.type(selectCourseNumber, "130");
+        expect(selectCourseNumber.value).toBe("130");
+    });
+
+    test("when I select a course number without number, the state for course number changes,", () => {
+        const { getByLabelText } = render(<SingleCourseSectionForm />);
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
+        userEvent.type(selectCourseNumber, "");
+        expect(selectCourseNumber.value).toBe("");
     });
 
     test("when I select a course number with suffix, the state for course number changes,", () => {
@@ -57,13 +64,6 @@ describe("SingleCourseSectionForm tests", () => {
         const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
         userEvent.type(selectCourseNumber, "130A");
         expect(selectCourseNumber.value).toBe("130A");
-    });
-
-    test("when I select a course number without number, the state for course number changes,", () => {
-        const { getByLabelText } = render(<SingleCourseSectionForm />);
-        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
-        userEvent.type(selectCourseNumber, "A");
-        expect(selectCourseNumber.value).toBe("A");
     });
 
     test("when I click submit, the right stuff happens", async () => {
@@ -91,7 +91,8 @@ describe("SingleCourseSectionForm tests", () => {
             startQuarter: "20204",
             endQuarter: "20211",
             department: "CMPSC",
-            courseNumber: "130A",
+            courseNumber: "",
+            courseSuf: ""
         };
 
         const submitButton = getByText("Submit");
