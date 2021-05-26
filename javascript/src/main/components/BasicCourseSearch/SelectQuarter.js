@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState }  from "react";
 import { Form } from "react-bootstrap";
 
-const SelectQuarter = ({ quarters, quarter, setQuarter, controlId, label}) => {
+const SelectQuarter = ({ quarters, _quarter, setQuarter, controlId, label}) => {
+
+    const localSearchQuarter = localStorage.getItem(controlId);
+    const [quarter, setQuarterState] = useState(localSearchQuarter || "20212");
+
 
     const handleQuarterOnChange = (event) => {
+        localStorage.setItem(controlId, event.target.value);
+        setQuarterState(event.target.value);
         setQuarter(event.target.value);
-
     };
 
 
