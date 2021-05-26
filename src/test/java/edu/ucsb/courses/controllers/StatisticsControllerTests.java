@@ -33,6 +33,7 @@ import edu.ucsb.courses.documents.statistics.TotalCoursesDept;
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 import edu.ucsb.courses.documents.statistics.OpenCourse;
+import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
 
 // @Import(SecurityConfig.class) applies the security rules 
 // so that /api/public/** endpoints don't require authentication.
@@ -269,7 +270,7 @@ public class StatisticsControllerTests {
 
         // Test open courses for summer quarter of 2020, as the number of open courses was reasonable compared to other quarters
         String quarter = "20203";
-
+    
         ocList.add(new OpenCourse(quarter, "COMPUTER ARCHITECT", "CMPSC 154", 16, 40, 24));
         ocList.add(new OpenCourse(quarter, "PROBLEM SOLVING II", "CMPSC 24", 30, 70, 40));
         ocList.add(new OpenCourse(quarter, "MACHINE LEARNING", "CMPSC 165B", 39, 40, 1));
@@ -284,6 +285,30 @@ public class StatisticsControllerTests {
         List<OpenCourse> resultFromPage = OpenCourse.listFromJSON(responseString);
 
         assertEquals(ocList, resultFromPage);
+    }
+
+    @Test
+    public void test_singleCourseSearch() throws Exception{
+        String url = "/api/public/statistics/SingleCourseSearch";
+
+        List<SingleCourseSearch> singleCourseSearchList = new ArrayList<SingleCourseSearch>();
+    
+        singleCourseSearchList.add(new SingleCourseSearch(1, "Agrawal"));
+
+        // when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
+        //  any(String.class))).thenReturn(singleCourseSearchList);
+
+        MvcResult response = mockMvc.perform(get(url)
+            .queryParam("startQuarter", "20204")
+            .queryParam("endQuarter","20211")
+            .queryParam("department", "CMPSC")
+            .queryParam("courseNumber", "130")
+            .queryParam("courseSuf", "A")
+            .contentType("application/json")).andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        List<SingleCourseSearch> resultFromPage = SingleCourseSearch.listFromJSON(responseString);
+
+        assertEquals(singleCourseSearchList, resultFromPage);
     }
 
 }

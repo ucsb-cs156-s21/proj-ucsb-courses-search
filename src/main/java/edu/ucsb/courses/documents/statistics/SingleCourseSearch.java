@@ -24,8 +24,8 @@ public class SingleCourseSearch {
     }
 
     public SingleCourseSearch(int professorCount,String professor) {
-        this.professorCount = 5000;
-        this.professor = "Testing";
+        this.professorCount = professorCount;
+        this.professor = professor;
     }
 
     public String getProfessor() {
