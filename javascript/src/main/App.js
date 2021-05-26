@@ -115,10 +115,11 @@ function App() {
            exact
            authorizedRoles={["admin", "member"]}
           />
-          <AuthorizedRoute path="/schedule/addToSchedule"
-           component={AddToSchedule}
-           exact
-           authorizedRoles={["admin", "member"]}
+          <AuthorizedRoute
+            path="/addToSchedule"
+            component={AddToSchedule}
+            exact
+            authorizedRoles={["admin", "member"]}
           />
         </Switch>
       </Container>

@@ -3,24 +3,33 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-const AddToScheduleTable = ({ data, deleteSchedule }) => {
+const AddToScheduleTable = ({ data }) => {
 
   const history = useHistory();
-  const renderEditButton = (id) => {
-    return (
-      <Button data-testid={`edit-button-${id}`} onClick={() => { 
-        history.push(`/schedule/update/${id}`) ;
-      }}>Edit</Button>
-    )
+
+  const renderAddToButton = () => {
+     return (
+       <Button data-testid={`add-to-button-$`} onClick={() => {
+         
+       }}>Add To</Button>
+     )
   }
 
-  const renderDeleteButton = (id) => {
-    return (
-      <Button variant="danger" data-testid={`delete-button-${id}`} onClick={() => {
-        return deleteSchedule(id);
-      }}>Delete</Button>
-    )
-  }
+  // const renderEditButton = (id) => {
+  //    return (
+  //      <Button data-testid={`edit-button-${id}`} onClick={() => { 
+  //        history.push(`/schedule/update/${id}`) ;
+  //      }}>Edit</Button>
+  //    )
+  //  }
+
+  //  const renderDeleteButton = (id) => {
+  //    return (
+  //      <Button variant="danger" data-testid={`delete-button-${id}`} onClick={() => {
+  //        return deleteSchedule(id);
+  //      }}>Delete</Button>
+  //    )
+  //  }
 
   const columns = [{
     dataField: 'id',
@@ -43,16 +52,22 @@ const AddToScheduleTable = ({ data, deleteSchedule }) => {
     text: 'Quarter'
   },
   {
-    text: "Edit",
-    isDummyField: true,
-    dataField: "edit",
-    formatter: (_cell, row) => renderEditButton(row.id)
-  }, {
-    text: "Delete",
-    isDummyField: true,
-    dataField: "delete",
-    formatter: (_cell, row) => renderDeleteButton(row.id)
+     text: "Add To",
+     isDummyField: true,
+     dataField: "add to",
+     formatter: (_cell, row) => renderAddToButton()
   }
+  // {
+  //    text: "Edit",
+  //    isDummyField: true,
+  //    dataField: "edit",
+  //    formatter: (_cell, row) => renderEditButton(row.id)
+  // }, {
+  //    text: "Delete",
+  //    isDummyField: true,
+  //    dataField: "delete",
+  //    formatter: (_cell, row) => renderDeleteButton(row.id)
+  // }
   ];
 
   return (

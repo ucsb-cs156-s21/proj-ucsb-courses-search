@@ -23,34 +23,32 @@ const AddToSchedule = () => {
     mutateSchedules();
   }, [mutateSchedules]);
 
-  const deleteSchedule = buildDeleteSchedule(
-    getToken,
-    (response) => {
-      if (response.error) {
-        addToast(response.error, { appearance: 'error' });
-      }
-      else {
-        mutateSchedules();
-        addToast("Schedule deleted", { appearance: 'success' });
-      }
-    },
-    (_err) => {
-      addToast("Error deleting schedule", { appearance: 'error' });
-    }
-  );
+  // const deleteSchedule = buildDeleteSchedule(
+  //   getToken,
+  //   (response) => {
+  //     if (response.error) {
+  //       addToast(response.error, { appearance: 'error' });
+  //     }
+  //     else {
+  //       mutateSchedules();
+  //       addToast("Schedule deleted", { appearance: 'success' });
+  //     }
+  //   },
+  //   (_err) => {
+  //     addToast("Error deleting schedule", { appearance: 'error' });
+  //   }
+  // );
 
   return (
     <Jumbotron>
+      <h1>
+      Choose the schedule to add to
+      </h1>
       <p>
-      The personal schedule page is intended as a place where students, faculty or staff can plan out a schedule of courses for a particular quarter.
+      The Add To Schedule page is intended as a place where students, faculty or staff can choose which schedule they want to add the course to.
       </p>
-      <Button
-          data-testid={`new-schedule-button`}
-          onClick={() => history.push("/schedule/new")}
-        >
-          New Schedule
-        </Button>
-      {schedules && (<AddToScheduleTable data={schedules} deleteSchedule={deleteSchedule}/>)}
+      {schedules && (<AddToScheduleTable data={schedules}/>)}
+      {/*deleteSchedule={deleteSchedule}*/}
 
     </Jumbotron>
   );
