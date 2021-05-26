@@ -204,7 +204,7 @@ describe("BasicCourseTable tests", () => {
       isAuthenticated: true,
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
-    expect( queryByText("10:00 AM - 10:50 AM")).not.toBe(null);
+    expect( queryByText("1:00 PM - 1:50 PM")).not.toBe(null);
   });
 
  test("check that sections times and days appear as TBD when they don't exist", () => {
