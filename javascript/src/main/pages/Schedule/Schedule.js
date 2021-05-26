@@ -41,6 +41,9 @@ const Schedule = () => {
 
   return (
     <Jumbotron>
+      <p>
+      The personal schedule page is intended as a place where students, faculty or staff can plan out a schedule of courses for a particular quarter.
+      </p>
       <Button
           data-testid={`new-schedule-button`}
           onClick={() => history.push("/schedule/new")}

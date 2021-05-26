@@ -14,8 +14,11 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
 
   const COLOR_UNAVAILABLE = availabilityColors.UNAVAILABLE;
   const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
+
   const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
-  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE', fontStyle: 'italic'};
+  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080', fontStyle: 'italic' };
+  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761', fontStyle: 'italic' };
   const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
 
@@ -27,7 +30,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       //the color to we do something.
 
       for (var i in classes) {
-        if (classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
+        if (classes[i].classSections.length > 0 && classes[i].classSections[0].enrollCode === row.enrollCode && classes[i].classSections[0].section === row.section) {
           if (classes[i].classSections.length === 1) {
             //This code should only execute when dealing with stand alone lectures.
             if (classUnavailable(row)) {
@@ -45,17 +48,41 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return COLOR_UNAVAILABLE;
+        return COLOR_UNAVAILABLESECTION;
       }
       if (closeToFull(row)) {
-        return COLOR_CLOSEFULL;
+        return COLOR_CLOSEFULLSECTION;
       }
       return COLOR_AVAILABLESECTION;
     }
   }
+  const renderCourseEnrolled = (_cell, row) => {
+    const enrolled = row.enrolledTotal;
+    return (enrolled)
+  }
+  const renderCourseCapacity = (_cell, row) => {
+    const capacity = row.maxEnroll;
+    return (capacity)
+  }
   const renderSectionTimes = (_cell, row) => {
-    const times = (row.timeLocations.length > 0) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
-    return times
+    if (row.timeLocations.length > 0) {
+      const startHours = (row.timeLocations[0].beginTime.substring(0, 1) !== "0") ? parseInt(row.timeLocations[0].beginTime.substring(0, 2)) : parseInt(row.timeLocations[0].beginTime.substring(1, 2));
+      const endHours = (row.timeLocations[0].endTime.substring(0, 1) !== "0") ? parseInt(row.timeLocations[0].endTime.substring(0, 2)) : parseInt(row.timeLocations[0].endTime.substring(1, 2));
+      const startDisplayHours = (startHours === 12) ? (startHours) : (startHours % 12);
+      const endDisplayHours = (endHours === 12) ? (endHours) : (endHours % 12);
+      const timeTypeStart = (startHours > 11) ? ("PM") : ("AM");
+      const timeTypeEnd = (endHours > 11) ? ("PM") : ("AM");
+      var resultStart = startDisplayHours.toString();
+      var resultEnd = endDisplayHours.toString();
+      if(startDisplayHours < 10) {
+        resultStart = "0" + startDisplayHours.toString();
+      }
+      if(endDisplayHours < 10) {
+        resultEnd = "0" + endDisplayHours.toString();
+      }
+      return (resultStart + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + resultEnd + row.timeLocations[0].endTime.substring(2) + timeTypeEnd)
+    }
+    return ("TBD")
   }
   const renderSectionDays = (_cell, row) => {
 
@@ -132,6 +159,16 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     formatter: (cell, row) => renderSectionTimes(cell, row),
     csvFormatter: (cell, row) => renderSectionTimes(cell, row)
   }, {
+    dataField: 'enrolledTotal',
+    text: 'Enrolled',
+    formatter: (cell, row) => renderCourseEnrolled(cell, row),
+    csvFormatter: (cell, row) => renderCourseEnrolled(cell, row)
+  }, {
+    dataField: 'maxEnroll',
+    text: 'Course Capacity',
+    formatter: (cell, row) => renderCourseCapacity(cell, row),
+    csvFormatter: (cell, row) => renderCourseCapacity(cell, row)
+  }, {
     dataField: 'course.unitsFixed',
     text: 'Unit',
     csvExport: false
@@ -182,6 +219,14 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       text: 'YYYYQ'
     }
   );
+
+  if ((sections.length === 0) || (sections===null)) {
+    return (
+      <div data-testid="no-course-data">
+      </div>
+    )
+  }
+  
   return (
     <ToolkitProvider
       keyField="uniqueKey"
