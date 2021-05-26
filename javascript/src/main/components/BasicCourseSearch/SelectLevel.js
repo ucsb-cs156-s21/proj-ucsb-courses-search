@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 const SelectLevel = ({ levels, _level, setLevel, controlId, label}) => {
 
     const localSearchLevel = localStorage.getItem(controlId);
-    const [level, setLevelState] = useState(localSearchLevel || "20212");
+    const [level, setLevelState] = useState(localSearchLevel || "U");
 
 
     const handleLevelOnChange = (event) => {

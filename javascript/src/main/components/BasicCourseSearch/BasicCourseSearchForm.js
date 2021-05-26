@@ -52,9 +52,9 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 		});
 	};
 
-	const handleLevelOnChange = (event) => {
-        localStorage.setItem("BasicSearch.CourseLevel", event.target.value);
-		setLevel(event.target.value);
+	const handleLevelOnChange = (level) => {
+        localStorage.setItem("BasicSearch.CourseLevel", level);
+		setLevel(level);
 	};
 
     const handleQuarterOnChange = (quarter) => {
@@ -89,15 +89,6 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 				controlId={"BasicSearch.CourseLevel"}
 				label={"Course Level"}
 			/>
-			{/* <Form.Group controlId="BasicSearch.CourseLevel">
-				<Form.Label>Course Level</Form.Label>
-				<Form.Control as="select" onChange={handleLevelOnChange} value={level}>
-					<option value="L">Undergrad-Lower Division</option>
-					<option value="S">Undergrad-Upper Division</option>
-					<option value="U">Undergrad-All</option>
-					<option value="G">Graduate</option>
-				</Form.Control>
-			</Form.Group> */}
 			<Button variant="primary" type="submit">
 				Submit
 			</Button>
