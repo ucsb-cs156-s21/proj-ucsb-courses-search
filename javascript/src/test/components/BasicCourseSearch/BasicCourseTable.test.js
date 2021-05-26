@@ -116,8 +116,9 @@ jest.mock("swr");
       isAuthenticated: true,
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
-    expect( queryByText("09:30 - 10:45")).not.toBe(null);
+    expect( queryByText("09:30AM - 10:45AM")).not.toBe(null);
   });
+
 
   test("check that lectures times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
@@ -213,7 +214,7 @@ jest.mock("swr");
       isAuthenticated: true,
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
-    expect( queryByText("09:00 - 09:50")).not.toBe(null);
+    expect( queryByText("09:00AM - 09:50AM")).not.toBe(null);
   });
 
  test("check that sections times and days appear as TBD when they don't exist", () => {
