@@ -9,7 +9,7 @@ import edu.ucsb.courses.entities.Schedule;
 import edu.ucsb.courses.entities.ScheduleItem;
 
 /**
- * Represents a user's personal schedule 
+ * Represents a user's personal schedule by schedule Id
  * 
  * This model will be used on /get/{scheduleId} to send back a Schedule 
  * and a List of ScheduleItem associated with that scheduleId
