@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  padding-bottom:100px;
+  padding-bottom: 100px;
 }
 
 .App-logo {
@@ -84,4 +84,8 @@ p.brand {
 
 .footer-custom {
   font-size: 70%;
+}
+
+.searchForm {
+  margin-top: -5%;
 }

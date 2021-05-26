@@ -52,7 +52,7 @@ const Home = () => {
             <div className="text-left">
                 <h5>Welcome to the UCSB Courses Search App!</h5>
 
-                <BasicCourseSearchForm setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
+                <BasicCourseSearchForm className="searchForm" setCourseJSON={setCourseJSON} fetchJSON={fetchBasicCourseJSON} />
 
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
