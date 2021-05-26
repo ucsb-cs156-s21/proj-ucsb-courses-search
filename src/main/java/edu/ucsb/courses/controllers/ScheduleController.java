@@ -115,9 +115,7 @@ public class ScheduleController {
         List<ScheduleItem> classes = scheduleItemRepository.findByScheduleId(id);
         if (target.isPresent() && target.get().getUserId().equals(userId)) {
           PersonalSchedule ps = new PersonalSchedule(target.get(),classes);
-
           return ResponseEntity.ok().body(mapper.writeValueAsString(ps));
-          // return ResponseEntity.ok().body(mapper.writeValueAsString(target.get().toString()));
         }
         return ResponseEntity.badRequest().build();
     }
