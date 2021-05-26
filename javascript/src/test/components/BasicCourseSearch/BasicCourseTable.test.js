@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable";
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
 import userEvent from "@testing-library/user-event";
-import moment from 'moment';
 import { useAuth0 } from "@auth0/auth0-react";
 
 jest.mock("@auth0/auth0-react");
