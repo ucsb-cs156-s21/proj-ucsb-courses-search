@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 import { Button } from "react-bootstrap";
 import { CSVLink } from "react-csv";
@@ -70,10 +69,6 @@ const Basic = () => {
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]}/>
-                <JSONPrettyCard
-                    expression={"courseJSON"}
-                    value={courseJSON}
-                />
             </div>
         </Jumbotron>
     );
