@@ -7,6 +7,7 @@ import SelectSubject from "./SelectSubject";
 import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import useSWR from "swr";
+import React, { useState, useEffect } from "react";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const localSearchQuarter = localStorage.getItem("BasicSearchQtrDept.Quarter");
@@ -16,6 +17,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
 	const [quarter, setQuarter] = useState(localSearchQuarter || quarters[0].yyyyq);
 	const [subject, setSubject] = useState(localSearchDept || "CMPSC");
 	const { addToast } = useToasts();
+	const [errorNotified, setErrorNotified] = useState(false);
 
 	const { data: subjects, error: errorGettingSubjects } = useSWR(
 		"/api/public/subjects",

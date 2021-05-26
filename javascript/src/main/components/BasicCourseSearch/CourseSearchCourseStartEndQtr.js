@@ -5,6 +5,7 @@ import SelectSubject from "./SelectSubject";
 import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import useSWR from "swr";
+import React, { useState, useEffect } from "react";
 
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
@@ -14,6 +15,7 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
     const { addToast } = useToasts()
+    const [errorNotified, setErrorNotified] = useState(false);
 
     const { data: subjects, error: errorGettingSubjects } = useSWR(
 		"/api/public/subjects",
