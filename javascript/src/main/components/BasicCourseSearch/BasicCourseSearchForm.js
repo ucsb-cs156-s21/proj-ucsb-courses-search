@@ -11,7 +11,10 @@ import SelectLevel from "main/components/BasicCourseSearch/SelectLevel";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 	const quarters = quarterRange("20084", "20214");
-	const levels = ["Undergrad-Lower", "Undergrad-Upper Division", "Undergrad-All", "Graduate"];
+	const levels = [["L","Undergrad-Lower"], 
+					["S","Undergrad-Upper Division"], 
+					["U","Undergrad-All"], 
+					["G","Graduate"]];
 
     const localSubject = localStorage.getItem("BasicSearch.Subject");
     const localQuarter = localStorage.getItem("BasicSearch.Quarter");
