@@ -68,7 +68,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
 
     const times = ( (row.timeLocations.length > 0) && (row.timeLocations[0].days !== null) ) ? (row.timeLocations[0].beginTime + " - " + row.timeLocations[0].endTime) : ("TBD");
     
-    if(row.timeLocations[0].days == null){
+    if(times == "TBD"){
       return times
     }
 
