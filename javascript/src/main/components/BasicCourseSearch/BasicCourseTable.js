@@ -16,14 +16,20 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
 
   const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
-  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE', fontStyle: 'italic'};
-  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080', fontStyle: 'italic' };
-  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761', fontStyle: 'italic' };
+  const FONTSTYLE_SECTION = {fontStyle: 'italic'}
+  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
+  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080'};
+  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761'};
   const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (CLOSEFULL_THRESHOLD * row.maxEnroll));
 
+  // function Italicize(props) {
+  //   const RETURN_VALUE = {props, fontStyle: 'italic'}
+  //   return RETURN_VALUE
+  // }
+  
   const rowStyle = (row) => {
     if (row.section % 100 === 0) {
       //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
@@ -56,6 +62,13 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       return COLOR_AVAILABLESECTION;
     }
   }
+
+  const fontStyle = (row) => {
+    if (row.section % 100 !== 0) {
+      return FONTSTYLE_SECTION
+    }
+  }
+
   const renderCourseEnrolled = (_cell, row) => {
     const enrolled = row.enrolledTotal;
     return (enrolled)
@@ -248,7 +261,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
           <div>
             <ExportCSVButton {...props.csvProps} />
             <hr />
-            <BootstrapTable keyField="uniqueKey" columns={columns} rowStyle={rowStyle} {...props.baseProps} />
+            <BootstrapTable keyField="uniqueKey" columns={columns} rowStyle={rowStyle} fontStyle={fontStyle} {...props.baseProps} />
           </div>
         )
       }
