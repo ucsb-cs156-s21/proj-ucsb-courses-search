@@ -300,6 +300,7 @@ public class StatisticsControllerTests {
         List<Instructor> instList = new ArrayList<Instructor>();
 
         Course newclass = new Course();
+        Course newclass2 = new Course();
     
         Section newSection = new Section();
         Section newSection2 = new Section();
@@ -318,7 +319,16 @@ public class StatisticsControllerTests {
         newclass.setGeneralEducation(geList);
 
         newclass.setClassSections(sectionList);
+
+        newclass2.setQuarter("20204");
+        newclass2.setCourseId("CMPSC   130A ");
+        newclass2.setDescription("blank");
+        newclass2.setClassSections(sectionList);
+        newclass2.setGeneralEducation(geList);
+
+        newclass2.setClassSections(sectionList);
         singleCourseSearchList.add(newclass);
+        singleCourseSearchList.add(newclass2);
 
         when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
          any(String.class))).thenReturn(singleCourseSearchList);
