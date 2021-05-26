@@ -26,6 +26,13 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
 		}
 	);
 
+	useEffect(() => {
+		if (!errorNotified && errorGettingSubjects) {
+			addToast(`${errorGettingSubjects}`, { appearance: "error" });
+			setErrorNotified(true);
+		}
+	}, [errorGettingSubjects, errorNotified, addToast]);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		fetchJSON(event, { quarter, subject }).then((courseJSON) => {

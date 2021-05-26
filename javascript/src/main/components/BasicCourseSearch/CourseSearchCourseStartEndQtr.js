@@ -24,6 +24,13 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
 		}
 	);
 
+    useEffect(() => {
+		if (!errorNotified && errorGettingSubjects) {
+			addToast(`${errorGettingSubjects}`, { appearance: "error" });
+			setErrorNotified(true);
+		}
+	}, [errorGettingSubjects, errorNotified, addToast]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchJSON(event, { startQuarter, endQuarter, subject, courseNumber, courseSuf}).then((courseJSON) => {
