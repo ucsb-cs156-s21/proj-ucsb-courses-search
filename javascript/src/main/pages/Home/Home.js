@@ -31,11 +31,6 @@ const Home = () => {
 
     // courseId, title, sectionNumber, instructor, enroll code, units, total enrolled students, max enrolled
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
-    const courseHeaders = [
-        { label: "courseId", key: "courseId" },
-        { label: "title", key: "title" },
-        { label: "units", key: "unitsFixed" }
-    ]
 
     //Check for closed, cancelled, full status
     const [cancelled, setCancelledChecked] = useState(false);

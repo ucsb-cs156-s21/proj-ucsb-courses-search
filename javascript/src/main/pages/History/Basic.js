@@ -24,11 +24,6 @@ const Basic = () => {
     };
 
     const [courseJSON, setCourseJSON] = useState(initialCourseJSON);
-    const courseHeaders = [
-        { label: "courseId", key: "courseId" },
-        { label: "title", key: "title" },
-        { label: "units", key: "unitsFixed" }
-    ]
 
     //Check for closed, cancelled, full status
     const [cancelled, setCancelledChecked] = useState(false);
