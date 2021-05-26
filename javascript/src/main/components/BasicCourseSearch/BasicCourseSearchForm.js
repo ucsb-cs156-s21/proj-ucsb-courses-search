@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import SelectSubject from "./SelectSubject";
 import useSWR from "swr";
 import { useToasts } from "react-toast-notifications";
@@ -7,6 +7,8 @@ import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
+
+import Col from 'react-bootstrap/Col'
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 	const quarters = quarterRange("20084", "20214");
@@ -65,27 +67,31 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectQuarter
-				quarters={quarters}
-				quarter={quarter}
-				setQuarter={handleQuarterOnChange}
-				controlId={"BasicSearch.Quarter"}
-				label={"Quarter"}
-			/>
-			<SelectSubject
-				subjects={subjects}
-				subject={subject}
-				setSubject={handleSubjectOnChange}
-			/>
-			<Form.Group controlId="BasicSearch.CourseLevel">
-				<Form.Label>Course Level</Form.Label>
-				<Form.Control as="select" onChange={handleLevelOnChange} value={level}>
-					<option value="L">Undergrad-Lower Division</option>
-					<option value="S">Undergrad-Upper Division</option>
-					<option value="U">Undergrad-All</option>
-					<option value="G">Graduate</option>
-				</Form.Control>
-			</Form.Group>
+			<Container>
+				<Row>
+					<Col md = "auto"><SelectQuarter
+						quarters={quarters}
+						quarter={quarter}
+						setQuarter={handleQuarterOnChange}
+						controlId={"BasicSearch.Quarter"}
+						label={"Quarter"}
+					/></Col>
+					<Col md = "auto"><SelectSubject
+						subjects={subjects}
+						subject={subject}
+						setSubject={handleSubjectOnChange}
+					/></Col>
+					<Col md = "auto"><Form.Group controlId="BasicSearch.CourseLevel">
+						<Form.Label>Course Level</Form.Label>
+						<Form.Control as="select" onChange={handleLevelOnChange} value={level}>
+							<option value="L">Undergrad-Lower Division</option>
+							<option value="S">Undergrad-Upper Division</option>
+							<option value="U">Undergrad-All</option>
+							<option value="G">Graduate</option>
+						</Form.Control>
+					</Form.Group></Col>
+				</Row>
+			</Container>
 			<Button variant="primary" type="submit">
 				Submit
 			</Button>
