@@ -14,22 +14,6 @@ const AddToSchedule = () => {
     mutateSchedules();
   }, [mutateSchedules]);
 
-  // const deleteSchedule = buildDeleteSchedule(
-  //   getToken,
-  //   (response) => {
-  //     if (response.error) {
-  //       addToast(response.error, { appearance: 'error' });
-  //     }
-  //     else {
-  //       mutateSchedules();
-  //       addToast("Schedule deleted", { appearance: 'success' });
-  //     }
-  //   },
-  //   (_err) => {
-  //     addToast("Error deleting schedule", { appearance: 'error' });
-  //   }
-  // );
-
   return (
     <Jumbotron>
       <h1>
