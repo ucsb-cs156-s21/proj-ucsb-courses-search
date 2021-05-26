@@ -38,7 +38,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/member/schedule")
 public class ScheduleController {
-    // check this again
     private final Logger logger = LoggerFactory.getLogger(BasicSearchController.class);
 
     private ObjectMapper mapper = new ObjectMapper();
