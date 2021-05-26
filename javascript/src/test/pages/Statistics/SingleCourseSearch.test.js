@@ -13,36 +13,22 @@ describe("SingleCourseSearch page tests", () => {
 
   test("SingleCourseSearch table appears with data after pressing submit", async () => {
     const { findByText } = render(<SingleCourseSearch />);
-    const sampleReturnValue = [{
-      "quarter": "20211",
-      "courseId": "CMPSC 156",
-      "title": "ADV APP PROG",
-      "openSeats": "18"
-    },
-    {
-        "quarter": "20211",
-        "courseId": "CMPSC 32",
-        "title": "OBJ ORIENT DESIGN",
-        "openSeats": "9"
-    }];
-    {
-        "Lokshtanov D" : "1", 
-        "Agrawal D" : "1"
-    }
+    const sampleReturnValue = {"AGRAWAL D": "1",
+    "LOKSHTANOV D": "1"};
 
-    SingleCourseSearch.mockResolvedValue(sampleReturnValue);
+    fetchSingleCourseSearch.mockResolvedValue(sampleReturnValue);
 
     const submitButton = await findByText("Submit");
     userEvent.click(submitButton);
 
-    await findByText("CMPSC 156");
+    await findByText("AGRAWAL D");
   });
 
   test("SingleCourseSearch no results is displayed for empty results", async () => {
     const { findByText } = render(<SingleCourseSearch />);
     const sampleReturnValue = [];
 
-    SingleCourseSearch.mockResolvedValue(sampleReturnValue);
+    fetchSingleCourseSearch.mockResolvedValue(sampleReturnValue);
 
     const submitButton = await findByText("Submit");
     userEvent.click(submitButton);
