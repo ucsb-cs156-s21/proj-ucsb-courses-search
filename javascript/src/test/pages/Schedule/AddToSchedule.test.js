@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Schedule from "main/pages/Schedule/Schedule";
+import AddToSchedule from "main/pages/Schedule/AddToSchedule";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 import { useToasts } from "react-toast-notifications";
@@ -47,7 +47,7 @@ describe("Schedule tests", () => {
       error: undefined,
       mutate: mutateSpy
     });
-    render(<Schedule />);
+    render(<AddToSchedule />);
   });
-
+  
 });
