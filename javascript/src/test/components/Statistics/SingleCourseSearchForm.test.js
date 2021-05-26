@@ -66,6 +66,14 @@ describe("SingleCourseSectionForm tests", () => {
         expect(selectCourseNumber.value).toBe("130A");
     });
 
+    test("when I select a course number with suffix, the state for course number changes,", () => {
+        const { getByLabelText } = render(<SingleCourseSectionForm />);
+        const selectCourseNumber = getByLabelText("Course Number (Try searching '16' or '130A')")
+        userEvent.type(selectCourseNumber, );
+        expect(selectCourseNumber.value).toBe("");
+    });
+
+
     test("when I click submit, the right stuff happens", async () => {
 
         const sampleReturnValue = {
