@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button} from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
+import { quarterRange } from "main/utils/quarterUtilities";
+import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
-    const [startQuarter, setStartQuarter] = useState("20212");
-    const [endQuarter, setEndQuarter] = useState("20212");
+    const quarters = quarterRange("20084", "20213");
+    const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
+    const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [subjectArea, setSubjectArea] = useState("CMPSC   ");
     const [courseNumber, setCourseNumber] = useState("");
     const [courseSuf, setCourseSuf] = useState("");
@@ -18,14 +21,6 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
             }
             setCourseJSON(courseJSON);
         });
-    };
-
-    const handleStartQuarterOnChange = (event) => {
-        setStartQuarter(event.target.value);
-    };
-
-    const handleEndQuarterOnChange = (event) => {
-        setEndQuarter(event.target.value);
     };
 
     const handleSubjectAreaOnChange = (event) => {
@@ -54,28 +49,21 @@ const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
     // One example is Zoology
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="CourseNameSearch.StartQuarter">
-                <Form.Label>Start Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleStartQuarterOnChange} value={startQuarter}  >
-                    <option value="20212">S21</option>
-                    <option value="20211">W21</option>
-                    <option value="20204">F20</option>
-                    <option value="20203">M20</option>
-                    <option value="20202">S20</option>
-                    <option value="20201">W20</option>
-                </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="CourseNameSearch.EndQuarter">
-                <Form.Label>End Quarter</Form.Label>
-                <Form.Control as="select" onChange={handleEndQuarterOnChange} value={endQuarter}  >
-                    <option value="20212">S21</option>
-                    <option value="20211">W21</option>
-                    <option value="20204">F20</option>
-                    <option value="20203">M20</option>
-                    <option value="20202">S20</option>
-                    <option value="20201">W20</option>
-                </Form.Control>
-            </Form.Group>
+            <SelectQuarter
+                quarters={quarters}
+                quarter={startQuarter}
+                setQuarter={setStartQuarter}
+                controlId={"CourseNameSearch.StartQuarter"}
+                label={"Start Quarter"}
+            />
+
+            <SelectQuarter
+                quarters={quarters}
+                quarter={endQuarter}
+                setQuarter={setEndQuarter}
+                controlId={"CourseNameSearch.EndQuarter"}
+                label={"End Quarter"}
+            />
             <Form.Group controlId="CourseNameSearch.SubjectArea">
                 <Form.Label>Subject Area</Form.Label>
                 <Form.Control as="select" onChange={handleSubjectAreaOnChange} value={subjectArea}>
