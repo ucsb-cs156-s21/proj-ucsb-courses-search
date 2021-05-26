@@ -6,7 +6,7 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
-
+import moment from 'moment';
 
 const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const { isAuthenticated } = useAuth0();
