@@ -19,14 +19,20 @@ public class PersonalSchedule {
     private Schedule schedule;
 
     /**
-     * Construct a Quarter object from a string s, either in QYY or YYYYQ format. If
+     * Construct a PersonalSchedule with Schedule and List of ScheduleItems
      * 
-     * @param s Quarter either in QYY or YYYYQ format
+     * @param s Non optional Schedule Object
+     * @param c ArrayList of ScheduleItems Object
      */
 
     public PersonalSchedule(Schedule s, List<ScheduleItem> c) {
         this.schedule = s;
         this.classes = c;
+    }
+
+    public PersonalSchedule(){
+        this.schedule = null;
+        this.classes = null;
     }
 
     public List<ScheduleItem> getClasses(){
