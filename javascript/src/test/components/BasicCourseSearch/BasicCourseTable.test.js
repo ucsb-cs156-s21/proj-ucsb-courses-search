@@ -197,15 +197,6 @@ describe("BasicCourseTable tests", () => {
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
     expect( queryByText("W")).not.toBe(null);
-  });
-
-  test("check that sections times appear", () => {
-    useAuth0.mockReturnValue({
-      isAuthenticated: true,
-    });
-    const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
-    expect( queryByText("1:00PM - 1:50PM")).not.toBe(null);
-  });
 
  test("check that sections times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
