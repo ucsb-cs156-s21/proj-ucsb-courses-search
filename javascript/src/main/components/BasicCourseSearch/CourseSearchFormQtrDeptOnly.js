@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
 import { quarterRange } from "main/utils/quarterUtilities";
@@ -7,7 +7,6 @@ import SelectSubject from "./SelectSubject";
 import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import useSWR from "swr";
-import React, { useState, useEffect } from "react";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const localSearchQuarter = localStorage.getItem("BasicSearchQtrDept.Quarter");
