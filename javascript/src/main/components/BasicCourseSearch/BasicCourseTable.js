@@ -89,7 +89,6 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
       }
       return (resultStart + row.timeLocations[0].beginTime.substring(2) + timeTypeStart + " - " + resultEnd + row.timeLocations[0].endTime.substring(2) + timeTypeEnd)
     }
-    return ("TBD")
   }
   const renderSectionDays = (_cell, row) => {
 
