@@ -24,6 +24,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.Instructor;
+import edu.ucsb.courses.documents.GeneralEducation;
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.AvgClassSize;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
@@ -289,14 +292,36 @@ public class StatisticsControllerTests {
 
     @Test
     public void test_singleCourseSearch() throws Exception{
-        String url = "/api/public/statistics/SingleCourseSearch";
+        String url = "/api/public/statistics/singleCourseSearch";
 
-        List<SingleCourseSearch> singleCourseSearchList = new ArrayList<SingleCourseSearch>();
+        List<Course> singleCourseSearchList = new ArrayList<Course>();
+        List<Section> sectionList = new ArrayList<Section>();
+        List<GeneralEducation> geList = new ArrayList<GeneralEducation>();
+        List<Instructor> instList = new ArrayList<Instructor>();
+
+        Course newclass = new Course();
     
-        singleCourseSearchList.add(new SingleCourseSearch(1, "Agrawal"));
+        Section newSection = new Section();
+        Section newSection2 = new Section();
+        Instructor newInstructor = new Instructor("Agrawal", "Testing");
+        instList.add(newInstructor);
+        
+        newSection.setInstructors(instList);
+        newSection2.setInstructors(instList);
+        sectionList.add(newSection);
+        sectionList.add(newSection2);
+        
+        newclass.setQuarter("20211");
+        newclass.setCourseId("CMPSC   130A ");
+        newclass.setDescription("blank");
+        newclass.setClassSections(sectionList);
+        newclass.setGeneralEducation(geList);
 
-        // when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
-        //  any(String.class))).thenReturn(singleCourseSearchList);
+        newclass.setClassSections(sectionList);
+        singleCourseSearchList.add(newclass);
+
+        when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
+         any(String.class))).thenReturn(singleCourseSearchList);
 
         MvcResult response = mockMvc.perform(get(url)
             .queryParam("startQuarter", "20204")
@@ -306,9 +331,12 @@ public class StatisticsControllerTests {
             .queryParam("courseSuf", "A")
             .contentType("application/json")).andExpect(status().isOk()).andReturn();
         String responseString = response.getResponse().getContentAsString();
-        List<SingleCourseSearch> resultFromPage = SingleCourseSearch.listFromJSON(responseString);
+        System.out.print("RESPONSE STRING HERE:");
+        System.out.println(responseString);
+        
+        String expectedString = "{\"Agrawal\":\"2\"}";
 
-        assertEquals(singleCourseSearchList, resultFromPage);
+        assertEquals(expectedString, responseString);
     }
 
 }

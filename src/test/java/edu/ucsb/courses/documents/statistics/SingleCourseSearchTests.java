@@ -15,13 +15,14 @@ import static org.junit.Assert.assertNull;
 public class SingleCourseSearchTests {
 
     private static Logger logger = LoggerFactory.getLogger(QuarterDeptTests.class);
-    private SingleCourseSearch test1, test2;
+    private SingleCourseSearch test1, test2;//, scs;
 
     @BeforeEach
     public void setup(){
-        SingleCourseSearch scs = new SingleCourseSearch();
-        SingleCourseSearch test1 = new SingleCourseSearch(1, "Agrawal");
-        SingleCourseSearch test2 = new SingleCourseSearch(1, "Agrawal");
+        //scs = new SingleCourseSearch();
+        test1 = new SingleCourseSearch(1, "Agrawal");
+        test2 = new SingleCourseSearch(1, "Agrawal");
+        
     }
 
     @Test
@@ -34,12 +35,14 @@ public class SingleCourseSearchTests {
 
     @Test
     public void test_notEqualNull() throws Exception {
-        assertNotEquals(test1, null);
+        SingleCourseSearch scs = new SingleCourseSearch();
+        assertNotEquals(scs, null);
     }
 
     @Test
     public void test_notEqualAnotherClass() throws Exception {
-        assertNotEquals(test1, new Object());
+        SingleCourseSearch scs = new SingleCourseSearch();
+        assertNotEquals(scs, new Object());
     }
 
     @Test
@@ -59,7 +62,8 @@ public class SingleCourseSearchTests {
 
     @Test
     public void test_toString() throws Exception {
-        String expected="{ professor='Agrawal', professorCount='1'}";
+        StringBuilder expected = new StringBuilder();
+        expected.append("{professor='Agrawal', professorCount='1'}");
         assertEquals(expected.toString(), test1.toString());
     }
 
