@@ -7,12 +7,16 @@ import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
+import SelectLevel from "main/components/BasicCourseSearch/SelectLevel";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 	const quarters = quarterRange("20084", "20214");
+	const levels = ["Undergrad-Lower", "Undergrad-Upper Division", "Undergrad-All", "Graduate"];
+
     const localSubject = localStorage.getItem("BasicSearch.Subject");
     const localQuarter = localStorage.getItem("BasicSearch.Quarter");
-    const localLevel = localStorage.getItem("BasicSearch.Level");
+	const localLevel = localStorage.getItem("BasicSearch.CourseLevel");
+	
 	const firstDepartment = allTheSubjects[0].subjectCode;
 	const [quarter, setQuarter] = useState(localQuarter || quarters[0].yyyyq);
 	const [subject, setSubject] = useState(localSubject || firstDepartment);
@@ -49,7 +53,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 	};
 
 	const handleLevelOnChange = (event) => {
-        localStorage.setItem("BasicSearch.Level", event.target.value);
+        localStorage.setItem("BasicSearch.CourseLevel", event.target.value);
 		setLevel(event.target.value);
 	};
 
@@ -77,7 +81,15 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 				subject={subject}
 				setSubject={handleSubjectOnChange}
 			/>
-			<Form.Group controlId="BasicSearch.CourseLevel">
+
+			<SelectLevel
+				levels={levels}
+				level={level}
+				setLevel={handleLevelOnChange}
+				controlId={"BasicSearch.CourseLevel"}
+				label={"Course Level"}
+			/>
+			{/* <Form.Group controlId="BasicSearch.CourseLevel">
 				<Form.Label>Course Level</Form.Label>
 				<Form.Control as="select" onChange={handleLevelOnChange} value={level}>
 					<option value="L">Undergrad-Lower Division</option>
@@ -85,7 +97,7 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 					<option value="U">Undergrad-All</option>
 					<option value="G">Graduate</option>
 				</Form.Control>
-			</Form.Group>
+			</Form.Group> */}
 			<Button variant="primary" type="submit">
 				Submit
 			</Button>
