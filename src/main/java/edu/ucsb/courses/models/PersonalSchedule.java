@@ -20,8 +20,6 @@ public class PersonalSchedule {
 
     /**
      * Construct a Quarter object from a string s, either in QYY or YYYYQ format. If
-     * s is of length three, QYY format is expected, if 5 then YYYYQ format is
-     * expected. Otherwise an IllegalArgumentException is thrown.
      * 
      * @param s Quarter either in QYY or YYYYQ format
      */
