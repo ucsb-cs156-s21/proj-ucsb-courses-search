@@ -69,9 +69,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     if(times === "TBD"){
       return times
     }
-    if (row.timeLocations.length > 0) {
-      return moment(row.timeLocations[0].beginTime, 'hh:mm').format('LT') + " - " +  moment(row.timeLocations[0].endTime, 'hh:mm').format('LT')
-    }
+    return moment(row.timeLocations[0].beginTime, 'hh:mm').format('LT') + " - " +  moment(row.timeLocations[0].endTime, 'hh:mm').format('LT')
   }
   const renderSectionDays = (_cell, row) => {
 
