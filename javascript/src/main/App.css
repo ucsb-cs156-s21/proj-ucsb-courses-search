@@ -74,12 +74,15 @@ footer {
 }
 
 img.brand {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 
 p.brand {
+  font-size: larger;
   text-align: center;
+  color: white;
+  padding-right: 10px;
 }
 
 .footer-custom {

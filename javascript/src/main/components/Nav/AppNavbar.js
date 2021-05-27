@@ -25,10 +25,12 @@ function AppNavbar() {
       <LinkContainer to={""}>
         <Navbar.Brand data-testid="brand">
           <p className="brand"><img className="brand" src={'/proj-ucsb-courses-search-240x240.png'}  alt="UCSB Courses Search icon"  /></p>
-          <p className="brand">UCSB <br />Courses Search</p>
-          </Navbar.Brand>
+        </Navbar.Brand>
       </LinkContainer>
       <Nav>
+        <LinkContainer to={""}>
+          <Nav.Link><p className="brand">UCSB <br />Courses Search</p></Nav.Link>
+        </LinkContainer>
         <LinkContainer to={"/about"}>
             <Nav.Link>About</Nav.Link>
         </LinkContainer>
