@@ -25,10 +25,10 @@ const SingleCourseSectionForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {}
 
     const handleCourseNumberOnChange = (event) => {
         const rawCourse = event.target.value;
-        // if (rawCourse.match(/\d+/g) != null) {
-        //     const number = rawCourse.match(/\d+/g)[0];
-        //     setCourseNumber(number);
-        // } 
+        if (rawCourse.match(/\d+/g) != null) {
+            const number = rawCourse.match(/\d+/g)[0];
+            setCourseNumber(number);
+        } 
         
         if (rawCourse.match(/[a-zA-Z]+/g) != null) {
             const suffix = rawCourse.match(/[a-zA-Z]+/g)[0];

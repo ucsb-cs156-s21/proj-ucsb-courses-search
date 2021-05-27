@@ -4,11 +4,10 @@ import { Jumbotron, Container } from "react-bootstrap";
 import { fetchSingleCourseSearch } from "main/services/statisticsService";
 import SingleCourseSectionForm from "main/components/Statistics/SingleCourseSectionForm";
 import SingleCourseSectionTable from "main/components/Statistics/SingleCourseSectionTable";
-import { fromFormat } from "main/components/Statistics/QuarterFormSelect";
 
 const SingleCourseSearch = () => {
     const [tableVisibility, setTableVisibility] = useState(false);
-    const [tableData, setTableData] = useState([]);
+    const [tableData] = useState([]);
 
     const setJsonTableData = (json) => {
         const keys = Object.keys(json);

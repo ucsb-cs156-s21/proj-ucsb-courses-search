@@ -1,6 +1,5 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
-import Badge from 'react-bootstrap/Badge'
 import Container from 'react-bootstrap/Container'
 
 const headerStyleColor = {
