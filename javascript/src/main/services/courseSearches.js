@@ -7,7 +7,7 @@ import fetch from "isomorphic-unfetch";
 };
 
 const fetchBasicCourseHistoryJSON = async (_event, fields) => {
-    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.department}`;
+    const url = `/api/public/history/basicsearch?qtr=${fields.quarter}&dept=${fields.subject}`;
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };
@@ -19,7 +19,7 @@ const fetchGeQtrJSON = async (_event, fields) => {
 };
   
 const fetchCourseHistoryNameQtrJSON = async (_event, fields) => {
-    const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&subjectArea=${fields.subjectArea}&courseNumber=${fields.courseNumber}&courseSuf=${fields.courseSuf}`;
+    const url = `/api/public/history/coursesearch?startQtr=${fields.startQuarter}&endQtr=${fields.endQuarter}&subjectArea=${fields.subject}&courseNumber=${fields.courseNumber}&courseSuf=${fields.courseSuf}`;
     const courseResponse = await fetch(url);
     return courseResponse.json();
 };
