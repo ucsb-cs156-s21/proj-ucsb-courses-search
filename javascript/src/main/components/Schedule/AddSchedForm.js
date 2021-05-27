@@ -24,12 +24,10 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
     } else {
       handleQuarterOnChange('20212');
     }
-  }, []);
+  }, [existingSchedule]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(quarter);
-    // console.log(schedule.quarter);
     if (createSchedule) {
       createSchedule(schedule);
     } else {
@@ -58,8 +56,6 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
       ...schedule,
       quarter: quarter,
     });
-    console.log(quarter);
-    console.log(schedule.quarter);
   };
 
   return (
