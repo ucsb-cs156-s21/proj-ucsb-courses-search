@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import SelectSubject from "./SelectSubject";
 import useSWR from "swr";
 import { useToasts } from "react-toast-notifications";
@@ -72,26 +72,29 @@ const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectQuarter
-				quarters={quarters}
-				quarter={quarter}
-				setQuarter={handleQuarterOnChange}
-				controlId={"BasicSearch.Quarter"}
-				label={"Quarter"}
-			/>
-			<SelectSubject
-				subjects={subjects}
-				subject={subject}
-				setSubject={handleSubjectOnChange}
-			/>
-
-			<SelectLevel
-				levels={levels}
-				level={level}
-				setLevel={handleLevelOnChange}
-				controlId={"BasicSearch.CourseLevel"}
-				label={"Course Level"}
-			/>
+			<Container>
+				<Row>
+					<Col md = "auto"><SelectQuarter
+						quarters={quarters}
+						quarter={quarter}
+						setQuarter={handleQuarterOnChange}
+						controlId={"BasicSearch.Quarter"}
+						label={"Quarter"}
+					/></Col>
+					<Col md = "auto"><SelectSubject
+						subjects={subjects}
+						subject={subject}
+						setSubject={handleSubjectOnChange}
+					/></Col>
+					<Col md = "auto"><SelectLevel
+						levels={levels}
+						level={level}
+						setLevel={handleLevelOnChange}
+						controlId={"BasicSearch.CourseLevel"}
+						label={"Course Level"}
+					/></Col>
+				</Row>
+			</Container>
 			<Button variant="primary" type="submit">
 				Submit
 			</Button>
