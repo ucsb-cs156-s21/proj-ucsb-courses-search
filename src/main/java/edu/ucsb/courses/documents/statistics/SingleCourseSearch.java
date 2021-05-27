@@ -74,18 +74,5 @@ public class SingleCourseSearch {
             ", professorCount='" + professorCount + "'" +
             "}";
     }
-    
-    public static List<SingleCourseSearch> listFromJSON(String json) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            List<SingleCourseSearch> lqd = objectMapper.readValue(json, new TypeReference<List<SingleCourseSearch>>(){});
-            return lqd;
-        } catch (JsonProcessingException jpe) {
-            logger.error("JsonProcessingException:" + jpe);
-            return null;
-        }
-        
-    }
 
 }
