@@ -28,11 +28,11 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
         expect(selectQuarter.value).toBe("20204");
     });
 
-    test("when I select a department, the state for department changes", () => {
+    test("when I select a subject, the state for subject changes", () => {
         const { getByLabelText } = render(<CourseSearchFormQtrDeptOnly />);
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
-        expect(selectDepartment.value).toBe("MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "ARTHI");
+        expect(selectSubject.value).toBe("ARTHI");
     });
 
    
@@ -59,13 +59,13 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
         const expectedFields = {
             quarter: "20204",
-            department: "MATH"
+            subject: "MATH"
         };
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
     
 
         const submitButton = getByText("Submit");
@@ -106,8 +106,8 @@ describe("CourseSearchFormQtrDeptOnly tests", () => {
 
         const selectQuarter = getByLabelText("Quarter")
         userEvent.selectOptions(selectQuarter, "20204");
-        const selectDepartment = getByLabelText("Department")
-        userEvent.selectOptions(selectDepartment, "MATH");
+        const selectSubject = getByLabelText("Subject Area")
+        userEvent.selectOptions(selectSubject, "MATH");
     
 
         const submitButton = getByText("Submit");
