@@ -76,7 +76,7 @@ describe("courseSearches tests",  () => {
     };
 
     const result = await fetchCourseHistoryNameQtrJSON({},expectedFields);
-    expect(fetch).toHaveBeenCalledWith(`/api/public/history/coursesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&subjectArea=${expectedFields.subjectArea}&courseNumber=${expectedFields.courseNumber}&courseSuf=${expectedFields.courseSuf}`)
+    expect(fetch).toHaveBeenCalledWith(`/api/public/history/coursesearch?startQtr=${expectedFields.startQuarter}&endQtr=${expectedFields.endQuarter}&subjectArea=${expectedFields.subject}&courseNumber=${expectedFields.courseNumber}&courseSuf=${expectedFields.courseSuf}`)
     expect(result).toBe(sampleReturnValue);
 
   });
