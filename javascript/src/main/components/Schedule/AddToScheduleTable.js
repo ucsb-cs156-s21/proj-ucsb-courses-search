@@ -6,9 +6,7 @@ const AddToScheduleTable = ({ data }) => {
 
   const renderAddToButton = (id) => {
      return (
-       <Button data-testid={`add-to-button-${id}`} onClick={() => {
-         
-       }}>Add To</Button>
+       <Button data-testid={`add-to-button-${id}`}>Add To</Button>
      )
   }
 
