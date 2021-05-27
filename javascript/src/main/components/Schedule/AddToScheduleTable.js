@@ -13,7 +13,8 @@ const AddToScheduleTable = ({ data }) => {
   const columns = [{
     dataField: 'id',
     text: 'id'
-  }, {
+  },
+  {
     dataField: 'name',
     text: 'Name',
     align: "left",
