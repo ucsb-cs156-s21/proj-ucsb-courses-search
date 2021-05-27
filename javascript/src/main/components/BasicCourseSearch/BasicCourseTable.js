@@ -6,6 +6,7 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
+import styles from 'main/App.css'
 
 
 const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
@@ -16,7 +17,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
 
   const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
-  const FONTSTYLE_SECTION = {fontStyle: 'italic'}
+  // const FONTSTYLE_SECTION = {fontStyle: 'italic'}
   const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE'};
   const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080'};
   const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761'};
@@ -40,34 +41,40 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
           if (classes[i].classSections.length === 1) {
             //This code should only execute when dealing with stand alone lectures.
             if (classUnavailable(row)) {
-              return COLOR_UNAVAILABLE;
+              // return COLOR_UNAVAILABLE;
+              return styles.unavailableLecs;
             }
             if (closeToFull(row)) {
-              return COLOR_CLOSEFULL;
+              // return COLOR_CLOSEFULL;
+              return styles.closefullLecs;
             }
           }
         }
       }
       //If it is not a stand alone lecture that is unavailable or full and is just a class set it to dark blue.
-      return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
+      // return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
+      return styles.availableLecsWithSections;
     }
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return COLOR_UNAVAILABLESECTION;
+        // return COLOR_UNAVAILABLESECTION;
+        return styles.unavailableSection;
       }
       if (closeToFull(row)) {
-        return COLOR_CLOSEFULLSECTION;
+        // return COLOR_CLOSEFULLSECTION;
+        return styles.closefullSection;
       }
-      return COLOR_AVAILABLESECTION;
+      // return COLOR_AVAILABLESECTION;
+      return styles.availableSection;
     }
   }
 
-  const fontStyle = (row) => {
-    if (row.section % 100 !== 0) {
-      return FONTSTYLE_SECTION
-    }
-  }
+  // const fontStyle = (row) => {
+  //   if (row.section % 100 !== 0) {
+  //     return FONTSTYLE_SECTION
+  //   }
+  // }
 
   const renderCourseEnrolled = (_cell, row) => {
     const enrolled = row.enrolledTotal;
@@ -261,7 +268,7 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
           <div>
             <ExportCSVButton {...props.csvProps} />
             <hr />
-            <BootstrapTable keyField="uniqueKey" columns={columns} rowStyle={rowStyle} fontStyle={fontStyle} {...props.baseProps} />
+            <BootstrapTable keyField="uniqueKey" columns={columns} rowStyle={rowStyle} className={styles.closefullSection} {...props.baseProps} />
           </div>
         )
       }
