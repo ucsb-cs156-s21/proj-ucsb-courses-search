@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import SelectQuarter from 'main/components/BasicCourseSearch/SelectQuarter';
 import { quarterRange } from 'main/utils/quarterUtilities';
@@ -14,14 +14,22 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
   const [schedule, setSchedule] = useState(existingSchedule || emptySchedule);
   const quarters = quarterRange('20084', '20214');
   const localQuarter = localStorage.getItem('PersonalSchedule.Quarter');
-  const [quarter, setQuarter] = useState(
-    (existingSchedule ? existingSchedule.quarter : null) ||
-      localQuarter ||
-      quarters[0].yyyyq
-  );
+  const [quarter, setQuarter] = useState();
+
+  useEffect(() => {
+    if (existingSchedule) {
+      handleQuarterOnChange(existingSchedule.quarter);
+    } else if (localQuarter) {
+      handleQuarterOnChange(localQuarter);
+    } else {
+      handleQuarterOnChange('20212');
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // console.log(quarter);
+    // console.log(schedule.quarter);
     if (createSchedule) {
       createSchedule(schedule);
     } else {
@@ -50,6 +58,8 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
       ...schedule,
       quarter: quarter,
     });
+    console.log(quarter);
+    console.log(schedule.quarter);
   };
 
   return (
