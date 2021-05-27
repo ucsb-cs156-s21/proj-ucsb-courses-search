@@ -13,11 +13,12 @@ describe("BasicCourseTable tests", () => {
     });
 
   })
-  test("renders without crashing", () => {
+  test("for empty list, we get an empty div with  data-testid='no-course-data' ", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-    render(<BasicCourseTable classes={[]}/>);
+    const {getByTestId} = render(<BasicCourseTable classes={[]}/>);
+    expect(getByTestId("no-course-data")).not.toBe(null);
   });
 
   function getBackgroundColor (getByText, text) {
@@ -104,8 +105,9 @@ describe("BasicCourseTable tests", () => {
       isAuthenticated: true,
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
-    expect( queryByText("09:30 - 10:45")).not.toBe(null);
+    expect( queryByText("09:30AM - 10:45AM")).not.toBe(null);
   });
+
 
   test("check that lectures times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
@@ -113,6 +115,22 @@ describe("BasicCourseTable tests", () => {
     });
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnlyTimeDaysTBD} />);
     expect( queryAllByText("TBD").length).toBe(2);
+  });
+
+  test("check that lectures enrollment appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
+  });
+
+  test("check that lectures capacity appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
   });
 
   // Testing Sections
@@ -185,15 +203,31 @@ describe("BasicCourseTable tests", () => {
       isAuthenticated: true,
     });
     const {queryByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
-    expect( queryByText("09:00 - 09:50")).not.toBe(null);
+    expect( queryByText("09:00AM - 09:50AM")).not.toBe(null);
   });
 
-  test("check that sections times and days appear as TBD when they don't exist", () => {
+ test("check that sections times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
     const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnlyTimeDaysTBD} />);
     expect( queryAllByText("TBD").length).toBe(5);
+  }); 
+
+  test("check that sections enrolled appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
+  });
+
+  test("check that sections course capacity appears", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const {queryAllByText} = render(<BasicCourseTable classes = {courseFixtures.classesSectionOnly} />);
+    expect( queryAllByText("25").length).toBe(2);
   });
 
   // Testing styling for classes w/more than one section

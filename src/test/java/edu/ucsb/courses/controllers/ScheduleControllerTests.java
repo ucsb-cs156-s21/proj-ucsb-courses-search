@@ -3,6 +3,7 @@ package edu.ucsb.courses.controllers;
 
 import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.entities.AppUser;
+import edu.ucsb.courses.repositories.ScheduleItemRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.courses.entities.Schedule;
+import edu.ucsb.courses.entities.ScheduleItem;
+import edu.ucsb.courses.models.PersonalSchedule;
 
 @WebMvcTest(value = ScheduleController.class)
 @WithMockUser
@@ -44,6 +47,9 @@ public class ScheduleControllerTests {
 
   @MockBean
   ScheduleRepository mockScheduleRepository;
+
+  @MockBean
+  ScheduleItemRepository mockScheduleItemRepository;
 
   @MockBean
   AuthControllerAdvice authController;
@@ -151,8 +157,11 @@ public class ScheduleControllerTests {
   public void testGetSchedule() throws Exception {
     Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "123456");
     Optional<Schedule> expectedSchedules = Optional.of(s1);
+    List<ScheduleItem> expectedScheduleItems = new ArrayList<ScheduleItem>();
+    PersonalSchedule expectedPersonalSchedule = new PersonalSchedule(expectedSchedules.get(),expectedScheduleItems);
 
     when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
+    when(mockScheduleItemRepository.findByScheduleId(1L)).thenReturn(expectedScheduleItems);
     AppUser user = new AppUser();
     user.setId(123456L);
     when(authController.getUser(any(String.class))).thenReturn(user);
@@ -166,8 +175,69 @@ public class ScheduleControllerTests {
     verify(mockScheduleRepository, times(1)).findById(1L);
 
     String responseString = response.getResponse().getContentAsString();
-    Schedule returnVal = objectMapper.readValue(responseString, Schedule.class);
-    assertEquals(returnVal, s1);
+    PersonalSchedule returnVal = objectMapper.readValue(responseString, PersonalSchedule.class);
+    assertEquals(returnVal, expectedPersonalSchedule);
+  }
+
+  @Test
+  public void testGetScheduleWithScheduleItems() throws Exception {
+    AppUser user = new AppUser();
+    user.setId(123456L);
+
+    Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "123456");
+    Optional<Schedule> expectedSchedules = Optional.of(s1);
+    List<ScheduleItem> expectedScheduleItems = new ArrayList<ScheduleItem>();
+    ScheduleItem one = new ScheduleItem(2L, "1111", "2222", user, s1);
+    ScheduleItem two = new ScheduleItem(3L, "1234", "5678", user, s1);
+    expectedScheduleItems.add(one);
+    expectedScheduleItems.add(two);
+    PersonalSchedule expectedPersonalSchedule = new PersonalSchedule(expectedSchedules.get(),expectedScheduleItems);
+
+    when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
+    when(mockScheduleItemRepository.findByScheduleId(1L)).thenReturn(expectedScheduleItems);
+    
+    when(authController.getUser(any(String.class))).thenReturn(user);
+    when(authController.getIsMember(any(String.class))).thenReturn(true);
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/member/schedule/get/1").contentType("application/json")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+            .andExpect(status().isOk()).andReturn();
+
+    verify(mockScheduleRepository, times(1)).findById(1L);
+
+    String responseString = response.getResponse().getContentAsString();
+    PersonalSchedule returnVal = objectMapper.readValue(responseString, PersonalSchedule.class);
+    assertEquals(returnVal, expectedPersonalSchedule);
+  }
+  @Test
+  public void testGetScheduleWithScheduleItemsNotAssociated() throws Exception {
+    AppUser user = new AppUser();
+    user.setId(123456L);
+
+    Schedule s1 = new Schedule(1L,"CS 156", "Adv App Programming", "Fall 2020", "123456");
+    Optional<Schedule> expectedSchedules = Optional.of(s1);
+    List<ScheduleItem> expectedScheduleItems = new ArrayList<ScheduleItem>();
+    ScheduleItem one = new ScheduleItem(2L, "1111", "2222", user, null);
+    ScheduleItem two = new ScheduleItem(3L, "1234", "5678", user, null);
+    PersonalSchedule expectedPersonalSchedule = new PersonalSchedule(expectedSchedules.get(),expectedScheduleItems);
+
+    when(mockScheduleRepository.findById(1L)).thenReturn(expectedSchedules);
+    when(mockScheduleItemRepository.findByScheduleId(1L)).thenReturn(expectedScheduleItems);
+    
+    when(authController.getUser(any(String.class))).thenReturn(user);
+    when(authController.getIsMember(any(String.class))).thenReturn(true);
+    MvcResult response =
+        mockMvc
+            .perform(get("/api/member/schedule/get/1").contentType("application/json")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + userToken()))
+            .andExpect(status().isOk()).andReturn();
+
+    verify(mockScheduleRepository, times(1)).findById(1L);
+
+    String responseString = response.getResponse().getContentAsString();
+    PersonalSchedule returnVal = objectMapper.readValue(responseString, PersonalSchedule.class);
+    assertEquals(returnVal, expectedPersonalSchedule);
   }
 
   @Test
