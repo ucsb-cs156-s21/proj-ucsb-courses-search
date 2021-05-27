@@ -67,11 +67,4 @@ public class SingleCourseSearchTests {
         assertEquals(expected.toString(), test1.toString());
     }
 
-    // @Test
-    // public void test_fromJSON_withError() throws Exception {
-    //     String badJSON = "this is not good json!";
-    //     List<SingleCourseSearch> lqd = SingleCourseSearch.listFromJSON(badJSON);
-    //     assertNull(lqd);
-    // }
-
 }
