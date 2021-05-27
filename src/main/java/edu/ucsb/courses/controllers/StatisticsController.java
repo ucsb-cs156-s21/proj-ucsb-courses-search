@@ -262,6 +262,10 @@ public class StatisticsController {
         Map<String, String> professorInfo = new HashMap<>();
 
         for(int i = 0; i < courseResults.size(); i++){
+            if(courseResults.get(i).getClassSections().get(0).getInstructors().get(0) == null){
+                continue;
+            }
+
             String instructor = courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor();
             if(professorInfo.get(instructor) != null){
                 int temp = Integer.parseInt(professorInfo.get(instructor));
@@ -276,7 +280,6 @@ public class StatisticsController {
 
         String body = mapper.writeValueAsString(professorInfo);
         
-        System.out.println(body);
         return ResponseEntity.ok().body(body);
     }
 }
