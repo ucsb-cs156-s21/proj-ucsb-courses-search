@@ -2,8 +2,13 @@ import React from "react";
 import { render } from "@testing-library/react";
 import AddToScheduleTable from "main/components/Schedule/AddToScheduleTable";
 import userEvent from "@testing-library/user-event";
-import { Router } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { createMemoryHistory } from "history";
+jest.mock("react-router-dom", () => ({
+  useHistory: jest.fn(),
+  useParams: jest.fn()
+}));
+const {Router} = jest.requireActual("react-router-dom");
 
 const schedulesList = [{
     "id": 1,
@@ -21,6 +26,21 @@ const schedulesList = [{
 ];
 
 describe("AddToScheduleForm tests", () => {
+  beforeEach(() => {
+    const mutateSpy = jest.fn();
+    const pushSpy = jest.fn();
+    useHistory.mockReturnValue({
+      push: pushSpy
+    });
+    useParams.mockReturnValue({
+      data: {
+        discussionCode: "55",
+      },
+      error: undefined,
+      mutate: mutateSpy,
+    });
+  });
+
   test("renders without crashing", () => {
     render(<AddToScheduleTable />);
   });
@@ -36,10 +56,13 @@ describe("AddToScheduleForm tests", () => {
 
   test("renders with add to button ", () => {
     
+    const createScheduleItem = jest.fn();
+
     const { getByTestId } = render(
     <Router history={createMemoryHistory()}>
         <AddToScheduleTable
             data={schedulesList}
+            createScheduleItem={createScheduleItem}
         />
     </Router>
       );

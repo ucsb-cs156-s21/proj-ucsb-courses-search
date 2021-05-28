@@ -116,7 +116,7 @@ function App() {
            authorizedRoles={["admin", "member"]}
           />
           <AuthorizedRoute
-            path="/addToSchedule"
+            path="/addToSchedule/:discussionCode"
             component={AddToSchedule}
             exact
             authorizedRoles={["admin", "member"]}

@@ -1,12 +1,24 @@
 import React from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from "react-bootstrap";
+import { useHistory, useParams } from "react-router-dom";
 
-const AddToScheduleTable = ({ data }) => {
+const AddToScheduleTable = ({ data, createScheduleItem }) => {
+  const history = useHistory();
+  const {discussionCode} = useParams();
 
   const renderAddToButton = (id) => {
      return (
-       <Button data-testid={`add-to-button-${id}`}>Add To</Button>
+       <Button data-testid={`add-to-button-${id}`} onClick={async () => {
+        
+        const scheduleItem = {
+          scheduleId: id,
+          lectureCode: "55",
+          discussionCode: discussionCode
+        }
+        await createScheduleItem(scheduleItem);
+        history.push('/');
+       }}>Add To</Button>
      )
   }
 

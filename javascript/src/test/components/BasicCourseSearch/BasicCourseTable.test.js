@@ -4,11 +4,18 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
 import userEvent from "@testing-library/user-event";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useHistory } from "react-router-dom";
 jest.mock("@auth0/auth0-react");
+jest.mock("react-router-dom", () => ({
+  useHistory: jest.fn()
+}));
 
 describe("BasicCourseTable tests", () => {
   beforeEach(() => {
+    const pushSpy = jest.fn();
+    useHistory.mockReturnValue({
+      push: pushSpy
+    });
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
@@ -349,4 +356,18 @@ describe("BasicCourseTable tests", () => {
     const csvButton = queryByText("Download as CSV");
     expect(csvButton).toBe(null);
   });
+
+  // Testing Add Button
+  test("Add button can be clicked", () => {
+    const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    const addButton = queryByTestId('add-button-07500');
+    userEvent.click(addButton);
+  }); 
+
+  test("Last course's add button can be clicked", () => {
+    const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    const addButton = queryByTestId('add-button-07600');
+    userEvent.click(addButton);
+  }); 
+
 });

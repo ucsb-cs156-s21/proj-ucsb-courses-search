@@ -6,6 +6,7 @@ import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
+import { useHistory } from "react-router-dom";
 import moment from 'moment';
 
 const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
@@ -87,17 +88,22 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     return (row.section % 100 === 0) ? quarter : "";
   }
 
+  const history = useHistory();
   const RenderAddButton = (_cell, row, rowIndex) => {
     if (isAuthenticated) {
       if (!sections[rowIndex + 1]) {
         return (
-          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
+          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
+            history.push(`/addToSchedule/${sections[rowIndex].enrollCode}`);
+           }}>Add</Button>
         )
       }
       else {
         if ((sections[rowIndex + 1]).section % 100 === 0 || row.section % 100 !== 0) {
           return (
-            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
+            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
+              history.push(`/addToSchedule/${sections[rowIndex].enrollCode}`);
+             }}>Add</Button>
           )
         }
       }
