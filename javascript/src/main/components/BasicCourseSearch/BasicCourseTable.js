@@ -41,12 +41,12 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return Object.assign(availabilityColors.COLOR_UNAVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
+        return Object.assign({}, availabilityColors.COLOR_UNAVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
       }
       if (closeToFull(row)) {
-        return Object.assign(availabilityColors.COLOR_CLOSEFULLSECTION, availabilityColors.FONTSTYLE_SECTION);
+        return Object.assign({}, availabilityColors.COLOR_CLOSEFULLSECTION, availabilityColors.FONTSTYLE_SECTION);
       }
-      return Object.assign(availabilityColors.COLOR_AVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
+      return Object.assign({}, availabilityColors.COLOR_AVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
     }
   }
 
