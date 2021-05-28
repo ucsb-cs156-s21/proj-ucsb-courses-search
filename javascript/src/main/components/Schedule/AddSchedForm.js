@@ -4,6 +4,9 @@ import SelectQuarter from 'main/components/BasicCourseSearch/SelectQuarter';
 import { quarterRange } from 'main/utils/quarterUtilities';
 
 const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
+  if (true) {
+    console.log('hi');
+  }
   const emptySchedule = {
     name: '',
     description: '',
