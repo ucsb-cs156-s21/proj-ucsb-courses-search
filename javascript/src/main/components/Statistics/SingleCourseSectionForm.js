@@ -17,7 +17,6 @@ const SingleCourseSectionForm = ({ setCourseJSON, fetchJSON, onSubmit = () => {}
         setLoading(true);
         fetchJSON({startQuarter, endQuarter, department, courseNumber, courseSuf})
         .then((courseJSON)=> {
-            console.log(courseJSON);
             setCourseJSON(courseJSON);
             setLoading(false);
         });
