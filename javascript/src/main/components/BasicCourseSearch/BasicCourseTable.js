@@ -12,18 +12,11 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const { isAuthenticated } = useAuth0();
   const sections = reformatJSON(classes, checks);
 
-  const COLOR_UNAVAILABLE = availabilityColors.UNAVAILABLE;
-  const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
-
-  const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = {backgroundColor: '#CEDEFA'};
-  const COLOR_AVAILABLESECTION = {backgroundColor: '#EDF3FE', fontStyle: 'italic'};
-  const COLOR_UNAVAILABLESECTION = {backgroundColor: '#FF8080', fontStyle: 'italic' };
-  const COLOR_CLOSEFULLSECTION = {backgroundColor: '#FFD761', fontStyle: 'italic' };
   const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
 
   const closeToFull = (row) => ((row.maxEnroll - row.enrolledTotal) < (CLOSEFULL_THRESHOLD * row.maxEnroll));
-
+  
   const rowStyle = (row) => {
     if (row.section % 100 === 0) {
       //We interate through all the classes, for the first section (should be the mod 100 == 0 section) if it is equal to the section we are setting
@@ -34,28 +27,29 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
           if (classes[i].classSections.length === 1) {
             //This code should only execute when dealing with stand alone lectures.
             if (classUnavailable(row)) {
-              return COLOR_UNAVAILABLE;
+              return availabilityColors.COLOR_UNAVAILABLE;
             }
             if (closeToFull(row)) {
-              return COLOR_CLOSEFULL;
+              return availabilityColors.COLOR_CLOSEFULL;
             }
           }
         }
       }
       //If it is not a stand alone lecture that is unavailable or full and is just a class set it to dark blue.
-      return COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
+      return availabilityColors.COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS;
     }
     else {
       //This code should only execute when dealing with sections.
       if (classUnavailable(row)) {
-        return COLOR_UNAVAILABLESECTION;
+        return Object.assign({}, availabilityColors.COLOR_UNAVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
       }
       if (closeToFull(row)) {
-        return COLOR_CLOSEFULLSECTION;
+        return Object.assign({}, availabilityColors.COLOR_CLOSEFULLSECTION, availabilityColors.FONTSTYLE_SECTION);
       }
-      return COLOR_AVAILABLESECTION;
+      return Object.assign({}, availabilityColors.COLOR_AVAILABLESECTION, availabilityColors.FONTSTYLE_SECTION);
     }
   }
+
   const renderCourseEnrolled = (_cell, row) => {
     const enrolled = row.enrolledTotal;
     return (enrolled)
