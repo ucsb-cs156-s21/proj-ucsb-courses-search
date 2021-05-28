@@ -1,11 +1,6 @@
 import React from "react";
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
 
-const COLOR_UNAVAILABLE =  availabilityColors.UNAVAILABLE;
-const COLOR_CLOSEFULL = availabilityColors.CLOSEFULL;
-const COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS = { backgroundColor: '#CEDEFA' };
-const COLOR_AVAILABLESECTION = { backgroundColor: '#EDF3FE' };
-
 const TableLegend = () => {
     return (
         <>
@@ -21,10 +16,10 @@ const TableLegend = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td style={COLOR_UNAVAILABLE}></td>
-                            <td style={COLOR_CLOSEFULL}></td>
-                            <td style={COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS}></td>
-                            <td style={COLOR_AVAILABLESECTION}></td>
+                            <td style={availabilityColors.COLOR_UNAVAILABLE}></td>
+                            <td style={availabilityColors.COLOR_CLOSEFULL}></td>
+                            <td style={availabilityColors.COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS}></td>
+                            <td style={availabilityColors.COLOR_AVAILABLESECTION}></td>
                         </tr>
                     </tbody>
                 </table>
