@@ -75,6 +75,7 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
         quarters={quarters}
         quarter={quarter}
         setQuarter={handleQuarterOnChange}
+        controlId={'PersonalSchedule.Quarter'}
         label={'Quarter'}
       />
 
