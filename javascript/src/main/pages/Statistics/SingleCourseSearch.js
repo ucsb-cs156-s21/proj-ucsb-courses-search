@@ -7,15 +7,18 @@ import SingleCourseSectionTable from "main/components/Statistics/SingleCourseSec
 
 const SingleCourseSearch = () => {
     const [tableVisibility, setTableVisibility] = useState(false);
-    const [tableData] = useState([]);
+    const [tableData,setTableData] = useState([]);
 
     const setJsonTableData = (json) => {
         const keys = Object.keys(json);
+        let arr = [];
+
         keys.forEach(function (item, index) {
             var temp = {"professor":item, "professorCount":json[item]}
-            tableData[index] = temp;
+            arr.push(temp);
         })
 
+        setTableData(arr);
         setTableVisibility(true);
     }
 
