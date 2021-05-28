@@ -91,17 +91,13 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     if (isAuthenticated) {
       if (!sections[rowIndex + 1]) {
         return (
-          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-            //return addToSchedule(row.course.courseId);
-          }}>Add</Button>
+          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
         )
       }
       else {
         if ((sections[rowIndex + 1]).section % 100 === 0 || row.section % 100 !== 0) {
           return (
-            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-              //return addToSchedule(row.course.courseId);
-            }}>Add</Button>
+            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
           )
         }
       }
