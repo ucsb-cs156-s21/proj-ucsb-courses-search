@@ -13,10 +13,8 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
   const [schedule, setSchedule] = useState(existingSchedule || emptySchedule);
   const quarters = quarterRange('20084', '20214');
-  const localQuarter = localStorage.getItem('PersonalSchedule.Quarter');
   const [quarter, setQuarter] = useState(
-    localQuarter ||
-      (existingSchedule ? existingSchedule.quarter : emptySchedule.quarter)
+    existingSchedule ? existingSchedule.quarter : emptySchedule.quarter
   );
 
   const handleSubmit = (event) => {
@@ -43,7 +41,6 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
   };
 
   const handleQuarterOnChange = (quarter) => {
-    localStorage.setItem('PersonalSchedule.Quarter', quarter);
     setQuarter(quarter);
     setSchedule({
       ...schedule,
@@ -78,7 +75,6 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
         quarters={quarters}
         quarter={quarter}
         setQuarter={handleQuarterOnChange}
-        controlId={'PersonalSchedule.Quarter'}
         label={'Quarter'}
       />
 
