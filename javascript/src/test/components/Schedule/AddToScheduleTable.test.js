@@ -2,12 +2,13 @@ import React from "react";
 import { render } from "@testing-library/react";
 import AddToScheduleTable from "main/components/Schedule/AddToScheduleTable";
 import userEvent from "@testing-library/user-event";
-import { Router, useHistory, useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { createMemoryHistory } from "history";
 jest.mock("react-router-dom", () => ({
   useHistory: jest.fn(),
   useParams: jest.fn()
 }));
+const {Router} = jest.requireActual("react-router-dom");
 
 const schedulesList = [{
     "id": 1,
@@ -33,7 +34,7 @@ describe("AddToScheduleForm tests", () => {
     });
     useParams.mockReturnValue({
       data: {
-        discussionCode: "123",
+        discussionCode: "55",
       },
       error: undefined,
       mutate: mutateSpy,
@@ -55,10 +56,13 @@ describe("AddToScheduleForm tests", () => {
 
   test("renders with add to button ", () => {
     
+    const createScheduleItem = jest.fn();
+
     const { getByTestId } = render(
     <Router history={createMemoryHistory()}>
         <AddToScheduleTable
             data={schedulesList}
+            createScheduleItem={createScheduleItem}
         />
     </Router>
       );
