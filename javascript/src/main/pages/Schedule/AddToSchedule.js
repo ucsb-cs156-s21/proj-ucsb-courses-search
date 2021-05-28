@@ -44,7 +44,6 @@ const AddToSchedule = () => {
       The Add To Schedule page is intended as a place where students, faculty or staff can choose which schedule they want to add the course to.
       </p>
       {schedules && (<AddToScheduleTable data={schedules} createScheduleItem={createScheduleItem}/>)}
-
     </Jumbotron>
   );
 };
