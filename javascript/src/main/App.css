@@ -85,30 +85,3 @@ p.brand {
 .footer-custom {
   font-size: 70%;
 }
-
-.unavailableLecs {
-  background-color: '#FF8080';
-}
-
-.closefullLecs {
-  background-color: '#FFD761';
-}
-
-.availableLecsWithSections {
-  background-color: '#CEDEFA';
-}
-
-.availableSection {
-  background-color: '#EDF3FE';
-  font-style: italic;
-}
-
-.unavailableSection {
-  background-color: '#FF8080';
-  font-style: italic;
-}
-
-.closefullSection {
-  background-color: '#FFD761';
-  font-style: italic;
-}
