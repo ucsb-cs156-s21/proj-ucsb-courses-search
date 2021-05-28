@@ -296,21 +296,24 @@ public class StatisticsControllerTests {
 
         List<Course> singleCourseSearchList = new ArrayList<Course>();
         List<Section> sectionList = new ArrayList<Section>();
+        List<Section> sectionList3 = new ArrayList<Section>();
         List<GeneralEducation> geList = new ArrayList<GeneralEducation>();
         List<Instructor> instList = new ArrayList<Instructor>();
+        List<Instructor> emptyInstList = new ArrayList<Instructor>();
 
         Course newclass = new Course();
         Course newclass2 = new Course();
+        Course newclass3 = new Course();
     
         Section newSection = new Section();
-        Section newSection2 = new Section();
+        Section newSection3 = new Section();
         Instructor newInstructor = new Instructor("Agrawal", "Testing");
         instList.add(newInstructor);
         
         newSection.setInstructors(instList);
-        newSection2.setInstructors(instList);
+        newSection3.setInstructors(emptyInstList);
         sectionList.add(newSection);
-        sectionList.add(newSection2);
+        sectionList3.add(newSection3);
         
         newclass.setQuarter("20211");
         newclass.setCourseId("CMPSC   130A ");
@@ -327,8 +330,16 @@ public class StatisticsControllerTests {
         newclass2.setGeneralEducation(geList);
 
         newclass2.setClassSections(sectionList);
+
+        newclass3.setQuarter("20204");
+        newclass3.setCourseId("CMPSC   130A ");
+        newclass3.setDescription("blank");
+        newclass3.setClassSections(sectionList3);
+        newclass3.setGeneralEducation(geList);
+
         singleCourseSearchList.add(newclass);
         singleCourseSearchList.add(newclass2);
+        singleCourseSearchList.add(newclass3);
 
         when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
          any(String.class))).thenReturn(singleCourseSearchList);
