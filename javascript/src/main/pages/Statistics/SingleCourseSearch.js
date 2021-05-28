@@ -13,7 +13,7 @@ const SingleCourseSearch = () => {
         const keys = Object.keys(json);
         let arr = [];
 
-        keys.forEach(function (item, index) {
+        keys.forEach(function (item) {
             var temp = {"professor":item, "professorCount":json[item]}
             arr.push(temp);
         })
