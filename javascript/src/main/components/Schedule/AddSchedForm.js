@@ -7,24 +7,17 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
   const emptySchedule = {
     name: '',
     description: '',
-    quarter: '',
+    quarter: '20212',
     userId: '',
   };
 
   const [schedule, setSchedule] = useState(existingSchedule || emptySchedule);
   const quarters = quarterRange('20084', '20214');
   const localQuarter = localStorage.getItem('PersonalSchedule.Quarter');
-  const [quarter, setQuarter] = useState();
-
-  useEffect(() => {
-    if (existingSchedule) {
-      handleQuarterOnChange(existingSchedule.quarter);
-    } else if (localQuarter) {
-      handleQuarterOnChange(localQuarter);
-    } else {
-      handleQuarterOnChange('20212');
-    }
-  }, [existingSchedule]);
+  const [quarter, setQuarter] = useState(
+    localQuarter ||
+      (existingSchedule ? existingSchedule.quarter : emptySchedule.quarter)
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
