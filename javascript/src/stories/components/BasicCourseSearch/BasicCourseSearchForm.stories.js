@@ -2,6 +2,8 @@ import React from 'react';
 
 import BasicCourseSearchForm from "main/components/BasicCourseSearch/BasicCourseSearchForm";
 
+import { ToastProvider } from 'react-toast-notifications'
+
 export default {
   title: 'components/BasicCourseSearch/BasicCourseSearchForm',
   component: BasicCourseSearchForm
@@ -17,7 +19,13 @@ const initialJSON = {
 const setCourseJsonStandin = () => { return initialJSON; };
 const fetchJSONStandin = () => Promise.resolve();
 
-const Template = (_args) => <BasicCourseSearchForm setCourseJson={setCourseJsonStandin} fetchJSON={fetchJSONStandin} />;
+const Template = (_args) => {
+  return(
+    <ToastProvider>
+      <BasicCourseSearchForm setCourseJson={setCourseJsonStandin} fetchJSON={fetchJSONStandin} />
+    </ToastProvider>
+  )
+}
 
 export const Empty = Template.bind({});
 Empty._args = {};
