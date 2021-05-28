@@ -11,7 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.courses.advice.AuthControllerAdvice;
 import edu.ucsb.courses.entities.AppUser;
 import edu.ucsb.courses.entities.Schedule;
+import edu.ucsb.courses.entities.ScheduleItem;
+import edu.ucsb.courses.repositories.ScheduleItemRepository;
 import edu.ucsb.courses.repositories.ScheduleRepository;
+import edu.ucsb.courses.models.PersonalSchedule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,9 @@ public class ScheduleController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    ScheduleItemRepository scheduleItemRepository;
 
     @Autowired
     AuthControllerAdvice authController;
@@ -106,9 +112,10 @@ public class ScheduleController {
             return new ResponseEntity<>("Unauthorized Request", HttpStatus.UNAUTHORIZED);
         }
         Optional<Schedule> target = scheduleRepository.findById(id);
+        List<ScheduleItem> classes = scheduleItemRepository.findByScheduleId(id);
         if (target.isPresent() && target.get().getUserId().equals(userId)) {
-          String body = target.get().toString();
-          return ResponseEntity.ok().body(mapper.writeValueAsString(target.get()));
+          PersonalSchedule ps = new PersonalSchedule(target.get(),classes);
+          return ResponseEntity.ok().body(mapper.writeValueAsString(ps));
         }
         return ResponseEntity.badRequest().build();
     }
