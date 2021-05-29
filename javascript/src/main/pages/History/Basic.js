@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import CourseSearchFormQtrDeptOnly from "main/components/BasicCourseSearch/CourseSearchFormQtrDeptOnly";
-import JSONPrettyCard from "main/components/Utilities/JSONPrettyCard";
 import {  fetchBasicCourseHistoryJSON } from "main/services/courseSearches";
 import TableLegend from "main/components/BasicCourseSearch/TableLegend"; 
 import CourseFilters from "main/components/BasicCourseSearch/CourseFilters";
@@ -53,10 +52,6 @@ const Basic = () => {
                 <TableLegend legend />
                 <CourseFilters cancelled={cancelled} handleCancelledOnChange={handleCancelledOnChange} closed={closed} handleClosedOnChange={handleClosedOnChange} full={full} handleFullOnChange={handleFullOnChange}/>
                 <BasicCourseTable classes={courseJSON.classes} checks={[cancelled,closed,full]} allowExport = {true}/>
-                <JSONPrettyCard
-                    expression={"courseJSON"}
-                    value={courseJSON}
-                />
             </div>
         </Jumbotron>
     );
