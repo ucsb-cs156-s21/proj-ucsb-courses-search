@@ -14,8 +14,7 @@ const SingleCourseSearch = () => {
         let arr = [];
 
         keys.forEach(function (item) {
-            var temp = {"professor":item, "professorCount":json[item]}
-            arr.push(temp);
+            arr.push({"professor":item, "professorCount":json[item]});
         })
 
         setTableData(arr);
