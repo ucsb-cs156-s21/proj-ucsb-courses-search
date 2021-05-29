@@ -32,6 +32,7 @@ import useSWR from "swr";
 import { fetchWithToken } from "main/utils/fetch";
 import CourseName from "./pages/History/CourseName";
 import SingleCourseSearch from "main/pages/Statistics/SingleCourseSearch";
+import AddToSchedule from "main/pages/Schedule/AddToSchedule";
 
 function App() {
   const { isLoading, getAccessTokenSilently: getToken } = useAuth0();
@@ -119,6 +120,12 @@ function App() {
            component={PersonalSchedule}
            exact
            authorizedRoles={["admin", "member"]}
+          />
+          <AuthorizedRoute
+            path="/addToSchedule"
+            component={AddToSchedule}
+            exact
+            authorizedRoles={["admin", "member"]}
           />
         </Switch>
       </Container>
