@@ -65,9 +65,3 @@ const Ge = () => {
 };
 
 export default Ge;
-
-// This component displays the raw JSON returned from the API fetch, the BasicCourseTable instead displays it in a table
-// <JSONPrettyCard
-//     expression={"courseJSON"}
-//     value={courseJSON}
-// /> 
