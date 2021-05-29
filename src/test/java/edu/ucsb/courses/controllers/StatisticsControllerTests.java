@@ -36,7 +36,6 @@ import edu.ucsb.courses.documents.statistics.TotalCoursesDept;
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 import edu.ucsb.courses.documents.statistics.OpenCourse;
-import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
 
 // @Import(SecurityConfig.class) applies the security rules 
 // so that /api/public/** endpoints don't require authentication.

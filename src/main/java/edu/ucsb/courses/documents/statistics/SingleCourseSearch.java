@@ -1,12 +1,6 @@
 package edu.ucsb.courses.documents.statistics;
 
-import java.util.List;
 import java.util.Objects;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -15,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class SingleCourseSearch {
 
-    private static Logger logger = LoggerFactory.getLogger(QuarterDept.class);
+    private static Logger logger = LoggerFactory.getLogger(SingleCourseSearch.class);
 
     private int professorCount;
     private String professor;

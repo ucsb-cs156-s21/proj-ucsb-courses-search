@@ -1,8 +1,6 @@
 package edu.ucsb.courses.documents.statistics;
 
-import java.util.List;
 import net.codebox.javabeantester.JavaBeanTester;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class SingleCourseSearchTests {
 
-    private static Logger logger = LoggerFactory.getLogger(QuarterDeptTests.class);
+    private static Logger logger = LoggerFactory.getLogger(SingleCourseSearchTests.class);
     private SingleCourseSearch test1, test2, scs;
 
     @BeforeEach
