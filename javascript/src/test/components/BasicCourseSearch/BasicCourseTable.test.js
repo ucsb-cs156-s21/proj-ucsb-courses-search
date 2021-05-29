@@ -4,16 +4,29 @@ import BasicCourseTable from "main/components/BasicCourseSearch/BasicCourseTable
 import * as courseFixtures from "main/fixtures/Courses/courseFixtures";
 import userEvent from "@testing-library/user-event";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import useSWR from "swr";
 jest.mock("@auth0/auth0-react");
+jest.mock("swr");
 
 describe("BasicCourseTable tests", () => {
+  const mutateSpy = jest.fn();
   beforeEach(() => {
     useAuth0.mockReturnValue({
-      isAuthenticated: true,
+      user: {
+        name: "test user",
+        email: "test@test.com",
+        picture: "https://picsum.photos/200",
+      },
     });
+    useSWR.mockReturnValue({
+      data: {
+        role: "admin",
+      },
+      error: undefined,
+      mutate: mutateSpy,
+    });
+  });
 
-  })
   test("for empty list, we get an empty div with  data-testid='no-course-data' ", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
@@ -26,71 +39,71 @@ describe("BasicCourseTable tests", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
+    return getByText(text).closest("tr")[Object.keys(getByText(text).closest("tr"))[1]].style.backgroundColor
   }
-  
+
   // Testing Quarter column displays properly
   test("Checking that quarter column displays", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
-  	expect(queryByText("W21")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} displayQuarter/>);
+    expect(queryByText("W21")).not.toBe(null);
   });
   test("Checking that quarter column does not display when not passed in true", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
-  	expect(queryByText("W21")).toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly}/>);
+    expect(queryByText("W21")).toBe(null);
   });
   // Testing Lectures
   test("check that lecture sections course number appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("CMPSC 8")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("CMPSC 8")).not.toBe(null);
   });
 
   test("check that lecture sections title appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("INTRO TO COMP SCI")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("INTRO TO COMP SCI")).not.toBe(null);
   });
 
   test("check that lecture sections section number appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("0100")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("0100")).not.toBe(null);
   });
 
   test("check that lecture sections instructor appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("KHARITONOVA Y")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("KHARITONOVA Y")).not.toBe(null);
   });
 
   test("check that lecture sections enroll code appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("07492")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("07492")).not.toBe(null);
   });
 
   test("check that lecture sections unit appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
-  	expect(queryByText("4")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesLectureOnly} />);
+    expect(queryByText("4")).not.toBe(null);
   });
 
   test("check that lectures days appear", () => {
@@ -139,56 +152,56 @@ describe("BasicCourseTable tests", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("CMPSC 8")).toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryByText("CMPSC 8")).toBe(null);
   });
 
   test("check that sections title does not appear", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("INTRO TO COMP SCI")).toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryByText("INTRO TO COMP SCI")).toBe(null);
   });
 
   test("check that sections section number appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("0101")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryByText("0101")).not.toBe(null);
   });
 
   test("check that sections instructor appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("CONRAD P")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryByText("CONRAD P")).not.toBe(null);
   });
 
   test("check that sections enroll code appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryByText("07500")).not.toBe(null);
+    const {queryByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryByText("07500")).not.toBe(null);
   });
 
   test("check that sections unit appears", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
-  	expect(queryAllByText("4")).not.toBe(null);
+    const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnly} />);
+    expect(queryAllByText("4")).not.toBe(null);
   });
 
   test("check that instructors appear as TBD when there are none", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
-  	expect(queryAllByText("TBD")).not.toBe(null);
+    const {queryAllByText} = render(<BasicCourseTable classes={courseFixtures.classesSectionOnlyTBD} />);
+    expect(queryAllByText("TBD")).not.toBe(null);
   });
 
   test("check that sections days appear", () => {
@@ -207,7 +220,7 @@ describe("BasicCourseTable tests", () => {
     expect( queryByText("9:00 AM - 9:50 AM")).not.toBe(null);
   });
 
- test("check that sections times and days appear as TBD when they don't exist", () => {
+  test("check that sections times and days appear as TBD when they don't exist", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
@@ -233,39 +246,39 @@ describe("BasicCourseTable tests", () => {
 
   // Testing styling for classes w/more than one section
   test("check that full sections have a red background", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07500") ).toBe("#FF8080");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "07500") ).toBe("#FF8080");
   });
 
   test("check that almost full sections have a orange background", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07501") ).toBe("#FFD761");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "07501") ).toBe("#FFD761");
   });
 
   test("check available sections have a light blue", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07502") ).toBe("#EDF3FE");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "07502") ).toBe("#EDF3FE");
   });
 
   test("check that class associated with sections is dark blue", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "07492") ).toBe("#CEDEFA");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "07492") ).toBe("#CEDEFA");
   });
-  
+
 
 
   test("check that full standalone lectures have a red background", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "06492") ).toBe("#FF8080");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "06492") ).toBe("#FF8080");
   });
 
   test("check that almost full standalone lectures have a orange background", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
-  	expect( getBackgroundColor(getByText, "67493") ).toBe("#FFD761");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    expect( getBackgroundColor(getByText, "67493") ).toBe("#FFD761");
   });
 
   test("check available standalone lectures have a dark blue", () => {
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.sectionColor} />);
     expect( getBackgroundColor(getByText, "67490") ).toBe("#CEDEFA");
   });
 
@@ -274,8 +287,8 @@ describe("BasicCourseTable tests", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
-  	expect( getBackgroundColor(getByText, "0100") ).toBe("#CEDEFA");
+    const {getByText} = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect( getBackgroundColor(getByText, "0100") ).toBe("#CEDEFA");
   });
 
   test("add buttons tester for sections", ()=> {  
@@ -328,13 +341,13 @@ describe("BasicCourseTable tests", () => {
     const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
     expect(queryByTestId('add-button-07500')).toBeNull();
   });
-  
+
   // CSV Testing
   test("CSV Button appears when allowExport passed", () => {
     useAuth0.mockReturnValue({
       isAuthenticated: true,
     });
-  	const {queryByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
+    const {queryByText} = render(<BasicCourseTable allowExport = { true } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = queryByText("Download as CSV");
     global.URL.createObjectURL = jest.fn();
     userEvent.click(csvButton);
@@ -348,5 +361,75 @@ describe("BasicCourseTable tests", () => {
     const {queryByText} = render(<BasicCourseTable allowExport = { false } displayQuarter classes = {courseFixtures.classesLectureAndSections} />);
     const csvButton = queryByText("Download as CSV");
     expect(csvButton).toBe(null);
+  });
+});
+
+describe("Admin Role Tests", () => {
+  const mutateSpy = jest.fn();
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    useSWR.mockReturnValue({
+      data: {
+        role: "admin",
+      },
+      error: undefined,
+      mutate: mutateSpy,
+    });
+  })
+  test("add button renders if user is admin", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(queryByTestId('add-button-07500')).toBeInTheDocument();
+  });
+});
+
+describe("Member Role Tests", () => {
+  const mutateSpy = jest.fn();
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    useSWR.mockReturnValue({
+      data: {
+        role: "member",
+      },
+      error: undefined,
+      mutate: mutateSpy,
+    });
+  })
+  test("add button renders if user is member", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(queryByTestId('add-button-07500')).toBeInTheDocument();
+  });
+});
+
+
+describe("Guest Role Tests", () => {
+  const mutateSpy = jest.fn();
+  beforeEach(() => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    useSWR.mockReturnValue({
+      data: {
+        role: "guest",
+      },
+      error: undefined,
+      mutate: mutateSpy,
+    });
+  })
+  test("add button does not render if user is guest", () => {
+    useAuth0.mockReturnValue({
+      isAuthenticated: true,
+    });
+    const { queryByTestId } = render(<BasicCourseTable classes = {courseFixtures.classesLectureAndSections} />);
+    expect(queryByTestId('add-button-07500')).toBeNull();
   });
 });
