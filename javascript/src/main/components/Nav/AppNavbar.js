@@ -42,29 +42,32 @@ function AppNavbar() {
               <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
           </NavDropdown>
 
-          <NavDropdown title="Statistics" className="navHeaders">
-            <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
-              Full Classes by Department
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/courseOccupancy">
-              Course Occupancy by Department
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
-              Course Occupancy by Class Division
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/classSize">
-              Average Class Size by Department
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/totalCourses">
-              Total Courses by Department
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/numOpenCoursesByDept">
-              Open Courses by Department
-            </NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/statistics/aggregateStatistics">
-              Aggregate Statistics
-            </NavDropdown.Item>
-          </NavDropdown>
+        <NavDropdown title="Statistics" className="navHeaders">
+          <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
+            Full Classes by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancy">
+            Course Occupancy by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/courseOccupancyByDivision">
+            Course Occupancy by Class Division
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/classSize">
+            Average Class Size by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/totalCourses">
+            Total Courses by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/numOpenCoursesByDept">
+            Open Courses by Department
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/aggregateStatistics">
+            Aggregate Statistics
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/SingleCourseSearch">
+            Single Course Search
+          </NavDropdown.Item>
+        </NavDropdown>
 
         { (isAdmin || isMember) &&
             (<ScheduleNav/>)

@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
+import java.util.HashMap;
 
 import java.util.List;
 
@@ -57,8 +59,12 @@ import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
 
 import edu.ucsb.courses.documents.statistics.AggregateStatistics;
 
+import edu.ucsb.courses.documents.statistics.SingleCourseSearch;
+
 import edu.ucsb.courses.documents.Course;
 import edu.ucsb.courses.documents.CoursePage;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.Instructor;
 
 import edu.ucsb.courses.repositories.ArchivedCourseRepository;
 
@@ -228,4 +234,51 @@ public class StatisticsController {
         return ResponseEntity.ok().body(body);
     }
     
+
+    private static String makeFormattedCourseName (
+        String department  ,
+        String courseNumber ,
+        String courseSuf    ) {
+
+        return
+              String.format( "%-8s", department                ) // 'CMPSC   '
+            + String.format( "%3s" , courseNumber               ) // '  8'
+            + String.format( "%-2s", courseSuf.toUpperCase()    ) // 'A '
+        ;
+    }
+
+    @GetMapping(value = "/singleCourseSearch", produces = "application/json")
+    public ResponseEntity<String> singleCourseSearch(@RequestParam(required = true) String startQuarter, @RequestParam(required = true) String endQuarter, 
+    @RequestParam(required = true) String department, @RequestParam(required = true) String courseNumber,@RequestParam(required = true) String courseSuf)
+            throws JsonProcessingException {
+
+        
+        List<Course> courseResults = courseRepository.findByQuarterIntervalAndCourseName (
+            startQuarter    ,
+            endQuarter      ,
+            makeFormattedCourseName(department, courseNumber, courseSuf)
+        );
+        
+        Map<String, String> professorInfo = new HashMap<>();
+
+        for(int i = 0; i < courseResults.size(); i++){
+            if(courseResults.get(i).getClassSections().get(0).getInstructors().size() == 0){
+                continue;
+            }
+            String instructor = courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor();
+            if(professorInfo.get(instructor) != null){
+                int temp = Integer.parseInt(professorInfo.get(instructor));
+                professorInfo.put(instructor, Integer.toString(temp + 1));
+            
+
+            //New Professor
+            }else{
+                professorInfo.put(courseResults.get(i).getClassSections().get(0).getInstructors().get(0).getInstructor(), "1");
+            }   
+        }
+
+        String body = mapper.writeValueAsString(professorInfo);
+        
+        return ResponseEntity.ok().body(body);
+    }
 }
