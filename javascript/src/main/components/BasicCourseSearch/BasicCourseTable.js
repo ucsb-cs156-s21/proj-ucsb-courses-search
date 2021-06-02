@@ -5,6 +5,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { reformatJSON } from 'main/utils/BasicCourseTableHelpers';
 import { yyyyqToQyy } from 'main/utils/quarterUtilities';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
+import useSWR from "swr";
+import { fetchWithToken } from "main/utils/fetch";
 import { availabilityColors } from "main/utils/BasicCourseTableHelpers"
 import moment from 'moment';
 
@@ -91,22 +93,25 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     if (isAuthenticated) {
       if (!sections[rowIndex + 1]) {
         return (
-          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-            //return addToSchedule(row.course.courseId);
-          }}>Add</Button>
+          <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
         )
       }
       else {
         if ((sections[rowIndex + 1]).section % 100 === 0 || row.section % 100 !== 0) {
           return (
-            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} onClick={() => {
-              //return addToSchedule(row.course.courseId);
-            }}>Add</Button>
+            <Button variant="primary" data-testid={`add-button-${row.enrollCode}`} href="/addToSchedule">Add</Button>
           )
         }
       }
     }
   }
+
+  const { getAccessTokenSilently: getToken } = useAuth0();
+  const { data: roleInfo } = useSWR(
+    ["/api/myRole", getToken],
+    fetchWithToken
+  );
+  const isAdminOrMember = roleInfo && (roleInfo.role.toLowerCase() === "admin" || roleInfo.role.toLowerCase() === "member");
 
   const columns = [{
     dataField: 'course.courseId',
@@ -158,7 +163,8 @@ const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
     text: "Add",
     isDummyField: true,
     formatter: (cell, row, rowIndex) => RenderAddButton(cell, row, rowIndex),
-    csvExport: false
+    csvExport: false,
+    hidden: !isAdminOrMember
   }
   ];
 

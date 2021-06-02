@@ -62,6 +62,9 @@ function AppNavbar() {
           <NavDropdown.Item as={Link} to="/statistics/aggregateStatistics">
             Aggregate Statistics
           </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/statistics/SingleCourseSearch">
+            Single Course Search
+          </NavDropdown.Item>
         </NavDropdown>
 
         { (isAdmin || isMember) &&

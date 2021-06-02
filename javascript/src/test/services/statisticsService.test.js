@@ -4,7 +4,8 @@ import {
     fetchFullCourses,
     fetchTotalCoursesByDept,
     fetchOpenCoursesByDept,
-    fetchAggregateStatistics
+    fetchAggregateStatistics,
+    fetchSingleCourseSearch
 } from "main/services/statisticsService";
 
 import fetch from "isomorphic-unfetch";
@@ -156,4 +157,30 @@ describe("openCoursesByDept tests",  () => {
         const result = await fetchOpenCoursesByDept(expectedFields);
         expect(result).toBe(sampleReturnValue);
     });
+});
+describe("singleCourseSearch tests",  () => {
+  test("singleCourseSearch", async () => {
+
+      const sampleReturnValue = {
+          "sampleKey": "sampleValue"
+      };
+
+      fetch.mockResolvedValue({
+          status: 200,
+          json: () => {
+              return sampleReturnValue;
+          },
+      });
+
+      const expectedFields = {
+        startQuarter: "20204",
+        endQuarter: "20211",
+        department: "CMPSC",
+        courseNumber: "",
+        courseSuf: ""
+    };
+
+      const result = await fetchSingleCourseSearch(expectedFields);
+      expect(result).toBe(sampleReturnValue);
+  });
 });

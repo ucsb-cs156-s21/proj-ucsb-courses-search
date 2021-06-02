@@ -24,6 +24,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import edu.ucsb.courses.config.SecurityConfig;
 import edu.ucsb.courses.documents.CoursePage;
 import edu.ucsb.courses.documents.Course;
+import edu.ucsb.courses.documents.Section;
+import edu.ucsb.courses.documents.Instructor;
+import edu.ucsb.courses.documents.GeneralEducation;
 import edu.ucsb.courses.documents.statistics.FullCourse;
 import edu.ucsb.courses.documents.statistics.AvgClassSize;
 import edu.ucsb.courses.documents.statistics.DivisionOccupancy;
@@ -269,7 +272,7 @@ public class StatisticsControllerTests {
 
         // Test open courses for summer quarter of 2020, as the number of open courses was reasonable compared to other quarters
         String quarter = "20203";
-
+    
         ocList.add(new OpenCourse(quarter, "COMPUTER ARCHITECT", "CMPSC 154", 16, 40, 24));
         ocList.add(new OpenCourse(quarter, "PROBLEM SOLVING II", "CMPSC 24", 30, 70, 40));
         ocList.add(new OpenCourse(quarter, "MACHINE LEARNING", "CMPSC 165B", 39, 40, 1));
@@ -284,6 +287,76 @@ public class StatisticsControllerTests {
         List<OpenCourse> resultFromPage = OpenCourse.listFromJSON(responseString);
 
         assertEquals(ocList, resultFromPage);
+    }
+
+    @Test
+    public void test_singleCourseSearch() throws Exception{
+        String url = "/api/public/statistics/singleCourseSearch";
+
+        List<Course> singleCourseSearchList = new ArrayList<Course>();
+        List<Section> sectionList = new ArrayList<Section>();
+        List<Section> sectionList3 = new ArrayList<Section>();
+        List<GeneralEducation> geList = new ArrayList<GeneralEducation>();
+        List<Instructor> instList = new ArrayList<Instructor>();
+        List<Instructor> emptyInstList = new ArrayList<Instructor>();
+
+        Course newclass = new Course();
+        Course newclass2 = new Course();
+        Course newclass3 = new Course();
+    
+        Section newSection = new Section();
+        Section newSection3 = new Section();
+        Instructor newInstructor = new Instructor("Agrawal", "Testing");
+        instList.add(newInstructor);
+        
+        newSection.setInstructors(instList);
+        newSection3.setInstructors(emptyInstList);
+        sectionList.add(newSection);
+        sectionList3.add(newSection3);
+        
+        newclass.setQuarter("20211");
+        newclass.setCourseId("CMPSC   130A ");
+        newclass.setDescription("blank");
+        newclass.setClassSections(sectionList);
+        newclass.setGeneralEducation(geList);
+
+        newclass.setClassSections(sectionList);
+
+        newclass2.setQuarter("20204");
+        newclass2.setCourseId("CMPSC   130A ");
+        newclass2.setDescription("blank");
+        newclass2.setClassSections(sectionList);
+        newclass2.setGeneralEducation(geList);
+
+        newclass2.setClassSections(sectionList);
+
+        newclass3.setQuarter("20204");
+        newclass3.setCourseId("CMPSC   130A ");
+        newclass3.setDescription("blank");
+        newclass3.setClassSections(sectionList3);
+        newclass3.setGeneralEducation(geList);
+
+        singleCourseSearchList.add(newclass);
+        singleCourseSearchList.add(newclass2);
+        singleCourseSearchList.add(newclass3);
+
+        when(courseRepo.findByQuarterIntervalAndCourseName(any(String.class), any(String.class),
+         any(String.class))).thenReturn(singleCourseSearchList);
+
+        MvcResult response = mockMvc.perform(get(url)
+            .queryParam("startQuarter", "20204")
+            .queryParam("endQuarter","20211")
+            .queryParam("department", "CMPSC")
+            .queryParam("courseNumber", "130")
+            .queryParam("courseSuf", "A")
+            .contentType("application/json")).andExpect(status().isOk()).andReturn();
+        String responseString = response.getResponse().getContentAsString();
+        System.out.print("RESPONSE STRING HERE:");
+        System.out.println(responseString);
+        
+        String expectedString = "{\"Agrawal\":\"2\"}";
+
+        assertEquals(expectedString, responseString);
     }
 
 }
