@@ -40,7 +40,7 @@ const CourseName = () => {
         <Jumbotron>
             <div className="text-left">
                 <h2>Search Archived Course Data from MongoDB</h2>
-                <h5>Search By Course Name Across a Range of Quarters</h5>
+                <h5>Search By Course Number Across a Range of Quarters</h5>
                 <CourseSearchCourseStartEndQtr setCourseJSON={setCourseJSON} fetchJSON={fetchCourseHistoryNameQtrJSON} />
 
                 <TableLegend legend />
