@@ -25,22 +25,24 @@ function AppNavbar() {
       <LinkContainer to={""}>
         <Navbar.Brand data-testid="brand">
           <p className="brand"><img className="brand" src={'/proj-ucsb-courses-search-240x240.png'}  alt="UCSB Courses Search icon"  /></p>
-          <p className="brand">UCSB <br />Courses Search</p>
-          </Navbar.Brand>
+        </Navbar.Brand>
       </LinkContainer>
       <Nav>
-        <LinkContainer to={"/about"}>
-            <Nav.Link>About</Nav.Link>
+        <LinkContainer to={""}>
+          <Nav.Link><p className="brand">UCSB <br />Courses Search</p></Nav.Link>
         </LinkContainer>
-        
-        <NavDropdown title="Search">
-            <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
-            <NavDropdown.Item href="/history/courseNumber">Search By Course Number</NavDropdown.Item>
-            <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
-            <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
-        </NavDropdown>
+          <LinkContainer to={"/about"} className="navHeaders">
+              <Nav.Link>About</Nav.Link>
+          </LinkContainer>
+          
+          <NavDropdown title="Search" className="navHeaders">
+              <NavDropdown.Item href="/history/basic">Basic Search</NavDropdown.Item>
+              <NavDropdown.Item href="/history/courseNumber">Search By Course Number</NavDropdown.Item>
+              <NavDropdown.Item href="/history/ge">GE Search</NavDropdown.Item>
+              <NavDropdown.Item href="/history/instructor">Search By Instructor</NavDropdown.Item>
+          </NavDropdown>
 
-        <NavDropdown title="Statistics">
+        <NavDropdown title="Statistics" className="navHeaders">
           <NavDropdown.Item as={Link} to="/statistics/numFullCoursesByDept">
             Full Classes by Department
           </NavDropdown.Item>
