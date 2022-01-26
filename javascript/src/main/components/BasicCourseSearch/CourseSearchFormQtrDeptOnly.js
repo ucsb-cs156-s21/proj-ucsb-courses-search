@@ -7,12 +7,13 @@ import SelectSubject from "./SelectSubject";
 import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import useSWR from "swr";
+import { quarterConfig } from "main/config/config";
 
 const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const localSearchQuarter = localStorage.getItem("BasicSearchQtrDept.Quarter");
     const localSearchDept = localStorage.getItem("BasicSearchQtrDept.Subject");
 
-	const quarters = quarterRange("20084", "20213");
+	const quarters = quarterRange(quarterConfig.start, quarterConfig.end);
 	const [quarter, setQuarter] = useState(localSearchQuarter || quarters[0].yyyyq);
 	const [subject, setSubject] = useState(localSearchDept || "CMPSC");
 	const { addToast } = useToasts();

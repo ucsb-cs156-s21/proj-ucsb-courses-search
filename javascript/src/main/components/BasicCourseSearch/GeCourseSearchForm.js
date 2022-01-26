@@ -3,9 +3,11 @@ import { Form, Button } from "react-bootstrap";
 import { useToasts } from "react-toast-notifications";
 import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
+import { quarterConfig } from "main/config/config";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-    const quarters = quarterRange("20084", "20213");
+    const quarters = quarterRange(quarterConfig.start, quarterConfig.end);
+
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [geCode, setGeCode] = useState("A1 ");

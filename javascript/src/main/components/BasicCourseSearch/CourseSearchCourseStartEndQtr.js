@@ -7,10 +7,10 @@ import SelectSubject from "./SelectSubject";
 import { allTheSubjects } from "main/fixtures/Courses/subjectFixtures";
 import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import useSWR from "swr";
-
+import { quarterConfig } from "main/config/config";
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
-    const quarters = quarterRange("20084", "20213");
+    const quarters = quarterRange(quarterConfig.start, quarterConfig.end);
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [subject, setSubject] = useState("CMPSC   ");
