@@ -8,9 +8,10 @@ import { fetchSubjectAreas } from "main/services/subjectAreaService";
 import { quarterRange } from "main/utils/quarterUtilities";
 import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 import SelectLevel from "main/components/BasicCourseSearch/SelectLevel";
+import { quarterConfig } from "main/config/config";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-	const quarters = quarterRange("20084", "20214");
+	const quarters = quarterRange(quarterConfig.start, quarterConfig.end);
 	const levels = [["L","Undergrad-Lower"], 
 					["S","Undergrad-Upper Division"], 
 					["U","Undergrad-All"], 
