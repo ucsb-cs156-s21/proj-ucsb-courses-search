@@ -10,7 +10,7 @@ import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 import SelectLevel from "main/components/BasicCourseSearch/SelectLevel";
 
 const BasicCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
-	const quarters = quarterRange("20084", "20214");
+	const quarters = quarterRange("20084", "20222");
 	const levels = [["L","Undergrad-Lower"], 
 					["S","Undergrad-Upper Division"], 
 					["U","Undergrad-All"], 
