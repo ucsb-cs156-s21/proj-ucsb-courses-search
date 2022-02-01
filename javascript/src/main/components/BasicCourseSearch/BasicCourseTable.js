@@ -12,7 +12,8 @@ import moment from 'moment';
 
 const BasicCourseTable = ({ classes, checks, displayQuarter, allowExport }) => {
   const { isAuthenticated } = useAuth0();
-  const sections = reformatJSON(classes, checks);
+  
+  const sections = (classes && checks) ? reformatJSON(classes, checks) : [];
 
   const CLOSEFULL_THRESHOLD=0.2;
   const classUnavailable = (row) => (row.enrolledTotal >= row.maxEnroll || row.courseCancelled === "Y" || row.classClosed ==="Y"); 
