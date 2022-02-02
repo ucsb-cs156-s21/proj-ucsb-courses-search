@@ -1,4 +1,4 @@
-name: Publish 02 docs (Storybook) to GitHub Pages
+name: 00 Manually Publish Storybook to to GitHub Pages -docs repo
 on: 
   workflow_dispatch:
 jobs:
