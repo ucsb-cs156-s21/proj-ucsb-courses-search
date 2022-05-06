@@ -10,7 +10,7 @@ import useSWR from "swr";
 
 
 const CourseSearchCourseStartEndQtr = ({ setCourseJSON, fetchJSON }) => {
-    const quarters = quarterRange("20084", "20222");
+    const quarters = quarterRange("20084", "20224");
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [subject, setSubject] = useState("CMPSC   ");
