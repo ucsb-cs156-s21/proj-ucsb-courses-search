@@ -14,6 +14,7 @@ const AddSchedForm = ({ createSchedule, updateSchedule, existingSchedule }) => {
 
   const [schedule, setSchedule] = useState(existingSchedule || emptySchedule);
   const quarters = standardQuarterRange;
+
   const [quarter, setQuarter] = useState(
     existingSchedule ? existingSchedule.quarter : emptySchedule.quarter
   );

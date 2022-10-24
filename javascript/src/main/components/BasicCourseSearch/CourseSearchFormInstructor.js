@@ -8,6 +8,7 @@ const CourseSearchFormInstructor = ({ setCourseJSON, fetchJSON }) => {
 
     const quarters = standardQuarterRange;
 
+
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [instructorText, setInstructor] = useState("");

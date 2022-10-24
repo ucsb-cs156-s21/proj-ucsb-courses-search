@@ -13,6 +13,7 @@ const CourseSearchFormQtrDeptOnly = ({ setCourseJSON, fetchJSON }) => {
     const localSearchDept = localStorage.getItem("BasicSearchQtrDept.Subject");
 
 	const quarters = standardQuarterRange;
+
 	const [quarter, setQuarter] = useState(localSearchQuarter || quarters[0].yyyyq);
 	const [subject, setSubject] = useState(localSearchDept || "CMPSC");
 	const { addToast } = useToasts();

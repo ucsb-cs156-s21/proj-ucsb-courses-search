@@ -1,6 +1,7 @@
 # ucsb-courses-search
 
 [![codecov](https://codecov.io/gh/ucsb-cs156-s21/proj-ucsb-courses-search/branch/main/graph/badge.svg?token=oRuQrNWHMx)](https://codecov.io/gh/ucsb-cs156-s21/proj-ucsb-courses-search)
+* [Docs](https://ucsb-cs156-s21.github.io/proj-ucsb-courses-search-docs/)
 
 ## Purpose
 

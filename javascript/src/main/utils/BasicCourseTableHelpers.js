@@ -7,7 +7,7 @@ const shouldShowSection = (section, filters) => {
 
 const addCourseInfoToSection = (section, course) => {
   section.course = {
-    quarter : course.quarter,
+    quarter: course.quarter,
     courseId: course.courseId,
     title: course.title,
     unitsFixed: course.unitsFixed
@@ -24,13 +24,13 @@ const extractLectures = (course) => {
       const sectionNumber = section.section;
       const lectureNumber = sectionNumber.slice(0, -2) + "00";
       //Only for tests; this never happens in real life
-      if(!(lectureNumber in lectures)) {
-        lectures[lectureNumber]={
-          discussionSections : [],
+      if (!(lectureNumber in lectures)) {
+        lectures[lectureNumber] = {
+          discussionSections: [],
           timeLocations: [],
           instructors: [],
         };
-        
+
       }
       lectures[lectureNumber].discussionSections.push(section);
     }
@@ -49,40 +49,42 @@ export function reformatJSON(classes, checks) {
     filters.closed = checks[1];
     filters.full = checks[2];
   }
-  
+
   const sections = [];
 
-  classes.forEach(course => {
-    const lectures = extractLectures(course);
-    // console.log("lectures=", lectures);
-    Object.keys(lectures).forEach(  (key) => {
-      const lecture = lectures[key];
-      if (shouldShowSection(lecture, filters)) {
-        addCourseInfoToSection(lecture, course);
-        sections.push(lecture);
-        lecture.discussionSections.forEach(section => {
-          if (shouldShowSection(section, filters)) {
-            addCourseInfoToSection(section, course);
-            sections.push(section);
-          }
-        });
-      }
+  if (classes) {
+    classes.forEach(course => {
+      const lectures = extractLectures(course);
+      // console.log("lectures=", lectures);
+      Object.keys(lectures).forEach((key) => {
+        const lecture = lectures[key];
+        if (shouldShowSection(lecture, filters)) {
+          addCourseInfoToSection(lecture, course);
+          sections.push(lecture);
+          lecture.discussionSections.forEach(section => {
+            if (shouldShowSection(section, filters)) {
+              addCourseInfoToSection(section, course);
+              sections.push(section);
+            }
+          });
+        }
+      });
     });
-  });
+  }
 
   sections.forEach(section => {
-    section.uniqueKey = `${section.course.quarter}-${section.enrollCode}`;   
+    section.uniqueKey = `${section.course.quarter}-${section.enrollCode}`;
   });
 
   return sections;
 }
 
 export const availabilityColors = {
-  COLOR_UNAVAILABLE : { backgroundColor: '#FF8080' },
-  COLOR_CLOSEFULL : { backgroundColor: '#FFD761' },
+  COLOR_UNAVAILABLE: { backgroundColor: '#FF8080' },
+  COLOR_CLOSEFULL: { backgroundColor: '#FFD761' },
   COLOR_AVAILABLELECTUREORCLASSWITHSECTIONS: { backgroundColor: '#CEDEFA' },
   COLOR_AVAILABLESECTION: { backgroundColor: '#EDF3FE' },
   COLOR_UNAVAILABLESECTION: { backgroundColor: '#FF8080' },
   COLOR_CLOSEFULLSECTION: { backgroundColor: '#FFD761' },
   FONTSTYLE_SECTION: { fontStyle: 'italic' }
- };
+};

@@ -6,6 +6,7 @@ import SelectQuarter from "main/components/BasicCourseSearch/SelectQuarter";
 
 const GeCourseSearchForm = ({ setCourseJSON, fetchJSON }) => {
     const quarters = standardQuarterRange;
+
     const [startQuarter, setStartQuarter] = useState(quarters[0].qqqqy);
     const [endQuarter, setEndQuarter] = useState(quarters[0].qqqqy);
     const [geCode, setGeCode] = useState("A1 ");
